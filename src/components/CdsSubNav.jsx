@@ -1,8 +1,9 @@
 import React from 'react';
-import { Stethoscope, Pill, GitFork, AlertTriangle, ArrowLeftRight, HeartPulse } from 'lucide-react';
+import { Stethoscope, Pill, GitFork, AlertTriangle, ArrowLeftRight, HeartPulse, FileEdit } from 'lucide-react';
 
 export default function CdsSubNav({ activeTab, setActiveTab }) {
   const navItems = [
+    { id: 'hpi', label: 'HPI Builder', shortLabel: 'HPI', icon: FileEdit },
     { id: 'screeners', label: 'Screeners & Notes', shortLabel: 'Screeners', icon: Stethoscope },
     { id: 'medications', label: 'Dosing Guide', shortLabel: 'Dosing', icon: Pill },
     { id: 'interactions', label: 'QTc & Interactions', shortLabel: 'Interactions', icon: HeartPulse },
