@@ -350,20 +350,20 @@ export default function HpiBuilder() {
             </h3>
             <div className="grid grid-cols-3 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Age</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Age</label>
                 <input
                   type="text"
                   value={patientAge}
                   onChange={(e) => setPatientAge(e.target.value)}
-                  className="w-full text-xs font-bold py-1.5 px-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                  className="w-full text-xs font-bold py-2 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Gender</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Gender</label>
                 <select
                   value={patientGender}
                   onChange={(e) => setPatientGender(e.target.value)}
-                  className="w-full text-xs font-bold py-1.5 px-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:outline-none bg-white"
+                  className="w-full text-xs font-bold py-2 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
                 >
                   <option value="female">Female</option>
                   <option value="male">Male</option>
@@ -371,11 +371,11 @@ export default function HpiBuilder() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Encounter Type</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Encounter Type</label>
                 <select
                   value={visitType}
                   onChange={(e) => setVisitType(e.target.value)}
-                  className="w-full text-xs font-bold py-1.5 px-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:outline-none bg-white"
+                  className="w-full text-xs font-bold py-2 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
                 >
                   <option value="initial">Initial Evaluation</option>
                   <option value="followup">Follow-Up Visit</option>
@@ -458,7 +458,7 @@ export default function HpiBuilder() {
 
             {/* Custom Precipitants input */}
             <div className="pt-2">
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Identified Precipitant / Stressor:
               </label>
               <input
@@ -466,7 +466,7 @@ export default function HpiBuilder() {
                 value={customPrecipitant}
                 onChange={(e) => setCustomPrecipitant(e.target.value)}
                 placeholder="e.g., job restructuring, marital strain, recent loss..."
-                className="w-full text-xs py-2 px-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                className="w-full text-xs font-medium py-2.5 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
               />
             </div>
           </div>
@@ -543,7 +543,7 @@ export default function HpiBuilder() {
             </div>
 
             <div className="pt-2">
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Specific Prior Medication Details:
               </label>
               <input
@@ -551,7 +551,7 @@ export default function HpiBuilder() {
                 value={customPriorMeds}
                 onChange={(e) => setCustomPriorMeds(e.target.value)}
                 placeholder="e.g., Sertraline 50mg x 3 weeks stopped for nausea..."
-                className="w-full text-xs py-2 px-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                className="w-full text-xs font-medium py-2.5 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
               />
             </div>
           </div>

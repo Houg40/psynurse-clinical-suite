@@ -230,7 +230,7 @@ export default function ClinicalChartPad({ caseData, orderData, setOrderData, on
               value={orderData.rationale}
               onChange={(e) => setOrderData(prev => ({ ...prev, rationale: e.target.value }))}
               placeholder="e.g., Patient endorses unipolar-appearing depressive symptoms, but positive MDQ and history of hypomania 2 years ago confirm Bipolar II. Ruled out thyroid disease via normal TSH."
-              className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-teal-500"
+              className="w-full bg-slate-950 border border-slate-600 rounded-xl p-3 text-xs text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
             />
           </div>
         </div>

@@ -133,7 +133,7 @@ export default function FeedbackModal({ currentTab }) {
                     placeholder="e.g., 'I usually start Lexapro at 5mg for patients with high anxiety sensitivity instead of 10mg. Can we add that note to the dosing card?'"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500 focus:bg-white focus:outline-none resize-none leading-relaxed"
+                    className="w-full p-3 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none resize-none leading-relaxed shadow-2xs"
                   />
                 </div>
 

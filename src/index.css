@@ -4,6 +4,23 @@
 
 @layer base {
   body {
-    @apply antialiased selection:bg-teal-500 selection:text-white;
+    @apply antialiased selection:bg-teal-500 selection:text-white font-sans;
+  }
+
+  /* Universal high-contrast form control standards */
+  input[type="text"],
+  input[type="search"],
+  input[type="number"],
+  input[type="email"],
+  textarea,
+  select {
+    color: #0f172a;
+    background-color: #ffffff;
+  }
+
+  /* High contrast placeholders */
+  ::placeholder {
+    color: #64748b !important; /* slate-500: passes WCAG AA contrast ratio */
+    opacity: 1 !important;
   }
 }

@@ -304,7 +304,7 @@ export default function VirtualExamRoom({ caseData, messages, onSendMessage, onA
               value={customInput}
               onChange={(e) => setCustomInput(e.target.value)}
               placeholder="Or type your own clinical question to Marcus..."
-              className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+              className="flex-1 bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-slate-400 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 font-medium"
             />
             <button
               type="submit"
