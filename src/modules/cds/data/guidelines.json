@@ -1,0 +1,112 @@
+{
+  "pathways": [
+    {
+      "conditionId": "mdd",
+      "conditionName": "Major Depressive Disorder (Adult)",
+      "diagnosticCriteriaSummary": "5+ symptoms during same 2-week period including depressed mood or anhedonia (DSM-5-TR).",
+      "ruleOuts": ["Bipolar disorder (run MDQ)", "Substance-induced mood disorder", "Hypothyroidism (check TSH)", "Vitamin D/B12 deficiency"],
+      "firstLine": [
+        {
+          "agent": "Escitalopram",
+          "rationale": "High tolerability, minimal CYP drug-drug interactions. Great for mixed depression & anxiety."
+        },
+        {
+          "agent": "Sertraline",
+          "rationale": "Preferred in cardiac patients; mild activating effect at higher doses."
+        },
+        {
+          "agent": "Bupropion XL",
+          "rationale": "Zero sexual side effects, weight-neutral/weight loss, energizing. Best for lethargy, fatigue, or comorbid ADHD. (Contraindicated in seizure/eating disorders)."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Duloxetine / Venlafaxine ER (SNRI)",
+          "rationale": "Dual 5-HT and NE reuptake inhibition. Ideal if SSRI response is partial or if chronic pain/fibromyalgia is present."
+        },
+        {
+          "agent": "Mirtazapine",
+          "rationale": "Different mechanism (NaSSA). Promotes appetite and restorative sleep. Excellent for insomnia and low BMI."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "SSRI + Bupropion XL (Wellbutrin)",
+          "rationale": "Addresses residual fatigue, anhedonia, and alleviates SSRI-induced sexual dysfunction."
+        },
+        {
+          "strategy": "SSRI/SNRI + Atypical Antipsychotic (Aripiprazole 2-5mg)",
+          "rationale": "Evidence-based rapid augmentation for treatment-resistant depression."
+        },
+        {
+          "strategy": "Antidepressant + Mood Stabilizer (Lamotrigine)",
+          "rationale": "Recommended when subthreshold bipolarity or chronic treatment-resistance exists."
+        }
+      ]
+    },
+    {
+      "conditionId": "gad",
+      "conditionName": "Generalized Anxiety Disorder",
+      "diagnosticCriteriaSummary": "Excessive anxiety and worry occurring more days than not for at least 6 months across multiple events (DSM-5-TR).",
+      "ruleOuts": ["Hyperthyroidism", "Excessive caffeine/stimulant intake", "Pheochromocytoma", "Cardiac arrhythmias"],
+      "firstLine": [
+        {
+          "agent": "Escitalopram",
+          "rationale": "Cleanest side-effect profile; start at 5mg for 7-10 days to minimize initial paradoxical anxiety."
+        },
+        {
+          "agent": "Sertraline",
+          "rationale": "Broad-spectrum anxiolytic efficacy (GAD, panic, OCD, social anxiety). Start at 25mg."
+        },
+        {
+          "agent": "Duloxetine",
+          "rationale": "SNRI indicated for GAD; effective when chronic somatic anxiety or muscle tension is prominent."
+        }
+      ],
+      "adjunctiveOptions": [
+        {
+          "agent": "Buspirone",
+          "rationale": "Non-controlled 5-HT1A partial agonist. Must be taken scheduled BID/TID; does not cause sedation or dependence."
+        },
+        {
+          "agent": "Hydroxyzine (Vistaril)",
+          "rationale": "Non-addictive H1 antihistamine for PRN acute anxiety episodes without controlled-substance risks."
+        }
+      ]
+    },
+    {
+      "conditionId": "adhd",
+      "conditionName": "Adult ADHD",
+      "diagnosticCriteriaSummary": "Persistent pattern of inattention and/or hyperactivity-impulsivity interfering with functioning, with symptoms originating prior to age 12.",
+      "ruleOuts": ["Undiagnosed bipolar disorder", "Severe primary anxiety/depression causing executive dysfunction", "Obstructive sleep apnea"],
+      "firstLine": [
+        {
+          "agent": "Lisdexamfetamine (Vyvanse)",
+          "rationale": "Prodrug with smooth 12-14 hour therapeutic curve and lower abuse liability compared to IR stimulants."
+        },
+        {
+          "agent": "Mixed Amphetamine Salts XR (Adderall XR)",
+          "rationale": "Dual-bead delivery with proven clinical efficacy; covers workday 8-10 hours."
+        },
+        {
+          "agent": "Methylphenidate ER (Concerta)",
+          "rationale": "OROS delivery technology providing steady osmotic release; well-tolerated baseline stimulant."
+        }
+      ],
+      "nonStimulantAlternatives": [
+        {
+          "agent": "Atomoxetine (Strattera)",
+          "rationale": "First-line non-controlled NRI option when patient has personal/family history of substance use disorder, severe anxiety, or cardiovascular risk."
+        },
+        {
+          "agent": "Bupropion XL (Off-label)",
+          "rationale": "Dopaminergic/noradrenergic tone can improve mild executive dysfunction while addressing comorbid depressive symptoms."
+        },
+        {
+          "agent": "Guanfacine ER / Clonidine ER",
+          "rationale": "Alpha-2A adrenergic agonists; beneficial for emotional dysregulation, rejection sensitivity, and sleep disruption."
+        }
+      ]
+    }
+  ]
+}

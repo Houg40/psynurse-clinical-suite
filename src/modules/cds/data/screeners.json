@@ -1,0 +1,131 @@
+{
+  "screeners": [
+    {
+      "id": "phq9",
+      "name": "PHQ-9",
+      "fullName": "Patient Health Questionnaire-9",
+      "targetCondition": "Major Depressive Disorder (MDD)",
+      "instructions": "Over the last 2 weeks, how often have you been bothered by any of the following problems?",
+      "scale": [
+        { "value": 0, "label": "Not at all" },
+        { "value": 1, "label": "Several days" },
+        { "value": 2, "label": "More than half the days" },
+        { "value": 3, "label": "Nearly every day" }
+      ],
+      "questions": [
+        "Little interest or pleasure in doing things",
+        "Feeling down, depressed, or hopeless",
+        "Trouble falling or staying asleep, or sleeping too much",
+        "Feeling tired or having little energy",
+        "Poor appetite or overeating",
+        "Feeling bad about yourself — or that you are a failure or have let yourself or your family down",
+        "Trouble concentrating on things, such as reading the newspaper or watching television",
+        "Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual",
+        "Thoughts that you would be better off dead or of hurting yourself in some way"
+      ],
+      "criticalQuestionIndex": 8,
+      "severityRanges": [
+        { "min": 0, "max": 4, "severity": "None-minimal (0-4)", "treatmentRecommendation": "Repeat at follow-up. Support and watchful waiting." },
+        { "min": 5, "max": 9, "severity": "Mild (5-9)", "treatmentRecommendation": "Watchful waiting, psychoeducation, lifestyle intervention. Follow up in 4-6 weeks." },
+        { "min": 10, "max": 14, "severity": "Moderate (10-14)", "treatmentRecommendation": "Consider psychotherapy and/or pharmacotherapy (first-line SSRI/SNRI or Bupropion)." },
+        { "min": 15, "max": 19, "severity": "Moderately Severe (15-19)", "treatmentRecommendation": "Active treatment with pharmacotherapy and/or psychotherapy recommended." },
+        { "min": 20, "max": 27, "severity": "Severe (20-27)", "treatmentRecommendation": "Immediate initiation of pharmacotherapy; consider specialist psychiatric referral / intensive outpatient." }
+      ]
+    },
+    {
+      "id": "gad7",
+      "name": "GAD-7",
+      "fullName": "Generalized Anxiety Disorder-7",
+      "targetCondition": "Generalized Anxiety & Panic",
+      "instructions": "Over the last 2 weeks, how often have you been bothered by the following problems?",
+      "scale": [
+        { "value": 0, "label": "Not at all" },
+        { "value": 1, "label": "Several days" },
+        { "value": 2, "label": "More than half the days" },
+        { "value": 3, "label": "Nearly every day" }
+      ],
+      "questions": [
+        "Feeling nervous, anxious or on edge",
+        "Not being able to stop or control worrying",
+        "Worrying too much about different things",
+        "Trouble relaxing",
+        "Being so restless that it is hard to sit still",
+        "Becoming easily annoyed or irritable",
+        "Feeling afraid as if something awful might happen"
+      ],
+      "severityRanges": [
+        { "min": 0, "max": 4, "severity": "Minimal Anxiety (0-4)", "treatmentRecommendation": "Normal range. Monitor over time." },
+        { "min": 5, "max": 9, "severity": "Mild Anxiety (5-9)", "treatmentRecommendation": "Supportive therapy, psychoeducation, sleep hygiene, mindfulness." },
+        { "min": 10, "max": 14, "severity": "Moderate Anxiety (10-14)", "treatmentRecommendation": "Clinically significant. Recommend first-line pharmacotherapy (SSRI/SNRI) and/or CBT." },
+        { "min": 15, "max": 21, "severity": "Severe Anxiety (15-21)", "treatmentRecommendation": "Active pharmacotherapy indicated. Consider short-term non-controlled adjunct (Hydroxyzine/Buspirone)." }
+      ]
+    },
+    {
+      "id": "aims",
+      "name": "AIMS",
+      "fullName": "Abnormal Involuntary Movement Scale (Tardive Dyskinesia)",
+      "targetCondition": "Tardive Dyskinesia & Antipsychotic Movement Surveillance",
+      "instructions": "Mandatory surveillance for patients on dopamine antagonists / antipsychotics. Rate highest severity observed across 7 movement domains (0 = None, 1 = Minimal, 2 = Mild, 3 = Moderate, 4 = Severe).",
+      "scale": [
+        { "value": 0, "label": "0 - None" },
+        { "value": 1, "label": "1 - Minimal" },
+        { "value": 2, "label": "2 - Mild" },
+        { "value": 3, "label": "3 - Moderate" },
+        { "value": 4, "label": "4 - Severe" }
+      ],
+      "questions": [
+        "Facial and Oral: Muscles of facial expression (frowning, blinking, grimacing)",
+        "Facial and Oral: Lips and perioral area (puckering, pouting, smacking)",
+        "Facial and Oral: Jaw (biting, clenching, chewing, lateral movement)",
+        "Facial and Oral: Tongue (rate only increase in movement, tremor, darting out)",
+        "Extremity Movements: Upper (arms, wrists, hands, fingers: choreic or athetoid movements)",
+        "Extremity Movements: Lower (legs, knees, ankles, toes: lateral knee movement, foot tapping)",
+        "Trunk Movements: Neck, shoulders, hips (rocking, twisting, squirming, pelvic thrusting)"
+      ]
+    },
+    {
+      "id": "asrs",
+      "name": "ASRS-v1.1",
+      "fullName": "Adult ADHD Self-Report Scale",
+      "targetCondition": "Adult Attention-Deficit/Hyperactivity Disorder",
+      "instructions": "Please answer the questions below rating yourself on each of the criteria for how you have felt and behaved over the past 6 months.",
+      "scale": [
+        { "value": 0, "label": "Never" },
+        { "value": 1, "label": "Rarely" },
+        { "value": 2, "label": "Sometimes" },
+        { "value": 3, "label": "Often" },
+        { "value": 4, "label": "Very Often" }
+      ],
+      "partAQuestions": [
+        { "text": "How often do you have trouble wrapping up the final details of a project, once the challenging parts have been done?", "threshold": 2 },
+        { "text": "How often do you have difficulty getting things in order when you have to do a task that requires organization?", "threshold": 2 },
+        { "text": "How often do you have problems remembering appointments or obligations?", "threshold": 2 },
+        { "text": "When you have a task that requires a lot of thought, how often do you avoid or delay getting started?", "threshold": 3 },
+        { "text": "How often do you fidget or squirm with your hands or feet when you have to sit down for a long time?", "threshold": 3 },
+        { "text": "How often do you feel overly active and compelled to do things, like you were driven by a motor?", "threshold": 3 }
+      ]
+    },
+    {
+      "id": "mdq",
+      "name": "MDQ",
+      "fullName": "Mood Disorder Questionnaire (Bipolar Rule-Out)",
+      "targetCondition": "Bipolar Spectrum Disorder",
+      "instructions": "Has there ever been a period of time when you were not your usual self and...",
+      "questions": [
+        "...you felt so good or so hyper that other people thought you were not your normal self or you were so hyper that you got into trouble?",
+        "...you were so irritable that you shouted at people or started fights or arguments?",
+        "...you felt much more self-confident than usual?",
+        "...you got much less sleep than usual and found you didn't really miss it?",
+        "...you were much more talkative or spoke much faster than usual?",
+        "...thoughts raced through your head or you couldn't slow your mind down?",
+        "...you were so easily distracted by things around you that you had trouble concentrating or staying on track?",
+        "...you had much more energy than usual?",
+        "...you were much more active or did many more things than usual?",
+        "...you were much more social or outgoing than usual, for example, telephoning friends in the middle of the night?",
+        "...you were much more interested in sex than usual?",
+        "...you did things that were unusual for you or that other people might have thought were excessive, foolish, or risky?",
+        "...spending money got you or your family into trouble?"
+      ]
+    }
+  ]
+}
