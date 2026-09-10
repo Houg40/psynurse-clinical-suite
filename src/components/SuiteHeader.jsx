@@ -72,18 +72,12 @@ export default function SuiteHeader({
           
           {/* Brand Identity */}
           <div className="flex items-center gap-3 flex-shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 p-0.5 shadow-xs flex-shrink-0">
-              <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center p-1">
-                <img 
-                  src="./icon-192.png" 
-                  alt="PsyNurse Suite Logo" 
-                  className="w-full h-full object-contain"
-                  onError={(e) => {
-                    // Fallback to stethoscope icon if image fails
-                    e.target.style.display = 'none';
-                  }} 
-                />
-              </div>
+            <div className="w-11 h-11 rounded-2xl bg-white p-1 shadow-md border border-teal-500/40 flex-shrink-0 flex items-center justify-center">
+              <img 
+                src="./brand-logo.png" 
+                alt="PsyNurse Suite Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
             
             <div>
