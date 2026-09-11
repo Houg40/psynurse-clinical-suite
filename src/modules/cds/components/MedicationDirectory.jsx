@@ -1,13 +1,35 @@
 import React, { useState } from 'react';
 import medData from '../data/medications.json';
-import { Search, Pill, ShieldAlert, Sparkles, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, Pill, ShieldAlert, Sparkles, AlertTriangle, ChevronDown, ChevronUp, Copy, Check, ClipboardList } from 'lucide-react';
 
 export default function MedicationDirectory() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedClass, setSelectedClass] = useState('All');
   const [expandedWarningId, setExpandedWarningId] = useState(null);
+  const [copiedId, setCopiedId] = useState(null);
 
-  const classes = ['All', 'SSRI', 'SNRI', 'NDRI', 'CNS Stimulant', 'Non-Stimulant', 'Mood Stabilizer'];
+  const handleCopyMonitoring = (med) => {
+    const text = `CLINICAL MONITORING & ORDERS (${med.genericName} - ${med.brandNames.join(', ')}):\n` +
+      `- Starting Dose: ${med.startingDose}\n` +
+      `- Target Range: ${med.therapeuticRange}\n` +
+      `- Required Monitoring & Lab Panels:\n  • ${med.monitoring.join('\n  • ')}\n` +
+      `- Black Box Warning / Safety Note: ${med.blackBoxWarning || 'None'}`;
+    navigator.clipboard.writeText(text);
+    setCopiedId(med.id);
+    setTimeout(() => setCopiedId(null), 2500);
+  };
+
+  const classes = [
+    'All',
+    'SSRI',
+    'SNRI',
+    'NDRI',
+    'CNS Stimulant',
+    'Non-Stimulant',
+    'Antipsychotic',
+    'Mood Stabilizer',
+    'Anxiolytic'
+  ];
 
   const filteredMeds = medData.medications.filter(med => {
     const matchesSearch = 
@@ -108,6 +130,40 @@ export default function MedicationDirectory() {
                 <span className="font-bold text-slate-700 block mb-0.5">Metabolism & CYP450 Profile:</span>
                 <p className="text-slate-600 font-mono text-[11px] bg-slate-50 p-2 rounded-lg border border-slate-100">{med.cypMetabolism}</p>
               </div>
+
+              {/* Baseline Labs & Required Clinical Monitoring */}
+              {med.monitoring && med.monitoring.length > 0 && (
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-xs space-y-1.5 mb-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-slate-800 flex items-center gap-1.5">
+                      <ClipboardList className="w-3.5 h-3.5 text-teal-600" />
+                      Baseline Labs &amp; Monitoring Protocol:
+                    </span>
+                    <button
+                      onClick={() => handleCopyMonitoring(med)}
+                      className="text-[10px] font-bold text-teal-700 hover:text-teal-900 bg-teal-50 hover:bg-teal-100 px-2 py-0.5 rounded border border-teal-200 transition-all flex items-center gap-1"
+                      title="Copy monitoring protocol to clipboard for EHR orders"
+                    >
+                      {copiedId === med.id ? (
+                        <>
+                          <Check className="w-3 h-3 text-emerald-600" />
+                          <span className="text-emerald-700">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3 h-3 text-teal-600" />
+                          <span>Copy Orders</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  <ul className="list-disc list-inside space-y-0.5 text-slate-600 text-[11px]">
+                    {med.monitoring.map((m, idx) => (
+                      <li key={idx}>{m}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Clinical Pearl Box */}
               <div className="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl text-xs text-amber-950 flex items-start gap-2 mb-3">

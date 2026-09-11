@@ -262,5 +262,53 @@
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
+  },
+  {
+    "id": "lurasidone",
+    "name": "Lurasidone (Latuda)",
+    "class": "Second-Generation Antipsychotic",
+    "qtcRisk": "Low",
+    "qtcScore": 1,
+    "qtcDetails": "Very favorable cardiac profile with negligible effect on QTc interval across clinical trials. Minimal metabolic liability.",
+    "cypSubstrates": ["CYP3A4"],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "guanfacine",
+    "name": "Guanfacine ER (Intuniv)",
+    "class": "Alpha-2A Adrenergic Agonist",
+    "qtcRisk": "Low",
+    "qtcScore": 1,
+    "qtcDetails": "Does not cause direct repolarization delay, but produces dose-dependent bradycardia and hypotension which can exacerbate cardiac vulnerabilities.",
+    "cypSubstrates": ["CYP3A4"],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "propranolol",
+    "name": "Propranolol (Inderal)",
+    "class": "Beta-Blocker / Akathisia Antidote",
+    "qtcRisk": "None-Low",
+    "qtcScore": 0,
+    "qtcDetails": "Class II antiarrhythmic properties. Decreases sympathetic tone; watch for additive bradycardia and AV block when combined with other negative dromotropic agents.",
+    "cypSubstrates": ["CYP2D6", "CYP1A2", "CYP2C19"],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "divalproex",
+    "name": "Divalproex / Valproic Acid (Depakote)",
+    "class": "Mood Stabilizer / Anticonvulsant",
+    "qtcRisk": "None-Low",
+    "qtcScore": 0,
+    "qtcDetails": "Does not prolong QTc. Potent inhibitor of UGT glucuronidation—markedly elevates lamotrigine concentrations and increases SJS risk.",
+    "cypSubstrates": ["UGT1A4", "Mitochondrial beta-oxidation"],
+    "cypInhibitors": ["UGT1A4 (potent inhibitor of lamotrigine metabolism)", "CYP2C9 (mild)"],
+    "cypInducers": [],
+    "serotonergic": false
   }
 ]
