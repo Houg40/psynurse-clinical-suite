@@ -6,6 +6,7 @@ import CrossTaperCalculator from './components/CrossTaperCalculator';
 import SafetyGuide from './components/SafetyGuide';
 import InteractionChecker from './components/InteractionChecker';
 import HpiBuilder from './components/HpiBuilder';
+import AiAdvisor from './components/AiAdvisor';
 import FeedbackModal from './components/FeedbackModal';
 
 export default function CdsApp({ activeTab, setActiveTab }) {
@@ -16,6 +17,7 @@ export default function CdsApp({ activeTab, setActiveTab }) {
         {activeTab === 'screeners' && <ScreenerAssessment />}
         {activeTab === 'medications' && <MedicationDirectory />}
         {activeTab === 'interactions' && <InteractionChecker />}
+        {activeTab === 'advisor' && <AiAdvisor />}
         {activeTab === 'pathways' && <DecisionTreeWizard />}
         {activeTab === 'crosstaper' && <CrossTaperCalculator />}
         {activeTab === 'safety' && <SafetyGuide />}
