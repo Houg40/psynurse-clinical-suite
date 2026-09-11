@@ -6,7 +6,10 @@
     "qtcRisk": "High",
     "qtcScore": 3,
     "qtcDetails": "FDA Boxed warning for dose-dependent QTc prolongation (max 40mg/day, max 20mg/day in elderly >60yo or CYP2C19 poor metabolizers). Known risk of TdP.",
-    "cypSubstrates": ["CYP2C19", "CYP3A4"],
+    "cypSubstrates": [
+      "CYP2C19",
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": true
@@ -18,7 +21,10 @@
     "qtcRisk": "Moderate",
     "qtcScore": 2,
     "qtcDetails": "Dose-dependent QTc prolongation (average ~10ms at 20-30mg). Lower risk than racemic citalopram but caution with other QTc agents.",
-    "cypSubstrates": ["CYP2C19", "CYP3A4"],
+    "cypSubstrates": [
+      "CYP2C19",
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": true
@@ -30,8 +36,14 @@
     "qtcRisk": "Low",
     "qtcScore": 1,
     "qtcDetails": "Minimal effect on QTc at standard therapeutic doses (average ~2-4ms). Preferred SSRI in patients with cardiac comorbidity (SADHART trial).",
-    "cypSubstrates": ["CYP2B6", "CYP2C19", "CYP3A4"],
-    "cypInhibitors": ["CYP2D6 (mild-mod at >100mg)"],
+    "cypSubstrates": [
+      "CYP2B6",
+      "CYP2C19",
+      "CYP3A4"
+    ],
+    "cypInhibitors": [
+      "CYP2D6 (mild-mod at >100mg)"
+    ],
     "cypInducers": [],
     "serotonergic": true
   },
@@ -42,8 +54,13 @@
     "qtcRisk": "Low",
     "qtcScore": 1,
     "qtcDetails": "Minimal direct QTc prolongation at typical doses, but potent CYP2D6 inhibition can drastically increase serum levels of other QTc-prolonging drugs.",
-    "cypSubstrates": ["CYP2D6"],
-    "cypInhibitors": ["CYP2D6 (strong)", "CYP2C19 (moderate)"],
+    "cypSubstrates": [
+      "CYP2D6"
+    ],
+    "cypInhibitors": [
+      "CYP2D6 (strong)",
+      "CYP2C19 (moderate)"
+    ],
     "cypInducers": [],
     "serotonergic": true
   },
@@ -54,7 +71,9 @@
     "qtcRisk": "Moderate",
     "qtcScore": 2,
     "qtcDetails": "Dose-dependent QTc prolongation observed, especially at >150-225mg/day and in overdose. Risk compounded by dose-dependent diastolic hypertension.",
-    "cypSubstrates": ["CYP2D6"],
+    "cypSubstrates": [
+      "CYP2D6"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": true
@@ -66,8 +85,13 @@
     "qtcRisk": "Low",
     "qtcScore": 1,
     "qtcDetails": "Very low intrinsic QTc prolongation risk at clinical doses. Moderate CYP2D6 inhibitor.",
-    "cypSubstrates": ["CYP1A2", "CYP2D6"],
-    "cypInhibitors": ["CYP2D6 (moderate)"],
+    "cypSubstrates": [
+      "CYP1A2",
+      "CYP2D6"
+    ],
+    "cypInhibitors": [
+      "CYP2D6 (moderate)"
+    ],
     "cypInducers": [],
     "serotonergic": true
   },
@@ -78,8 +102,12 @@
     "qtcRisk": "None-Low",
     "qtcScore": 0,
     "qtcDetails": "Virtually no intrinsic QTc prolongation at therapeutic doses. Primary cardiac concern is tachycardia/hypertension. Potent CYP2D6 inhibitor.",
-    "cypSubstrates": ["CYP2B6"],
-    "cypInhibitors": ["CYP2D6 (strong)"],
+    "cypSubstrates": [
+      "CYP2B6"
+    ],
+    "cypInhibitors": [
+      "CYP2D6 (strong)"
+    ],
     "cypInducers": [],
     "serotonergic": false
   },
@@ -90,7 +118,11 @@
     "qtcRisk": "Moderate",
     "qtcScore": 2,
     "qtcDetails": "Known risk of QTc prolongation, particularly in combination with other QTc agents or in overdose. Sedating at lower doses due to H1 affinity.",
-    "cypSubstrates": ["CYP1A2", "CYP2D6", "CYP3A4"],
+    "cypSubstrates": [
+      "CYP1A2",
+      "CYP2D6",
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": true
@@ -102,7 +134,9 @@
     "qtcRisk": "Moderate",
     "qtcScore": 2,
     "qtcDetails": "Moderate QTc prolongation risk; cases of ventricular arrhythmias reported when combined with other QTc agents or antiarrhythmics.",
-    "cypSubstrates": ["CYP3A4"],
+    "cypSubstrates": [
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": true
@@ -114,7 +148,9 @@
     "qtcRisk": "Moderate",
     "qtcScore": 2,
     "qtcDetails": "Moderate, dose-dependent QTc prolongation (~10-15ms). Post-marketing reports of TdP in overdose or when co-administered with CYP3A4 inhibitors.",
-    "cypSubstrates": ["CYP3A4"],
+    "cypSubstrates": [
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -126,7 +162,10 @@
     "qtcRisk": "Low",
     "qtcScore": 1,
     "qtcDetails": "Very low cardiac risk; minimal to no clinically significant QTc prolongation across multiple clinical trials. Often selected when cardiac safety is paramount.",
-    "cypSubstrates": ["CYP2D6", "CYP3A4"],
+    "cypSubstrates": [
+      "CYP2D6",
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -138,7 +177,10 @@
     "qtcRisk": "Low-Moderate",
     "qtcScore": 1,
     "qtcDetails": "Mild QTc prolongation (~4-6ms). Significantly metabolized by CYP1A2 (cigarette smoking reduces serum levels by ~40-50%).",
-    "cypSubstrates": ["CYP1A2", "CYP2D6"],
+    "cypSubstrates": [
+      "CYP1A2",
+      "CYP2D6"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -150,7 +192,9 @@
     "qtcRisk": "High",
     "qtcScore": 3,
     "qtcDetails": "Prominent QTc prolongation (average ~20ms at therapeutic doses). Contraindicated with other drugs that prolong QTc or in patients with known arrhythmias/recent MI.",
-    "cypSubstrates": ["CYP3A4"],
+    "cypSubstrates": [
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -162,7 +206,10 @@
     "qtcRisk": "High",
     "qtcScore": 3,
     "qtcDetails": "High risk of QTc prolongation and Torsades de Pointes, especially with IV administration or high oral doses (>10mg/day). Baseline and interval EKG mandated.",
-    "cypSubstrates": ["CYP2D6", "CYP3A4"],
+    "cypSubstrates": [
+      "CYP2D6",
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -186,7 +233,9 @@
     "qtcRisk": "None-Low",
     "qtcScore": 0,
     "qtcDetails": "No significant QTc prolongation. Has Class IB antiarrhythmic properties at high doses; FDA safety communication regarding structural heart disease.",
-    "cypSubstrates": ["UGT1A4"],
+    "cypSubstrates": [
+      "UGT1A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -198,7 +247,11 @@
     "qtcRisk": "High",
     "qtcScore": 3,
     "qtcDetails": "Dose-dependent QTc prolongation. High risk of severe additive prolongation and TdP when co-administered with SSRIs, SNRIs, or antipsychotics.",
-    "cypSubstrates": ["CYP3A4", "CYP1A2", "CYP2D6"],
+    "cypSubstrates": [
+      "CYP3A4",
+      "CYP1A2",
+      "CYP2D6"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": true
@@ -210,8 +263,13 @@
     "qtcRisk": "Low",
     "qtcScore": 1,
     "qtcDetails": "Potent CYP2C19 inhibitor! Significantly increases plasma concentrations of citalopram and escitalopram, compounding their QTc risk.",
-    "cypSubstrates": ["CYP2C19", "CYP3A4"],
-    "cypInhibitors": ["CYP2C19 (potent)"],
+    "cypSubstrates": [
+      "CYP2C19",
+      "CYP3A4"
+    ],
+    "cypInhibitors": [
+      "CYP2C19 (potent)"
+    ],
     "cypInducers": [],
     "serotonergic": false
   },
@@ -223,7 +281,9 @@
     "qtcScore": 3,
     "qtcDetails": "FDA warning for QT prolongation and potentially fatal Torsades de Pointes. Extreme caution when prescribed alongside psychotropic regimens.",
     "cypSubstrates": [],
-    "cypInhibitors": ["P-gp inhibitor"],
+    "cypInhibitors": [
+      "P-gp inhibitor"
+    ],
     "cypInducers": [],
     "serotonergic": false
   },
@@ -235,7 +295,9 @@
     "qtcScore": 3,
     "qtcDetails": "Direct block of cardiac HERG potassium channels causing marked QTc prolongation. Potent inhibitor of CYP1A2 (triples olanzapine/duloxetine levels).",
     "cypSubstrates": [],
-    "cypInhibitors": ["CYP1A2 (strong)"],
+    "cypInhibitors": [
+      "CYP1A2 (strong)"
+    ],
     "cypInducers": [],
     "serotonergic": false
   },
@@ -246,7 +308,9 @@
     "qtcRisk": "Moderate",
     "qtcScore": 2,
     "qtcDetails": "FDA/EMA safety alerts regarding dose-dependent QTc prolongation and Torsades de Pointes. Max 100mg/day (max 50mg/day in elderly). Use caution with SSRIs.",
-    "cypSubstrates": ["CYP2D6"],
+    "cypSubstrates": [
+      "CYP2D6"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -258,7 +322,9 @@
     "qtcRisk": "None-Low",
     "qtcScore": 0,
     "qtcDetails": "Does not directly prolong cardiac repolarization (QTc), but increases resting heart rate and blood pressure, which can provoke tachyarrhythmias.",
-    "cypSubstrates": ["CYP2D6"],
+    "cypSubstrates": [
+      "CYP2D6"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -270,7 +336,9 @@
     "qtcRisk": "Low",
     "qtcScore": 1,
     "qtcDetails": "Very favorable cardiac profile with negligible effect on QTc interval across clinical trials. Minimal metabolic liability.",
-    "cypSubstrates": ["CYP3A4"],
+    "cypSubstrates": [
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -282,7 +350,9 @@
     "qtcRisk": "Low",
     "qtcScore": 1,
     "qtcDetails": "Does not cause direct repolarization delay, but produces dose-dependent bradycardia and hypotension which can exacerbate cardiac vulnerabilities.",
-    "cypSubstrates": ["CYP3A4"],
+    "cypSubstrates": [
+      "CYP3A4"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -294,7 +364,11 @@
     "qtcRisk": "None-Low",
     "qtcScore": 0,
     "qtcDetails": "Class II antiarrhythmic properties. Decreases sympathetic tone; watch for additive bradycardia and AV block when combined with other negative dromotropic agents.",
-    "cypSubstrates": ["CYP2D6", "CYP1A2", "CYP2C19"],
+    "cypSubstrates": [
+      "CYP2D6",
+      "CYP1A2",
+      "CYP2C19"
+    ],
     "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
@@ -306,8 +380,202 @@
     "qtcRisk": "None-Low",
     "qtcScore": 0,
     "qtcDetails": "Does not prolong QTc. Potent inhibitor of UGT glucuronidation—markedly elevates lamotrigine concentrations and increases SJS risk.",
-    "cypSubstrates": ["UGT1A4", "Mitochondrial beta-oxidation"],
-    "cypInhibitors": ["UGT1A4 (potent inhibitor of lamotrigine metabolism)", "CYP2C9 (mild)"],
+    "cypSubstrates": [
+      "UGT1A4",
+      "Mitochondrial beta-oxidation"
+    ],
+    "cypInhibitors": [
+      "UGT1A4 (potent inhibitor of lamotrigine metabolism)",
+      "CYP2C9 (mild)"
+    ],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "paroxetine",
+    "name": "Paroxetine (Paxil)",
+    "class": "SSRI Antidepressant",
+    "qtcRisk": "Low",
+    "qtcScore": 1,
+    "qtcDetails": "Low intrinsic QTc prolongation, but potent CYP2D6 inhibition can drastically elevate levels of other QTc-prolonging substrates.",
+    "cypSubstrates": [
+      "CYP2D6"
+    ],
+    "cypInhibitors": [
+      "CYP2D6 (strong)"
+    ],
+    "cypInducers": [],
+    "serotonergic": true
+  },
+  {
+    "id": "fluvoxamine",
+    "name": "Fluvoxamine (Luvox)",
+    "class": "SSRI Antidepressant",
+    "qtcRisk": "Low",
+    "qtcScore": 1,
+    "qtcDetails": "Minimal intrinsic QTc prolongation. Extremely potent CYP1A2 inhibitor—massively elevates levels of olanzapine, clozapine, and caffeine.",
+    "cypSubstrates": [
+      "CYP2D6",
+      "CYP1A2"
+    ],
+    "cypInhibitors": [
+      "CYP1A2 (potent)",
+      "CYP2C19 (potent)",
+      "CYP3A4 (moderate)",
+      "CYP2C9 (moderate)"
+    ],
+    "cypInducers": [],
+    "serotonergic": true
+  },
+  {
+    "id": "desvenlafaxine",
+    "name": "Desvenlafaxine (Pristiq)",
+    "class": "SNRI Antidepressant",
+    "qtcRisk": "Low",
+    "qtcScore": 1,
+    "qtcDetails": "Low intrinsic cardiac repolarization delay. Bypasses CYP2D6 metabolism.",
+    "cypSubstrates": [
+      "CYP3A4 (minor)"
+    ],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": true
+  },
+  {
+    "id": "vortioxetine",
+    "name": "Vortioxetine (Trintellix)",
+    "class": "Multi-Modal Antidepressant",
+    "qtcRisk": "None-Low",
+    "qtcScore": 0,
+    "qtcDetails": "Negligible effect on cardiac repolarization or QTc interval across clinical trials. CYP2D6 substrate.",
+    "cypSubstrates": [
+      "CYP2D6"
+    ],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": true
+  },
+  {
+    "id": "cariprazine",
+    "name": "Cariprazine (Vraylar)",
+    "class": "Second-Generation Antipsychotic",
+    "qtcRisk": "None-Low",
+    "qtcScore": 0,
+    "qtcDetails": "Does not produce clinically meaningful QTc prolongation. Exceptionally long active metabolite half-life (DDCAR up to 3 weeks).",
+    "cypSubstrates": [
+      "CYP3A4"
+    ],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "brexpiprazole",
+    "name": "Brexpiprazole (Rexulti)",
+    "class": "Second-Generation Antipsychotic",
+    "qtcRisk": "None-Low",
+    "qtcScore": 0,
+    "qtcDetails": "Low cardiac repolarization effect. Substrate of CYP2D6 and CYP3A4.",
+    "cypSubstrates": [
+      "CYP2D6",
+      "CYP3A4"
+    ],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "lumateperone",
+    "name": "Lumateperone (Caplyta)",
+    "class": "Second-Generation Antipsychotic",
+    "qtcRisk": "None-Low",
+    "qtcScore": 0,
+    "qtcDetails": "Zero QTc prolongation observed in clinical trials. Highly favorable cardiac and metabolic profile.",
+    "cypSubstrates": [
+      "CYP3A4",
+      "CYP2C8"
+    ],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "risperidone",
+    "name": "Risperidone (Risperdal)",
+    "class": "Second-Generation Antipsychotic",
+    "qtcRisk": "Moderate",
+    "qtcScore": 2,
+    "qtcDetails": "Modest dose-dependent QTc prolongation (~5-10ms). Potent prolactin elevation. CYP2D6 substrate.",
+    "cypSubstrates": [
+      "CYP2D6"
+    ],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "concerta",
+    "name": "Methylphenidate ER (Concerta / Ritalin)",
+    "class": "CNS Stimulant (Schedule II)",
+    "qtcRisk": "None-Low",
+    "qtcScore": 0,
+    "qtcDetails": "No direct effect on QTc. Increases resting heart rate and systolic BP; watch in patients with cardiac tachyarrhythmias.",
+    "cypSubstrates": [
+      "CES1A1"
+    ],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "viloxazine",
+    "name": "Viloxazine ER (Qelbree)",
+    "class": "Non-Stimulant ADHD",
+    "qtcRisk": "Low",
+    "qtcScore": 1,
+    "qtcDetails": "Minimal direct QTc prolongation. Potent inhibitor of CYP1A2! Dramatically increases levels of 1A2 substrates (caffeine, theophylline, olanzapine).",
+    "cypSubstrates": [
+      "CYP2D6"
+    ],
+    "cypInhibitors": [
+      "CYP1A2 (potent)"
+    ],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "clonidine",
+    "name": "Clonidine (Catapres / Kapvay)",
+    "class": "Alpha-2 Agonist",
+    "qtcRisk": "Low",
+    "qtcScore": 1,
+    "qtcDetails": "Does not cause direct repolarization delay, but produces dose-dependent bradycardia and hypotension.",
+    "cypSubstrates": [],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "prazosin",
+    "name": "Prazosin (Minipress)",
+    "class": "Alpha-1 Blocker",
+    "qtcRisk": "None-Low",
+    "qtcScore": 0,
+    "qtcDetails": "No QTc prolongation. Vasodilator: causes first-dose orthostatic hypotension and reflex tachycardia.",
+    "cypSubstrates": [],
+    "cypInhibitors": [],
+    "cypInducers": [],
+    "serotonergic": false
+  },
+  {
+    "id": "gabapentin",
+    "name": "Gabapentin (Neurontin)",
+    "class": "Gabapentinoid",
+    "qtcRisk": "None-Low",
+    "qtcScore": 0,
+    "qtcDetails": "Zero cardiac repolarization delay. 100% renal elimination with no CYP450 involvement.",
+    "cypSubstrates": [],
+    "cypInhibitors": [],
     "cypInducers": [],
     "serotonergic": false
   }

@@ -3,359 +3,1303 @@
     {
       "id": "escitalopram",
       "genericName": "Escitalopram",
-      "brandNames": ["Lexapro"],
+      "brandNames": [
+        "Lexapro"
+      ],
       "class": "SSRI",
-      "indications": ["Major Depressive Disorder", "Generalized Anxiety Disorder", "Panic Disorder"],
+      "indications": [
+        "Major Depressive Disorder",
+        "Generalized Anxiety Disorder",
+        "Panic Disorder"
+      ],
       "startingDose": "10 mg once daily (5 mg in elderly or sensitive anxiety patients)",
       "titration": "Increase by 5-10 mg after minimum 1-2 weeks as tolerated",
       "therapeuticRange": "10 - 20 mg/day",
       "maxCeiling": "20 mg/day (10 mg/day in elderly or CYP2C19 poor metabolizers due to QTc risk)",
       "halfLife": "27 - 32 hours",
       "cypMetabolism": "CYP2C19 (primary), CYP3A4, CYP2D6. Minimal CYP enzyme inhibition (clean drug interaction profile).",
-      "commonSideEffects": ["Nausea", "Insomnia/Somnolence", "Sexual dysfunction", "Sweating", "Fatigue", "Dry mouth"],
-      "monitoring": ["Baseline suicide risk assessment", "QTc if combined with other QTc-prolonging agents or high dose"],
+      "commonSideEffects": [
+        "Nausea",
+        "Insomnia/Somnolence",
+        "Sexual dysfunction",
+        "Sweating",
+        "Fatigue",
+        "Dry mouth"
+      ],
+      "monitoring": [
+        "Baseline suicide risk assessment",
+        "QTc if combined with other QTc-prolonging agents or high dose"
+      ],
       "clinicalPearls": "Often considered the most selective SSRI with minimal drug-drug interactions. Very clean starting agent for mixed depression/anxiety.",
       "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in pediatric and young adult patients (<25 years)."
     },
     {
       "id": "sertraline",
       "genericName": "Sertraline",
-      "brandNames": ["Zoloft"],
+      "brandNames": [
+        "Zoloft"
+      ],
       "class": "SSRI",
-      "indications": ["Major Depressive Disorder", "Panic Disorder", "PTSD", "Social Anxiety", "OCD"],
+      "indications": [
+        "Major Depressive Disorder",
+        "Panic Disorder",
+        "PTSD",
+        "Social Anxiety",
+        "OCD"
+      ],
       "startingDose": "25 - 50 mg once daily (morning or evening)",
       "titration": "Increase by 25 - 50 mg every 1 - 2 weeks based on response",
       "therapeuticRange": "50 - 200 mg/day",
       "maxCeiling": "200 mg/day",
       "halfLife": "26 hours (active metabolite norsertraline 62-104 hrs)",
       "cypMetabolism": "CYP2B6, CYP2C19, CYP3A4. Mild CYP2D6 inhibitor at higher doses (>100mg).",
-      "commonSideEffects": ["GI upset/diarrhea ('Squirtraline')", "Tremor", "Sexual dysfunction", "Insomnia", "Headache"],
-      "monitoring": ["Weight & appetite", "Suicide risk assessment", "Electrolytes in elderly (SIADH risk)"],
+      "commonSideEffects": [
+        "GI upset/diarrhea ('Squirtraline')",
+        "Tremor",
+        "Sexual dysfunction",
+        "Insomnia",
+        "Headache"
+      ],
+      "monitoring": [
+        "Weight & appetite",
+        "Suicide risk assessment",
+        "Electrolytes in elderly (SIADH risk)"
+      ],
       "clinicalPearls": "First-line preferred in cardiac patients (SADHART trial). Take with a full meal to reduce nausea. Mild dopamine reuptake at high doses.",
       "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
     },
     {
       "id": "fluoxetine",
       "genericName": "Fluoxetine",
-      "brandNames": ["Prozac"],
+      "brandNames": [
+        "Prozac"
+      ],
       "class": "SSRI",
-      "indications": ["Major Depressive Disorder", "OCD", "Bulimia Nervosa", "Panic Disorder"],
+      "indications": [
+        "Major Depressive Disorder",
+        "OCD",
+        "Bulimia Nervosa",
+        "Panic Disorder"
+      ],
       "startingDose": "10 - 20 mg once daily in morning",
       "titration": "Increase by 10 - 20 mg after 2 - 4 weeks (slow accumulation)",
       "therapeuticRange": "20 - 60 mg/day (up to 80mg for OCD)",
       "maxCeiling": "80 mg/day",
       "halfLife": "Parent drug: 2 - 4 days; Norfluoxetine: 7 - 15 days (built-in self-taper)",
       "cypMetabolism": "Strong inhibitor of CYP2D6 and CYP2C19. Substrate of CYP2D6.",
-      "commonSideEffects": ["Activation/jitteriness", "Insomnia", "Anorexia/weight loss", "Nausea", "Sexual dysfunction"],
-      "monitoring": ["Drug interactions (Tamoxifen, beta-blockers, TCAs due to 2D6)", "Weight in low-BMI patients"],
+      "commonSideEffects": [
+        "Activation/jitteriness",
+        "Insomnia",
+        "Anorexia/weight loss",
+        "Nausea",
+        "Sexual dysfunction"
+      ],
+      "monitoring": [
+        "Drug interactions (Tamoxifen, beta-blockers, TCAs due to 2D6)",
+        "Weight in low-BMI patients"
+      ],
       "clinicalPearls": "Energizing/activating profile; excellent for fatigued, lethargic depression. Long half-life minimizes withdrawal/discontinuation syndrome if doses are missed.",
       "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
     },
     {
       "id": "bupropion-xl",
       "genericName": "Bupropion XL",
-      "brandNames": ["Wellbutrin XL"],
+      "brandNames": [
+        "Wellbutrin XL"
+      ],
       "class": "NDRI (Norepinephrine-Dopamine Reuptake Inhibitor)",
-      "indications": ["Major Depressive Disorder", "Seasonal Affective Disorder", "Smoking Cessation (Zyban)", "ADHD off-label"],
+      "indications": [
+        "Major Depressive Disorder",
+        "Seasonal Affective Disorder",
+        "Smoking Cessation (Zyban)",
+        "ADHD off-label"
+      ],
       "startingDose": "150 mg once daily in morning",
       "titration": "Increase to 300 mg once daily after 4-7 days if tolerated",
       "therapeuticRange": "150 - 300 mg/day (rarely up to 450 mg/day)",
       "maxCeiling": "450 mg/day (XL formulation)",
       "halfLife": "Parent: 14 hours; Active metabolites: 20 - 37 hours",
       "cypMetabolism": "CYP2B6 substrate. Strong inhibitor of CYP2D6.",
-      "commonSideEffects": ["Insomnia", "Dry mouth", "Mild tremors", "Weight loss", "Headache", "Agitation/anxiety"],
-      "monitoring": ["Blood pressure & heart rate", "Eating disorder history (absolute contraindication: seizure risk)"],
+      "commonSideEffects": [
+        "Insomnia",
+        "Dry mouth",
+        "Mild tremors",
+        "Weight loss",
+        "Headache",
+        "Agitation/anxiety"
+      ],
+      "monitoring": [
+        "Blood pressure & heart rate",
+        "Eating disorder history (absolute contraindication: seizure risk)"
+      ],
       "clinicalPearls": "Zero sexual side effects; weight neutral or promotes weight loss. Great for depression with sluggishness, low motivation, or comorbid ADHD. Dose in morning to avoid insomnia.",
       "blackBoxWarning": "Contraindicated in patients with seizure history, bulimia, or anorexia nervosa due to lowered seizure threshold."
     },
     {
       "id": "duloxetine",
       "genericName": "Duloxetine",
-      "brandNames": ["Cymbalta"],
+      "brandNames": [
+        "Cymbalta"
+      ],
       "class": "SNRI (Serotonin-Norepinephrine Reuptake Inhibitor)",
-      "indications": ["Major Depressive Disorder", "Generalized Anxiety Disorder", "Fibromyalgia", "Neuropathic Pain"],
+      "indications": [
+        "Major Depressive Disorder",
+        "Generalized Anxiety Disorder",
+        "Fibromyalgia",
+        "Neuropathic Pain"
+      ],
       "startingDose": "30 mg once daily for 1 week, then 60 mg once daily",
       "titration": "Increase to 60 mg daily; doses >60 mg offer little added antidepressant efficacy but increase side effects",
       "therapeuticRange": "60 mg/day (max 120 mg/day in divided doses)",
       "maxCeiling": "120 mg/day",
       "halfLife": "12 hours",
       "cypMetabolism": "Substrate of CYP1A2, CYP2D6. Moderate inhibitor of CYP2D6.",
-      "commonSideEffects": ["Nausea (take with food)", "Dry mouth", "Constipation", "Somnolence/fatigue", "Sweating", "Elevated BP"],
-      "monitoring": ["Blood pressure", "Hepatic function (avoid in chronic liver disease or heavy alcohol use)"],
+      "commonSideEffects": [
+        "Nausea (take with food)",
+        "Dry mouth",
+        "Constipation",
+        "Somnolence/fatigue",
+        "Sweating",
+        "Elevated BP"
+      ],
+      "monitoring": [
+        "Blood pressure",
+        "Hepatic function (avoid in chronic liver disease or heavy alcohol use)"
+      ],
       "clinicalPearls": "Dual-action first-line choice when depression or anxiety is accompanied by chronic somatic pain, fibromyalgia, or neuropathic symptoms.",
       "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
     },
     {
       "id": "venlafaxine-er",
       "genericName": "Venlafaxine ER",
-      "brandNames": ["Effexor XR"],
+      "brandNames": [
+        "Effexor XR"
+      ],
       "class": "SNRI",
-      "indications": ["Major Depressive Disorder", "Generalized Anxiety Disorder", "Social Anxiety", "Panic Disorder"],
+      "indications": [
+        "Major Depressive Disorder",
+        "Generalized Anxiety Disorder",
+        "Social Anxiety",
+        "Panic Disorder"
+      ],
       "startingDose": "37.5 mg - 75 mg once daily with food",
       "titration": "Increase by 37.5 - 75 mg every 1-2 weeks as tolerated",
       "therapeuticRange": "75 - 225 mg/day",
       "maxCeiling": "225 mg/day (outpatient), 375 mg/day (severe inpatient)",
       "halfLife": "Venlafaxine: 5 hours; ODV metabolite: 11 hours",
       "cypMetabolism": "CYP2D6 substrate to active metabolite (Desvenlafaxine).",
-      "commonSideEffects": ["Nausea", "Dizziness", "Diaphoresis", "Dose-dependent blood pressure increase", "Severe discontinuation syndrome"],
-      "monitoring": ["Blood pressure at each visit (especially >150mg/day)"],
+      "commonSideEffects": [
+        "Nausea",
+        "Dizziness",
+        "Diaphoresis",
+        "Dose-dependent blood pressure increase",
+        "Severe discontinuation syndrome"
+      ],
+      "monitoring": [
+        "Blood pressure at each visit (especially >150mg/day)"
+      ],
       "clinicalPearls": "Acts almost purely as an SSRI below 150 mg; dual norepinephrine reuptake kicks in at 150 mg and above. Must cross-taper slowly to avoid electric shock sensations (brain zaps).",
       "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
     },
     {
       "id": "mirtazapine",
       "genericName": "Mirtazapine",
-      "brandNames": ["Remeron"],
+      "brandNames": [
+        "Remeron"
+      ],
       "class": "NaSSA (Noradrenergic and Specific Serotonergic Antidepressant)",
-      "indications": ["Major Depressive Disorder", "Depression with Insomnia & Anorexia"],
+      "indications": [
+        "Major Depressive Disorder",
+        "Depression with Insomnia & Anorexia"
+      ],
       "startingDose": "7.5 - 15 mg once daily at bedtime",
       "titration": "Increase by 15 mg every 1-2 weeks up to 45 mg",
       "therapeuticRange": "15 - 45 mg at bedtime",
       "maxCeiling": "45 mg/day",
       "halfLife": "20 - 40 hours",
       "cypMetabolism": "CYP1A2, CYP2D6, CYP3A4 substrate.",
-      "commonSideEffects": ["Sedation (more sedating at lower doses: 7.5-15mg)", "Increased appetite and weight gain", "Dry mouth", "Constipation"],
-      "monitoring": ["Lipid panel and weight tracking", "CBC if signs of infection (rare agranulocytosis)"],
+      "commonSideEffects": [
+        "Sedation (more sedating at lower doses: 7.5-15mg)",
+        "Increased appetite and weight gain",
+        "Dry mouth",
+        "Constipation"
+      ],
+      "monitoring": [
+        "Lipid panel and weight tracking",
+        "CBC if signs of infection (rare agranulocytosis)"
+      ],
       "clinicalPearls": "Paradoxical dosing: Lower doses (7.5-15mg) are heavily antihistaminic (sedation/appetite); higher doses (30-45mg) increase noradrenergic transmission, becoming less sedating. Great adjunct for insomnia/underweight patients.",
       "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
     },
     {
       "id": "lisdexamfetamine",
       "genericName": "Lisdexamfetamine",
-      "brandNames": ["Vyvanse"],
+      "brandNames": [
+        "Vyvanse"
+      ],
       "class": "CNS Stimulant (Prodrug Amphetamine, Schedule II)",
-      "indications": ["ADHD (Ages 6+)", "Moderate to Severe Binge Eating Disorder (Adults)"],
+      "indications": [
+        "ADHD (Ages 6+)",
+        "Moderate to Severe Binge Eating Disorder (Adults)"
+      ],
       "startingDose": "20 - 30 mg once daily in morning",
       "titration": "Increase by 10 - 20 mg weekly intervals",
       "therapeuticRange": "30 - 70 mg once daily in morning",
       "maxCeiling": "70 mg/day",
       "halfLife": "Prodrug cleaved in RBCs; d-amphetamine half-life ~10-12 hours (smooth 12-14 hr clinical coverage)",
       "cypMetabolism": "Not dependent on CYP450 for activation (enzymatic hydrolysis in red blood cells).",
-      "commonSideEffects": ["Decreased appetite", "Insomnia", "Dry mouth", "Elevated heart rate & BP", "Anxiety/irritability as it wears off"],
-      "monitoring": ["Blood pressure and heart rate at each follow-up", "Weight", "WA State PDMP check prior to each refill", "Controlled substance agreement"],
+      "commonSideEffects": [
+        "Decreased appetite",
+        "Insomnia",
+        "Dry mouth",
+        "Elevated heart rate & BP",
+        "Anxiety/irritability as it wears off"
+      ],
+      "monitoring": [
+        "Blood pressure and heart rate at each follow-up",
+        "Weight",
+        "WA State PDMP check prior to each refill",
+        "Controlled substance agreement"
+      ],
       "clinicalPearls": "Prodrug design resists crushing/snorting/inhalation, reducing abuse liability compared to immediate-release stimulants. Very consistent, non-jittery pharmacokinetic curve.",
       "blackBoxWarning": "Schedule II controlled substance: High potential for abuse and dependence. Monitor cardiovascular status."
     },
     {
       "id": "amphetamine-salts-xr",
       "genericName": "Mixed Amphetamine Salts XR",
-      "brandNames": ["Adderall XR"],
+      "brandNames": [
+        "Adderall XR"
+      ],
       "class": "CNS Stimulant (Schedule II)",
-      "indications": ["ADHD", "Narcolepsy"],
+      "indications": [
+        "ADHD",
+        "Narcolepsy"
+      ],
       "startingDose": "10 - 20 mg once daily in morning",
       "titration": "Increase by 5 - 10 mg weekly",
       "therapeuticRange": "20 - 40 mg/day",
       "maxCeiling": "40 - 60 mg/day",
       "halfLife": "d-amphetamine ~10 hrs; l-amphetamine ~13 hrs (Dual-bead delivery gives 8-10 hrs effect)",
       "cypMetabolism": "CYP2D6 substrate; gastrointestinal pH affects absorption.",
-      "commonSideEffects": ["Appetite suppression", "Insomnia", "Dry mouth", "Palpitations", "Headache"],
-      "monitoring": ["Vital signs (BP/HR)", "WA PDMP registry compliance"],
+      "commonSideEffects": [
+        "Appetite suppression",
+        "Insomnia",
+        "Dry mouth",
+        "Palpitations",
+        "Headache"
+      ],
+      "monitoring": [
+        "Vital signs (BP/HR)",
+        "WA PDMP registry compliance"
+      ],
       "clinicalPearls": "Contains 75% dextroamphetamine and 25% levoamphetamine. The levo-isomer provides peripheral stimulation which some patients perceive as improved physical motivation, but others find anxiety-provoking.",
       "blackBoxWarning": "Schedule II controlled substance: High potential for abuse and cardiovascular risk."
     },
     {
       "id": "atomoxetine",
       "genericName": "Atomoxetine",
-      "brandNames": ["Strattera"],
+      "brandNames": [
+        "Strattera"
+      ],
       "class": "Selective Norepinephrine Reuptake Inhibitor (Non-Stimulant, Non-Controlled)",
-      "indications": ["ADHD (Adults & Children)"],
+      "indications": [
+        "ADHD (Adults & Children)"
+      ],
       "startingDose": "40 mg once daily (or 20 mg BID)",
       "titration": "Increase after minimum 3-7 days to target 80 mg/day",
       "therapeuticRange": "80 - 100 mg/day",
       "maxCeiling": "100 mg/day",
       "halfLife": "5 hours in extensive metabolizers (up to 24 hrs in CYP2D6 poor metabolizers)",
       "cypMetabolism": "CYP2D6 substrate (dramatic exposure difference based on 2D6 genetics or strong 2D6 inhibitors like fluoxetine/bupropion).",
-      "commonSideEffects": ["Nausea/dyspepsia", "Decreased appetite", "Dry mouth", "Urinary retention", "Erectile dysfunction", "Fatigue"],
-      "monitoring": ["Liver enzymes if jaundice or symptoms appear", "Blood pressure & pulse"],
+      "commonSideEffects": [
+        "Nausea/dyspepsia",
+        "Decreased appetite",
+        "Dry mouth",
+        "Urinary retention",
+        "Erectile dysfunction",
+        "Fatigue"
+      ],
+      "monitoring": [
+        "Liver enzymes if jaundice or symptoms appear",
+        "Blood pressure & pulse"
+      ],
       "clinicalPearls": "Non-controlled alternative for ADHD when stimulants are contraindicated (substance use disorder history, severe anxiety, tic disorder, or cardiac risk). Takes 4-6 weeks for full therapeutic effect (unlike stimulants which work day 1).",
       "blackBoxWarning": "Increased risk of suicidal ideation in children and adolescents."
     },
     {
       "id": "buspirone",
       "genericName": "Buspirone",
-      "brandNames": ["Buspar"],
+      "brandNames": [
+        "Buspar"
+      ],
       "class": "5-HT1A Partial Agonist (Anxiolytic, Non-Controlled)",
-      "indications": ["Generalized Anxiety Disorder"],
+      "indications": [
+        "Generalized Anxiety Disorder"
+      ],
       "startingDose": "7.5 mg twice daily (15 mg/day total)",
       "titration": "Increase by 5 mg/day every 2-3 days as needed",
       "therapeuticRange": "20 - 40 mg/day in divided doses (BID or TID)",
       "maxCeiling": "60 mg/day",
       "halfLife": "2 - 3 hours (requires scheduled BID or TID administration)",
       "cypMetabolism": "Extensively metabolized by CYP3A4. Grapefruit juice significantly increases levels.",
-      "commonSideEffects": ["Dizziness", "Nausea", "Headache", "Nervousness", "Lightheadedness"],
-      "monitoring": ["Clinical response over 2-4 weeks"],
+      "commonSideEffects": [
+        "Dizziness",
+        "Nausea",
+        "Headache",
+        "Nervousness",
+        "Lightheadedness"
+      ],
+      "monitoring": [
+        "Clinical response over 2-4 weeks"
+      ],
       "clinicalPearls": "Non-sedating, non-addictive, non-controlled anxiolytic. Does NOT work PRN like a benzodiazepine; must be taken daily on a scheduled basis. Excellent adjunct to an SSRI for residual anxiety or to mitigate SSRI sexual side effects.",
       "blackBoxWarning": "None."
     },
     {
       "id": "lamotrigine",
       "genericName": "Lamotrigine",
-      "brandNames": ["Lamictal"],
+      "brandNames": [
+        "Lamictal"
+      ],
       "class": "Mood Stabilizer (Anticonvulsant / Sodium Channel Blocker)",
-      "indications": ["Bipolar I Disorder Maintenance (Depression prevention)", "Treatment-Resistant Depression Augmentation (off-label)"],
+      "indications": [
+        "Bipolar I Disorder Maintenance (Depression prevention)",
+        "Treatment-Resistant Depression Augmentation (off-label)"
+      ],
       "startingDose": "25 mg daily for Weeks 1 and 2",
       "titration": "MANDATORY SLOW TITRATION: 50 mg daily for Weeks 3 and 4; 100 mg daily for Week 5; 200 mg daily for Week 6+",
       "therapeuticRange": "100 - 200 mg/day (up to 400 mg for epilepsy)",
       "maxCeiling": "200 - 400 mg/day",
       "halfLife": "25 - 30 hours",
       "cypMetabolism": "Glucuronidation (UGT1A4). Valproate doubles lamotrigine levels (cut dose in half). Carbamazepine/OCPs cut levels in half.",
-      "commonSideEffects": ["Benign rash (10%)", "Dizziness", "Headache", "Diplopia", "Ataxia", "Nausea"],
-      "monitoring": ["Immediate skin inspection for rash, fever, mucosal involvement", "Must re-titrate from 25mg if missed for >5 half-lives (>4-5 days)"],
+      "commonSideEffects": [
+        "Benign rash (10%)",
+        "Dizziness",
+        "Headache",
+        "Diplopia",
+        "Ataxia",
+        "Nausea"
+      ],
+      "monitoring": [
+        "Immediate skin inspection for rash, fever, mucosal involvement",
+        "Must re-titrate from 25mg if missed for >5 half-lives (>4-5 days)"
+      ],
       "clinicalPearls": "The premier mood stabilizer for bipolar depression (unlike lithium which is stronger for mania). Highly weight neutral with no cognitive dulling. Crucial rule: Never titrate fast.",
       "blackBoxWarning": "Serious, life-threatening skin rashes including Stevens-Johnson Syndrome (SJS) and Toxic Epidermal Necrolysis (TEN). Rate of rash is highest with rapid titration."
     },
     {
       "id": "aripiprazole",
       "genericName": "Aripiprazole",
-      "brandNames": ["Abilify"],
+      "brandNames": [
+        "Abilify"
+      ],
       "class": "Second-Generation Antipsychotic (Dopamine D2 Partial Agonist)",
-      "indications": ["Major Depressive Disorder Augmentation", "Bipolar I Mania/Maintenance", "Schizophrenia", "Tourette's Disorder"],
+      "indications": [
+        "Major Depressive Disorder Augmentation",
+        "Bipolar I Mania/Maintenance",
+        "Schizophrenia",
+        "Tourette's Disorder"
+      ],
       "startingDose": "2 - 5 mg once daily (morning preferred to prevent insomnia)",
       "titration": "For MDD augmentation: titrate slowly by 2-5 mg every 1-2 weeks. Target dose for MDD is typically 2-10 mg/day.",
       "therapeuticRange": "MDD Adjunct: 2 - 10 mg/day; Bipolar Mania/Schizophrenia: 15 - 30 mg/day",
       "maxCeiling": "15 mg/day (MDD Adjunct), 30 mg/day (Bipolar/Psychosis)",
       "halfLife": "75 hours (active dehydro-aripiprazole: 94 hours; takes ~2 weeks to reach steady state)",
       "cypMetabolism": "CYP2D6 and CYP3A4 substrate. Reduce dose by 50% if co-administered with strong 2D6 inhibitors (bupropion, fluoxetine) or 3A4 inhibitors.",
-      "commonSideEffects": ["Akathisia (motor restlessness - high frequency!)", "Insomnia", "Nausea", "Headache", "Lightheadedness", "Minimal sedation"],
-      "monitoring": ["AIMS exam baseline and every 6-12 months", "Fasting blood glucose/HbA1c and lipid panel baseline, 3 months, then annually", "Weight/BMI"],
+      "commonSideEffects": [
+        "Akathisia (motor restlessness - high frequency!)",
+        "Insomnia",
+        "Nausea",
+        "Headache",
+        "Lightheadedness",
+        "Minimal sedation"
+      ],
+      "monitoring": [
+        "AIMS exam baseline and every 6-12 months",
+        "Fasting blood glucose/HbA1c and lipid panel baseline, 3 months, then annually",
+        "Weight/BMI"
+      ],
       "clinicalPearls": "D2 partial agonist ('dopamine stabilizer'): boosts dopamine in hypo-dopaminergic pathways (prefrontal cortex) while blocking in hyper-dopaminergic pathways. Very low metabolic/weight gain risk compared to Olanzapine/Quetiapine, and zero prolactin elevation. Watch closely for akathisia—patients often mistake physical inner restlessness for worsening anxiety; treat with propranolol if needed.",
       "blackBoxWarning": "Increased mortality in elderly patients with dementia-related psychosis. Increased risk of suicidal thoughts and behaviors in patients <25 years."
     },
     {
       "id": "quetiapine",
       "genericName": "Quetiapine / Quetiapine XR",
-      "brandNames": ["Seroquel", "Seroquel XR"],
+      "brandNames": [
+        "Seroquel",
+        "Seroquel XR"
+      ],
       "class": "Second-Generation Antipsychotic (Serotonin-Dopamine Antagonist)",
-      "indications": ["Bipolar Depression (Monotherapy)", "Bipolar Mania", "MDD Augmentation (XR formulation)", "Schizophrenia"],
+      "indications": [
+        "Bipolar Depression (Monotherapy)",
+        "Bipolar Mania",
+        "MDD Augmentation (XR formulation)",
+        "Schizophrenia"
+      ],
       "startingDose": "Bipolar Depression: 50 mg at bedtime (Day 1), 100 mg (Day 2), 200 mg (Day 3), 300 mg (Day 4); MDD Adjunct XR: 50 mg at bedtime",
       "titration": "MDD Adjunct: Increase to 150-300 mg at bedtime over 1-2 weeks; Bipolar Depression target: 300 mg at bedtime",
       "therapeuticRange": "MDD Adjunct: 150 - 300 mg/day; Bipolar Depression: 300 mg/day; Mania/Psychosis: 400 - 800 mg/day",
       "maxCeiling": "300 mg/day (MDD Adjunct), 800 mg/day (Bipolar Mania / Psychosis)",
       "halfLife": "Quetiapine: 6 hours; Active metabolite Norquetiapine: 12 hours",
       "cypMetabolism": "CYP3A4 primary substrate. Co-administration with strong 3A4 inhibitors (ketoconazole, ritonavir) requires 1/6th dose reduction.",
-      "commonSideEffects": ["Prominent sedation/somnolence", "Weight gain", "Increased appetite", "Orthostatic hypotension", "Dry mouth", "Constipation"],
-      "monitoring": ["Fasting blood glucose/HbA1c & fasting lipid panel baseline, 3 mos, then annually", "Blood pressure (orthostatics)", "Annual AIMS exam", "Periodic eye exam (historical cataract caution)"],
+      "commonSideEffects": [
+        "Prominent sedation/somnolence",
+        "Weight gain",
+        "Increased appetite",
+        "Orthostatic hypotension",
+        "Dry mouth",
+        "Constipation"
+      ],
+      "monitoring": [
+        "Fasting blood glucose/HbA1c & fasting lipid panel baseline, 3 mos, then annually",
+        "Blood pressure (orthostatics)",
+        "Annual AIMS exam",
+        "Periodic eye exam (historical cataract caution)"
+      ],
       "clinicalPearls": "Dose-dependent receptor pharmacology: At 50mg, primarily H1 antihistamine (pure sedation/sleep); at 150-300mg, active norquetiapine NET inhibition + 5HT2A antagonism produces antidepressant effect; at 400-800mg, D2 receptor occupancy reaches 65%+ producing antipsychotic/antimanic effects. One of only four FDA-approved monotherapies for bipolar depression.",
       "blackBoxWarning": "Increased mortality in elderly patients with dementia-related psychosis. Suicidal ideation warning in patients <25 years."
     },
     {
       "id": "lurasidone",
       "genericName": "Lurasidone",
-      "brandNames": ["Latuda"],
+      "brandNames": [
+        "Latuda"
+      ],
       "class": "Second-Generation Antipsychotic",
-      "indications": ["Bipolar I Depression (Monotherapy or Adjunct to Lithium/Valproate)", "Schizophrenia"],
+      "indications": [
+        "Bipolar I Depression (Monotherapy or Adjunct to Lithium/Valproate)",
+        "Schizophrenia"
+      ],
       "startingDose": "20 - 40 mg once daily with an evening meal",
       "titration": "Increase by 20 - 40 mg after 1-2 weeks based on clinical response",
       "therapeuticRange": "Bipolar Depression: 20 - 60 mg/day (doses >60mg rarely add efficacy for bipolar depression); Schizophrenia: 40 - 120 mg/day",
       "maxCeiling": "120 mg/day (Bipolar Depression max 120mg, though 20-60mg is standard target)",
       "halfLife": "18 hours",
       "cypMetabolism": "CYP3A4 primary substrate. Absolute contraindication with strong CYP3A4 inhibitors (clarithromycin, ketoconazole) or inducers (carbamazepine, St. John's wort).",
-      "commonSideEffects": ["Nausea", "Somnolence", "Akathisia", "Parkinsonism/tremor", "Minimal weight gain"],
-      "monitoring": ["Annual AIMS exam", "Baseline and annual metabolic labs (fasting glucose, lipids)", "Weight/BMI"],
+      "commonSideEffects": [
+        "Nausea",
+        "Somnolence",
+        "Akathisia",
+        "Parkinsonism/tremor",
+        "Minimal weight gain"
+      ],
+      "monitoring": [
+        "Annual AIMS exam",
+        "Baseline and annual metabolic labs (fasting glucose, lipids)",
+        "Weight/BMI"
+      ],
       "clinicalPearls": "MANDATORY FOOD RULE: Must be taken with a substantial meal containing at least 350 calories (preferably healthy fats) to ensure adequate bioavailability; taking without food cuts absorption by 50%! Highly favorable metabolic and cardiac profile (near zero weight gain, no QTc prolongation). Category B in pregnancy historical registry.",
       "blackBoxWarning": "Increased mortality in elderly patients with dementia-related psychosis. Suicidality warning in young adults <25."
     },
     {
       "id": "trazodone",
       "genericName": "Trazodone",
-      "brandNames": ["Desyrel"],
+      "brandNames": [
+        "Desyrel"
+      ],
       "class": "Serotonin Antagonist and Reuptake Inhibitor (SARI / Hypnotic)",
-      "indications": ["Insomnia secondary to Depression/Anxiety (Off-label First-Line)", "Major Depressive Disorder"],
+      "indications": [
+        "Insomnia secondary to Depression/Anxiety (Off-label First-Line)",
+        "Major Depressive Disorder"
+      ],
       "startingDose": "Insomnia: 25 - 50 mg at bedtime; MDD: 150 mg/day in divided doses",
       "titration": "Insomnia: Increase to 50 - 100 mg (up to 150 mg) at bedtime after 3-5 days as needed",
       "therapeuticRange": "Insomnia: 25 - 100 mg at bedtime; Antidepressant: 150 - 400 mg/day (rarely used for MDD due to excessive daytime somnolence)",
       "maxCeiling": "150 - 200 mg at bedtime for insomnia; 400 mg/day outpatient for depression",
       "halfLife": "5 - 9 hours",
       "cypMetabolism": "CYP3A4 primary substrate to active metabolite mCPP.",
-      "commonSideEffects": ["Sedation/grogginess ('trazodone hangover')", "Orthostatic hypotension", "Dry mouth", "Dizziness", "Priapism (rare 1 in 6,000, medical emergency)"],
-      "monitoring": ["Advise male patients regarding emergency ER protocol for sustained painful erection (>4 hrs)", "Blood pressure (orthostatics)", "Additive QTc prolongation"],
+      "commonSideEffects": [
+        "Sedation/grogginess ('trazodone hangover')",
+        "Orthostatic hypotension",
+        "Dry mouth",
+        "Dizziness",
+        "Priapism (rare 1 in 6,000, medical emergency)"
+      ],
+      "monitoring": [
+        "Advise male patients regarding emergency ER protocol for sustained painful erection (>4 hrs)",
+        "Blood pressure (orthostatics)",
+        "Additive QTc prolongation"
+      ],
       "clinicalPearls": "Non-controlled, non-habit-forming sleep architecture stabilizer. Does NOT alter normal REM/slow-wave sleep architecture unlike benzodiazepines or Z-drugs (Ambien). Doses of 25-50mg saturate 5-HT2A, H1, and alpha-1 receptors, causing sleep induction without stimulating 5-HT reuptake.",
       "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
     },
     {
       "id": "hydroxyzine",
       "genericName": "Hydroxyzine Pamoate / HCl",
-      "brandNames": ["Vistaril", "Atarax"],
+      "brandNames": [
+        "Vistaril",
+        "Atarax"
+      ],
       "class": "First-Generation H1 Antihistamine / Non-Controlled Anxiolytic",
-      "indications": ["Generalized Anxiety & Acute Situational Agitation", "Pruritus / Urticaria", "Preoperative Sedation"],
+      "indications": [
+        "Generalized Anxiety & Acute Situational Agitation",
+        "Pruritus / Urticaria",
+        "Preoperative Sedation"
+      ],
       "startingDose": "25 - 50 mg PO PRN every 6-8 hours as needed for acute anxiety or panic symptoms",
       "titration": "Titrate by 25 mg increments based on tolerability and daytime sedation",
       "therapeuticRange": "25 - 50 mg PO BID-TID PRN (or 50-100 mg at bedtime for acute insomnia)",
       "maxCeiling": "100 mg/day (max 50 mg/day in elderly or hepatic impairment)",
       "halfLife": "14 - 20 hours (prolonged in elderly)",
       "cypMetabolism": "CYP2D6, CYP3A4/5, alcohol dehydrogenase. Active metabolite is cetirizine (Zyrtec).",
-      "commonSideEffects": ["Drowsiness/sedation", "Dry mouth", "Anticholinergic symptoms (blurred vision, urinary retention)", "Headache"],
-      "monitoring": ["Cardiac QTc prolongation warning: Avoid combining with other QTc-prolonging drugs (citalopram, ondansetron)", "Fall risk in elderly"],
+      "commonSideEffects": [
+        "Drowsiness/sedation",
+        "Dry mouth",
+        "Anticholinergic symptoms (blurred vision, urinary retention)",
+        "Headache"
+      ],
+      "monitoring": [
+        "Cardiac QTc prolongation warning: Avoid combining with other QTc-prolonging drugs (citalopram, ondansetron)",
+        "Fall risk in elderly"
+      ],
       "clinicalPearls": "Premier non-controlled, non-scheduled alternative to benzodiazepines (Xanax/Ativan) for acute panic surges and somatic anxiety. Onset of action is 15-30 minutes. Hydroxyzine pamoate (Vistaril) is more lipophilic and preferred for anxiety over hydroxyzine hydrochloride (Atarax).",
       "blackBoxWarning": "None."
     },
     {
       "id": "guanfacine-er",
       "genericName": "Guanfacine ER",
-      "brandNames": ["Intuniv"],
+      "brandNames": [
+        "Intuniv"
+      ],
       "class": "Selective Alpha-2A Adrenergic Receptor Agonist (Non-Stimulant, Non-Controlled)",
-      "indications": ["ADHD (Monotherapy or Adjunct to Stimulants)", "PTSD Hyperarousal & Rejection Sensitivity Dysphoria (Off-label)"],
+      "indications": [
+        "ADHD (Monotherapy or Adjunct to Stimulants)",
+        "PTSD Hyperarousal & Rejection Sensitivity Dysphoria (Off-label)"
+      ],
       "startingDose": "1 mg once daily in the evening or morning",
       "titration": "Increase by 1 mg weekly based on response and tolerability",
       "therapeuticRange": "1 - 4 mg once daily",
       "maxCeiling": "4 mg/day (rarely 7mg based on weight in adolescent guidelines)",
       "halfLife": "17 hours",
       "cypMetabolism": "CYP3A4/5 substrate.",
-      "commonSideEffects": ["Somnolence/sedation", "Fatigue", "Hypotension", "Bradycardia", "Dizziness", "Dry mouth"],
-      "monitoring": ["Blood pressure and heart rate baseline, dose changes, and periodically", "NEVER discontinue abruptly: rebound hypertension risk"],
+      "commonSideEffects": [
+        "Somnolence/sedation",
+        "Fatigue",
+        "Hypotension",
+        "Bradycardia",
+        "Dizziness",
+        "Dry mouth"
+      ],
+      "monitoring": [
+        "Blood pressure and heart rate baseline, dose changes, and periodically",
+        "NEVER discontinue abruptly: rebound hypertension risk"
+      ],
       "clinicalPearls": "15-20 times more selective for alpha-2A receptors than clonidine, causing significantly less sedation and hypotension. Enhances prefrontal cortical connectivity and working memory. Outstanding adjunct to smooth out stimulant irritability or treat comorbid emotional dysregulation/rejection sensitive dysphoria.",
       "blackBoxWarning": "None."
     },
     {
       "id": "propranolol",
       "genericName": "Propranolol",
-      "brandNames": ["Inderal"],
+      "brandNames": [
+        "Inderal"
+      ],
       "class": "Non-Selective Beta-Adrenergic Blocker",
-      "indications": ["Performance Anxiety (Social Anxiety Disorder, PRN)", "Antipsychotic-Induced Akathisia (First-Line)", "Lithium-Induced Tremor", "Migraine Prophylaxis"],
+      "indications": [
+        "Performance Anxiety (Social Anxiety Disorder, PRN)",
+        "Antipsychotic-Induced Akathisia (First-Line)",
+        "Lithium-Induced Tremor",
+        "Migraine Prophylaxis"
+      ],
       "startingDose": "Performance Anxiety: 10 - 20 mg PO 30-60 minutes prior to anxiety trigger; Akathisia: 10 - 20 mg BID-TID",
       "titration": "Increase by 10-20 mg as tolerated, up to 40-80 mg/day for akathisia",
       "therapeuticRange": "10 - 40 mg PRN for performance anxiety; 30 - 80 mg/day divided for akathisia",
       "maxCeiling": "80 mg/day (for psychiatric indications; higher for cardiology)",
       "halfLife": "3 - 6 hours (immediate release)",
       "cypMetabolism": "Extensively metabolized by CYP2D6, CYP1A2, and CYP2C19.",
-      "commonSideEffects": ["Bradycardia", "Hypotension", "Fatigue/dizziness", "Bronchospasm in asthmatics", "Cold extremities", "Depression (rare)"],
-      "monitoring": ["Resting heart rate (hold if HR < 55-60 bpm) and blood pressure", "Absolute contraindication: Asthma, severe COPD, or 2nd/3rd degree heart block"],
+      "commonSideEffects": [
+        "Bradycardia",
+        "Hypotension",
+        "Fatigue/dizziness",
+        "Bronchospasm in asthmatics",
+        "Cold extremities",
+        "Depression (rare)"
+      ],
+      "monitoring": [
+        "Resting heart rate (hold if HR < 55-60 bpm) and blood pressure",
+        "Absolute contraindication: Asthma, severe COPD, or 2nd/3rd degree heart block"
+      ],
       "clinicalPearls": "Lipophilic beta-blocker that readily crosses the blood-brain barrier. Highly effective for somatic symptoms of anxiety (racing heart, sweaty palms, hand tremor, voice quivering) without cognitive dulling or abuse liability. Gold standard first-line antidote for antipsychotic-induced akathisia.",
       "blackBoxWarning": "Avoid abrupt cessation in patients with coronary artery disease due to risk of rebound angina or myocardial infarction."
     },
     {
       "id": "lithium",
       "genericName": "Lithium Carbonate",
-      "brandNames": ["Eskalith", "Lithobid"],
+      "brandNames": [
+        "Eskalith",
+        "Lithobid"
+      ],
       "class": "Mood Stabilizer (Monovalent Cation)",
-      "indications": ["Bipolar I Disorder Mania & Maintenance", "Major Depressive Disorder Augmentation (Suicide Reduction)"],
+      "indications": [
+        "Bipolar I Disorder Mania & Maintenance",
+        "Major Depressive Disorder Augmentation (Suicide Reduction)"
+      ],
       "startingDose": "300 mg BID or 600 mg once daily at bedtime (ER formulation)",
       "titration": "Titrate by 300 mg every 5-7 days guided by 12-hour trough serum lithium levels",
       "therapeuticRange": "Acute Mania: 0.8 - 1.2 mEq/L; Maintenance: 0.6 - 0.8 mEq/L; MDD Augmentation: 0.4 - 0.6 mEq/L",
       "maxCeiling": "Do not exceed serum level of 1.2 mEq/L (toxicity emerges at >1.5 mEq/L; lethal >2.0-2.5 mEq/L)",
       "halfLife": "18 - 24 hours (prolonged to >36 hours in elderly or renal impairment)",
       "cypMetabolism": "NOT metabolized by CYP450 enzymes; 100% eliminated unchanged by the kidneys.",
-      "commonSideEffects": ["Polyuria / polydipsia", "Fine hand tremor", "Nausea", "Weight gain", "Sedation", "Hypothyroidism", "Leukocytosis (benign)"],
-      "monitoring": ["Serum lithium level (drawn exactly 12 hours post-dose as a true trough)", "Baseline & every 6-12 mos: BUN, Serum Creatinine, eGFR, TSH/Free T4, urinalysis, electrolytes, and pregnancy test"],
+      "commonSideEffects": [
+        "Polyuria / polydipsia",
+        "Fine hand tremor",
+        "Nausea",
+        "Weight gain",
+        "Sedation",
+        "Hypothyroidism",
+        "Leukocytosis (benign)"
+      ],
+      "monitoring": [
+        "Serum lithium level (drawn exactly 12 hours post-dose as a true trough)",
+        "Baseline & every 6-12 mos: BUN, Serum Creatinine, eGFR, TSH/Free T4, urinalysis, electrolytes, and pregnancy test"
+      ],
       "clinicalPearls": "The gold-standard mood stabilizer with robust, proven antisuicidal properties in bipolar disorder and depression. Critical drug interaction rule: NSAIDs (ibuprofen/naproxen), ACE inhibitors/ARBs, and thiazide diuretics dramatically decrease lithium clearance and trigger acute toxicity!",
       "blackBoxWarning": "Lithium toxicity is closely related to serum lithium levels and can occur at doses close to therapeutic levels. Facilities for prompt serum lithium determinations must be available."
     },
     {
       "id": "divalproex",
       "genericName": "Divalproex Sodium / Valproic Acid",
-      "brandNames": ["Depakote", "Depakote ER"],
+      "brandNames": [
+        "Depakote",
+        "Depakote ER"
+      ],
       "class": "Mood Stabilizer (Anticonvulsant / GABA Ergics)",
-      "indications": ["Bipolar I Disorder Acute Mania & Mixed Episodes", "Migraine Prophylaxis"],
+      "indications": [
+        "Bipolar I Disorder Acute Mania & Mixed Episodes",
+        "Migraine Prophylaxis"
+      ],
       "startingDose": "Mania: 25 mg/kg/day loading dose or 500 - 750 mg daily in divided doses",
       "titration": "Increase by 250 - 500 mg every 2-3 days guided by clinical tolerability and 12-hr trough levels",
       "therapeuticRange": "50 - 125 mcg/mL (serum trough level)",
       "maxCeiling": "60 mg/kg/day or serum level of 125 mcg/mL",
       "halfLife": "9 - 16 hours",
       "cypMetabolism": "Hepatic metabolism via glucuronidation and mitochondrial beta-oxidation. Potent inhibitor of UGT1A4: DOUBLES lamotrigine serum levels!",
-      "commonSideEffects": ["Weight gain", "Alopecia (hair thinning)", "GI distress / nausea", "Sedation", "Tremor", "Thrombocytopenia"],
-      "monitoring": ["Liver function tests (ALT/AST)", "Complete blood count with differential (platelets)", "Serum valproic acid trough level", "Pregnancy test (teratogenic: neural tube defects!)"],
+      "commonSideEffects": [
+        "Weight gain",
+        "Alopecia (hair thinning)",
+        "GI distress / nausea",
+        "Sedation",
+        "Tremor",
+        "Thrombocytopenia"
+      ],
+      "monitoring": [
+        "Liver function tests (ALT/AST)",
+        "Complete blood count with differential (platelets)",
+        "Serum valproic acid trough level",
+        "Pregnancy test (teratogenic: neural tube defects!)"
+      ],
       "clinicalPearls": "Highly effective for rapid cycling, mixed manic episodes, and comorbid substance use disorders (often superior to lithium in mixed states). Absolute teratogen (causes spina bifida and decreases child IQ by 10 points)—avoid in women of childbearing potential whenever possible.",
       "blackBoxWarning": "Hepatic failure resulting in fatalities has occurred, especially in patients with mitochondrial disorders. Severe teratogenicity (neural tube defects). Life-threatening pancreatitis."
+    },
+    {
+      "id": "citalopram",
+      "genericName": "Citalopram",
+      "brandNames": [
+        "Celexa"
+      ],
+      "class": "SSRI",
+      "indications": [
+        "Major Depressive Disorder"
+      ],
+      "startingDose": "20 mg once daily (10 mg in elderly or CYP2C19 poor metabolizers)",
+      "titration": "Increase to 40 mg daily after at least 1-2 weeks",
+      "therapeuticRange": "20 - 40 mg/day",
+      "maxCeiling": "40 mg/day (strictly capped at 20 mg/day in patients >60 years old due to QTc risk)",
+      "halfLife": "35 hours",
+      "cypMetabolism": "CYP2C19 (primary), CYP3A4, CYP2D6 substrate.",
+      "commonSideEffects": [
+        "Nausea",
+        "Somnolence",
+        "Insomnia",
+        "Dry mouth",
+        "Sweating",
+        "Sexual dysfunction"
+      ],
+      "monitoring": [
+        "Baseline and interval ECG in patients with cardiac disease or co-prescribed QTc agents",
+        "Serum electrolytes (K+, Mg2+)"
+      ],
+      "clinicalPearls": "Racemic precursor of escitalopram. FDA drug safety communication explicitly caps dose at 20mg in elderly due to dose-dependent QTc prolongation and risk of Torsades de Pointes. Escitalopram is generally preferred due to higher receptor selectivity and lower cardiac liability.",
+      "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
+    },
+    {
+      "id": "paroxetine",
+      "genericName": "Paroxetine / Paroxetine CR",
+      "brandNames": [
+        "Paxil",
+        "Paxil CR"
+      ],
+      "class": "SSRI",
+      "indications": [
+        "Major Depressive Disorder",
+        "Panic Disorder",
+        "Social Anxiety",
+        "GAD",
+        "PTSD",
+        "OCD"
+      ],
+      "startingDose": "20 mg once daily in morning (or 10 mg for panic disorder or elderly); CR: 25 mg daily",
+      "titration": "Increase by 10 mg/day at weekly intervals as tolerated (CR: 12.5 mg increments)",
+      "therapeuticRange": "20 - 50 mg/day (CR: 25 - 62.5 mg/day)",
+      "maxCeiling": "60 mg/day (CR: 75 mg/day)",
+      "halfLife": "21 hours (short half-life + no active metabolites = severe discontinuation risk)",
+      "cypMetabolism": "Potent mechanism-based inhibitor of CYP2D6 (doubles or triples levels of 2D6 substrates). Substrate of CYP2D6.",
+      "commonSideEffects": [
+        "Prominent sedation",
+        "Weight gain",
+        "Anticholinergic symptoms (dry mouth, constipation, urinary hesitancy)",
+        "Sexual dysfunction (highest among SSRIs)"
+      ],
+      "monitoring": [
+        "Weight tracking",
+        "Discontinuation symptoms",
+        "Pregnancy test (avoid: Category D cardiac malformations/VSD)"
+      ],
+      "clinicalPearls": "Most sedating and anticholinergic SSRI (affinity for muscarinic M1 receptors). High risk of electric shock sensations (brain zaps), severe dizziness, and rebound crying if missed for even 24-48 hours. Excellent for severe anxiety with insomnia, but requires diligent tapering.",
+      "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
+    },
+    {
+      "id": "fluvoxamine",
+      "genericName": "Fluvoxamine / Fluvoxamine CR",
+      "brandNames": [
+        "Luvox",
+        "Luvox CR"
+      ],
+      "class": "SSRI",
+      "indications": [
+        "Obsessive-Compulsive Disorder (OCD)",
+        "Social Anxiety Disorder (CR)"
+      ],
+      "startingDose": "50 mg once daily at bedtime (CR: 100 mg at bedtime)",
+      "titration": "Increase by 50 mg every 4-7 days; divide doses >100 mg with larger portion at bedtime",
+      "therapeuticRange": "100 - 300 mg/day",
+      "maxCeiling": "300 mg/day",
+      "halfLife": "15 - 19 hours",
+      "cypMetabolism": "Potent inhibitor of CYP1A2 and CYP2C19; moderate inhibitor of CYP2C9, CYP2D6, CYP3A4.",
+      "commonSideEffects": [
+        "Nausea/vomiting",
+        "Somnolence",
+        "Asthenia/fatigue",
+        "Insomnia",
+        "Nervousness",
+        "Sexual dysfunction"
+      ],
+      "monitoring": [
+        "Drug interactions: Absolute contraindication with ramelteon, tizanidine, theophylline, and alosetron due to massive 1A2 inhibition"
+      ],
+      "clinicalPearls": "First-line FDA approved for OCD. Potent sigma-1 receptor agonist activity confers unique anti-inflammatory and neuroprotective properties. Massive CYP1A2 inhibition can raise caffeine, clozapine, and olanzapine levels dramatically—warn patients to curtail coffee intake.",
+      "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
+    },
+    {
+      "id": "desvenlafaxine",
+      "genericName": "Desvenlafaxine",
+      "brandNames": [
+        "Pristiq"
+      ],
+      "class": "SNRI",
+      "indications": [
+        "Major Depressive Disorder"
+      ],
+      "startingDose": "50 mg once daily with or without food",
+      "titration": "50 mg/day is the target therapeutic dose. Doses up to 100 mg may be considered, though clinical trials show little added efficacy with increased side effects.",
+      "therapeuticRange": "50 mg/day (up to 100 mg/day)",
+      "maxCeiling": "100 mg/day (renal adjustment: max 50mg every other day if eGFR <30)",
+      "halfLife": "11 hours",
+      "cypMetabolism": "Metabolized via conjugation (glucuronidation) and minimally by CYP3A4. NOT dependent on CYP2D6.",
+      "commonSideEffects": [
+        "Nausea",
+        "Dizziness",
+        "Insomnia",
+        "Hyperhidrosis",
+        "Constipation",
+        "Modest BP elevation"
+      ],
+      "monitoring": [
+        "Blood pressure at each visit",
+        "Lipid panel periodically (can cause mild elevations)"
+      ],
+      "clinicalPearls": "The major active metabolite of venlafaxine (O-desmethylvenlafaxine). Because it bypasses CYP2D6 genetic metabolism, it delivers highly predictable serum concentrations regardless of whether the patient is a CYP2D6 poor or rapid metabolizer. Simpler dosing than venlafaxine.",
+      "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
+    },
+    {
+      "id": "vortioxetine",
+      "genericName": "Vortioxetine",
+      "brandNames": [
+        "Trintellix"
+      ],
+      "class": "Multi-Modal Serotonergic Antidepressant",
+      "indications": [
+        "Major Depressive Disorder"
+      ],
+      "startingDose": "10 mg once daily (5 mg in sensitive patients or poor metabolizers)",
+      "titration": "Increase to 20 mg once daily after at least 1 week based on tolerability",
+      "therapeuticRange": "10 - 20 mg/day",
+      "maxCeiling": "20 mg/day (10 mg/day if co-administered with strong CYP2D6 inhibitors like bupropion)",
+      "halfLife": "66 hours",
+      "cypMetabolism": "Extensively metabolized by CYP2D6 (primary) and CYP3A4/2C9.",
+      "commonSideEffects": [
+        "Nausea (very common, transient)",
+        "Constipation",
+        "Vomiting",
+        "Pruritus",
+        "Very low sexual dysfunction"
+      ],
+      "monitoring": [
+        "Clinical response",
+        "Nausea management (take with largest evening meal)"
+      ],
+      "clinicalPearls": "Multi-modal mechanism: SERT inhibitor + 5-HT3, 5-HT1D, 5-HT7 antagonist + 5-HT1A agonist + 5-HT1B partial agonist. Demonstrated unique pro-cognitive efficacy in MDD (improves processing speed and executive function). Near zero weight gain and low sexual side effect profile. Common prior authorization target.",
+      "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
+    },
+    {
+      "id": "vilazodone",
+      "genericName": "Vilazodone",
+      "brandNames": [
+        "Viibryd"
+      ],
+      "class": "SPARI (Serotonin Partial Agonist and Reuptake Inhibitor)",
+      "indications": [
+        "Major Depressive Disorder"
+      ],
+      "startingDose": "10 mg once daily with food for 7 days",
+      "titration": "Increase to 20 mg daily for 7 days, then to target 40 mg once daily with food",
+      "therapeuticRange": "20 - 40 mg/day",
+      "maxCeiling": "40 mg/day (20 mg/day if combined with strong CYP3A4 inhibitors)",
+      "halfLife": "25 hours",
+      "cypMetabolism": "Primarily metabolized by CYP3A4, minor 2C19 and 2D6.",
+      "commonSideEffects": [
+        "Diarrhea (frequent early on)",
+        "Nausea",
+        "Dizziness",
+        "Insomnia",
+        "Low sexual side effects"
+      ],
+      "monitoring": [
+        "Gastrointestinal tolerance",
+        "Must counsel on food requirement"
+      ],
+      "clinicalPearls": "MANDATORY FOOD REQUIREMENT: Must be taken with a substantial meal; absorption is reduced by ~50% in the fasted state. Combines SSRI inhibition with 5-HT1A partial agonism (built-in buspirone-like effect). Low propensity for weight gain or treatment-emergent sexual dysfunction.",
+      "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years."
+    },
+    {
+      "id": "dextromethorphan-bupropion",
+      "genericName": "Dextromethorphan-Bupropion",
+      "brandNames": [
+        "Auvelity"
+      ],
+      "class": "NMDA Receptor Antagonist / NDRI",
+      "indications": [
+        "Major Depressive Disorder in Adults"
+      ],
+      "startingDose": "1 tablet (45 mg dextromethorphan / 105 mg bupropion) once daily in morning for 3 days",
+      "titration": "Increase on Day 4 to maximum 1 tablet twice daily (at least 8 hours apart)",
+      "therapeuticRange": "1 tablet BID (total 90 mg DXM / 210 mg bupropion daily)",
+      "maxCeiling": "2 tablets/day (separated by ≥8 hours); max 1 tablet daily in moderate renal impairment",
+      "halfLife": "Dextromethorphan: ~22 hours (prolonged by bupropion); Bupropion: ~15 hours",
+      "cypMetabolism": "Bupropion is a strong CYP2D6 inhibitor which blocks the rapid breakdown of dextromethorphan into dextrorphan, allowing DXM to reach high therapeutic brain levels.",
+      "commonSideEffects": [
+        "Dizziness",
+        "Headache",
+        "Diarrhea",
+        "Somnolence",
+        "Dry mouth",
+        "Sexual dysfunction (low)"
+      ],
+      "monitoring": [
+        "Blood pressure & heart rate",
+        "Seizure contraindications (eating disorder, seizure history)"
+      ],
+      "clinicalPearls": "First oral rapid-acting NMDA receptor antagonist for depression. Significant depressive symptom reduction observed within 1 week of initiation in clinical trials. Bupropion acts primarily as a pharmacokinetic enhancer to sustain dextromethorphan levels. Frequent prior authorization requirement.",
+      "blackBoxWarning": "Increased risk of suicidal thoughts and behaviors in patients <25 years. Contraindicated in seizure disorders and bulimia/anorexia."
+    },
+    {
+      "id": "cariprazine",
+      "genericName": "Cariprazine",
+      "brandNames": [
+        "Vraylar"
+      ],
+      "class": "Second-Generation Antipsychotic",
+      "indications": [
+        "Bipolar I Depression",
+        "Bipolar I Mania/Mixed",
+        "Major Depressive Disorder Augmentation",
+        "Schizophrenia"
+      ],
+      "startingDose": "Bipolar Depression: 1.5 mg once daily; MDD Adjunct: 1.5 mg once daily",
+      "titration": "For Bipolar Depression: May increase to 3 mg daily after 14 days if needed; MDD Adjunct: 1.5 mg daily (max 3 mg/day)",
+      "therapeuticRange": "Bipolar Depression: 1.5 - 3 mg/day; MDD Adjunct: 1.5 mg/day; Bipolar Mania: 3 - 6 mg/day",
+      "maxCeiling": "3 mg/day for Bipolar Depression; 6 mg/day for Mania/Schizophrenia",
+      "halfLife": "Cariprazine: 2-4 days; Active metabolite DDCAR: 1-3 WEEKS (ultra-long half-life!)",
+      "cypMetabolism": "CYP3A4 (primary) and CYP2D6 substrate.",
+      "commonSideEffects": [
+        "Akathisia (high incidence)",
+        "Extrapyramidal symptoms",
+        "Insomnia",
+        "Nausea",
+        "Restlessness",
+        "Low metabolic risk"
+      ],
+      "monitoring": [
+        "AIMS exam for involuntary movements",
+        "Metabolic panel (fasting lipids/A1c baseline and annually)"
+      ],
+      "clinicalPearls": "Unique pharmacology: Highest affinity for Dopamine D3 receptors over D2, conferring potent pro-cognitive, motivational, and anti-anhedonic properties. Ultra-long metabolite half-life (up to 3 weeks) means adverse effects or dosage adjustments take weeks to fully manifest. Excellent for bipolar depression with apathy.",
+      "blackBoxWarning": "Increased mortality in elderly patients with dementia-related psychosis. Suicidality warning in young adults <25."
+    },
+    {
+      "id": "brexpiprazole",
+      "genericName": "Brexpiprazole",
+      "brandNames": [
+        "Rexulti"
+      ],
+      "class": "Second-Generation Antipsychotic",
+      "indications": [
+        "Major Depressive Disorder Adjunct",
+        "Schizophrenia",
+        "Agitation Associated with Dementia due to Alzheimer’s"
+      ],
+      "startingDose": "0.5 mg - 1 mg once daily",
+      "titration": "Increase weekly to 1 mg, then target 2 mg once daily (MDD adjunct)",
+      "therapeuticRange": "MDD Adjunct: 1 - 2 mg/day (max 3 mg/day); Schizophrenia: 2 - 4 mg/day",
+      "maxCeiling": "3 mg/day (MDD Adjunct), 4 mg/day (Schizophrenia)",
+      "halfLife": "91 hours",
+      "cypMetabolism": "CYP3A4 and CYP2D6 substrate. Reduce dose by 50% with strong 2D6 or 3A4 inhibitors.",
+      "commonSideEffects": [
+        "Weight gain (moderate)",
+        "Akathisia (significantly lower than aripiprazole)",
+        "Somnolence",
+        "Headache"
+      ],
+      "monitoring": [
+        "AIMS exam baseline and periodically",
+        "Weight and metabolic parameters (fasting glucose/lipids)"
+      ],
+      "clinicalPearls": "Designed as a successor to aripiprazole with lower intrinsic D2 activity and higher 5-HT1A agonism and 5-HT2A antagonism. Produces substantially lower rates of akathisia and motor restlessness than Abilify, though carries slightly higher weight gain liability.",
+      "blackBoxWarning": "Increased mortality in elderly patients with dementia-related psychosis. Suicidality warning in young adults <25."
+    },
+    {
+      "id": "lumateperone",
+      "genericName": "Lumateperone",
+      "brandNames": [
+        "Caplyta"
+      ],
+      "class": "Second-Generation Antipsychotic",
+      "indications": [
+        "Bipolar I and Bipolar II Depression (Monotherapy & Adjunct to Lithium/Valproate)",
+        "Schizophrenia"
+      ],
+      "startingDose": "42 mg once daily with food in the evening",
+      "titration": "Fixed single-dose regimen (42 mg/day); no titration required for most patients",
+      "therapeuticRange": "42 mg once daily",
+      "maxCeiling": "42 mg/day (reduce to 10.5-21 mg with moderate/strong CYP3A4 inhibitors)",
+      "halfLife": "18 hours",
+      "cypMetabolism": "Metabolized by CYP3A4, CYP2C8, and glucuronidation (UGT).",
+      "commonSideEffects": [
+        "Somnolence/sedation",
+        "Dizziness",
+        "Nausea",
+        "Dry mouth",
+        "Near zero motor/EPS side effects"
+      ],
+      "monitoring": [
+        "Metabolic labs baseline and periodically (exceptionally clean metabolic profile)",
+        "AIMS exam"
+      ],
+      "clinicalPearls": "Simultaneous 60-fold higher affinity for 5-HT2A over D2, plus SERT inhibition and D1/glutamatergic phosphorylation. Uniquely FDA-approved for BOTH Bipolar I and Bipolar II depression. Extremely clean metabolic, motor, and cardiac profile (weight neutral, prolactin neutral, no QTc prolongation). No dose titration needed.",
+      "blackBoxWarning": "Increased mortality in elderly patients with dementia-related psychosis. Suicidality warning in young adults <25."
+    },
+    {
+      "id": "olanzapine",
+      "genericName": "Olanzapine",
+      "brandNames": [
+        "Zyprexa"
+      ],
+      "class": "Second-Generation Antipsychotic",
+      "indications": [
+        "Bipolar I Disorder Mania/Mixed & Maintenance",
+        "Bipolar Depression (with Fluoxetine: Symbyax)",
+        "Schizophrenia",
+        "Treatment-Resistant Depression Adjunct"
+      ],
+      "startingDose": "5 - 10 mg once daily at bedtime (2.5 - 5 mg in sensitive patients or MDD adjunct)",
+      "titration": "Increase by 5 mg every 1-2 weeks; acute mania can titrate faster (Day 1: 10-15mg)",
+      "therapeuticRange": "5 - 20 mg/day at bedtime",
+      "maxCeiling": "20 mg/day",
+      "halfLife": "30 hours (longer in elderly)",
+      "cypMetabolism": "CYP1A2 primary substrate (cigarette smoking induces 1A2 and lowers olanzapine levels by 40-50%). Minor CYP2D6.",
+      "commonSideEffects": [
+        "Marked weight gain / rapid hyperphagia",
+        "Significant sedation",
+        "Metabolic dysregulation (dyslipidemia, insulin resistance)",
+        "Constipation",
+        "Dry mouth"
+      ],
+      "monitoring": [
+        "Mandatory metabolic panel: Baseline, 4 wks, 8 wks, 12 wks, then quarterly (BMI/waist, fasting glucose, lipid panel)",
+        "Annual AIMS exam"
+      ],
+      "clinicalPearls": "One of the most potent antimanic and antipsychotic agents available (close second to clozapine in CATIE trial efficacy). Massive antihistaminic (H1) and anticholinergic potency. Highest metabolic liability of any SGA: average 10-20 lb weight gain within 6 months. Best reserved for acute severe mania, rapid agitation calming, or anorexia/severe cachexia.",
+      "blackBoxWarning": "Increased mortality in elderly patients with dementia-related psychosis."
+    },
+    {
+      "id": "risperidone",
+      "genericName": "Risperidone",
+      "brandNames": [
+        "Risperdal"
+      ],
+      "class": "Second-Generation Antipsychotic",
+      "indications": [
+        "Bipolar I Mania",
+        "Schizophrenia",
+        "Irritability associated with Autism Spectrum Disorder"
+      ],
+      "startingDose": "0.5 - 1 mg once daily at bedtime (or BID)",
+      "titration": "Increase by 0.5 - 1 mg every 2-3 days as tolerated",
+      "therapeuticRange": "Bipolar Mania: 2 - 6 mg/day; Low-dose aggression/adjunct: 0.5 - 2 mg/day",
+      "maxCeiling": "6 mg/day (doses >6mg/day rarely add efficacy and sharply increase extrapyramidal symptoms)",
+      "halfLife": "Risperidone: 3 hours; Active metabolite (9-OH-risperidone/Paliperidone): 24 hours",
+      "cypMetabolism": "CYP2D6 primary substrate to active metabolite 9-hydroxyrisperidone.",
+      "commonSideEffects": [
+        "Hyperprolactinemia (galactorrhea, amenorrhea, gynecomastia)",
+        "Extrapyramidal symptoms (dose-dependent)",
+        "Weight gain",
+        "Sedation",
+        "Orthostatic dizziness"
+      ],
+      "monitoring": [
+        "Serum prolactin if sexual dysfunction, gynecomastia, or menstrual irregularities arise",
+        "AIMS exam every 6 months",
+        "Fasting metabolic labs"
+      ],
+      "clinicalPearls": "The most \"typical\" of the atypical antipsychotics: behaves like a second-generation agent at low doses (≤2mg), but D2 receptor occupancy exceeds 80% at doses >4-6mg, mimicking first-generation haloperidol with rigidity and akathisia. Causes the highest prolactin elevation among SGAs due to poor blood-brain barrier penetration at the pituitary.",
+      "blackBoxWarning": "Increased mortality in elderly patients with dementia-related psychosis."
+    },
+    {
+      "id": "oxcarbazepine",
+      "genericName": "Oxcarbazepine",
+      "brandNames": [
+        "Trileptal"
+      ],
+      "class": "Mood Stabilizer",
+      "indications": [
+        "Bipolar Disorder Impulsivity / Mood Instability (Off-label)",
+        "Focal Seizures"
+      ],
+      "startingDose": "150 - 300 mg twice daily with meals",
+      "titration": "Increase by 300 mg/day every 3-5 days up to target 600-1200 mg/day divided BID",
+      "therapeuticRange": "600 - 1200 mg/day in divided doses (BID)",
+      "maxCeiling": "1200 - 2400 mg/day",
+      "halfLife": "Prodrug half-life: 2 hours; Active 10-monohydroxy metabolite (MHD): 9 hours",
+      "cypMetabolism": "Cytosolic reduction; induces CYP3A4/5 enough to reduce oral contraceptive efficacy.",
+      "commonSideEffects": [
+        "Somnolence",
+        "Dizziness",
+        "Ataxia",
+        "Diplopia",
+        "Nausea/vomiting",
+        "Hyponatremia"
+      ],
+      "monitoring": [
+        "Baseline and periodic Serum Sodium (electrolytes) to detect SIADH/hyponatremia (check especially if patient develops confusion or headache)",
+        "CBC and LFTs"
+      ],
+      "clinicalPearls": "Keto-congener of carbamazepine with much lower auto-induction and hematologic toxicity (aplastic anemia/agranulocytosis is rare). Excellent off-label tool for emotional dysregulation, episodic behavioral irritability, and impulsivity. Crucial counseling: Decreases effectiveness of birth control pills; alternative contraception required.",
+      "blackBoxWarning": "Serious dermatologic reactions including SJS/TEN (screen for HLA-B*1502 allele in Asian patients)."
+    },
+    {
+      "id": "methylphenidate-er",
+      "genericName": "Methylphenidate ER / OROS",
+      "brandNames": [
+        "Concerta",
+        "Ritalin LA",
+        "Metadate CD"
+      ],
+      "class": "CNS Stimulant",
+      "indications": [
+        "ADHD (Adults & Children 6+)",
+        "Narcolepsy"
+      ],
+      "startingDose": "18 - 36 mg once daily in morning (Concerta OROS formulation)",
+      "titration": "Increase by 18 mg weekly intervals based on focus duration and tolerability",
+      "therapeuticRange": "36 - 72 mg once daily in morning",
+      "maxCeiling": "72 mg/day for Concerta (up to 100 mg/day off-label in treatment-refractory adults)",
+      "halfLife": "OROS delivery system delivers 12-hour continuous release profile; methylphenidate elimination half-life is 2-3 hours",
+      "cypMetabolism": "De-esterified by carboxylesterase CES1A1 in the liver. Minimal CYP450 involvement.",
+      "commonSideEffects": [
+        "Appetite suppression",
+        "Headache",
+        "Dry mouth",
+        "Insomnia",
+        "Mild increase in heart rate / BP",
+        "Nausea"
+      ],
+      "monitoring": [
+        "Blood pressure and resting heart rate at every telehealth visit",
+        "WA State PMP registry verification before every schedule II prescription",
+        "Weight"
+      ],
+      "clinicalPearls": "OROS osmotic tri-layer delivery system provides non-crushable, smooth ascending blood levels without the sharp peaks and troughs of IR tablets. Non-amphetamine stimulant mechanism: blocks DAT/NET reuptake without releasing newly synthesized vesicular dopamine (unlike amphetamines), resulting in a smoother, less jittery physical profile.",
+      "blackBoxWarning": "Schedule II controlled substance: High potential for abuse and dependence. Cardiovascular warning."
+    },
+    {
+      "id": "dexmethylphenidate",
+      "genericName": "Dexmethylphenidate ER",
+      "brandNames": [
+        "Focalin XR"
+      ],
+      "class": "CNS Stimulant",
+      "indications": [
+        "ADHD (Ages 6+)"
+      ],
+      "startingDose": "5 - 10 mg once daily in morning",
+      "titration": "Increase by 5 mg weekly to target 20 - 40 mg/day",
+      "therapeuticRange": "10 - 30 mg once daily (adults up to 40 mg/day)",
+      "maxCeiling": "40 mg/day",
+      "halfLife": "Bimodal release (50% immediate, 50% delayed 4 hours); elimination half-life ~3 hours",
+      "cypMetabolism": "De-esterification via CES1A1.",
+      "commonSideEffects": [
+        "Appetite suppression",
+        "Insomnia",
+        "Anxiety",
+        "Tachycardia",
+        "Headache"
+      ],
+      "monitoring": [
+        "Vital signs (BP & HR)",
+        "WA State PDMP compliance"
+      ],
+      "clinicalPearls": "Contains solely the active d-enantiomer of methylphenidate, omitting the inactive l-enantiomer which causes peripheral autonomic side effects. Potency is roughly 2:1 compared to racemic methylphenidate (e.g., 20mg Focalin XR ≈ 40mg Concerta/Ritalin). Very clean focus profile with lower physical agitation.",
+      "blackBoxWarning": "Schedule II controlled substance: High potential for abuse and dependence."
+    },
+    {
+      "id": "viloxazine",
+      "genericName": "Viloxazine ER",
+      "brandNames": [
+        "Qelbree"
+      ],
+      "class": "Non-Stimulant",
+      "indications": [
+        "ADHD in Adults & Pediatric Patients (6+)"
+      ],
+      "startingDose": "200 mg once daily in morning (pediatrics start at 100 mg)",
+      "titration": "Increase by 200 mg weekly intervals to target 400 - 600 mg once daily",
+      "therapeuticRange": "400 - 600 mg once daily in adults",
+      "maxCeiling": "600 mg/day",
+      "halfLife": "7 hours",
+      "cypMetabolism": "Strong inhibitor of CYP1A2! Moderate substrate of CYP2D6.",
+      "commonSideEffects": [
+        "Somnolence/fatigue",
+        "Insomnia",
+        "Decreased appetite",
+        "Nausea",
+        "Dry mouth",
+        "Headache"
+      ],
+      "monitoring": [
+        "Baseline and periodic blood pressure and pulse",
+        "Suicide risk monitoring (Black Box warning)",
+        "Contraindication: Absolute contraindication with CYP1A2 substrates (clozapine, theophylline, tizanidine)"
+      ],
+      "clinicalPearls": "Non-controlled, non-stimulant alternative for adult ADHD. Unlike atomoxetine which is heavily dependent on CYP2D6 genetics, viloxazine exhibits reliable pharmacokinetics. Potent CYP1A2 inhibitor: dramatically raises caffeine levels (patients should reduce coffee). Can open capsules and sprinkle on applesauce.",
+      "blackBoxWarning": "Higher risk of suicidal thoughts and behaviors in pediatric and young adult patients."
+    },
+    {
+      "id": "clonidine",
+      "genericName": "Clonidine / Clonidine ER",
+      "brandNames": [
+        "Catapres",
+        "Kapvay (ER)"
+      ],
+      "class": "Non-Stimulant",
+      "indications": [
+        "ADHD (Monotherapy or Adjunct)",
+        "PTSD Hyperarousal & Nightmares",
+        "Opioid Withdrawal Autonomic Surges",
+        "Tourette/Tic Disorders"
+      ],
+      "startingDose": "0.1 mg at bedtime (or 0.1 mg ER at bedtime)",
+      "titration": "Increase by 0.1 mg weekly in divided doses or bedtime administration",
+      "therapeuticRange": "0.1 - 0.4 mg/day",
+      "maxCeiling": "0.4 mg/day (rarely 0.8 mg/day for resistant hypertension)",
+      "halfLife": "12 - 16 hours",
+      "cypMetabolism": "Hepatic metabolism (~50%), 50% excreted unchanged in urine.",
+      "commonSideEffects": [
+        "Prominent sedation/drowsiness",
+        "Hypotension",
+        "Orthostasis",
+        "Dry mouth",
+        "Dizziness",
+        "Constipation"
+      ],
+      "monitoring": [
+        "Blood pressure and heart rate (hold if symptomatic hypotension)",
+        "WARNING: Never discontinue abruptly—causes severe rebound hypertensive crisis!"
+      ],
+      "clinicalPearls": "Non-selective alpha-2 agonist (acts on alpha-2A, 2B, and 2C). Significantly more sedating and hypotensive than guanfacine. Outstanding for ADHD patients with severe bedtime insomnia, physical hyperactivity, and PTSD nightmares. Must counsel patient never to skip doses abruptly.",
+      "blackBoxWarning": "None."
+    },
+    {
+      "id": "prazosin",
+      "genericName": "Prazosin",
+      "brandNames": [
+        "Minipress"
+      ],
+      "class": "Anxiolytic",
+      "indications": [
+        "PTSD-Associated Nightmares & Sleep Disruption (VA/DoD First-Line Guideline)"
+      ],
+      "startingDose": "1 mg at bedtime",
+      "titration": "Increase by 1-2 mg every 3-7 days guided by nightmare suppression and morning tolerability",
+      "therapeuticRange": "2 - 6 mg at bedtime (some refractory male patients require 10-15 mg)",
+      "maxCeiling": "15 - 20 mg at bedtime (in divided trauma protocols)",
+      "halfLife": "2 - 3 hours",
+      "cypMetabolism": "Extensively metabolized by the liver.",
+      "commonSideEffects": [
+        "First-dose orthostatic hypotension and syncope",
+        "Dizziness",
+        "Headache",
+        "Nasal congestion",
+        "Drowsiness"
+      ],
+      "monitoring": [
+        "First-dose syncopal caution: Take while sitting directly on edge of bed right before lying down",
+        "Blood pressure monitoring"
+      ],
+      "clinicalPearls": "Crosses the blood-brain barrier to block centrally hyperactive noradrenergic alpha-1 receptors responsible for traumatic memory consolidation and nocturnal panic surges. First-line gold standard for combat and civilian PTSD combat nightmares. If patient experiences nasal congestion or lightheadedness, titrate more slowly.",
+      "blackBoxWarning": "None."
+    },
+    {
+      "id": "gabapentin",
+      "genericName": "Gabapentin",
+      "brandNames": [
+        "Neurontin"
+      ],
+      "class": "Anxiolytic",
+      "indications": [
+        "Generalized Anxiety Disorder (Off-label)",
+        "Alcohol Use Disorder Craving Reduction (Off-label)",
+        "Neuropathic Pain",
+        "Restless Legs Syndrome"
+      ],
+      "startingDose": "100 - 300 mg at bedtime (or 100 mg TID)",
+      "titration": "Increase by 300 mg every 3-5 days up to 300-600 mg TID",
+      "therapeuticRange": "900 - 1800 mg/day divided TID (up to 2400-3600 mg/day for refractory pain/anxiety)",
+      "maxCeiling": "3600 mg/day (dose-dependent saturable absorption via L-amino acid transport)",
+      "halfLife": "5 - 7 hours (requires TID dosing for round-the-clock coverage)",
+      "cypMetabolism": "NOT metabolized by CYP450 enzymes; 100% excreted unchanged by the kidneys.",
+      "commonSideEffects": [
+        "Sedation/somnolence",
+        "Dizziness",
+        "Ataxia",
+        "Peripheral edema",
+        "Weight gain",
+        "Brain fog at high doses"
+      ],
+      "monitoring": [
+        "Renal function (requires dosage reduction if eGFR <60)",
+        "Substance misuse history (scheduled in some states, monitored in WA PDMP)"
+      ],
+      "clinicalPearls": "Does not bind to GABA receptors directly; binds to presynaptic voltage-gated calcium channels to decrease excitatory glutamate and substance P release. Outstanding non-benzodiazepine option for somatic anxiety, insomnia, neuropathic pain, and post-acute alcohol withdrawal cravings. Saturable absorption: bioavailability drops from 60% at 300mg to 35% at 1600mg.",
+      "blackBoxWarning": "Respiratory depression risk when combined with central nervous system depressants (opioids, alcohol)."
     }
   ]
 }
