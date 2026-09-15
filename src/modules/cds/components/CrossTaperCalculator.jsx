@@ -1,16 +1,240 @@
 import React, { useState } from 'react';
-import { ArrowLeftRight, AlertCircle, Clipboard, Check, Sparkles, Calendar, ShieldAlert, Printer } from 'lucide-react';
+import { ArrowLeftRight, AlertCircle, Clipboard, Check, Sparkles, Calendar, ShieldAlert, Printer, Info, Activity } from 'lucide-react';
 
 const TAPER_MEDICATIONS = [
-  { id: 'escitalopram', name: 'Escitalopram (Lexapro)', class: 'SSRI', doses: ['5 mg', '10 mg', '15 mg', '20 mg'], halfLife: '30h' },
-  { id: 'sertraline', name: 'Sertraline (Zoloft)', class: 'SSRI', doses: ['25 mg', '50 mg', '100 mg', '150 mg', '200 mg'], halfLife: '26h' },
-  { id: 'fluoxetine', name: 'Fluoxetine (Prozac)', class: 'SSRI', doses: ['10 mg', '20 mg', '40 mg', '60 mg'], halfLife: '2-4 days (Metabolite 7-15 days)' },
-  { id: 'paroxetine', name: 'Paroxetine (Paxil)', class: 'SSRI', doses: ['10 mg', '20 mg', '30 mg', '40 mg'], halfLife: '21h (High withdrawal risk)' },
-  { id: 'citalopram', name: 'Citalopram (Celexa)', class: 'SSRI', doses: ['10 mg', '20 mg', '40 mg'], halfLife: '35h' },
-  { id: 'duloxetine', name: 'Duloxetine (Cymbalta)', class: 'SNRI', doses: ['30 mg', '60 mg', '90 mg', '120 mg'], halfLife: '12h' },
-  { id: 'venlafaxine', name: 'Venlafaxine ER (Effexor XR)', class: 'SNRI', doses: ['37.5 mg', '75 mg', '150 mg', '225 mg'], halfLife: '11h (High withdrawal risk)' },
-  { id: 'bupropion', name: 'Bupropion XL (Wellbutrin XL)', class: 'NDRI', doses: ['150 mg', '300 mg', '450 mg'], halfLife: '21h' },
-  { id: 'mirtazapine', name: 'Mirtazapine (Remeron)', class: 'NaSSA', doses: ['7.5 mg', '15 mg', '30 mg', '45 mg'], halfLife: '20-40h' },
+  // Antidepressants (SSRIs, SNRIs, NDRIs, NaSSA, Multimodal)
+  {
+    id: 'escitalopram',
+    name: 'Escitalopram (Lexapro)',
+    class: 'SSRI',
+    category: 'Antidepressants',
+    doses: ['5 mg', '10 mg', '15 mg', '20 mg'],
+    halfLife: '30h',
+    pearl: 'Clean CYP profile; monitor QTc if combined with other QTc agents.'
+  },
+  {
+    id: 'sertraline',
+    name: 'Sertraline (Zoloft)',
+    class: 'SSRI',
+    category: 'Antidepressants',
+    doses: ['25 mg', '50 mg', '100 mg', '150 mg', '200 mg'],
+    halfLife: '26h',
+    pearl: 'Preferred in cardiac risk (SADHART); take with meals to reduce GI effects.'
+  },
+  {
+    id: 'fluoxetine',
+    name: 'Fluoxetine (Prozac)',
+    class: 'SSRI',
+    category: 'Antidepressants',
+    doses: ['10 mg', '20 mg', '40 mg', '60 mg'],
+    halfLife: '2-4 days (Active metabolite 7-15 days)',
+    pearl: 'Long half-life confers "self-taper"; direct stop without taper usually well-tolerated.'
+  },
+  {
+    id: 'paroxetine',
+    name: 'Paroxetine (Paxil)',
+    class: 'SSRI',
+    category: 'Antidepressants',
+    doses: ['10 mg', '20 mg', '30 mg', '40 mg'],
+    halfLife: '21h (High withdrawal risk)',
+    pearl: 'High anticholinergic potency; highest risk of discontinuation syndrome; taper slowly.'
+  },
+  {
+    id: 'citalopram',
+    name: 'Citalopram (Celexa)',
+    class: 'SSRI',
+    category: 'Antidepressants',
+    doses: ['10 mg', '20 mg', '40 mg'],
+    halfLife: '35h',
+    pearl: 'Dose-dependent QTc prolongation ceiling (max 20mg in elderly >60).'
+  },
+  {
+    id: 'duloxetine',
+    name: 'Duloxetine (Cymbalta)',
+    class: 'SNRI',
+    category: 'Antidepressants',
+    doses: ['30 mg', '60 mg', '90 mg', '120 mg'],
+    halfLife: '12h',
+    pearl: 'Dual serotonin/norepinephrine; excellent for neuropathic pain & fibromyalgia.'
+  },
+  {
+    id: 'venlafaxine',
+    name: 'Venlafaxine ER (Effexor XR)',
+    class: 'SNRI',
+    category: 'Antidepressants',
+    doses: ['37.5 mg', '75 mg', '150 mg', '225 mg'],
+    halfLife: '11h (High withdrawal risk)',
+    pearl: 'Short half-life; notorious for brain zaps on missed doses; reduce in small steps.'
+  },
+  {
+    id: 'bupropion',
+    name: 'Bupropion XL (Wellbutrin XL)',
+    class: 'NDRI',
+    category: 'Antidepressants',
+    doses: ['150 mg', '300 mg', '450 mg'],
+    halfLife: '21h',
+    pearl: 'Zero sexual dysfunction; activating; contraindicated with seizure or eating disorders.'
+  },
+  {
+    id: 'mirtazapine',
+    name: 'Mirtazapine (Remeron)',
+    class: 'NaSSA',
+    category: 'Antidepressants',
+    doses: ['7.5 mg', '15 mg', '30 mg', '45 mg'],
+    halfLife: '20-40h',
+    pearl: 'Inverse sedation curve: 7.5-15mg is more sedating (H1) than 30-45mg (noradrenergic).'
+  },
+  {
+    id: 'fluvoxamine',
+    name: 'Fluvoxamine (Luvox)',
+    class: 'SSRI',
+    category: 'Antidepressants',
+    doses: ['50 mg', '100 mg', '150 mg', '200 mg', '300 mg'],
+    halfLife: '15-26h',
+    pearl: 'Potent CYP1A2 and CYP2C19 inhibitor; marked interaction with clozapine/caffeine.'
+  },
+  {
+    id: 'desvenlafaxine',
+    name: 'Desvenlafaxine (Pristiq)',
+    class: 'SNRI',
+    category: 'Antidepressants',
+    doses: ['25 mg', '50 mg', '100 mg'],
+    halfLife: '11h',
+    pearl: 'Active metabolite of venlafaxine; does not require CYP2D6 bioactivation.'
+  },
+  {
+    id: 'vortioxetine',
+    name: 'Vortioxetine (Trintellix)',
+    class: 'Multimodal Antidepressant',
+    category: 'Antidepressants',
+    doses: ['5 mg', '10 mg', '15 mg', '20 mg'],
+    halfLife: '66h',
+    pearl: 'Multimodal 5-HT receptor modulator; pro-cognitive benefits; low sexual side effects.'
+  },
+
+  // Second-Generation Antipsychotics (SGAs)
+  {
+    id: 'aripiprazole',
+    name: 'Aripiprazole (Abilify)',
+    class: 'SGA (D2 Partial Agonist)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'partial-agonist',
+    doses: ['2 mg', '5 mg', '10 mg', '15 mg', '20 mg', '30 mg'],
+    halfLife: '75h (Metabolite 94h)',
+    pearl: 'D2 partial agonist; high affinity displaces full antagonists; watch for akathisia.'
+  },
+  {
+    id: 'quetiapine',
+    name: 'Quetiapine (Seroquel / XR)',
+    class: 'SGA (SDA / Pine)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'pine',
+    doses: ['25 mg', '50 mg', '100 mg', '200 mg', '300 mg', '400 mg', '600 mg'],
+    halfLife: '6h (Norquetiapine 12h)',
+    pearl: 'High H1/M1 antihistaminic/anticholinergic; slow taper avoids cholinergic rebound insomnia.'
+  },
+  {
+    id: 'olanzapine',
+    name: 'Olanzapine (Zyprexa)',
+    class: 'SGA (SDA / Pine)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'pine',
+    doses: ['2.5 mg', '5 mg', '7.5 mg', '10 mg', '15 mg', '20 mg'],
+    halfLife: '30h',
+    pearl: 'High metabolic liability; potent sedation and anticholinergic tone; taper gradually.'
+  },
+  {
+    id: 'risperidone',
+    name: 'Risperidone (Risperdal)',
+    class: 'SGA (SDA / Done)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'done',
+    doses: ['0.5 mg', '1 mg', '2 mg', '3 mg', '4 mg', '6 mg'],
+    halfLife: '3h (Active 9-OH metabolite 24h)',
+    pearl: 'Potent D2 blockade >2mg; highest prolactin elevation; watch for EPS/rigidity.'
+  },
+  {
+    id: 'lurasidone',
+    name: 'Lurasidone (Latuda)',
+    class: 'SGA (SDA / Done)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'done',
+    doses: ['20 mg', '40 mg', '60 mg', '80 mg', '120 mg'],
+    halfLife: '18h',
+    pearl: 'MUST take with 350+ calorie meal; weight neutral; favored in bipolar depression.'
+  },
+  {
+    id: 'cariprazine',
+    name: 'Cariprazine (Vraylar)',
+    class: 'SGA (D3/D2 Partial Agonist)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'partial-agonist',
+    doses: ['1.5 mg', '3 mg', '4.5 mg', '6 mg'],
+    halfLife: '2-4 days (Active DDCAR 1-3 weeks)',
+    pearl: 'Ultra-long metabolite half-life; potent D3 affinity improves anhedonia and negative symptoms.'
+  },
+  {
+    id: 'brexpiprazole',
+    name: 'Brexpiprazole (Rexulti)',
+    class: 'SGA (D2 Partial Agonist)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'partial-agonist',
+    doses: ['0.5 mg', '1 mg', '2 mg', '3 mg'],
+    halfLife: '91h',
+    pearl: 'Lower intrinsic D2 activation than aripiprazole; reduced risk of akathisia.'
+  },
+  {
+    id: 'lumateperone',
+    name: 'Lumateperone (Caplyta)',
+    class: 'SGA (5-HT2A/D2 Modulator)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'done',
+    doses: ['42 mg'],
+    halfLife: '18h',
+    pearl: 'Fixed 42mg dose; approved for Bipolar I & II depression; highly weight/prolactin neutral.'
+  },
+
+  // Mood Stabilizers
+  {
+    id: 'lamotrigine',
+    name: 'Lamotrigine (Lamictal)',
+    class: 'Mood Stabilizer (Sodium Channel Blocker)',
+    category: 'Mood Stabilizers',
+    subgroup: 'lamotrigine',
+    doses: ['25 mg', '50 mg', '100 mg', '150 mg', '200 mg', '300 mg'],
+    halfLife: '25-30h',
+    pearl: 'MANDATORY slow 6-week titration to prevent Stevens-Johnson Syndrome (SJS/TEN). Valproate doubles levels!'
+  },
+  {
+    id: 'lithium',
+    name: 'Lithium Carbonate (Lithobid / Eskalith)',
+    class: 'Mood Stabilizer (Monovalent Cation)',
+    category: 'Mood Stabilizers',
+    subgroup: 'lithium',
+    doses: ['150 mg', '300 mg', '450 mg', '600 mg', '900 mg', '1200 mg'],
+    halfLife: '18-24h (Prolonged in elderly/renal)',
+    pearl: 'Gold-standard anti-suicide agent. Narrow therapeutic index (0.6-0.8 mEq/L maintenance). TDM required.'
+  },
+  {
+    id: 'divalproex',
+    name: 'Divalproex Sodium / Valproate (Depakote)',
+    class: 'Mood Stabilizer (Anticonvulsant / GABAergic)',
+    category: 'Mood Stabilizers',
+    subgroup: 'valproate',
+    doses: ['250 mg', '500 mg', '750 mg', '1000 mg', '1250 mg', '1500 mg'],
+    halfLife: '9-16h',
+    pearl: 'Serum trough target 50-125 mcg/mL. Teratogen. Doubles lamotrigine serum levels via UGT inhibition.'
+  },
+  {
+    id: 'oxcarbazepine',
+    name: 'Oxcarbazepine (Trileptal)',
+    class: 'Mood Stabilizer (Anticonvulsant)',
+    category: 'Mood Stabilizers',
+    subgroup: 'anticonvulsant',
+    doses: ['150 mg', '300 mg', '600 mg', '900 mg', '1200 mg'],
+    halfLife: '2h (Active MHD 9h)',
+    pearl: 'Cleaner tolerability than carbamazepine; check baseline and follow-up serum sodium (hyponatremia risk).'
+  }
 ];
 
 export default function CrossTaperCalculator() {
@@ -20,49 +244,121 @@ export default function CrossTaperCalculator() {
   const [targetDose, setTargetDose] = useState('60 mg');
   const [copied, setCopied] = useState(false);
 
-  const currentMed = TAPER_MEDICATIONS.find(m => m.id === currentMedId);
-  const targetMed = TAPER_MEDICATIONS.find(m => m.id === targetMedId);
+  const currentMed = TAPER_MEDICATIONS.find(m => m.id === currentMedId) || TAPER_MEDICATIONS[0];
+  const targetMed = TAPER_MEDICATIONS.find(m => m.id === targetMedId) || TAPER_MEDICATIONS[1];
 
-  // Generate Schedule
+  // Specific clinical flags
+  const isTargetLamictal = targetMed.id === 'lamotrigine';
+  const isCurrentDepakote = currentMed.id === 'divalproex';
+  const isCurrentFluoxetine = currentMed.id === 'fluoxetine';
+  const isHighWithdrawalAntidepressant = currentMed.id === 'venlafaxine' || currentMed.id === 'paroxetine';
+  const isPineToOtherAntipsychotic = currentMed.subgroup === 'pine' && targetMed.category === 'Antipsychotics (SGAs)' && targetMed.subgroup !== 'pine';
+  const isToPartialAgonist = targetMed.subgroup === 'partial-agonist' && currentMed.category === 'Antipsychotics (SGAs)';
+  const isFromPartialAgonist = currentMed.subgroup === 'partial-agonist' && targetMed.category === 'Antipsychotics (SGAs)';
+  const isLithiumTransition = currentMed.id === 'lithium' || targetMed.id === 'lithium';
+  const isValproateTransition = currentMed.id === 'divalproex' || targetMed.id === 'divalproex';
+
+  // Generate Evidence-Based Cross-Taper Schedule
   const generateSchedule = () => {
-    // Special Fluoxetine handling
-    if (currentMedId === 'fluoxetine') {
+    // 1. RULE: Target is Lamotrigine (MANDATORY slow titration to prevent Stevens-Johnson Syndrome)
+    if (isTargetLamictal) {
+      if (isCurrentDepakote) {
+        // Valproate co-administration doubles lamotrigine levels via UGT1A4 inhibition
+        return [
+          {
+            week: 'Weeks 1–2 (Days 1–14)',
+            drugA: `Maintain ${currentMed.name} at current dose (${currentDose})`,
+            drugB: `Initiate Lamotrigine at 25 mg EVERY OTHER DAY (QOD)`,
+            notes: 'VALPROATE INTERACTION: Valproate inhibits UGT1A4 glucuronidation, doubling Lamotrigine levels. Starting dose MUST be halved.'
+          },
+          {
+            week: 'Weeks 3–4 (Days 15–28)',
+            drugA: `Begin tapering ${currentMed.name} to 75% of baseline dose`,
+            drugB: `Increase Lamotrigine to 25 mg ONCE DAILY`,
+            notes: 'Inspect skin daily for any rash, fever, or mucosal sores. Taper Depakote slowly.'
+          },
+          {
+            week: 'Weeks 5–6 (Days 29–42)',
+            drugA: `Reduce ${currentMed.name} to 50% of baseline dose`,
+            drugB: `Increase Lamotrigine to 50 mg ONCE DAILY`,
+            notes: 'Monitor mood stability and valproate trough level if indicated.'
+          },
+          {
+            week: 'Weeks 7–8 (Days 43–56)',
+            drugA: `Reduce ${currentMed.name} to 25% then discontinue at end of Week 8`,
+            drugB: `Increase Lamotrigine to 100 mg ONCE DAILY (Target: ${targetDose})`,
+            notes: 'Transition complete. Standard monotherapy maintenance target is 100-200 mg/day.'
+          }
+        ];
+      }
+
+      // Standard Lamotrigine Titration (Non-Valproate)
+      return [
+        {
+          week: 'Weeks 1–2 (Days 1–14)',
+          drugA: `Maintain ${currentMed.name} at full baseline dose (${currentDose})`,
+          drugB: `Initiate Lamotrigine at 25 mg ONCE DAILY`,
+          notes: 'MANDATORY SJS PROTOCOL: Do not accelerate titration. Inspect skin daily for benign or blistering rash.'
+        },
+        {
+          week: 'Weeks 3–4 (Days 15–28)',
+          drugA: `Reduce ${currentMed.name} to 50% of baseline dose`,
+          drugB: `Increase Lamotrigine to 50 mg ONCE DAILY`,
+          notes: 'Maintain steady titration steps. Re-evaluate mood symptoms.'
+        },
+        {
+          week: 'Week 5 (Days 29–35)',
+          drugA: `Reduce ${currentMed.name} to 25% of baseline dose`,
+          drugB: `Increase Lamotrigine to 100 mg ONCE DAILY`,
+          notes: 'Prepare to complete taper of initial medication.'
+        },
+        {
+          week: 'Week 6+ (Day 36+)',
+          drugA: `Discontinue ${currentMed.name} completely`,
+          drugB: `Advance Lamotrigine to target maintenance (${targetDose})`,
+          notes: 'Full therapeutic target achieved. Remind patient: If missed for >5 consecutive days, MUST restart at 25 mg!'
+        }
+      ];
+    }
+
+    // 2. RULE: Discontinuing Fluoxetine (Long half-life / self-taper)
+    if (isCurrentFluoxetine) {
       return [
         {
           week: 'Week 1 (Days 1–4)',
           drugA: 'Discontinue Fluoxetine completely',
-          drugB: 'Washout / Self-Taper period (active norfluoxetine remains in system)',
-          notes: 'Due to long half-life (up to 15 days), no taper is required. Observe for 2-4 days.'
+          drugB: 'Washout / Self-taper period (active norfluoxetine remains in system)',
+          notes: 'Due to long half-life (active metabolite up to 15 days), no gradual taper is needed. Observe 3-4 days.'
         },
         {
           week: 'Week 1 (Days 5–7)',
           drugA: 'None',
           drugB: `Initiate ${targetMed.name} at starting dose (${targetMed.doses[0]})`,
-          notes: 'Begin target agent at lowest dose.'
+          notes: 'Begin target agent at lowest manufactured dose.'
         },
         {
           week: 'Week 2 (Days 8–14)',
           drugA: 'None',
-          drugB: `Increase ${targetMed.name} to target dose (${targetDose})`,
+          drugB: `Titrate ${targetMed.name} to intermediate dose`,
           notes: 'Monitor for tolerability and GI symptoms.'
         },
         {
           week: 'Week 3 (Day 15+)',
           drugA: 'None',
-          drugB: `Maintain ${targetMed.name} at ${targetDose}`,
-          notes: 'Full therapeutic transition achieved.'
+          drugB: `Advance ${targetMed.name} to target dose (${targetDose})`,
+          notes: 'Transition complete. Norfluoxetine fully washed out.'
         }
       ];
     }
 
-    // High withdrawal risk (Venlafaxine or Paroxetine)
-    if (currentMedId === 'venlafaxine' || currentMedId === 'paroxetine') {
+    // 3. RULE: High-Withdrawal Antidepressant (Venlafaxine or Paroxetine)
+    if (isHighWithdrawalAntidepressant) {
       return [
         {
           week: 'Week 1 (Days 1–7)',
           drugA: `Reduce ${currentMed.name} to 75% of baseline dose`,
           drugB: `Initiate ${targetMed.name} at lowest starting dose (${targetMed.doses[0]})`,
-          notes: 'Advise patient on potential mild discontinuation symptoms (lightheadedness, vivid dreams).'
+          notes: 'High withdrawal risk: counsel patient on potential transient "brain zaps", dizziness, or vivid dreams.'
         },
         {
           week: 'Week 2 (Days 8–14)',
@@ -74,18 +370,108 @@ export default function CrossTaperCalculator() {
           week: 'Week 3 (Days 15–21)',
           drugA: `Reduce ${currentMed.name} to 25% of baseline dose (or lowest manufactured capsule)`,
           drugB: `Increase ${targetMed.name} toward target (${targetDose})`,
-          notes: 'Do not rush final step-down.'
+          notes: 'Do not rush final step-down. Maintain hydration.'
         },
         {
           week: 'Week 4 (Day 22+)',
           drugA: `Discontinue ${currentMed.name} completely`,
           drugB: `Achieve full target dose: ${targetMed.name} ${targetDose}`,
-          notes: 'Transition complete. Schedule 2-week clinical check-in.'
+          notes: 'Transition complete. Schedule follow-up check-in at 2 weeks.'
         }
       ];
     }
 
-    // Standard 3-Week Cross Taper
+    // 4. RULE: Antipsychotic "Pine" (Quetiapine/Olanzapine) to "Done" or Partial Agonist
+    if (isPineToOtherAntipsychotic) {
+      return [
+        {
+          week: 'Week 1 (Days 1–7)',
+          drugA: `Reduce ${currentMed.name} to 75% of current dose (${currentDose})`,
+          drugB: `Start ${targetMed.name} at low starting dose (${targetMed.doses[0]})`,
+          notes: 'CHOLINERGIC / HISTAMINE REBOUND WARNING: Slower taper prevents rebound insomnia, diaphoresis, and agitation.'
+        },
+        {
+          week: 'Week 2 (Days 8–14)',
+          drugA: `Reduce ${currentMed.name} to 50% of baseline`,
+          drugB: `Titrate ${targetMed.name} to intermediate therapeutic dose`,
+          notes: 'Monitor sleep patterns. May use short-term sleep hygiene or non-anticholinergic sleep aid if needed.'
+        },
+        {
+          week: 'Week 3 (Days 15–21)',
+          drugA: `Reduce ${currentMed.name} to 25% of baseline (lowest tablet)`,
+          drugB: `Increase ${targetMed.name} to target dose (${targetDose})`,
+          notes: 'Observe for emerging akathisia or agitation as D2 antagonist tone decreases.'
+        },
+        {
+          week: 'Week 4 (Day 22+)',
+          drugA: `Discontinue ${currentMed.name} completely`,
+          drugB: `Maintain ${targetMed.name} at ${targetDose}`,
+          notes: 'Transition complete. Monitor metabolic markers and therapeutic psychiatric response.'
+        }
+      ];
+    }
+
+    // 5. RULE: Switch to/from D2 Partial Agonist (Aripiprazole, Cariprazine, Brexpiprazole)
+    if (isToPartialAgonist || isFromPartialAgonist) {
+      return [
+        {
+          week: 'Week 1 (Days 1–7)',
+          drugA: `Reduce ${currentMed.name} to 66% - 75% of current dose`,
+          drugB: `Initiate ${targetMed.name} at starting dose (${targetMed.doses[0]})`,
+          notes: 'PARTIAL AGONIST SWITCH: High D2 affinity can cause transient receptor competition or akathisia. Overlap is essential.'
+        },
+        {
+          week: 'Week 2 (Days 8–14)',
+          drugA: `Reduce ${currentMed.name} to 33% - 50% of baseline`,
+          drugB: `Titrate ${targetMed.name} to intermediate dose`,
+          notes: 'Watch for motor restlessness (akathisia); treat with low-dose propranolol if needed.'
+        },
+        {
+          week: 'Week 3 (Days 15–21)',
+          drugA: `Reduce ${currentMed.name} to lowest available dose then stop at day 21`,
+          drugB: `Advance ${targetMed.name} to target dose (${targetDose})`,
+          notes: 'Verify symptom control. Target agent reaches steady state.'
+        },
+        {
+          week: 'Week 4 (Day 22+)',
+          drugA: `Discontinue ${currentMed.name} completely`,
+          drugB: `Maintain ${targetMed.name} at ${targetDose}`,
+          notes: 'Transition complete. Assess psychiatric stability and motor tolerability.'
+        }
+      ];
+    }
+
+    // 6. RULE: Mood Stabilizer Cross-Titration (Lithium / Divalproex / Oxcarbazepine)
+    if (currentMed.category === 'Mood Stabilizers' || targetMed.category === 'Mood Stabilizers') {
+      return [
+        {
+          week: 'Week 1 (Days 1–7)',
+          drugA: `Maintain ${currentMed.name} at current dose (${currentDose})`,
+          drugB: `Initiate ${targetMed.name} at starting dose (${targetMed.doses[0]})`,
+          notes: 'Maintain primary mood stabilizer coverage while initiating new agent to prevent affective relapse.'
+        },
+        {
+          week: 'Week 2 (Days 8–14)',
+          drugA: `Reduce ${currentMed.name} to 50% - 66% of baseline`,
+          drugB: `Titrate ${targetMed.name} toward therapeutic target (${targetDose})`,
+          notes: 'MONITORING: Check serum trough level for Lithium (0.6-0.8 mEq/L) or Valproate (50-125 mcg/mL) if applicable.'
+        },
+        {
+          week: 'Week 3 (Days 15–21)',
+          drugA: `Reduce ${currentMed.name} to 25% - 33% of baseline`,
+          drugB: `Achieve full target dose: ${targetMed.name} ${targetDose}`,
+          notes: 'Monitor renal function, electrolytes, and liver panel per drug-specific guidelines.'
+        },
+        {
+          week: 'Week 4 (Day 22+)',
+          drugA: `Discontinue ${currentMed.name} completely`,
+          drugB: `Maintain ${targetMed.name} at ${targetDose}`,
+          notes: 'Taper complete. Recheck 12-hour trough level in 1-2 weeks once target agent reaches steady state.'
+        }
+      ];
+    }
+
+    // 7. Standard 3-Week Antidepressant Cross-Taper
     return [
       {
         week: 'Week 1 (Days 1–7)',
@@ -110,11 +496,12 @@ export default function CrossTaperCalculator() {
 
   const schedule = generateSchedule();
 
+  // Generate Patient Portal / Handout Instructions
   const generatePatientInstructions = () => {
     let msg = `TREATMENT TRANSITION PLAN\n`;
     msg += `Switching from: ${currentMed.name} (${currentDose})\n`;
     msg += `Switching to: ${targetMed.name} (Target: ${targetDose})\n\n`;
-    msg += `Dear Patient,\nHere is your step-by-step medication transition schedule. Following these weekly steps will ensure a smooth change and minimize any temporary adjustment symptoms:\n\n`;
+    msg += `Dear Patient,\nHere is your customized step-by-step medication transition schedule. Following these instructions carefully will ensure a smooth change and minimize any temporary adjustment symptoms:\n\n`;
 
     schedule.forEach(s => {
       msg += `🗓️ ${s.week.toUpperCase()}:\n`;
@@ -123,10 +510,25 @@ export default function CrossTaperCalculator() {
       msg += `  • Guidance: ${s.notes}\n\n`;
     });
 
-    msg += `IMPORTANT SAFETY REMINDERS:\n`;
-    msg += `- Take your doses consistently with a meal and a full glass of water.\n`;
+    msg += `MEDICATION-SPECIFIC INSTRUCTIONS:\n`;
+    if (targetMed.id === 'lurasidone') {
+      msg += `- IMPORTANT FOOD RULE: Lurasidone (Latuda) MUST be taken with food or a meal containing at least 350 calories (e.g., dinner or a protein shake) for your body to absorb it properly.\n`;
+    }
+    if (targetMed.id === 'lamotrigine') {
+      msg += `- IMPORTANT SKIN MONITORING: If you develop ANY new skin rash, hives, blistering, peeling, fever, or swollen glands, STOP taking Lamictal immediately and contact our clinic or seek medical attention right away.\n`;
+      msg += `- MISSED DOSES: If you miss taking Lamictal for more than 4-5 consecutive days, DO NOT resume your regular dose. Call the office first because you may need to restart at the lowest 25mg dose.\n`;
+    }
+    if (isLithiumTransition) {
+      msg += `- HYDRATION & NSAID WARNING: Maintain regular water intake and avoid dehydration. Avoid over-the-counter NSAIDs (ibuprofen/Advil/Motrin, naproxen/Aleve) without consulting the provider as they can cause lithium levels to rise.\n`;
+    }
+    if (isPineToOtherAntipsychotic) {
+      msg += `- SLEEP & ADJUSTMENT: Because your previous medication had stronger sleep-promoting properties, you may experience temporary vivid dreams or lighter sleep for 1-2 weeks. Practice calming sleep hygiene.\n`;
+    }
+
+    msg += `\nGENERAL SAFETY REMINDERS:\n`;
+    msg += `- Take your doses consistently every day at the same time.\n`;
     msg += `- Mild transient headaches, mild nausea, or sleep changes can occasionally occur during week 1 and typically resolve.\n`;
-    msg += `- If you experience severe dizziness, fever, sudden agitation, or rash, please contact our office immediately via the portal or call our clinic.\n`;
+    msg += `- If you experience severe dizziness, fever, high pulse, sudden motor restlessness, or rash, please contact our office immediately via the portal or call our clinic.\n`;
     msg += `— Monica Preder, ARNP, PMHNP-BC`;
     return msg;
   };
@@ -136,6 +538,9 @@ export default function CrossTaperCalculator() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  // Group medications by category for dropdowns
+  const categories = ['Antidepressants', 'Antipsychotics (SGAs)', 'Mood Stabilizers'];
 
   return (
     <div className="space-y-6">
@@ -148,7 +553,7 @@ export default function CrossTaperCalculator() {
           <div>
             <h2 className="text-xl font-black text-slate-900">Psychiatric Medication Cross-Tapering Calculator</h2>
             <p className="text-xs text-slate-500">
-              Evidence-based titration and cross-switch schedules to prevent antidepressant discontinuation syndrome ("brain zaps") and avoid Serotonin Syndrome.
+              Evidence-based cross-titration protocols for Antidepressants, Second-Generation Antipsychotics, and Mood Stabilizers. Prevents discontinuation syndrome, D2 receptor rebound, and Stevens-Johnson Syndrome.
             </p>
           </div>
         </div>
@@ -157,22 +562,32 @@ export default function CrossTaperCalculator() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 p-5 bg-slate-50 rounded-xl border border-slate-200">
           {/* Current Medication (Drug A) */}
           <div className="space-y-3">
-            <span className="text-xs font-bold text-red-800 uppercase tracking-wider block">
-              1. Current Medication (Tapering Down)
-            </span>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-red-800 uppercase tracking-wider block">
+                1. Current Medication (Tapering Down)
+              </span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">
+                {currentMed.category}
+              </span>
+            </div>
             <div>
               <label className="text-[11px] font-semibold text-slate-600 block mb-1">Select Current Drug:</label>
               <select
                 value={currentMedId}
                 onChange={(e) => {
-                  setCurrentMedId(e.target.value);
-                  const med = TAPER_MEDICATIONS.find(m => m.id === e.target.value);
+                  const newId = e.target.value;
+                  setCurrentMedId(newId);
+                  const med = TAPER_MEDICATIONS.find(m => m.id === newId);
                   if (med) setCurrentDose(med.doses[Math.min(1, med.doses.length - 1)]);
                 }}
                 className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
               >
-                {TAPER_MEDICATIONS.map(m => (
-                  <option key={m.id} value={m.id}>{m.name} — ({m.class})</option>
+                {categories.map(cat => (
+                  <optgroup key={cat} label={`── ${cat.toUpperCase()} ──`}>
+                    {TAPER_MEDICATIONS.filter(m => m.category === cat).map(m => (
+                      <option key={m.id} value={m.id}>{m.name} — ({m.class})</option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>
@@ -188,27 +603,40 @@ export default function CrossTaperCalculator() {
                 ))}
               </select>
             </div>
-            <p className="text-[11px] text-slate-500">Half-life: <span className="font-semibold text-slate-700">{currentMed.halfLife}</span></p>
+            <div className="p-2.5 bg-white border border-slate-200 rounded-lg space-y-1">
+              <p className="text-[11px] text-slate-500">Half-life: <span className="font-semibold text-slate-700">{currentMed.halfLife}</span></p>
+              <p className="text-[10px] text-slate-600 italic">Pearl: {currentMed.pearl}</p>
+            </div>
           </div>
 
           {/* Target Medication (Drug B) */}
           <div className="space-y-3">
-            <span className="text-xs font-bold text-teal-800 uppercase tracking-wider block">
-              2. Target Medication (Titrating Up)
-            </span>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-teal-800 uppercase tracking-wider block">
+                2. Target Medication (Titrating Up)
+              </span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800">
+                {targetMed.category}
+              </span>
+            </div>
             <div>
               <label className="text-[11px] font-semibold text-slate-600 block mb-1">Select Target Drug:</label>
               <select
                 value={targetMedId}
                 onChange={(e) => {
-                  setTargetMedId(e.target.value);
-                  const med = TAPER_MEDICATIONS.find(m => m.id === e.target.value);
+                  const newId = e.target.value;
+                  setTargetMedId(newId);
+                  const med = TAPER_MEDICATIONS.find(m => m.id === newId);
                   if (med) setTargetDose(med.doses[Math.min(1, med.doses.length - 1)]);
                 }}
                 className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
               >
-                {TAPER_MEDICATIONS.filter(m => m.id !== currentMedId).map(m => (
-                  <option key={m.id} value={m.id}>{m.name} — ({m.class})</option>
+                {categories.map(cat => (
+                  <optgroup key={cat} label={`── ${cat.toUpperCase()} ──`}>
+                    {TAPER_MEDICATIONS.filter(m => m.category === cat && m.id !== currentMedId).map(m => (
+                      <option key={m.id} value={m.id}>{m.name} — ({m.class})</option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>
@@ -224,9 +652,73 @@ export default function CrossTaperCalculator() {
                 ))}
               </select>
             </div>
-            <p className="text-[11px] text-slate-500">Half-life: <span className="font-semibold text-slate-700">{targetMed.halfLife}</span></p>
+            <div className="p-2.5 bg-white border border-slate-200 rounded-lg space-y-1">
+              <p className="text-[11px] text-slate-500">Half-life: <span className="font-semibold text-slate-700">{targetMed.halfLife}</span></p>
+              <p className="text-[10px] text-slate-600 italic">Pearl: {targetMed.pearl}</p>
+            </div>
           </div>
         </div>
+
+        {/* Dynamic High-Priority Clinical Interaction Alerts */}
+        {isTargetLamictal && isCurrentDepakote && (
+          <div className="mt-4 p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-900 flex items-start gap-2.5">
+            <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-black text-red-950">CRITICAL PHARMACOKINETIC INTERACTION: Valproate + Lamotrigine</p>
+              <p className="mt-0.5">
+                Divalproex inhibits lamotrigine glucuronidation (UGT1A4), doubling lamotrigine serum levels and drastically elevating Stevens-Johnson Syndrome (SJS/TEN) risk. Lamotrigine starting dose MUST be reduced to <strong>25 mg every other day (QOD)</strong> for the first 2 weeks.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {isTargetLamictal && !isCurrentDepakote && (
+          <div className="mt-4 p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-start gap-2.5">
+            <ShieldAlert className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-amber-950">BLACK BOX WARNING PROTOCOL: Mandatory Slow Lamotrigine Titration</p>
+              <p className="mt-0.5">
+                Regardless of which medication is being tapered off, Lamotrigine must adhere strictly to the 6-week slow titration steps (25mg x 2 wks, 50mg x 2 wks, 100mg x 1 wk) to minimize life-threatening Stevens-Johnson Syndrome (SJS/TEN).
+              </p>
+            </div>
+          </div>
+        )}
+
+        {isPineToOtherAntipsychotic && (
+          <div className="mt-4 p-3.5 bg-indigo-50 border border-indigo-200 rounded-xl text-xs text-indigo-900 flex items-start gap-2.5">
+            <Info className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-indigo-950">RECEPTOR SWITCH WARNING: Anticholinergic & Histaminic Rebound</p>
+              <p className="mt-0.5">
+                Tapering down from high-H1/M1 "pines" (Quetiapine/Olanzapine) to "dones" or partial agonists can trigger rapid rebound insomnia, diaphoresis, nausea, and agitation. Slow 4-week step-down protocol applied.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {(isToPartialAgonist || isFromPartialAgonist) && (
+          <div className="mt-4 p-3.5 bg-purple-50 border border-purple-200 rounded-xl text-xs text-purple-900 flex items-start gap-2.5">
+            <Info className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-purple-950">DOPAMINE D2 RECEPTOR SWITCH: Partial Agonist Kinetics</p>
+              <p className="mt-0.5">
+                Switching to or from high-affinity D2 partial agonists (Aripiprazole, Cariprazine, Brexpiprazole) requires overlapping cross-titration to prevent receptor displacement agitation or akathisia.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {(isLithiumTransition || isValproateTransition) && (
+          <div className="mt-4 p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-start gap-2.5">
+            <Activity className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-blue-950">THERAPEUTIC DRUG MONITORING (TDM) REQUIRED</p>
+              <p className="mt-0.5">
+                Order a 12-hour post-dose serum trough level 5–7 days after dosage changes. Target Lithium trough: 0.6–0.8 mEq/L (maintenance). Target Valproate trough: 50–125 mcg/mL.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Cross-Taper Schedule Table & Printable Handout */}
@@ -262,9 +754,14 @@ export default function CrossTaperCalculator() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-100 pb-4 print:hidden">
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5 text-teal-600" />
-            <h3 className="text-base font-black text-slate-900">
-              Week-by-Week Transition Protocol
-            </h3>
+            <div>
+              <h3 className="text-base font-black text-slate-900">
+                Week-by-Week Transition Protocol
+              </h3>
+              <p className="text-xs text-slate-500">
+                {schedule.length}-week evidence-based transition schedule
+              </p>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -318,6 +815,21 @@ export default function CrossTaperCalculator() {
             <p>
               <strong>Important Safety Reminders:</strong> Take doses consistently with food and water. Mild temporary adjustments (mild fatigue or stomach upset) can occur during the first week.
             </p>
+            {targetMed.id === 'lurasidone' && (
+              <p className="font-semibold text-amber-950">
+                • Lurasidone (Latuda) MUST be taken with a meal or snack containing at least 350 calories for proper absorption.
+              </p>
+            )}
+            {targetMed.id === 'lamotrigine' && (
+              <p className="font-semibold text-amber-950">
+                • Lamictal: Immediately report any new rash, fever, or blistering. If you miss doses for more than 4-5 days, do not take your regular dose—contact the clinic to restart safely.
+              </p>
+            )}
+            {isLithiumTransition && (
+              <p className="font-semibold text-blue-950">
+                • Lithium: Drink plenty of water throughout the day. Avoid over-the-counter NSAIDs (ibuprofen, naproxen) without consulting the provider.
+              </p>
+            )}
             <p>
               If you experience sudden high fever, rapid heartbeat, shivering, severe agitation, or allergic rash, contact the clinic or emergency services immediately.
             </p>
