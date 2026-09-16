@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { ArrowLeftRight, AlertCircle, Clipboard, Check, Sparkles, Calendar, ShieldAlert, Printer, Info, Activity } from 'lucide-react';
 
 const TAPER_MEDICATIONS = [
-  // Antidepressants (SSRIs, SNRIs, NDRIs, NaSSA, Multimodal)
+  // SSRIs
   {
     id: 'escitalopram',
     name: 'Escitalopram (Lexapro)',
     class: 'SSRI',
-    category: 'Antidepressants',
+    category: 'SSRIs (Selective Serotonin Reuptake Inhibitors)',
     doses: ['5 mg', '10 mg', '15 mg', '20 mg'],
     halfLife: '30h',
     pearl: 'Clean CYP profile; monitor QTc if combined with other QTc agents.'
@@ -16,7 +16,7 @@ const TAPER_MEDICATIONS = [
     id: 'sertraline',
     name: 'Sertraline (Zoloft)',
     class: 'SSRI',
-    category: 'Antidepressants',
+    category: 'SSRIs (Selective Serotonin Reuptake Inhibitors)',
     doses: ['25 mg', '50 mg', '100 mg', '150 mg', '200 mg'],
     halfLife: '26h',
     pearl: 'Preferred in cardiac risk (SADHART); take with meals to reduce GI effects.'
@@ -25,7 +25,7 @@ const TAPER_MEDICATIONS = [
     id: 'fluoxetine',
     name: 'Fluoxetine (Prozac)',
     class: 'SSRI',
-    category: 'Antidepressants',
+    category: 'SSRIs (Selective Serotonin Reuptake Inhibitors)',
     doses: ['10 mg', '20 mg', '40 mg', '60 mg'],
     halfLife: '2-4 days (Active metabolite 7-15 days)',
     pearl: 'Long half-life confers "self-taper"; direct stop without taper usually well-tolerated.'
@@ -34,7 +34,7 @@ const TAPER_MEDICATIONS = [
     id: 'paroxetine',
     name: 'Paroxetine (Paxil)',
     class: 'SSRI',
-    category: 'Antidepressants',
+    category: 'SSRIs (Selective Serotonin Reuptake Inhibitors)',
     doses: ['10 mg', '20 mg', '30 mg', '40 mg'],
     halfLife: '21h (High withdrawal risk)',
     pearl: 'High anticholinergic potency; highest risk of discontinuation syndrome; taper slowly.'
@@ -43,16 +43,27 @@ const TAPER_MEDICATIONS = [
     id: 'citalopram',
     name: 'Citalopram (Celexa)',
     class: 'SSRI',
-    category: 'Antidepressants',
+    category: 'SSRIs (Selective Serotonin Reuptake Inhibitors)',
     doses: ['10 mg', '20 mg', '40 mg'],
     halfLife: '35h',
     pearl: 'Dose-dependent QTc prolongation ceiling (max 20mg in elderly >60).'
   },
   {
+    id: 'fluvoxamine',
+    name: 'Fluvoxamine (Luvox)',
+    class: 'SSRI',
+    category: 'SSRIs (Selective Serotonin Reuptake Inhibitors)',
+    doses: ['50 mg', '100 mg', '150 mg', '200 mg', '300 mg'],
+    halfLife: '15-26h',
+    pearl: 'Potent CYP1A2 and CYP2C19 inhibitor; marked interaction with clozapine/caffeine.'
+  },
+
+  // SNRIs
+  {
     id: 'duloxetine',
     name: 'Duloxetine (Cymbalta)',
     class: 'SNRI',
-    category: 'Antidepressants',
+    category: 'SNRIs (Serotonin-Norepinephrine Reuptake Inhibitors)',
     doses: ['30 mg', '60 mg', '90 mg', '120 mg'],
     halfLife: '12h',
     pearl: 'Dual serotonin/norepinephrine; excellent for neuropathic pain & fibromyalgia.'
@@ -61,16 +72,27 @@ const TAPER_MEDICATIONS = [
     id: 'venlafaxine',
     name: 'Venlafaxine ER (Effexor XR)',
     class: 'SNRI',
-    category: 'Antidepressants',
+    category: 'SNRIs (Serotonin-Norepinephrine Reuptake Inhibitors)',
     doses: ['37.5 mg', '75 mg', '150 mg', '225 mg'],
     halfLife: '11h (High withdrawal risk)',
     pearl: 'Short half-life; notorious for brain zaps on missed doses; reduce in small steps.'
   },
   {
+    id: 'desvenlafaxine',
+    name: 'Desvenlafaxine (Pristiq)',
+    class: 'SNRI',
+    category: 'SNRIs (Serotonin-Norepinephrine Reuptake Inhibitors)',
+    doses: ['25 mg', '50 mg', '100 mg'],
+    halfLife: '11h',
+    pearl: 'Active metabolite of venlafaxine; does not require CYP2D6 bioactivation.'
+  },
+
+  // NDRIs & Novel / Atypical Antidepressants
+  {
     id: 'bupropion',
     name: 'Bupropion XL (Wellbutrin XL)',
     class: 'NDRI',
-    category: 'Antidepressants',
+    category: 'NDRIs & Atypical Antidepressants',
     doses: ['150 mg', '300 mg', '450 mg'],
     halfLife: '21h',
     pearl: 'Zero sexual dysfunction; activating; contraindicated with seizure or eating disorders.'
@@ -79,34 +101,16 @@ const TAPER_MEDICATIONS = [
     id: 'mirtazapine',
     name: 'Mirtazapine (Remeron)',
     class: 'NaSSA',
-    category: 'Antidepressants',
+    category: 'NDRIs & Atypical Antidepressants',
     doses: ['7.5 mg', '15 mg', '30 mg', '45 mg'],
     halfLife: '20-40h',
     pearl: 'Inverse sedation curve: 7.5-15mg is more sedating (H1) than 30-45mg (noradrenergic).'
   },
   {
-    id: 'fluvoxamine',
-    name: 'Fluvoxamine (Luvox)',
-    class: 'SSRI',
-    category: 'Antidepressants',
-    doses: ['50 mg', '100 mg', '150 mg', '200 mg', '300 mg'],
-    halfLife: '15-26h',
-    pearl: 'Potent CYP1A2 and CYP2C19 inhibitor; marked interaction with clozapine/caffeine.'
-  },
-  {
-    id: 'desvenlafaxine',
-    name: 'Desvenlafaxine (Pristiq)',
-    class: 'SNRI',
-    category: 'Antidepressants',
-    doses: ['25 mg', '50 mg', '100 mg'],
-    halfLife: '11h',
-    pearl: 'Active metabolite of venlafaxine; does not require CYP2D6 bioactivation.'
-  },
-  {
     id: 'vortioxetine',
     name: 'Vortioxetine (Trintellix)',
     class: 'Multimodal Antidepressant',
-    category: 'Antidepressants',
+    category: 'NDRIs & Atypical Antidepressants',
     doses: ['5 mg', '10 mg', '15 mg', '20 mg'],
     halfLife: '66h',
     pearl: 'Multimodal 5-HT receptor modulator; pro-cognitive benefits; low sexual side effects.'
@@ -540,7 +544,13 @@ export default function CrossTaperCalculator() {
   };
 
   // Group medications by category for dropdowns
-  const categories = ['Antidepressants', 'Antipsychotics (SGAs)', 'Mood Stabilizers'];
+  const categories = [
+    'SSRIs (Selective Serotonin Reuptake Inhibitors)',
+    'SNRIs (Serotonin-Norepinephrine Reuptake Inhibitors)',
+    'NDRIs & Atypical Antidepressants',
+    'Antipsychotics (SGAs)',
+    'Mood Stabilizers'
+  ];
 
   return (
     <div className="space-y-6">
