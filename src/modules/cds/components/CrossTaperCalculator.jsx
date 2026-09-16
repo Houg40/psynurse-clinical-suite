@@ -610,7 +610,7 @@ export default function CrossTaperCalculator() {
             </div>
 
             {/* Provider Notecards Grid - Exactly Written as Provider Requested */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               
               {/* Notecard 1: SSRIs */}
               <div className="bg-amber-50/60 border-2 border-amber-200/80 rounded-xl p-4 shadow-sm space-y-3 font-mono text-xs">
@@ -706,12 +706,108 @@ export default function CrossTaperCalculator() {
                 </div>
               </div>
 
+              {/* Notecard 4: Mood Stabilizers (Bipolar & Mood Disorders) */}
+              <div className="bg-purple-50/60 border-2 border-purple-200/80 rounded-xl p-4 shadow-sm space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between border-b border-purple-200 pb-1.5 font-sans">
+                  <span className="font-black text-purple-950 text-xs tracking-wider uppercase">NOTECARD 4</span>
+                  <span className="text-[10px] font-bold bg-purple-200/70 text-purple-900 px-2 py-0.5 rounded">MOOD STABILIZERS</span>
+                </div>
+
+                <div className="space-y-3 text-slate-800 text-[11px] leading-relaxed">
+                  <div>
+                    <p className="font-bold text-slate-950">Lamotrigine — Lamictal — Mood Stabilizer</p>
+                    <p>Bipolar I maintenance (depression prevention)</p>
+                    <p className="text-slate-600">(TRD augmentation, bipolar II depression)</p>
+                    <p className="text-purple-950 font-bold text-[10px] mt-0.5">⚠️ Mandatory slow titration to avoid SJS/TEN</p>
+                  </div>
+
+                  <div className="pt-1 border-t border-purple-200/60">
+                    <p className="font-bold text-slate-950">Lithium — Lithobid / Eskalith — Mood Stabilizer</p>
+                    <p>Bipolar I mania &amp; maintenance, anti-suicide</p>
+                    <p className="text-slate-600">(MDD augmentation, vascular headaches)</p>
+                    <p className="text-purple-950 font-semibold text-[10px] mt-0.5">Trough target: 0.6–0.8 mEq/L (maintenance)</p>
+                  </div>
+
+                  <div className="pt-1 border-t border-purple-200/60">
+                    <p className="font-bold text-slate-950">Divalproex / Valproic Acid — Depakote — Mood Stabilizer</p>
+                    <p>Bipolar I acute mania &amp; mixed episodes</p>
+                    <p className="text-slate-600">(Migraine prophylaxis, impulsivity, rapid cycling)</p>
+                    <p className="text-purple-950 font-semibold text-[10px] mt-0.5">Trough target: 50–125 mcg/mL • Teratogen</p>
+                  </div>
+
+                  <div className="pt-1 border-t border-purple-200/60">
+                    <p className="font-bold text-slate-950">Oxcarbazepine — Trileptal — Mood Stabilizer</p>
+                    <p>Bipolar mood instability / affective lability (off-label)</p>
+                    <p className="text-slate-600">(Trigeminal neuralgia, focal seizures)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Notecard 5: Second-Generation Antipsychotics (SGAs) */}
+              <div className="bg-rose-50/60 border-2 border-rose-200/80 rounded-xl p-4 shadow-sm space-y-3 font-mono text-xs md:col-span-2 lg:col-span-2">
+                <div className="flex items-center justify-between border-b border-rose-200 pb-1.5 font-sans">
+                  <span className="font-black text-rose-950 text-xs tracking-wider uppercase">NOTECARD 5</span>
+                  <span className="text-[10px] font-bold bg-rose-200/70 text-rose-900 px-2 py-0.5 rounded">ANTIPSYCHOTICS (SGAs)</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-800 text-[11px] leading-relaxed">
+                  <div className="space-y-2">
+                    <div>
+                      <p className="font-bold text-slate-950">Aripiprazole — Abilify — SGA (D2 Partial Agonist)</p>
+                      <p>MDD adjunct, bipolar I mania/maintenance, schizophrenia</p>
+                      <p className="text-slate-600">(Tourette's, autism irritability)</p>
+                    </div>
+
+                    <div className="pt-1 border-t border-rose-200/60">
+                      <p className="font-bold text-slate-950">Quetiapine — Seroquel / XR — SGA (SDA / Pine)</p>
+                      <p>Bipolar depression (monotherapy), bipolar mania, MDD adjunct (XR), schizophrenia</p>
+                      <p className="text-slate-600">(Insomnia, severe GAD)</p>
+                    </div>
+
+                    <div className="pt-1 border-t border-rose-200/60">
+                      <p className="font-bold text-slate-950">Lurasidone — Latuda — SGA (SDA / Done)</p>
+                      <p>Bipolar I depression (monotherapy or c̄ Li/DVP), schizophrenia</p>
+                      <p className="text-rose-900 font-semibold text-[10px]">Take c̄ ≥350 cal meal</p>
+                    </div>
+
+                    <div className="pt-1 border-t border-rose-200/60">
+                      <p className="font-bold text-slate-950">Cariprazine — Vraylar — SGA (D3/D2 Partial Agonist)</p>
+                      <p>Bipolar I depression, bipolar I mania/mixed, MDD adjunct, schizophrenia</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div>
+                      <p className="font-bold text-slate-950">Lumateperone — Caplyta — SGA</p>
+                      <p>Bipolar I &amp; Bipolar II depression (monotherapy &amp; adjunct), schizophrenia</p>
+                    </div>
+
+                    <div className="pt-1 border-t border-rose-200/60">
+                      <p className="font-bold text-slate-950">Olanzapine — Zyprexa — SGA (SDA / Pine)</p>
+                      <p>Bipolar I mania/mixed, schizophrenia, bipolar depression c̄ fluoxetine (Symbyax)</p>
+                      <p className="text-slate-600">(Treatment-resistant depression, acute agitation)</p>
+                    </div>
+
+                    <div className="pt-1 border-t border-rose-200/60">
+                      <p className="font-bold text-slate-950">Risperidone — Risperdal — SGA (SDA / Done)</p>
+                      <p>Bipolar I mania, schizophrenia</p>
+                      <p className="text-slate-600">(Autism irritability, Tourette's)</p>
+                    </div>
+
+                    <div className="pt-1 border-t border-rose-200/60">
+                      <p className="font-bold text-slate-950">Brexpiprazole — Rexulti — SGA (D2 Partial Agonist)</p>
+                      <p>MDD adjunct, schizophrenia, Alzheimer's agitation</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             {/* Citations Footer */}
             <div className="pt-2 border-t border-teal-200/60 flex flex-col sm:flex-row justify-between items-start sm:items-center text-[10px] text-slate-500 gap-1 font-sans">
               <span>References: FDA Prescribing Information • Maudsley Prescribing Guidelines (14th Ed) • Stahl's Prescriber's Guide (8th Ed)</span>
-              <span className="italic">Notation: c̄ = with • d/o = disorder • DPNP = Diabetic Peripheral Neuropathic Pain • MSK = Musculoskeletal</span>
+              <span className="italic">Notation: c̄ = with • d/o = disorder • DPNP = Diabetic Peripheral Neuropathic Pain • MSK = Musculoskeletal • TRD = Treatment-Resistant Depression</span>
             </div>
           </div>
         )}
