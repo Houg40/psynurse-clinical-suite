@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post-Traumatic Stress Disorder (PTSD) — DSM-5-TR Evaluation Checklist</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 14mm 14mm 14mm 14mm;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.35;
+      color: #0f172a;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .header {
+      border-bottom: 2.5px solid #0f766e;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .clinic-title {
+      font-size: 12.5pt;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+      margin: 0 0 2px 0;
+    }
+    .clinician-sub {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #0f766e;
+      margin: 0 0 2px 0;
+    }
+    .clinic-meta {
+      font-size: 8pt;
+      color: #64748b;
+      margin: 0;
+    }
+    .header-right {
+      text-align: right;
+      font-size: 8.5pt;
+      color: #475569;
+    }
+    .header-right strong {
+      display: block;
+      color: #0f172a;
+      font-size: 9pt;
+    }
+    .patient-box {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr;
+      gap: 8px;
+      font-size: 8.5pt;
+    }
+    .field-label {
+      font-weight: bold;
+      color: #334155;
+      margin-bottom: 2px;
+    }
+    .field-line {
+      border-bottom: 1px dotted #94a3b8;
+      min-height: 15px;
+    }
+    .disorder-banner {
+      background: #f0fdfa;
+      border: 1.5px solid #99f6e4;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+    }
+    .disorder-title {
+      font-size: 12pt;
+      font-weight: 900;
+      color: #134e4a;
+      margin: 0 0 3px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .icd-pill {
+      font-size: 8.5pt;
+      background: #0f766e;
+      color: #ffffff;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: ui-monospace, monospace;
+      font-weight: bold;
+    }
+    .disorder-overview {
+      font-size: 8.5pt;
+      color: #334155;
+      margin: 0;
+    }
+    .section-block {
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .section-header {
+      background: #f1f5f9;
+      border-left: 3.5px solid #0f766e;
+      padding: 4px 8px;
+      font-size: 9pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .item-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 5px;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+    }
+    .box {
+      width: 13px;
+      height: 13px;
+      border: 1.5px solid #475569;
+      border-radius: 2px;
+      margin-right: 8px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .item-code {
+      font-weight: bold;
+      color: #0f172a;
+      margin-right: 4px;
+      min-width: 26px;
+      flex-shrink: 0;
+    }
+    .core-badge {
+      background: #ffe4e6;
+      color: #9f1239;
+      border: 1px solid #fecdd3;
+      font-size: 7pt;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-left: 4px;
+      text-transform: uppercase;
+    }
+    .specifier-box {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .specifier-title {
+      font-size: 8.5pt;
+      font-weight: 800;
+      color: #0f766e;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .specifier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-size: 8pt;
+    }
+    .mdm-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .mdm-title {
+      font-size: 8.5pt;
+      font-weight: bold;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+    .mdm-lines {
+      height: 38px;
+      border-bottom: 1px dotted #94a3b8;
+    }
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+      padding-top: 8px;
+      border-top: 1px solid #cbd5e1;
+      font-size: 8pt;
+      page-break-inside: avoid;
+    }
+    .sig-line {
+      border-bottom: 1px solid #475569;
+      height: 22px;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <div class="clinic-title">PSYCHIATRIC NURSE PRACTITIONER SERVICES</div>
+      <div class="clinician-sub">Monica Preder, MSN, APRN, PMHNP-BC • Board Certified Psychiatric Nurse Practitioner</div>
+      <div class="clinic-meta">Practice: Therapeutic Health Services (THS) • Washington State Telehealth</div>
+    </div>
+    <div class="header-right">
+      <strong>DSM-5-TR Evaluation Checklist</strong>
+      <span>Date: September 15, 2026</span>
+    </div>
+  </div>
+
+  <div class="patient-box">
+    <div>
+      <div class="field-label">Patient Name:</div>
+      <div class="field-line"></div>
+    </div>
+    <div>
+      <div class="field-label">DOB:</div>
+      <div class="field-line"></div>
+    </div>
+    <div>
+      <div class="field-label">Evaluation Date:</div>
+      <div class="field-line">September 15, 2026</div>
+    </div>
+    <div>
+      <div class="field-label">MRN / Chart #:</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="disorder-banner">
+    <div class="disorder-title">
+      <span>Post-Traumatic Stress Disorder (PTSD)</span>
+      <span class="icd-pill">F43.10 (Acute) / F43.12 (Chronic)</span>
+    </div>
+    <p class="disorder-overview">Exposure to threatened death, serious injury, or sexual violence. Symptoms persist for > 1 month and include Intrusion (>= 1), Avoidance (>= 1), Negative Alterations in Cognition/Mood (>= 2), and Marked Alterations in Arousal/Reactivity (>= 2).</p>
+  </div>
+
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Criterion A: Trauma Exposure (Requires >= 1)</span>
+        <span>Direct experience, witnessing, learning of violent death of loved one, or repeated aversive exposure</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">A1:</span>
+          <span>
+            Direct experience of the traumatic event(s).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">A2:</span>
+          <span>
+            Witnessing, in person, the traumatic event(s) as it occurred to others.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">A3:</span>
+          <span>
+            Learning that the traumatic event occurred to a close family member or close friend (must have been violent or accidental).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">A4:</span>
+          <span>
+            Experiencing repeated or extreme exposure to aversive details of traumatic events (first responders, child abuse investigators; not via media unless work-related).
+            
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Criterion B: Intrusion Symptoms (Requires >= 1)</span>
+        <span>Persistent re-experiencing of the traumatic event</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">B1:</span>
+          <span>
+            Recurrent, involuntary, and intrusive distressing memories of the traumatic event(s).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">B2:</span>
+          <span>
+            Recurrent distressing dreams in which the content/affect of the dream is related to the event(s).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">B3:</span>
+          <span>
+            Dissociative reactions (e.g., flashbacks) where individual feels or acts as if event is recurring.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">B4:</span>
+          <span>
+            Intense or prolonged psychological distress at exposure to internal or external reminders/cues.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">B5:</span>
+          <span>
+            Marked physiological reactions to internal or external reminders (elevated HR, sweating, tremor).
+            
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Criterion C: Avoidance Symptoms (Requires >= 1)</span>
+        <span>Persistent avoidance of distressing trauma-related stimuli</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">C1:</span>
+          <span>
+            Avoidance of or efforts to avoid distressing memories, thoughts, or feelings related to the event(s).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">C2:</span>
+          <span>
+            Avoidance of or efforts to avoid external reminders (people, places, conversations, activities, objects) that arouse trauma memories.
+            
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Criterion D: Negative Alterations in Cognitions & Mood (Requires >= 2)</span>
+        <span>Worsened mood and beliefs following the trauma</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">D1:</span>
+          <span>
+            Inability to remember an important aspect of the traumatic event (dissociative amnesia).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">D2:</span>
+          <span>
+            Persistent, exaggerated negative beliefs about oneself, others, or the world ('I am bad', 'No one can be trusted', 'The world is dangerous').
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">D3:</span>
+          <span>
+            Persistent distorted cognitions about the cause/consequences of the event leading to self-blame or blaming others.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">D4:</span>
+          <span>
+            Persistent negative emotional state (fear, horror, anger, guilt, or shame).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">D5:</span>
+          <span>
+            Markedly diminished interest or participation in significant activities.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">D6:</span>
+          <span>
+            Feelings of detachment or estrangement from others.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">D7:</span>
+          <span>
+            Persistent inability to experience positive emotions (happiness, satisfaction, or loving feelings).
+            
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Criterion E: Alterations in Arousal & Reactivity (Requires >= 2)</span>
+        <span>Trauma-related hyperarousal and reactivity</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E1:</span>
+          <span>
+            Irritable behavior and angry outbursts (with little/no provocation), verbal or physical aggression.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E2:</span>
+          <span>
+            Reckless or self-destructive behavior.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E3:</span>
+          <span>
+            Hypervigilance (heightened watchfulness and scanning).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E4:</span>
+          <span>
+            Exaggerated startle response.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E5:</span>
+          <span>
+            Problems with concentration.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E6:</span>
+          <span>
+            Sleep disturbance (difficulty falling/staying asleep, restless sleep).
+            
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Criteria F, G & H: Duration & Impairment</span>
+        <span>Duration > 1 month + clinical impairment</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">F:</span>
+          <span>
+            Criterion F: Duration of disturbance (Criteria B, C, D, and E) is more than 1 month.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">G:</span>
+          <span>
+            Criterion G: Causes clinically significant distress or impairment in social, occupational, or other functional areas.
+            
+          </span>
+        </div>
+      
+    </div>
+  
+
+  
+    <div class="specifier-box">
+      <div class="specifier-title">Clinical Specifiers &amp; Subtypes</div>
+      <div class="specifier-grid">
+        
+          <div>
+            <strong>Dissociative Symptoms Specifier:</strong>
+            <ul style="margin: 3px 0 0 16px; padding: 0;">
+              <li>☐ None</li><li>☐ With depersonalization (feeling detached from body or mental processes)</li><li>☐ With derealization (unreality of surroundings; dreamlike, distant, distorted)</li>
+            </ul>
+          </div>
+        
+          <div>
+            <strong>Expression Onset:</strong>
+            <ul style="margin: 3px 0 0 16px; padding: 0;">
+              <li>☐ Standard onset</li><li>☐ With delayed expression (full criteria met >= 6 months post-event)</li>
+            </ul>
+          </div>
+        
+      </div>
+    </div>
+  
+
+  <div class="mdm-box">
+    <div class="mdm-title">Diagnostic Conclusion &amp; Medical Decision Making (MDM):</div>
+    <div style="font-size: 8pt; color: #475569; margin-bottom: 4px;">
+      ☐ Full Diagnostic Criteria Met &nbsp;&nbsp;&nbsp;&nbsp; ☐ Sub-threshold Symptoms &nbsp;&nbsp;&nbsp;&nbsp; ☐ Ruled Out (Alternative Differential Documented Below)
+    </div>
+    <div class="mdm-lines"></div>
+  </div>
+
+  <div class="signature-grid">
+    <div>
+      <div class="field-label">Clinician Signature:</div>
+      <div class="sig-line"></div>
+      <div style="font-weight: bold; color: #0f766e;">Monica Preder, MSN, APRN, PMHNP-BC</div>
+      <div style="color: #64748b;">Board Certified Psychiatric Nurse Practitioner • DEA / WA State APRN on file</div>
+    </div>
+    <div>
+      <div class="field-label">Date &amp; Clinical Time:</div>
+      <div class="sig-line"></div>
+      <div style="color: #64748b;">Time Spent in Diagnostic Assessment &amp; Counseling: ______ min</div>
+    </div>
+  </div>
+
+</body>
+</html>

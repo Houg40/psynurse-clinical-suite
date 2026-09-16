@@ -7,6 +7,7 @@ import SafetyGuide from './components/SafetyGuide';
 import InteractionChecker from './components/InteractionChecker';
 import HpiBuilder from './components/HpiBuilder';
 import AiAdvisor from './components/AiAdvisor';
+import Dsm5Checklists from './components/Dsm5Checklists';
 import FeedbackModal from './components/FeedbackModal';
 
 export default function CdsApp({ activeTab, setActiveTab }) {
@@ -15,6 +16,7 @@ export default function CdsApp({ activeTab, setActiveTab }) {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 print:p-0 print:m-0 print:max-w-none">
         {activeTab === 'hpi' && <HpiBuilder />}
         {activeTab === 'screeners' && <ScreenerAssessment />}
+        {activeTab === 'checklists' && <Dsm5Checklists />}
         {activeTab === 'medications' && <MedicationDirectory />}
         {activeTab === 'interactions' && <InteractionChecker />}
         {activeTab === 'advisor' && <AiAdvisor />}

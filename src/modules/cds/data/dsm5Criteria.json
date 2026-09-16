@@ -1,0 +1,1092 @@
+[
+  {
+    "id": "adhd",
+    "name": "Attention-Deficit / Hyperactivity Disorder (ADHD)",
+    "shortName": "ADHD",
+    "category": "Neurodevelopmental",
+    "icd10": "F90.2 (Combined) / F90.0 (Inattentive) / F90.1 (Hyperactive-Impulsive)",
+    "overview": "A persistent pattern of inattention and/or hyperactivity-impulsivity that interferes with functioning or development. For older adolescents and adults (age 17+), at least 5 symptoms are required per domain; for children, at least 6 are required. Symptoms must persist for at least 6 months.",
+    "ageThresholdAdult": 5,
+    "ageThresholdChild": 6,
+    "sections": [
+      {
+        "id": "inattention",
+        "title": "Criterion A1: Inattention",
+        "subtitle": "Requires >= 5 symptoms for adults (age 17+) or >= 6 for children for at least 6 months",
+        "requiredCount": 5,
+        "items": [
+          { "code": "A1a", "text": "Often fails to give close attention to details or makes careless mistakes in schoolwork, at work, or during other activities (overlooks/misses details, work is inaccurate)." },
+          { "code": "A1b", "text": "Often has difficulty sustaining attention in tasks or play activities (difficulty remaining focused during lectures, conversations, or lengthy reading)." },
+          { "code": "A1c", "text": "Often does not seem to listen when spoken to directly (mind seems elsewhere, even in the absence of any obvious distraction)." },
+          { "code": "A1d", "text": "Often does not follow through on instructions and fails to finish schoolwork, chores, or duties in the workplace (starts tasks but quickly loses focus and is easily sidetracked)." },
+          { "code": "A1e", "text": "Often has difficulty organizing tasks and activities (difficulty managing sequential tasks; messy, disorganized work; poor time management; fails to meet deadlines)." },
+          { "code": "A1f", "text": "Often avoids, dislikes, or is reluctant to engage in tasks that require sustained mental effort (e.g., preparing reports, completing forms, reviewing lengthy papers)." },
+          { "code": "A1g", "text": "Often loses things necessary for tasks or activities (school materials, tools, wallets, keys, paperwork, eyeglasses, mobile telephone)." },
+          { "code": "A1h", "text": "Is often easily distracted by extraneous stimuli (for older adolescents and adults, may include unrelated thoughts)." },
+          { "code": "A1i", "text": "Is often forgetful in daily activities (doing chores, running errands; for older adolescents and adults, returning calls, paying bills, keeping appointments)." }
+        ]
+      },
+      {
+        "id": "hyperactivity",
+        "title": "Criterion A2: Hyperactivity & Impulsivity",
+        "subtitle": "Requires >= 5 symptoms for adults (age 17+) or >= 6 for children for at least 6 months",
+        "requiredCount": 5,
+        "items": [
+          { "code": "A2a", "text": "Often fidgets with or taps hands or feet or squirms in seat." },
+          { "code": "A2b", "text": "Often leaves seat in situations when remaining seated is expected (leaves place in office/workplace, classroom, or meetings)." },
+          { "code": "A2c", "text": "Often runs about or climbs in situations where it is inappropriate (in adolescents/adults, may be limited to feeling restless)." },
+          { "code": "A2d", "text": "Often unable to play or engage in leisure activities quietly." },
+          { "code": "A2e", "text": "Is often 'on the go,' acting as if 'driven by a motor' (uncomfortable being still for extended time, as in restaurants or meetings; perceived by others as restless or hard to keep up with)." },
+          { "code": "A2f", "text": "Often talks excessively." },
+          { "code": "A2g", "text": "Often blurts out an answer before a question has been completed (completes people's sentences; cannot wait for turn in conversation)." },
+          { "code": "A2h", "text": "Often has difficulty waiting his or her turn (e.g., while waiting in line)." },
+          { "code": "A2i", "text": "Often interrupts or intrudes on others (butts into conversations, games, or activities; may take over what others are doing)." }
+        ]
+      },
+      {
+        "id": "context",
+        "title": "Criteria B, C, D & E: Chronicity & Context",
+        "subtitle": "All must be confirmed for formal diagnosis",
+        "requiredCount": 4,
+        "items": [
+          { "code": "B", "text": "Criterion B: Several inattentive or hyperactive-impulsive symptoms were present prior to age 12 years." },
+          { "code": "C", "text": "Criterion C: Several symptoms are present in two or more settings (e.g., home, work/school, with friends or relatives, in other activities)." },
+          { "code": "D", "text": "Criterion D: Clear evidence that symptoms interfere with or reduce the quality of social, academic, or occupational functioning." },
+          { "code": "E", "text": "Criterion E: Symptoms do not occur exclusively during schizophrenia or another psychotic disorder and are not better explained by another mental disorder." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "type", "label": "Presentation", "options": ["Combined presentation (F90.2)", "Predominantly inattentive presentation (F90.0)", "Predominantly hyperactive/impulsive presentation (F90.1)"] },
+      { "id": "remission", "label": "Remission Status", "options": ["Full criteria met", "In partial remission"] },
+      { "id": "severity", "label": "Current Severity", "options": ["Mild (few symptoms beyond threshold, minor functional impairment)", "Moderate (symptoms/impairment between mild and severe)", "Severe (many symptoms in excess of required cutoff, marked occupational/social impairment)"] }
+    ]
+  },
+  {
+    "id": "mdd",
+    "name": "Major Depressive Disorder (MDD)",
+    "shortName": "Major Depression",
+    "category": "Depressive Disorders",
+    "icd10": "F32.x (Single) / F33.x (Recurrent)",
+    "overview": "At least 5 of the 9 symptoms present during the same 2-week period representing a change from previous functioning. At least one symptom MUST be (1) depressed mood or (2) markedly diminished interest or pleasure (anhedonia).",
+    "sections": [
+      {
+        "id": "core",
+        "title": "Criterion A: Symptom Checklist (Requires >= 5 of 9 over 2 weeks)",
+        "subtitle": "MUST endorse either Depressed Mood OR Anhedonia to meet diagnostic criteria",
+        "requiredCount": 5,
+        "items": [
+          { "code": "1", "text": "[CORE] Depressed mood most of the day, nearly every day, as indicated by subjective report (feels sad, empty, hopeless) or observation by others (in youth, can be irritable mood).", "isCore": true },
+          { "code": "2", "text": "[CORE] Markedly diminished interest or pleasure in all, or almost all, activities most of the day, nearly every day (anhedonia).", "isCore": true },
+          { "code": "3", "text": "Significant weight loss when not dieting or weight gain (>5% change in a month), or decrease/increase in appetite nearly every day." },
+          { "code": "4", "text": "Insomnia or hypersomnia nearly every day." },
+          { "code": "5", "text": "Psychomotor agitation or retardation nearly every day (observable by others, not merely subjective feelings of restlessness or being slowed down)." },
+          { "code": "6", "text": "Fatigue or loss of energy nearly every day." },
+          { "code": "7", "text": "Feelings of worthlessness or excessive or inappropriate guilt nearly every day (not merely self-reproach about being sick)." },
+          { "code": "8", "text": "Diminished ability to think or concentrate, or indecisiveness, nearly every day." },
+          { "code": "9", "text": "Recurrent thoughts of death (not just fear of dying), recurrent suicidal ideation without a specific plan, or a suicide attempt or specific plan." }
+        ]
+      },
+      {
+        "id": "exclusions",
+        "title": "Criteria B, C & D: Impairment & Exclusions",
+        "subtitle": "Confirm all criteria",
+        "requiredCount": 3,
+        "items": [
+          { "code": "B", "text": "Criterion B: Symptoms cause clinically significant distress or impairment in social, occupational, or other important areas of functioning." },
+          { "code": "C", "text": "Criterion C: Episode is not attributable to the direct physiological effects of a substance (drug of abuse/medication) or medical condition." },
+          { "code": "D", "text": "Criterion D: There has never been a manic or hypomanic episode (which would rule in Bipolar Disorder unless substance-induced)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "episode", "label": "Episode Type", "options": ["Single episode (F32.x)", "Recurrent episode (F33.x)"] },
+      { "id": "severity", "label": "Severity / Features", "options": ["Mild (F33.0)", "Moderate (F33.1)", "Severe without psychotic features (F33.2)", "Severe with psychotic features (F33.3)", "In partial remission (F33.41)", "In full remission (F33.42)"] },
+      { "id": "clinicalSpecifiers", "label": "Clinical Specifiers", "options": ["With anxious distress", "With mixed features", "With melancholic features", "With atypical features", "With peripartum onset", "With seasonal pattern"] }
+    ]
+  },
+  {
+    "id": "gad",
+    "name": "Generalized Anxiety Disorder (GAD)",
+    "shortName": "GAD",
+    "category": "Anxiety Disorders",
+    "icd10": "F41.1",
+    "overview": "Excessive anxiety and worry occurring more days than not for at least 6 months, about a number of events or activities (work, school, health, finances). Difficult to control, associated with at least 3 of 6 physical/somatic symptoms (only 1 item required in children).",
+    "sections": [
+      {
+        "id": "core",
+        "title": "Criteria A & B: Pervasive Worry",
+        "subtitle": "Both criteria required",
+        "requiredCount": 2,
+        "items": [
+          { "code": "A", "text": "Criterion A: Excessive anxiety and worry, occurring more days than not for at least 6 months, about a number of events or activities (such as work or school performance)." },
+          { "code": "B", "text": "Criterion B: The individual finds it difficult to control the worry." }
+        ]
+      },
+      {
+        "id": "physical",
+        "title": "Criterion C: Associated Symptoms (Requires >= 3 of 6; only 1 in children)",
+        "subtitle": "Present for more days than not for the past 6 months",
+        "requiredCount": 3,
+        "items": [
+          { "code": "C1", "text": "Restlessness or feeling keyed up or on edge." },
+          { "code": "C2", "text": "Being easily fatigued." },
+          { "code": "C3", "text": "Difficulty concentrating or mind going blank." },
+          { "code": "C4", "text": "Irritability." },
+          { "code": "C5", "text": "Muscle tension." },
+          { "code": "C6", "text": "Sleep disturbance (difficulty falling or staying asleep, or restless, unsatisfying sleep)." }
+        ]
+      },
+      {
+        "id": "exclusions",
+        "title": "Criteria D, E & F: Impairment & Exclusions",
+        "subtitle": "Confirm all criteria",
+        "requiredCount": 3,
+        "items": [
+          { "code": "D", "text": "Criterion D: Anxiety, worry, or physical symptoms cause clinically significant distress or impairment in social, occupational, or other functional domains." },
+          { "code": "E", "text": "Criterion E: Not attributable to physiological effects of a substance (caffeine, stimulant) or medical condition (hyperthyroidism)." },
+          { "code": "F", "text": "Criterion F: Not better explained by another mental disorder (e.g., panic disorder, social phobia, OCD, PTSD)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "severity", "label": "Clinical Severity", "options": ["Mild (GAD-7 5–9)", "Moderate (GAD-7 10–14)", "Severe (GAD-7 15–21)"] }
+    ]
+  },
+  {
+    "id": "bipolar",
+    "name": "Bipolar I Disorder (Mania, Hypomania & Depression)",
+    "shortName": "Bipolar Disorder",
+    "category": "Bipolar & Related",
+    "icd10": "F31.x (Bipolar I) / F31.81 (Bipolar II)",
+    "overview": "Bipolar I requires at least one lifetime Manic Episode (lasting >= 1 week or requiring hospitalization). Hypomania requires >= 4 consecutive days without marked impairment. Bipolar depression involves a Major Depressive Episode.",
+    "sections": [
+      {
+        "id": "mania_a",
+        "title": "Criterion A: Distinct Mood Episode",
+        "subtitle": "Distinct period of persistently elevated, expansive, or irritable mood + increased activity/energy",
+        "requiredCount": 1,
+        "items": [
+          { "code": "A_Mania", "text": "MANIA: Lasting at least 1 week and present most of the day, nearly every day (or any duration if hospitalization is required)." },
+          { "code": "A_Hypomania", "text": "HYPOMANIA: Lasting at least 4 consecutive days, present most of the day, nearly every day." }
+        ]
+      },
+      {
+        "id": "mania_b",
+        "title": "Criterion B: Symptom Checklist (Requires >= 3 symptoms, or >= 4 if mood is only irritable)",
+        "subtitle": "Represents a noticeable change from baseline",
+        "requiredCount": 3,
+        "items": [
+          { "code": "B1", "text": "Inflated self-esteem or grandiosity (grandiosity may include delusions of invincibility, superiority, special abilities, fortune, or messianic beliefs)." },
+          { "code": "B2", "text": "Decreased need for sleep (e.g., feels fully rested after only 3 hours of sleep)." },
+          { "code": "B3", "text": "More talkative than usual or pressure to keep talking (rapid, loud, interruptive speech)." },
+          { "code": "B4", "text": "Flight of ideas or subjective experience that thoughts are racing." },
+          { "code": "B5", "text": "Distractibility (attention too easily drawn to unimportant or irrelevant external stimuli)." },
+          { "code": "B6", "text": "Increase in goal-directed activity (socially, at work/school, or sexually) or psychomotor agitation (purposeless, non-goal-directed activity)." },
+          { "code": "B7", "text": "Excessive involvement in activities that have a high potential for painful consequences (e.g., unrestrained buying sprees, sexual indiscretions, foolish business investments)." }
+        ]
+      },
+      {
+        "id": "severity_distinction",
+        "title": "Criterion C & D: Severity, Hospitalization & Psychosis",
+        "subtitle": "Distinguishes Mania from Hypomania",
+        "requiredCount": 1,
+        "items": [
+          { "code": "Mania_Severity", "text": "MANIA (Criterion C): Severe enough to cause marked impairment in social/occupational functioning, or necessitates hospitalization, or features psychotic symptoms (grandiose/persecutory delusions)." },
+          { "code": "Hypomania_Severity", "text": "HYPOMANIA (Criterion E): Not severe enough to cause marked impairment or hospitalization, and ABSOLUTELY NO psychotic features (presence of psychosis = automatic Mania)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "currentEpisode", "label": "Current / Most Recent Episode", "options": ["Manic episode (F31.1x / F31.2x)", "Hypomanic episode (F31.0)", "Depressed episode (F31.3x / F31.4x / F31.5)", "Unspecified (F31.9)"] },
+      { "id": "features", "label": "Diagnostic Features", "options": ["With psychotic features (mood-congruent)", "With psychotic features (mood-incongruent)", "With anxious distress", "With rapid cycling (>= 4 mood episodes in 12 months)", "With mixed features"] }
+    ]
+  },
+  {
+    "id": "ptsd",
+    "name": "Post-Traumatic Stress Disorder (PTSD)",
+    "shortName": "PTSD",
+    "category": "Trauma & Stressor",
+    "icd10": "F43.10 (Acute) / F43.12 (Chronic)",
+    "overview": "Exposure to threatened death, serious injury, or sexual violence. Symptoms persist for > 1 month and include Intrusion (>= 1), Avoidance (>= 1), Negative Alterations in Cognition/Mood (>= 2), and Marked Alterations in Arousal/Reactivity (>= 2).",
+    "sections": [
+      {
+        "id": "crit_a",
+        "title": "Criterion A: Trauma Exposure (Requires >= 1)",
+        "subtitle": "Direct experience, witnessing, learning of violent death of loved one, or repeated aversive exposure",
+        "requiredCount": 1,
+        "items": [
+          { "code": "A1", "text": "Direct experience of the traumatic event(s)." },
+          { "code": "A2", "text": "Witnessing, in person, the traumatic event(s) as it occurred to others." },
+          { "code": "A3", "text": "Learning that the traumatic event occurred to a close family member or close friend (must have been violent or accidental)." },
+          { "code": "A4", "text": "Experiencing repeated or extreme exposure to aversive details of traumatic events (first responders, child abuse investigators; not via media unless work-related)." }
+        ]
+      },
+      {
+        "id": "crit_b",
+        "title": "Criterion B: Intrusion Symptoms (Requires >= 1)",
+        "subtitle": "Persistent re-experiencing of the traumatic event",
+        "requiredCount": 1,
+        "items": [
+          { "code": "B1", "text": "Recurrent, involuntary, and intrusive distressing memories of the traumatic event(s)." },
+          { "code": "B2", "text": "Recurrent distressing dreams in which the content/affect of the dream is related to the event(s)." },
+          { "code": "B3", "text": "Dissociative reactions (e.g., flashbacks) where individual feels or acts as if event is recurring." },
+          { "code": "B4", "text": "Intense or prolonged psychological distress at exposure to internal or external reminders/cues." },
+          { "code": "B5", "text": "Marked physiological reactions to internal or external reminders (elevated HR, sweating, tremor)." }
+        ]
+      },
+      {
+        "id": "crit_c",
+        "title": "Criterion C: Avoidance Symptoms (Requires >= 1)",
+        "subtitle": "Persistent avoidance of distressing trauma-related stimuli",
+        "requiredCount": 1,
+        "items": [
+          { "code": "C1", "text": "Avoidance of or efforts to avoid distressing memories, thoughts, or feelings related to the event(s)." },
+          { "code": "C2", "text": "Avoidance of or efforts to avoid external reminders (people, places, conversations, activities, objects) that arouse trauma memories." }
+        ]
+      },
+      {
+        "id": "crit_d",
+        "title": "Criterion D: Negative Alterations in Cognitions & Mood (Requires >= 2)",
+        "subtitle": "Worsened mood and beliefs following the trauma",
+        "requiredCount": 2,
+        "items": [
+          { "code": "D1", "text": "Inability to remember an important aspect of the traumatic event (dissociative amnesia)." },
+          { "code": "D2", "text": "Persistent, exaggerated negative beliefs about oneself, others, or the world ('I am bad', 'No one can be trusted', 'The world is dangerous')." },
+          { "code": "D3", "text": "Persistent distorted cognitions about the cause/consequences of the event leading to self-blame or blaming others." },
+          { "code": "D4", "text": "Persistent negative emotional state (fear, horror, anger, guilt, or shame)." },
+          { "code": "D5", "text": "Markedly diminished interest or participation in significant activities." },
+          { "code": "D6", "text": "Feelings of detachment or estrangement from others." },
+          { "code": "D7", "text": "Persistent inability to experience positive emotions (happiness, satisfaction, or loving feelings)." }
+        ]
+      },
+      {
+        "id": "crit_e",
+        "title": "Criterion E: Alterations in Arousal & Reactivity (Requires >= 2)",
+        "subtitle": "Trauma-related hyperarousal and reactivity",
+        "requiredCount": 2,
+        "items": [
+          { "code": "E1", "text": "Irritable behavior and angry outbursts (with little/no provocation), verbal or physical aggression." },
+          { "code": "E2", "text": "Reckless or self-destructive behavior." },
+          { "code": "E3", "text": "Hypervigilance (heightened watchfulness and scanning)." },
+          { "code": "E4", "text": "Exaggerated startle response." },
+          { "code": "E5", "text": "Problems with concentration." },
+          { "code": "E6", "text": "Sleep disturbance (difficulty falling/staying asleep, restless sleep)." }
+        ]
+      },
+      {
+        "id": "crit_fgh",
+        "title": "Criteria F, G & H: Duration & Impairment",
+        "subtitle": "Duration > 1 month + clinical impairment",
+        "requiredCount": 2,
+        "items": [
+          { "code": "F", "text": "Criterion F: Duration of disturbance (Criteria B, C, D, and E) is more than 1 month." },
+          { "code": "G", "text": "Criterion G: Causes clinically significant distress or impairment in social, occupational, or other functional areas." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "dissociative", "label": "Dissociative Symptoms Specifier", "options": ["None", "With depersonalization (feeling detached from body or mental processes)", "With derealization (unreality of surroundings; dreamlike, distant, distorted)"] },
+      { "id": "delayed", "label": "Expression Onset", "options": ["Standard onset", "With delayed expression (full criteria met >= 6 months post-event)"] }
+    ]
+  },
+  {
+    "id": "panic",
+    "name": "Panic Disorder",
+    "shortName": "Panic Disorder",
+    "category": "Anxiety Disorders",
+    "icd10": "F41.0",
+    "overview": "Recurrent unexpected panic attacks. At least one attack has been followed by >= 1 month of persistent concern about additional attacks and/or significant maladaptive behavioral change (avoidance). Panic attack involves at least 4 of 13 somatic/cognitive symptoms.",
+    "sections": [
+      {
+        "id": "attack_symptoms",
+        "title": "Criterion A: Panic Attack Symptoms (Requires >= 4 of 13)",
+        "subtitle": "Sudden surge of intense fear or intense discomfort reaching a peak within minutes",
+        "requiredCount": 4,
+        "items": [
+          { "code": "1", "text": "Palpitations, pounding heart, or accelerated heart rate." },
+          { "code": "2", "text": "Sweating." },
+          { "code": "3", "text": "Trembling or shaking." },
+          { "code": "4", "text": "Sensations of shortness of breath or smothering." },
+          { "code": "5", "text": "Feelings of choking." },
+          { "code": "6", "text": "Chest pain or discomfort." },
+          { "code": "7", "text": "Nausea or abdominal distress." },
+          { "code": "8", "text": "Feeling dizzy, unsteady, light-headed, or faint." },
+          { "code": "9", "text": "Chills or heat sensations." },
+          { "code": "10", "text": "Paresthesias (numbness or tingling sensations in hands/feet)." },
+          { "code": "11", "text": "Derealization (feelings of unreality) or depersonalization (being detached from oneself)." },
+          { "code": "12", "text": "Fear of losing control or 'going crazy'." },
+          { "code": "13", "text": "Fear of dying." }
+        ]
+      },
+      {
+        "id": "course",
+        "title": "Criterion B: 1-Month Persistence (Requires >= 1 of 2)",
+        "subtitle": "Persistent concern or maladaptive change following at least one attack",
+        "requiredCount": 1,
+        "items": [
+          { "code": "B1", "text": "Persistent concern or worry about additional panic attacks or their consequences (e.g., losing control, having a heart attack, 'going crazy')." },
+          { "code": "B2", "text": "A significant maladaptive change in behavior related to the attacks (e.g., behaviors designed to avoid having panic attacks, avoiding unfamiliar situations)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "agoraphobia", "label": "Comorbidity Specifier", "options": ["Without Agoraphobia", "With Agoraphobia (F40.00)"] }
+    ]
+  },
+  {
+    "id": "agoraphobia",
+    "name": "Agoraphobia",
+    "shortName": "Agoraphobia",
+    "category": "Anxiety Disorders",
+    "icd10": "F40.00",
+    "overview": "Marked fear or anxiety about 2 (or more) of 5 specific situational domains due to thoughts that escape might be difficult or help unavailable. Situations almost always provoke fear, are actively avoided or endured with intense dread, lasting >= 6 months.",
+    "sections": [
+      {
+        "id": "situations",
+        "title": "Criterion A: Feared Situations (Requires >= 2 of 5)",
+        "subtitle": "Marked fear or anxiety about at least two situations",
+        "requiredCount": 2,
+        "items": [
+          { "code": "A1", "text": "Using public transportation (automobiles, buses, trains, ships, planes)." },
+          { "code": "A2", "text": "Being in open spaces (parking lots, marketplaces, bridges)." },
+          { "code": "A3", "text": "Being in enclosed spaces (shops, theaters, cinemas)." },
+          { "code": "A4", "text": "Standing in line or being in a crowd." },
+          { "code": "A5", "text": "Being outside of the home alone." }
+        ]
+      },
+      {
+        "id": "core_features",
+        "title": "Criteria B–G: Cognitive Appraisals & Chronicity",
+        "subtitle": "Confirm all criteria",
+        "requiredCount": 5,
+        "items": [
+          { "code": "B", "text": "Criterion B: Fears or avoids situations due to thoughts that escape might be difficult or help unavailable in the event of panic or incapacitating/embarrassing symptoms." },
+          { "code": "C", "text": "Criterion C: The agoraphobic situations almost always provoke fear or anxiety." },
+          { "code": "D", "text": "Criterion D: Situations are actively avoided, require a companion, or are endured with intense fear or anxiety." },
+          { "code": "E", "text": "Criterion E: Fear/anxiety is out of proportion to actual danger posed and sociocultural context." },
+          { "code": "F", "text": "Criterion F: Fear, anxiety, or avoidance is persistent, typically lasting for 6 months or more." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "panicComorbid", "label": "Panic Disorder Status", "options": ["Agoraphobia without Panic Disorder", "Agoraphobia comorbid with Panic Disorder"] }
+    ]
+  },
+  {
+    "id": "social_anxiety",
+    "name": "Social Anxiety Disorder (Social Phobia)",
+    "shortName": "Social Anxiety",
+    "category": "Anxiety Disorders",
+    "icd10": "F40.10 (General) / F40.11 (Performance Only)",
+    "overview": "Marked fear or anxiety about one or more social situations where the individual is exposed to possible scrutiny by others (e.g., social interactions, being observed, performing). Fears negative evaluation or showing anxiety symptoms. Lasts >= 6 months.",
+    "sections": [
+      {
+        "id": "situations",
+        "title": "Criterion A: Social Situations of Concern",
+        "subtitle": "Fear of scrutiny in social interactions, observation, or performance",
+        "requiredCount": 1,
+        "items": [
+          { "code": "A1", "text": "Social interactions (e.g., having a conversation, meeting unfamiliar people, attending parties/meetings)." },
+          { "code": "A2", "text": "Being observed (e.g., eating or drinking in front of others, writing in public, using public restrooms)." },
+          { "code": "A3", "text": "Performing in front of others (e.g., giving a speech, asking questions in class, presentations)." }
+        ]
+      },
+      {
+        "id": "core_features",
+        "title": "Criteria B–H: Diagnostic Requirements (Confirm All)",
+        "subtitle": "Fear of negative evaluation, out of proportion, lasting >= 6 months",
+        "requiredCount": 5,
+        "items": [
+          { "code": "B", "text": "Criterion B: Fears acting in a way or showing anxiety symptoms (blushing, sweating, shaking) that will be negatively evaluated (humiliation, embarrassment, rejection)." },
+          { "code": "C", "text": "Criterion C: Social situations almost always provoke fear or anxiety (in children: crying, tantrums, freezing, clinging)." },
+          { "code": "D", "text": "Criterion D: Situations are actively avoided or endured with intense fear or anxiety." },
+          { "code": "E", "text": "Criterion E: Fear is out of proportion to actual threat and sociocultural context." },
+          { "code": "F", "text": "Criterion F: Fear, anxiety, or avoidance is persistent, lasting >= 6 months." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "type", "label": "Performance Specifier", "options": ["Generalized Social Anxiety Disorder (F40.10)", "Performance only (F40.11 - restricted to speaking or performing in public)"] }
+    ]
+  },
+  {
+    "id": "ocd",
+    "name": "Obsessive-Compulsive Disorder (OCD)",
+    "shortName": "OCD",
+    "category": "Obsessive-Compulsive",
+    "icd10": "F42.2",
+    "overview": "Presence of obsessions, compulsions, or both. Obsessions/compulsions are time-consuming (> 1 hour per day) or cause clinically significant distress or impairment.",
+    "sections": [
+      {
+        "id": "obsessions",
+        "title": "Obsessions (Defined by 1 and 2)",
+        "subtitle": "Intrusive thoughts/urges and neutralization efforts",
+        "requiredCount": 2,
+        "items": [
+          { "code": "Obs1", "text": "Recurrent and persistent thoughts, urges, or images experienced as intrusive and unwanted, causing marked anxiety or distress." },
+          { "code": "Obs2", "text": "The individual attempts to ignore or suppress such thoughts, urges, or images, or to neutralize them with some other thought or action (by performing a compulsion)." }
+        ]
+      },
+      {
+        "id": "compulsions",
+        "title": "Compulsions (Defined by 1 and 2)",
+        "subtitle": "Repetitive behaviors/mental acts aimed at anxiety reduction",
+        "requiredCount": 2,
+        "items": [
+          { "code": "Comp1", "text": "Repetitive behaviors (e.g., hand washing, ordering, checking) or mental acts (e.g., praying, counting, repeating words silently) driven by obsession or rigid rules." },
+          { "code": "Comp2", "text": "Behaviors/mental acts aimed at preventing or reducing anxiety/distress, but are clearly excessive or not realistically connected to what they intend to prevent." }
+        ]
+      },
+      {
+        "id": "impairment",
+        "title": "Criteria B, C & D: Time & Clinical Impact",
+        "subtitle": "Confirm duration and exclusions",
+        "requiredCount": 2,
+        "items": [
+          { "code": "B", "text": "Criterion B: Obsessions or compulsions are time-consuming (e.g., take more than 1 hour per day) or cause clinically significant impairment." },
+          { "code": "C", "text": "Criterion C: Not attributable to physiological effects of a substance or medical condition." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "insight", "label": "Insight Level", "options": ["With good or fair insight (recognizes beliefs definitely or probably not true)", "With poor insight (thinks beliefs probably true)", "With absent insight / delusional beliefs (completely convinced beliefs are true)"] },
+      { "id": "tic", "label": "Tic-Related Specifier", "options": ["Non-tic related", "Tic-related (current or past history of a tic disorder)"] }
+    ]
+  },
+  {
+    "id": "schizophrenia",
+    "name": "Schizophrenia",
+    "shortName": "Schizophrenia",
+    "category": "Psychotic Disorders",
+    "icd10": "F20.9",
+    "overview": "Two (or more) characteristic symptoms present for a significant portion of time during a 1-month period. At least one core symptom MUST be Delusions, Hallucinations, or Disorganized Speech. Continuous signs of disturbance for at least 6 months.",
+    "sections": [
+      {
+        "id": "crit_a",
+        "title": "Criterion A: Active-Phase Symptoms (Requires >= 2 for 1 month)",
+        "subtitle": "At least ONE symptom MUST be Item 1, 2, or 3",
+        "requiredCount": 2,
+        "items": [
+          { "code": "A1", "text": "[CORE] Delusions (persecutory, referential, grandiose, somatic, religious, control, or replacement).", "isCore": true },
+          { "code": "A2", "text": "[CORE] Hallucinations (auditory [voices/sounds], visual, tactile, olfactory, or gustatory).", "isCore": true },
+          { "code": "A3", "text": "[CORE] Disorganized speech (e.g., frequent derailment or looseness of association, tangentiality, circumstantiality, incoherence/word salad).", "isCore": true },
+          { "code": "A4", "text": "Grossly disorganized or catatonic behavior (bizarre clothing, agitation, posturing, mutism, or waxy flexibility)." },
+          { "code": "A5", "text": "Negative symptoms (affective flattening/blunting, alogia [poverty of speech], avolition [apathy/lack of goal-directed motivation], anhedonia, asociality)." }
+        ]
+      },
+      {
+        "id": "chronicity",
+        "title": "Criteria B, C, D & E: Chronicity & Exclusions",
+        "subtitle": "Continuous signs of disturbance for >= 6 months",
+        "requiredCount": 4,
+        "items": [
+          { "code": "B", "text": "Criterion B: Level of functioning in work, interpersonal relations, or self-care is markedly below baseline." },
+          { "code": "C", "text": "Criterion C: Continuous signs of the disturbance persist for at least 6 months (must include >= 1 month of active Criterion A symptoms)." },
+          { "code": "D", "text": "Criterion D: Schizoaffective disorder and depressive or bipolar disorder with psychotic features have been ruled out." },
+          { "code": "E", "text": "Criterion E: Not attributable to physiological effects of a substance or another medical condition." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "episode", "label": "Course Specifier (after 1 year)", "options": ["First episode, currently in acute episode", "First episode, currently in partial remission", "First episode, currently in full remission", "Multiple episodes, currently in acute episode", "Continuous"] },
+      { "id": "catatonia", "label": "Catatonia Specifier", "options": ["Without catatonia", "With catatonia (F06.1)"] }
+    ]
+  },
+  {
+    "id": "schizoaffective",
+    "name": "Schizoaffective Disorder",
+    "shortName": "Schizoaffective",
+    "category": "Psychotic Disorders",
+    "icd10": "F25.0 (Bipolar Type) / F25.1 (Depressive Type)",
+    "overview": "An uninterrupted period of illness during which there is a major mood episode (major depressive or manic) concurrent with Criterion A of schizophrenia, accompanied by delusions or hallucinations for at least 2 weeks in the ABSENCE of a major mood episode.",
+    "sections": [
+      {
+        "id": "core",
+        "title": "Criteria A–D: Diagnostic Requirements (Confirm All)",
+        "subtitle": "Concurrent mood + independent 2-week psychosis rule",
+        "requiredCount": 4,
+        "items": [
+          { "code": "A", "text": "Criterion A: An uninterrupted period of illness during which there is a major mood episode (major depressive or manic) concurrent with Criterion A of schizophrenia." },
+          { "code": "B", "text": "Criterion B: Delusions or hallucinations for at least 2 weeks in the ABSENCE of a major mood episode during the lifetime duration of the illness." },
+          { "code": "C", "text": "Criterion C: Symptoms that meet criteria for a major mood episode are present for the majority of the total duration of the active and residual portions of the illness." },
+          { "code": "D", "text": "Criterion D: The disturbance is not attributable to the effects of a substance or another medical condition." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "type", "label": "Subtype", "options": ["Bipolar type (F25.0 - manic episode is part of presentation; major depressive episodes may also occur)", "Depressive type (F25.1 - only major depressive episodes are part of presentation)"] }
+    ]
+  },
+  {
+    "id": "delusional",
+    "name": "Delusional Disorder",
+    "shortName": "Delusional Disorder",
+    "category": "Psychotic Disorders",
+    "icd10": "F22",
+    "overview": "Presence of one (or more) delusions with a duration of 1 month or longer. Criterion A for schizophrenia has NEVER been met. Functioning is not markedly impaired, and behavior is not obviously bizarre or odd apart from the impact of the delusion.",
+    "sections": [
+      {
+        "id": "core",
+        "title": "Criteria A–E: Diagnostic Requirements",
+        "subtitle": "Non-bizarre/bizarre delusions with preserved baseline functioning",
+        "requiredCount": 5,
+        "items": [
+          { "code": "A", "text": "Criterion A: Presence of one (or more) delusions with a duration of 1 month or longer." },
+          { "code": "B", "text": "Criterion B: Criterion A for schizophrenia has never been met (hallucinations, if present, are not prominent and related to delusional theme)." },
+          { "code": "C", "text": "Criterion C: Apart from the impact of the delusion(s) or its ramifications, functioning is not markedly impaired, and behavior is not obviously bizarre or odd." },
+          { "code": "D", "text": "Criterion D: If manic or major depressive episodes have occurred, these have been brief relative to the duration of the delusional periods." },
+          { "code": "E", "text": "Criterion E: Not attributable to physiological effects of a substance or another medical condition, and not better explained by OCD or body dysmorphic disorder." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "subtype", "label": "Delusional Subtype", "options": ["Erotomanic type (delusion that another person is in love with them)", "Grandiose type (conviction of having great unrecognized talent/insight or special relationship)", "Jealous type (delusion that spouse/partner is unfaithful)", "Persecutory type (belief of being conspired against, cheated, spied on, poisoned, harassed)", "Somatic type (delusion involving bodily functions or sensations)", "Mixed type (no one delusional theme predominates)", "Unspecified type"] },
+      { "id": "bizarre", "label": "Content Plausibility", "options": ["Without bizarre content", "With bizarre content (delusions clearly implausible, e.g., organs removed without scar)"] }
+    ]
+  },
+  {
+    "id": "asd",
+    "name": "Autism Spectrum Disorder (ASD)",
+    "shortName": "Autism Spectrum",
+    "category": "Neurodevelopmental",
+    "icd10": "F84.0",
+    "overview": "Persistent deficits in social communication and social interaction across multiple contexts (must meet all 3 criteria in Domain A), accompanied by restricted, repetitive patterns of behavior, interests, or activities (must meet at least 2 of 4 in Domain B). Symptoms present in early development.",
+    "sections": [
+      {
+        "id": "domain_a",
+        "title": "Criterion A: Social Communication & Interaction (Requires ALL 3)",
+        "subtitle": "Persistent deficits across multiple contexts",
+        "requiredCount": 3,
+        "items": [
+          { "code": "A1", "text": "Deficits in social-emotional reciprocity (abnormal social approach, failure of back-and-forth conversation, reduced sharing of interests/emotions/affect)." },
+          { "code": "A2", "text": "Deficits in nonverbal communicative behaviors used for social interaction (poorly integrated verbal/nonverbal, abnormal eye contact/body language, deficits in understanding gestures/facial expressions)." },
+          { "code": "A3", "text": "Deficits in developing, maintaining, and understanding relationships (difficulties adjusting behavior to social contexts, difficulties in sharing imaginative play or making friends, absence of interest in peers)." }
+        ]
+      },
+      {
+        "id": "domain_b",
+        "title": "Criterion B: Restricted, Repetitive Behaviors (Requires >= 2 of 4)",
+        "subtitle": "Restricted, repetitive patterns of behavior, interests, or activities",
+        "requiredCount": 2,
+        "items": [
+          { "code": "B1", "text": "Stereotyped or repetitive motor movements, use of objects, or speech (simple motor stereotypies, lining up toys, flipping objects, echolalia, idiosyncratic phrases)." },
+          { "code": "B2", "text": "Insistence on sameness, inflexible adherence to routines, or ritualized patterns of verbal/nonverbal behavior (extreme distress at small changes, rigid greeting rituals, need to take same route or eat same food)." },
+          { "code": "B3", "text": "Highly restricted, fixated interests that are abnormal in intensity or focus (strong attachment to unusual objects, excessively circumscribed or perseverative interests)." },
+          { "code": "B4", "text": "Hyper- or hyporeactivity to sensory input or unusual interest in sensory aspects of environment (apparent indifference to pain/temperature, adverse response to specific sounds/textures, excessive smelling/touching of objects)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "supportLevelSocial", "label": "Social Communication Severity", "options": ["Level 1 'Requiring support'", "Level 2 'Requiring substantial support'", "Level 3 'Requiring very substantial support'"] },
+      { "id": "supportLevelRRB", "label": "Restricted/Repetitive Behaviors Severity", "options": ["Level 1 'Requiring support'", "Level 2 'Requiring substantial support'", "Level 3 'Requiring very substantial support'"] }
+    ]
+  },
+  {
+    "id": "dmdd",
+    "name": "Disruptive Mood Dysregulation Disorder (DMDD)",
+    "shortName": "DMDD",
+    "category": "Depressive Disorders",
+    "icd10": "F34.81",
+    "overview": "Severe recurrent temper outbursts manifested verbally and/or behaviorally that are grossly out of proportion. Outbursts occur on average >= 3 times per week, with persistently irritable or angry mood between outbursts. Symptoms present for >= 12 months in >= 2 settings, onset before age 10.",
+    "sections": [
+      {
+        "id": "core",
+        "title": "Diagnostic Criteria Checklist (Criteria A–J)",
+        "subtitle": "Chronicity >= 12 months without > 3 month symptom-free gap; onset < age 10",
+        "requiredCount": 6,
+        "items": [
+          { "code": "A", "text": "Criterion A: Severe recurrent temper outbursts manifested verbally (e.g., verbal rages) and/or behaviorally (physical aggression) grossly out of proportion to situation." },
+          { "code": "B", "text": "Criterion B: Outbursts are inconsistent with developmental level." },
+          { "code": "C", "text": "Criterion C: Outbursts occur, on average, three or more times per week." },
+          { "code": "D", "text": "Criterion D: Mood between temper outbursts is persistently irritable or angry most of the day, nearly every day, observable by others." },
+          { "code": "E", "text": "Criterion E: Criteria A–D present for >= 12 months with no symptom-free period lasting >= 3 consecutive months." },
+          { "code": "F", "text": "Criterion F: Present in at least two of three settings (home, school, peers) and severe in at least one." },
+          { "code": "G_H", "text": "Criteria G & H: Age at onset is before 10 years; diagnosis should not be made for first time before age 6 or after age 18." },
+          { "code": "I_J", "text": "Criteria I & J: Never met full criteria for manic/hypomanic episode lasting > 1 day; cannot coexist with ODD, IED, or Bipolar Disorder." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "status", "label": "Diagnostic Determination", "options": ["DMDD confirmed (F34.81)", "Sub-threshold / Rule out ODD or Bipolar"] }
+    ]
+  },
+  {
+    "id": "ied",
+    "name": "Intermittent Explosive Disorder (IED)",
+    "shortName": "IED",
+    "category": "Disruptive & Impulse",
+    "icd10": "F63.81",
+    "overview": "Recurrent behavioral outbursts representing a failure to control aggressive impulses, occurring frequently (verbal/physical aggression without damage >= 2x/week for 3 months, OR 3 destructive/assaultive outbursts within 12 months). Chronological age >= 6.",
+    "sections": [
+      {
+        "id": "core",
+        "title": "Diagnostic Criteria Checklist (Criteria 1–6)",
+        "subtitle": "Impulsive aggression grossly disproportionate to provocation",
+        "requiredCount": 5,
+        "items": [
+          { "code": "1", "text": "Criterion 1: Frequent outbursts of verbal or physical aggression occurring more often than typically expected for developmental level." },
+          { "code": "2", "text": "Criterion 2: Magnitude of aggressiveness expressed is grossly out of proportion to provocation or precipitating psychosocial stressors." },
+          { "code": "3", "text": "Criterion 3: Recurrent aggressive outbursts are not premeditated (impulsive/anger-driven) and not committed to achieve tangible objective." },
+          { "code": "4", "text": "Criterion 4: Outbursts cause marked distress or impairment in occupational/interpersonal functioning, or financial/legal consequences." },
+          { "code": "5", "text": "Criterion 5: Chronological age is at least 6 years (or equivalent developmental level)." },
+          { "code": "6", "text": "Criterion 6: Outbursts are not better explained by another mental disorder (DMDD, ADHD, Borderline) and not attributable to substance/medical condition." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "severity", "label": "Severity Specifier", "options": ["Mild severity", "Moderate severity", "Severe severity"] }
+    ]
+  },
+  {
+    "id": "did",
+    "name": "Dissociative Identity Disorder (DID)",
+    "shortName": "DID",
+    "category": "Dissociative Disorders",
+    "icd10": "F44.81",
+    "overview": "Disruption of identity characterized by two or more distinct personality states (involving marked discontinuity in sense of self and agency, with alterations in affect/behavior/cognition). Recurrent gaps in the recall of everyday events or trauma.",
+    "sections": [
+      {
+        "id": "core",
+        "title": "Criteria A–E Diagnostic Checklist",
+        "subtitle": "Distinct personality states + recurrent dissociative amnesia",
+        "requiredCount": 5,
+        "items": [
+          { "code": "A", "text": "Criterion A: Disruption of identity characterized by two or more distinct personality states (marked discontinuity in sense of self and agency, with alterations in affect, behavior, memory, perception)." },
+          { "code": "B", "text": "Criterion B: Recurrent gaps in the recall of everyday events, important personal information, and/or traumatic events inconsistent with ordinary forgetting." },
+          { "code": "C", "text": "Criterion C: Symptoms cause clinically significant distress or impairment in social, occupational, or other functional areas." },
+          { "code": "D", "text": "Criterion D: Disturbance is not a normal part of a broadly accepted cultural or religious practice (in children, not imaginary playmates)." },
+          { "code": "E", "text": "Criterion E: Not attributable to physiological effects of a substance (blackouts) or medical condition (complex partial seizures)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "presentation", "label": "Clinical Presentation", "options": ["Overt identity disruption", "Covert identity disruption (amnesia gaps predominant)"] }
+    ]
+  },
+  {
+    "id": "cluster_a",
+    "name": "Cluster A Personality Disorders (Paranoid, Schizoid, Schizotypal)",
+    "shortName": "Cluster A (Odd / Eccentric)",
+    "category": "Personality Disorders",
+    "icd10": "F60.0 (Paranoid) / F60.1 (Schizoid) / F21 (Schizotypal)",
+    "overview": "Pervasive patterns of distrust, suspiciousness, social detachment, or perceptual eccentricities. Mnemonics: SUSPECT (Paranoid >= 4/7), DISTANT (Schizoid >= 4/7), ME PECULIAR (Schizotypal >= 5/9).",
+    "sections": [
+      {
+        "id": "paranoid",
+        "title": "Paranoid Personality Disorder: SUSPECT (Requires >= 4 of 7)",
+        "subtitle": "Pervasive distrust and suspiciousness where motives are interpreted as malevolent",
+        "requiredCount": 4,
+        "items": [
+          { "code": "S", "text": "Spousal infidelity suspected without justification." },
+          { "code": "U", "text": "Unforgiving (persistently bears grudges, unforgiving of insults/injuries)." },
+          { "code": "S2", "text": "Suspicious of others (unjustified doubts about loyalty or trustworthiness of friends)." },
+          { "code": "P", "text": "Perceives attacks on character/reputation not apparent to others and reacts angrily." },
+          { "code": "E", "text": "Enemy vs. friend (views relationships in terms of betrayal or hidden malevolence)." },
+          { "code": "C", "text": "Confiding in others feared (reluctant to confide due to fear information will be used maliciously)." },
+          { "code": "T", "text": "Threats perceived in benign events (reads hidden demeaning or threatening meanings into benign remarks)." }
+        ]
+      },
+      {
+        "id": "schizoid",
+        "title": "Schizoid Personality Disorder: DISTANT (Requires >= 4 of 7)",
+        "subtitle": "Pervasive pattern of detachment from social relationships and restricted emotional expression",
+        "requiredCount": 4,
+        "items": [
+          { "code": "D", "text": "Detached or flattened affect (shows emotional coldness, detachment, or flat affectivity)." },
+          { "code": "I", "text": "Indifferent to the praise or criticism of others." },
+          { "code": "S", "text": "Sexual experiences of little interest (has little, if any, interest in sexual experiences with another person)." },
+          { "code": "T", "text": "Tasks performed solitarily (almost always chooses solitary activities)." },
+          { "code": "A", "text": "Absence of close friends or confidants other than first-degree relatives." },
+          { "code": "N", "text": "Neither desires nor enjoys close relationships, including being part of a family." },
+          { "code": "T2", "text": "Takes pleasure in few, if any, activities." }
+        ]
+      },
+      {
+        "id": "schizotypal",
+        "title": "Schizotypal Personality Disorder: ME PECULIAR (Requires >= 5 of 9)",
+        "subtitle": "Social deficits, cognitive/perceptual distortions, and eccentric behaviors",
+        "requiredCount": 5,
+        "items": [
+          { "code": "M", "text": "Magical thinking or odd beliefs influencing behavior (superstitiousness, belief in clairvoyance/telepathy)." },
+          { "code": "E", "text": "Experiences unusual perceptions (bodily illusions, sensing presence of absent person)." },
+          { "code": "P", "text": "Paranoid ideation or suspiciousness." },
+          { "code": "E2", "text": "Eccentric behavior or appearance (odd, eccentric, or peculiar mannerisms/dress)." },
+          { "code": "C", "text": "Constricted or inappropriate affect." },
+          { "code": "U", "text": "Unusual (odd) thinking or speech (vague, circumstantial, metaphorical, overelaborate)." },
+          { "code": "L", "text": "Lacks close friends or confidants other than first-degree relatives." },
+          { "code": "I", "text": "Ideas of reference (excluding delusions of reference; TV/events perceived as personal messages)." },
+          { "code": "A", "text": "Anxiety in social situations (excessive social anxiety associated with paranoid fears rather than negative self-judgment)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "primaryClusterA", "label": "Predominant Diagnosis", "options": ["Paranoid Personality Disorder (F60.0)", "Schizoid Personality Disorder (F60.1)", "Schizotypal Personality Disorder (F21)", "Cluster A Traits / Unspecified"] }
+    ]
+  },
+  {
+    "id": "cluster_b",
+    "name": "Cluster B Personality Disorders (Borderline, Antisocial, Histrionic, Narcissistic)",
+    "shortName": "Cluster B (Dramatic / Erratic)",
+    "category": "Personality Disorders",
+    "icd10": "F60.3 (Borderline) / F60.2 (Antisocial) / F60.4 (Histrionic) / F60.81 (Narcissistic)",
+    "overview": "Dramatic, emotional, or erratic traits with severe interpersonal relationship disruptions. Mnemonics: I DESPAIRR (Borderline >= 5/9), CORRUPT (Antisocial >= 3/7), PRAISE ME (Histrionic >= 5/8), SPEEECIAL (Narcissistic >= 5/9).",
+    "sections": [
+      {
+        "id": "borderline",
+        "title": "Borderline Personality Disorder: I DESPAIRR (Requires >= 5 of 9)",
+        "subtitle": "Unstable sense of self, interpersonal relationships, and marked impulsivity",
+        "requiredCount": 5,
+        "items": [
+          { "code": "I", "text": "Identity disturbance: markedly and persistently unstable self-image or sense of self." },
+          { "code": "D", "text": "Disordered, unstable affect owing to a marked reactivity of mood (intense episodic dysphoria, irritability, anxiety lasting hours)." },
+          { "code": "E", "text": "Emptiness: chronic feelings of emptiness." },
+          { "code": "S", "text": "Suicidal behavior: recurrent suicidal behavior, gestures, threats, or self-mutilating behavior." },
+          { "code": "P", "text": "Paranoid ideation: transient, stress-related paranoid ideation or severe dissociative symptoms." },
+          { "code": "A", "text": "Abandonment: frantic efforts to avoid real or imagined abandonment." },
+          { "code": "I2", "text": "Impulsivity in at least two areas that are potentially self-damaging (spending, sex, substance abuse, reckless driving, binge eating)." },
+          { "code": "R", "text": "Rage: inappropriate, intense anger or difficulty controlling anger (frequent temper displays, constant anger, physical fights)." },
+          { "code": "R2", "text": "Relationships: pattern of unstable and intense interpersonal relationships alternating between extremes of idealization and devaluation (splitting)." }
+        ]
+      },
+      {
+        "id": "antisocial",
+        "title": "Antisocial Personality Disorder: CORRUPT (Requires >= 3 of 7; Age >= 18)",
+        "subtitle": "Pervasive disregard for and violation of the rights of others since age 15",
+        "requiredCount": 3,
+        "items": [
+          { "code": "C", "text": "Conformity to law lacking (repeated acts that are grounds for arrest)." },
+          { "code": "O", "text": "Obligations ignored (consistent irresponsibility, failure to sustain work or honor financial obligations)." },
+          { "code": "R", "text": "Reckless disregard for safety of self or others." },
+          { "code": "R2", "text": "Remorse lacking (indifferent to or rationalizing having hurt, mistreated, or stolen from another)." },
+          { "code": "U", "text": "Underhanded / deceitful (repeated lying, use of aliases, or conning others for personal profit or pleasure)." },
+          { "code": "P", "text": "Planning insufficient (impulsivity or failure to plan ahead)." },
+          { "code": "T", "text": "Temper / irritability and aggressiveness (repeated physical fights or assaults)." }
+        ]
+      },
+      {
+        "id": "histrionic",
+        "title": "Histrionic Personality Disorder: PRAISE ME (Requires >= 5 of 8)",
+        "subtitle": "Pervasive pattern of excessive emotionality and attention-seeking behavior",
+        "requiredCount": 5,
+        "items": [
+          { "code": "P", "text": "Provocative (or sexually seductive) behavior in interactions." },
+          { "code": "R", "text": "Relationships considered more intimate than they actually are." },
+          { "code": "A", "text": "Attention: uncomfortable in situations where he/she is not the center of attention." },
+          { "code": "I", "text": "Influenced easily (suggestible, easily influenced by others or circumstances)." },
+          { "code": "S", "text": "Style of speech: excessively impressionistic and lacking in detail." },
+          { "code": "E", "text": "Emotions: rapidly shifting and shallow expression of emotions." },
+          { "code": "M", "text": "Made up: consistently uses physical appearance to draw attention to self." },
+          { "code": "E2", "text": "Exaggerated emotions (theatricality, exaggerated expression of emotion)." }
+        ]
+      },
+      {
+        "id": "narcissistic",
+        "title": "Narcissistic Personality Disorder: SPEEECIAL (Requires >= 5 of 9)",
+        "subtitle": "Grandiosity, need for admiration, and lack of empathy",
+        "requiredCount": 5,
+        "items": [
+          { "code": "S", "text": "Special: believes he/she is 'special' and unique and can only be understood by high-status people." },
+          { "code": "P", "text": "Preoccupied with fantasies of unlimited success, power, brilliance, beauty, or ideal love." },
+          { "code": "E", "text": "Envious of others or believes that others are envious of him/her." },
+          { "code": "E2", "text": "Entitlement: unreasonable expectations of especially favorable treatment or compliance." },
+          { "code": "E3", "text": "Excessive admiration required." },
+          { "code": "C", "text": "Conceited: grandiose sense of self-importance (exaggerates achievements and talents)." },
+          { "code": "I", "text": "Interpersonal exploitation: takes advantage of others to achieve his/her own ends." },
+          { "code": "A", "text": "Arrogant, haughty behaviors or attitudes." },
+          { "code": "L", "text": "Lacks empathy: unwilling to recognize or identify with the feelings and needs of others." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "primaryClusterB", "label": "Predominant Diagnosis", "options": ["Borderline Personality Disorder (F60.3)", "Antisocial Personality Disorder (F60.2)", "Narcissistic Personality Disorder (F60.81)", "Histrionic Personality Disorder (F60.4)", "Cluster B Traits / Mixed"] }
+    ]
+  },
+  {
+    "id": "cluster_c",
+    "name": "Cluster C Personality Disorders (Avoidant, Dependent, OCPD)",
+    "shortName": "Cluster C (Anxious / Fearful)",
+    "category": "Personality Disorders",
+    "icd10": "F60.6 (Avoidant) / F60.7 (Dependent) / F60.5 (OCPD)",
+    "overview": "Persistent patterns of anxiety and fear with maladaptive coping (avoidance, clinginess, perfectionism). Mnemonics: CRINGES (Avoidant >= 4/7), RELIANCE (Dependent >= 5/8), LAW FIRMS (OCPD >= 4/8).",
+    "sections": [
+      {
+        "id": "avoidant",
+        "title": "Avoidant Personality Disorder: CRINGES (Requires >= 4 of 7)",
+        "subtitle": "Social inhibition, feelings of inadequacy, and hypersensitivity to negative evaluation",
+        "requiredCount": 4,
+        "items": [
+          { "code": "C", "text": "Certainty of being liked required before willing to get involved with people." },
+          { "code": "R", "text": "Rejection / criticism possibility preoccupies thoughts in social situations." },
+          { "code": "I", "text": "Intimate relationships avoided due to fear of being shamed or ridiculed." },
+          { "code": "N", "text": "New interpersonal situations inhibited because of feelings of inadequacy." },
+          { "code": "G", "text": "Gets around occupational activities that involve significant interpersonal contact due to fears of disapproval." },
+          { "code": "E", "text": "Embarrassment potential prevents taking personal risks or engaging in new activities." },
+          { "code": "S", "text": "Self-viewed as socially inept, personally unappealing, or inferior to others." }
+        ]
+      },
+      {
+        "id": "dependent",
+        "title": "Dependent Personality Disorder: RELIANCE (Requires >= 5 of 8)",
+        "subtitle": "Excessive need to be taken care of leading to submissive, clinging behavior",
+        "requiredCount": 5,
+        "items": [
+          { "code": "R", "text": "Reassurance required: difficulty making everyday decisions without excessive advice/reassurance." },
+          { "code": "E", "text": "Expressing disagreement difficult because of fear of loss of support or approval." },
+          { "code": "L", "text": "Life responsibilities assumed by others (needs others to assume responsibility for major areas)." },
+          { "code": "I", "text": "Initiating projects difficult due to lack of self-confidence in judgment (not lack of motivation)." },
+          { "code": "A", "text": "Alone: feels uncomfortable or helpless when alone because of exaggerated fears of inability to care for self." },
+          { "code": "N", "text": "Nurturance: goes to excessive lengths to obtain nurturance and support from others (volunteering for unpleasant tasks)." },
+          { "code": "C", "text": "Companionship sought urgently as another source of care when a close relationship ends." },
+          { "code": "E2", "text": "Exaggerated fears of being left to care for self." }
+        ]
+      },
+      {
+        "id": "ocpd",
+        "title": "Obsessive-Compulsive Personality Disorder: LAW FIRMS (Requires >= 4 of 8)",
+        "subtitle": "Preoccupation with orderliness, perfectionism, and control at expense of flexibility",
+        "requiredCount": 4,
+        "items": [
+          { "code": "L", "text": "Loses point of activity due to preoccupation with details, rules, lists, order, or schedules." },
+          { "code": "A", "text": "Ability to complete tasks compromised by perfectionism (cannot complete project because standards not met)." },
+          { "code": "W", "text": "Worthless objects: unable to discard worn-out or worthless objects even when of no sentimental value." },
+          { "code": "F", "text": "Friendships and leisure activities excluded owing to excessive devotion to work and productivity." },
+          { "code": "I", "text": "Inflexible, scrupulous, and overconscientious about matters of morality, ethics, or values." },
+          { "code": "R", "text": "Reluctant to delegate tasks or work with others unless they submit to exact way of doing things." },
+          { "code": "M", "text": "Miserly spending style toward both self and others; money hoarded for future catastrophes." },
+          { "code": "S", "text": "Stubbornness and rigidity." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "primaryClusterC", "label": "Predominant Diagnosis", "options": ["Avoidant Personality Disorder (F60.6)", "Dependent Personality Disorder (F60.7)", "Obsessive-Compulsive Personality Disorder (F60.5)", "Cluster C Traits / Mixed"] }
+    ]
+  },
+  {
+    "id": "adjustment",
+    "name": "Adjustment Disorders",
+    "shortName": "Adjustment Disorder",
+    "category": "Trauma & Stressor",
+    "icd10": "F43.2x",
+    "overview": "Development of emotional or behavioral symptoms in response to an identifiable stressor occurring within 3 months. Marked distress out of proportion to stressor or significant functional impairment. Symptoms terminate within 6 months of stressor resolution.",
+    "sections": [
+      {
+        "id": "core",
+        "title": "Diagnostic Criteria Checklist (Criteria A–E)",
+        "subtitle": "Onset within 3 months of stressor; does not exceed 6 months after termination",
+        "requiredCount": 5,
+        "items": [
+          { "code": "A", "text": "Criterion A: Development of emotional or behavioral symptoms in response to an identifiable stressor(s) occurring within 3 months of stressor onset." },
+          { "code": "B", "text": "Criterion B: Clinically significant: marked distress out of proportion to stressor, OR significant impairment in social/occupational functioning." },
+          { "code": "C", "text": "Criterion C: Does not meet criteria for another mental disorder and is not merely an exacerbation of a preexisting condition." },
+          { "code": "D", "text": "Criterion D: Symptoms do not represent normal bereavement." },
+          { "code": "E", "text": "Criterion E: Once the stressor (or consequences) has terminated, symptoms do not persist for more than an additional 6 months." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "subtype", "label": "Subtype Classification", "options": ["309.0 (F43.21) With depressed mood: low mood, tearfulness, hopelessness", "309.24 (F43.22) With anxiety: nervousness, worry, jitteriness", "309.28 (F43.23) With mixed anxiety and depressed mood", "309.3 (F43.24) With disturbance of conduct", "309.4 (F43.25) With mixed disturbance of emotions and conduct", "309.9 (F43.20) Unspecified"] },
+      { "id": "duration", "label": "Duration Specifier", "options": ["Acute (symptoms persist < 6 months)", "Persistent / Chronic (symptoms persist >= 6 months in response to chronic/ongoing stressor)"] }
+    ]
+  },
+  {
+    "id": "aud",
+    "name": "Alcohol Use Disorder (AUD)",
+    "shortName": "Alcohol Use Disorder",
+    "category": "Substance Use",
+    "icd10": "F10.10 (Mild) / F10.20 (Moderate/Severe)",
+    "overview": "A problematic pattern of alcohol use leading to clinically significant impairment or distress, manifested by at least 2 of 11 criteria occurring within a 12-month period. Mild: 2-3 symptoms, Moderate: 4-5 symptoms, Severe: 6+ symptoms.",
+    "sections": [
+      {
+        "id": "criteria",
+        "title": "DSM-5 11 Criteria Checklist (Within 12-Month Period)",
+        "subtitle": "Mild: 2–3 • Moderate: 4–5 • Severe: 6+",
+        "requiredCount": 2,
+        "items": [
+          { "code": "1", "text": "Alcohol is often taken in larger amounts or over a longer period than was intended." },
+          { "code": "2", "text": "Persistent desire or unsuccessful efforts to cut down or control alcohol use." },
+          { "code": "3", "text": "Great deal of time spent in activities necessary to obtain alcohol, use alcohol, or recover from its effects." },
+          { "code": "4", "text": "Craving, or a strong desire or urge to use alcohol." },
+          { "code": "5", "text": "Recurrent alcohol use resulting in a failure to fulfill major role obligations at work, school, or home." },
+          { "code": "6", "text": "Continued alcohol use despite having persistent or recurrent social or interpersonal problems caused or exacerbated by alcohol." },
+          { "code": "7", "text": "Important social, occupational, or recreational activities given up or reduced because of alcohol use." },
+          { "code": "8", "text": "Recurrent alcohol use in situations in which it is physically hazardous (e.g., driving)." },
+          { "code": "9", "text": "Alcohol use continued despite knowledge of having a persistent physical or psychological problem likely caused/exacerbated by alcohol." },
+          { "code": "10", "text": "Tolerance (need for markedly increased amounts to achieve intoxication, or markedly diminished effect with same amount)." },
+          { "code": "11", "text": "Withdrawal (characteristic autonomic hyperactivity, tremor, insomnia, nausea, agitation; or alcohol/benzodiazepine taken to relieve withdrawal)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "severity", "label": "Current Severity", "options": ["Mild (2–3 symptoms: F10.10)", "Moderate (4–5 symptoms: F10.20)", "Severe (6+ symptoms: F10.20)"] },
+      { "id": "remission", "label": "Remission Status", "options": ["Active use", "In early remission (no criteria met for 3 to 12 months, except craving)", "In sustained remission (no criteria met for >= 12 months, except craving)"] }
+    ]
+  },
+  {
+    "id": "cud",
+    "name": "Cannabis Use Disorder (CUD)",
+    "shortName": "Cannabis Use Disorder",
+    "category": "Substance Use",
+    "icd10": "F12.10 (Mild) / F12.20 (Moderate/Severe)",
+    "overview": "Problematic pattern of cannabis use leading to clinically significant impairment or distress within a 12-month period, manifested by at least 2 of 11 criteria.",
+    "sections": [
+      {
+        "id": "criteria",
+        "title": "DSM-5 11 Criteria Checklist (Within 12-Month Period)",
+        "subtitle": "Mild: 2–3 • Moderate: 4–5 • Severe: 6+",
+        "requiredCount": 2,
+        "items": [
+          { "code": "1", "text": "Cannabis is often taken in larger amounts or over a longer period than intended." },
+          { "code": "2", "text": "Persistent desire or unsuccessful efforts to cut down or control cannabis use." },
+          { "code": "3", "text": "Great deal of time spent in activities necessary to obtain cannabis, use it, or recover from its effects." },
+          { "code": "4", "text": "Craving, or a strong desire or urge to use cannabis." },
+          { "code": "5", "text": "Recurrent cannabis use resulting in a failure to fulfill major role obligations at work, school, or home." },
+          { "code": "6", "text": "Continued cannabis use despite persistent or recurrent social or interpersonal problems." },
+          { "code": "7", "text": "Important social, occupational, or recreational activities given up or reduced because of cannabis use." },
+          { "code": "8", "text": "Recurrent cannabis use in situations in which it is physically hazardous." },
+          { "code": "9", "text": "Cannabis use continued despite knowledge of physical or psychological problems associated with use." },
+          { "code": "10", "text": "Tolerance (need for markedly increased amounts or markedly diminished effect)." },
+          { "code": "11", "text": "Withdrawal (irritability, nervousness/anxiety, sleep difficulty, decreased appetite/weight loss, restlessness, depressed mood, shakiness, headache; or use to relieve symptoms)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "severity", "label": "Current Severity", "options": ["Mild (2–3 symptoms: F12.10)", "Moderate (4–5 symptoms: F12.20)", "Severe (6+ symptoms: F12.20)"] },
+      { "id": "remission", "label": "Remission Status", "options": ["Active use", "In early remission (3–12 months without criteria except craving)", "In sustained remission (> 12 months without criteria except craving)"] }
+    ]
+  },
+  {
+    "id": "oud",
+    "name": "Opioid Use Disorder (OUD)",
+    "shortName": "Opioid Use Disorder",
+    "category": "Substance Use",
+    "icd10": "F11.10 (Mild) / F11.20 (Moderate/Severe)",
+    "overview": "Problematic pattern of opioid use leading to impairment or distress within a 12-month period. Note: Tolerance and withdrawal do not count if opioids are taken solely under appropriate medical supervision.",
+    "sections": [
+      {
+        "id": "criteria",
+        "title": "DSM-5 11 Criteria Checklist (Within 12-Month Period)",
+        "subtitle": "Mild: 2–3 • Moderate: 4–5 • Severe: 6+",
+        "requiredCount": 2,
+        "items": [
+          { "code": "1", "text": "Opioids often taken in larger amounts or over a longer period than intended." },
+          { "code": "2", "text": "Persistent desire or unsuccessful efforts to cut down or control opioid use." },
+          { "code": "3", "text": "Great deal of time spent in activities necessary to obtain, use, or recover from opioids." },
+          { "code": "4", "text": "Craving, or a strong desire or urge to use opioids." },
+          { "code": "5", "text": "Recurrent opioid use resulting in failure to fulfill obligations at work, school, or home." },
+          { "code": "6", "text": "Continued opioid use despite persistent social or interpersonal problems." },
+          { "code": "7", "text": "Important activities given up or reduced because of opioid use." },
+          { "code": "8", "text": "Recurrent opioid use in physically hazardous situations (e.g., driving)." },
+          { "code": "9", "text": "Continued use despite knowledge of physical/psychological problem caused by opioids." },
+          { "code": "10", "text": "Tolerance (not counted if taken solely under appropriate medical supervision)." },
+          { "code": "11", "text": "Withdrawal syndrome (dysphoric mood, nausea/vomiting, muscle aches, lacrimation, rhinorrhea, pupillary dilation, piloerection, sweating, diarrhea, yawning, fever, insomnia; or use to avoid symptoms)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "severity", "label": "Current Severity", "options": ["Mild (2–3 symptoms: F11.10)", "Moderate (4–5 symptoms: F11.20)", "Severe (6+ symptoms: F11.20)"] },
+      { "id": "maintenance", "label": "Maintenance Therapy", "options": ["Not on maintenance therapy", "On maintenance therapy (Buprenorphine/Suboxone, Methadone, Naltrexone/Vivitrol)"] },
+      { "id": "remission", "label": "Remission Status", "options": ["Active use", "In early remission (3–12 months)", "In sustained remission (> 12 months)"] }
+    ]
+  },
+  {
+    "id": "stimulant",
+    "name": "Stimulant Use Disorder (Amphetamine / Cocaine)",
+    "shortName": "Stimulant Use Disorder",
+    "category": "Substance Use",
+    "icd10": "F15.10 (Mild) / F15.20 (Moderate/Severe)",
+    "overview": "Problematic pattern of amphetamine-type substance, cocaine, or other stimulant use leading to clinically significant impairment or distress within a 12-month period.",
+    "sections": [
+      {
+        "id": "criteria",
+        "title": "DSM-5 11 Criteria Checklist (Within 12-Month Period)",
+        "subtitle": "Mild: 2–3 • Moderate: 4–5 • Severe: 6+",
+        "requiredCount": 2,
+        "items": [
+          { "code": "1", "text": "Stimulant is often taken in larger amounts or over a longer period than was intended." },
+          { "code": "2", "text": "Persistent desire or unsuccessful efforts to cut down or control stimulant use." },
+          { "code": "3", "text": "Great deal of time spent in activities necessary to obtain, use, or recover from stimulant." },
+          { "code": "4", "text": "Craving, or a strong desire or urge to use the stimulant." },
+          { "code": "5", "text": "Recurrent stimulant use resulting in failure to fulfill major role obligations." },
+          { "code": "6", "text": "Continued stimulant use despite persistent social or interpersonal problems." },
+          { "code": "7", "text": "Important activities given up or reduced because of stimulant use." },
+          { "code": "8", "text": "Recurrent stimulant use in situations in which it is physically hazardous." },
+          { "code": "9", "text": "Continued use despite knowledge of physical/psychological problem likely caused by stimulant." },
+          { "code": "10", "text": "Tolerance (not counted if taken solely under appropriate medical supervision, e.g., ADHD)." },
+          { "code": "11", "text": "Withdrawal syndrome (fatigue, vivid unpleasant dreams, insomnia/hypersomnia, increased appetite, psychomotor retardation/agitation; or use to avoid symptoms)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "substance", "label": "Specific Substance", "options": ["Amphetamine-type (Adderall, Vyvanse, Methamphetamine)", "Cocaine", "Other or unspecified stimulant"] },
+      { "id": "severity", "label": "Current Severity", "options": ["Mild (2–3 symptoms: F15.10)", "Moderate (4–5 symptoms: F15.20)", "Severe (6+ symptoms: F15.20)"] },
+      { "id": "remission", "label": "Remission Status", "options": ["Active use", "In early remission (3–12 months)", "In sustained remission (> 12 months)"] }
+    ]
+  },
+  {
+    "id": "sedative",
+    "name": "Sedative, Hypnotic, or Anxiolytic Use Disorder",
+    "shortName": "Sedative / Benzodiazepine Use",
+    "category": "Substance Use",
+    "icd10": "F13.10 (Mild) / F13.20 (Moderate/Severe)",
+    "overview": "Problematic pattern of benzodiazepine, sedative, or hypnotic drug use leading to clinically significant impairment or distress within a 12-month period.",
+    "sections": [
+      {
+        "id": "criteria",
+        "title": "DSM-5 11 Criteria Checklist (Within 12-Month Period)",
+        "subtitle": "Mild: 2–3 • Moderate: 4–5 • Severe: 6+",
+        "requiredCount": 2,
+        "items": [
+          { "code": "1", "text": "Sedatives/anxiolytics often taken in larger amounts or over a longer period than intended." },
+          { "code": "2", "text": "Persistent desire or unsuccessful efforts to reduce or control sedative/anxiolytic use." },
+          { "code": "3", "text": "Great deal of time spent trying to obtain, use, or recover from sedatives/anxiolytics." },
+          { "code": "4", "text": "Craving, or strong desire to use the sedative/anxiolytic." },
+          { "code": "5", "text": "Recurrent sedative use results in failure to fulfill major obligations at work, school, or home." },
+          { "code": "6", "text": "Continued use despite persistent social or interpersonal problems." },
+          { "code": "7", "text": "Important activities given up or reduced because of sedative/anxiolytic use." },
+          { "code": "8", "text": "Recurrent sedative use in situations that are physically hazardous." },
+          { "code": "9", "text": "Continued use despite knowledge of physical/psychological problem likely caused by drug." },
+          { "code": "10", "text": "Tolerance developed (not counted if taken solely under appropriate medical supervision)." },
+          { "code": "11", "text": "Withdrawal syndrome (autonomic hyperactivity, hand tremor, insomnia, nausea/vomiting, transient hallucinations, psychomotor agitation, anxiety, grand mal seizures; or use to avoid symptoms)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "severity", "label": "Current Severity", "options": ["Mild (2–3 symptoms: F13.10)", "Moderate (4–5 symptoms: F13.20)", "Severe (6+ symptoms: F13.20)"] },
+      { "id": "remission", "label": "Remission Status", "options": ["Active use", "In early remission (3–12 months)", "In sustained remission (> 12 months)"] }
+    ]
+  },
+  {
+    "id": "tobacco",
+    "name": "Tobacco / Nicotine Use Disorder",
+    "shortName": "Tobacco Use Disorder",
+    "category": "Substance Use",
+    "icd10": "F17.200",
+    "overview": "A problematic pattern of tobacco/nicotine use leading to clinically significant impairment or distress within a 12-month period, manifested by at least 2 of 11 criteria.",
+    "sections": [
+      {
+        "id": "criteria",
+        "title": "DSM-5 11 Criteria Checklist (Within 12-Month Period)",
+        "subtitle": "Mild: 2–3 • Moderate: 4–5 • Severe: 6+",
+        "requiredCount": 2,
+        "items": [
+          { "code": "1", "text": "Tobacco is often taken in larger amounts or over a longer period than was intended." },
+          { "code": "2", "text": "Persistent desire or unsuccessful efforts to cut down or control tobacco use." },
+          { "code": "3", "text": "Great deal of time spent in activities necessary to obtain or use tobacco." },
+          { "code": "4", "text": "Craving, or a strong desire or urge to use tobacco." },
+          { "code": "5", "text": "Recurrent tobacco use resulting in failure to fulfill major role obligations (interference with work)." },
+          { "code": "6", "text": "Continued tobacco use despite persistent or recurrent social or interpersonal problems." },
+          { "code": "7", "text": "Important activities given up or reduced because of tobacco use." },
+          { "code": "8", "text": "Recurrent tobacco use in situations in which it is physically hazardous (e.g., smoking in bed)." },
+          { "code": "9", "text": "Continued use despite knowledge of physical/psychological problem likely caused by tobacco." },
+          { "code": "10", "text": "Tolerance (markedly increased amounts needed or diminished effect)." },
+          { "code": "11", "text": "Withdrawal syndrome (irritability, frustration, anger, anxiety, difficulty concentrating, increased appetite, restlessness, depressed mood, insomnia; or nicotine used to relieve withdrawal)." }
+        ]
+      }
+    ],
+    "specifiers": [
+      { "id": "severity", "label": "Current Severity", "options": ["Mild (2–3 symptoms: F17.200)", "Moderate (4–5 symptoms: F17.200)", "Severe (6+ symptoms: F17.200)"] },
+      { "id": "remission", "label": "Remission Status", "options": ["Active use", "In early remission (3–12 months)", "In sustained remission (> 12 months)"] }
+    ]
+  }
+]

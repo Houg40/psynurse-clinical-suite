@@ -15,6 +15,7 @@ export default function FeedbackModal({ currentTab }) {
   const tabLabels = {
     hpi: 'Rapid HPI Builder',
     screeners: 'Screeners & Notes',
+    checklists: 'DSM-5 Diagnostic Checklists',
     medications: 'Medication Dosing Guide',
     interactions: 'QTc & Interactions',
     advisor: 'AI Clinical Advisor',

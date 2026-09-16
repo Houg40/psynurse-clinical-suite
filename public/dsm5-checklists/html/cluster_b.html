@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cluster B Personality Disorders (Borderline, Antisocial, Histrionic, Narcissistic) — DSM-5-TR Evaluation Checklist</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 14mm 14mm 14mm 14mm;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.35;
+      color: #0f172a;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .header {
+      border-bottom: 2.5px solid #0f766e;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .clinic-title {
+      font-size: 12.5pt;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+      margin: 0 0 2px 0;
+    }
+    .clinician-sub {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #0f766e;
+      margin: 0 0 2px 0;
+    }
+    .clinic-meta {
+      font-size: 8pt;
+      color: #64748b;
+      margin: 0;
+    }
+    .header-right {
+      text-align: right;
+      font-size: 8.5pt;
+      color: #475569;
+    }
+    .header-right strong {
+      display: block;
+      color: #0f172a;
+      font-size: 9pt;
+    }
+    .patient-box {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr;
+      gap: 8px;
+      font-size: 8.5pt;
+    }
+    .field-label {
+      font-weight: bold;
+      color: #334155;
+      margin-bottom: 2px;
+    }
+    .field-line {
+      border-bottom: 1px dotted #94a3b8;
+      min-height: 15px;
+    }
+    .disorder-banner {
+      background: #f0fdfa;
+      border: 1.5px solid #99f6e4;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+    }
+    .disorder-title {
+      font-size: 12pt;
+      font-weight: 900;
+      color: #134e4a;
+      margin: 0 0 3px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .icd-pill {
+      font-size: 8.5pt;
+      background: #0f766e;
+      color: #ffffff;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: ui-monospace, monospace;
+      font-weight: bold;
+    }
+    .disorder-overview {
+      font-size: 8.5pt;
+      color: #334155;
+      margin: 0;
+    }
+    .section-block {
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .section-header {
+      background: #f1f5f9;
+      border-left: 3.5px solid #0f766e;
+      padding: 4px 8px;
+      font-size: 9pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .item-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 5px;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+    }
+    .box {
+      width: 13px;
+      height: 13px;
+      border: 1.5px solid #475569;
+      border-radius: 2px;
+      margin-right: 8px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .item-code {
+      font-weight: bold;
+      color: #0f172a;
+      margin-right: 4px;
+      min-width: 26px;
+      flex-shrink: 0;
+    }
+    .core-badge {
+      background: #ffe4e6;
+      color: #9f1239;
+      border: 1px solid #fecdd3;
+      font-size: 7pt;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-left: 4px;
+      text-transform: uppercase;
+    }
+    .specifier-box {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .specifier-title {
+      font-size: 8.5pt;
+      font-weight: 800;
+      color: #0f766e;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .specifier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-size: 8pt;
+    }
+    .mdm-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .mdm-title {
+      font-size: 8.5pt;
+      font-weight: bold;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+    .mdm-lines {
+      height: 38px;
+      border-bottom: 1px dotted #94a3b8;
+    }
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+      padding-top: 8px;
+      border-top: 1px solid #cbd5e1;
+      font-size: 8pt;
+      page-break-inside: avoid;
+    }
+    .sig-line {
+      border-bottom: 1px solid #475569;
+      height: 22px;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <div class="clinic-title">PSYCHIATRIC NURSE PRACTITIONER SERVICES</div>
+      <div class="clinician-sub">Monica Preder, MSN, APRN, PMHNP-BC • Board Certified Psychiatric Nurse Practitioner</div>
+      <div class="clinic-meta">Practice: Therapeutic Health Services (THS) • Washington State Telehealth</div>
+    </div>
+    <div class="header-right">
+      <strong>DSM-5-TR Evaluation Checklist</strong>
+      <span>Date: September 15, 2026</span>
+    </div>
+  </div>
+
+  <div class="patient-box">
+    <div>
+      <div class="field-label">Patient Name:</div>
+      <div class="field-line"></div>
+    </div>
+    <div>
+      <div class="field-label">DOB:</div>
+      <div class="field-line"></div>
+    </div>
+    <div>
+      <div class="field-label">Evaluation Date:</div>
+      <div class="field-line">September 15, 2026</div>
+    </div>
+    <div>
+      <div class="field-label">MRN / Chart #:</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="disorder-banner">
+    <div class="disorder-title">
+      <span>Cluster B Personality Disorders (Borderline, Antisocial, Histrionic, Narcissistic)</span>
+      <span class="icd-pill">F60.3 (Borderline) / F60.2 (Antisocial) / F60.4 (Histrionic) / F60.81 (Narcissistic)</span>
+    </div>
+    <p class="disorder-overview">Dramatic, emotional, or erratic traits with severe interpersonal relationship disruptions. Mnemonics: I DESPAIRR (Borderline >= 5/9), CORRUPT (Antisocial >= 3/7), PRAISE ME (Histrionic >= 5/8), SPEEECIAL (Narcissistic >= 5/9).</p>
+  </div>
+
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Borderline Personality Disorder: I DESPAIRR (Requires >= 5 of 9)</span>
+        <span>Unstable sense of self, interpersonal relationships, and marked impulsivity</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">I:</span>
+          <span>
+            Identity disturbance: markedly and persistently unstable self-image or sense of self.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">D:</span>
+          <span>
+            Disordered, unstable affect owing to a marked reactivity of mood (intense episodic dysphoria, irritability, anxiety lasting hours).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E:</span>
+          <span>
+            Emptiness: chronic feelings of emptiness.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">S:</span>
+          <span>
+            Suicidal behavior: recurrent suicidal behavior, gestures, threats, or self-mutilating behavior.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">P:</span>
+          <span>
+            Paranoid ideation: transient, stress-related paranoid ideation or severe dissociative symptoms.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">A:</span>
+          <span>
+            Abandonment: frantic efforts to avoid real or imagined abandonment.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">I2:</span>
+          <span>
+            Impulsivity in at least two areas that are potentially self-damaging (spending, sex, substance abuse, reckless driving, binge eating).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">R:</span>
+          <span>
+            Rage: inappropriate, intense anger or difficulty controlling anger (frequent temper displays, constant anger, physical fights).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">R2:</span>
+          <span>
+            Relationships: pattern of unstable and intense interpersonal relationships alternating between extremes of idealization and devaluation (splitting).
+            
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Antisocial Personality Disorder: CORRUPT (Requires >= 3 of 7; Age >= 18)</span>
+        <span>Pervasive disregard for and violation of the rights of others since age 15</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">C:</span>
+          <span>
+            Conformity to law lacking (repeated acts that are grounds for arrest).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">O:</span>
+          <span>
+            Obligations ignored (consistent irresponsibility, failure to sustain work or honor financial obligations).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">R:</span>
+          <span>
+            Reckless disregard for safety of self or others.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">R2:</span>
+          <span>
+            Remorse lacking (indifferent to or rationalizing having hurt, mistreated, or stolen from another).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">U:</span>
+          <span>
+            Underhanded / deceitful (repeated lying, use of aliases, or conning others for personal profit or pleasure).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">P:</span>
+          <span>
+            Planning insufficient (impulsivity or failure to plan ahead).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">T:</span>
+          <span>
+            Temper / irritability and aggressiveness (repeated physical fights or assaults).
+            
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Histrionic Personality Disorder: PRAISE ME (Requires >= 5 of 8)</span>
+        <span>Pervasive pattern of excessive emotionality and attention-seeking behavior</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">P:</span>
+          <span>
+            Provocative (or sexually seductive) behavior in interactions.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">R:</span>
+          <span>
+            Relationships considered more intimate than they actually are.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">A:</span>
+          <span>
+            Attention: uncomfortable in situations where he/she is not the center of attention.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">I:</span>
+          <span>
+            Influenced easily (suggestible, easily influenced by others or circumstances).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">S:</span>
+          <span>
+            Style of speech: excessively impressionistic and lacking in detail.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E:</span>
+          <span>
+            Emotions: rapidly shifting and shallow expression of emotions.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">M:</span>
+          <span>
+            Made up: consistently uses physical appearance to draw attention to self.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E2:</span>
+          <span>
+            Exaggerated emotions (theatricality, exaggerated expression of emotion).
+            
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="section-block">
+      <div class="section-header">
+        <span>Narcissistic Personality Disorder: SPEEECIAL (Requires >= 5 of 9)</span>
+        <span>Grandiosity, need for admiration, and lack of empathy</span>
+      </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">S:</span>
+          <span>
+            Special: believes he/she is 'special' and unique and can only be understood by high-status people.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">P:</span>
+          <span>
+            Preoccupied with fantasies of unlimited success, power, brilliance, beauty, or ideal love.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E:</span>
+          <span>
+            Envious of others or believes that others are envious of him/her.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E2:</span>
+          <span>
+            Entitlement: unreasonable expectations of especially favorable treatment or compliance.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">E3:</span>
+          <span>
+            Excessive admiration required.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">C:</span>
+          <span>
+            Conceited: grandiose sense of self-importance (exaggerates achievements and talents).
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">I:</span>
+          <span>
+            Interpersonal exploitation: takes advantage of others to achieve his/her own ends.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">A:</span>
+          <span>
+            Arrogant, haughty behaviors or attitudes.
+            
+          </span>
+        </div>
+      
+        <div class="item-row">
+          <div class="box"></div>
+          <span class="item-code">L:</span>
+          <span>
+            Lacks empathy: unwilling to recognize or identify with the feelings and needs of others.
+            
+          </span>
+        </div>
+      
+    </div>
+  
+
+  
+    <div class="specifier-box">
+      <div class="specifier-title">Clinical Specifiers &amp; Subtypes</div>
+      <div class="specifier-grid">
+        
+          <div>
+            <strong>Predominant Diagnosis:</strong>
+            <ul style="margin: 3px 0 0 16px; padding: 0;">
+              <li>☐ Borderline Personality Disorder (F60.3)</li><li>☐ Antisocial Personality Disorder (F60.2)</li><li>☐ Narcissistic Personality Disorder (F60.81)</li><li>☐ Histrionic Personality Disorder (F60.4)</li><li>☐ Cluster B Traits / Mixed</li>
+            </ul>
+          </div>
+        
+      </div>
+    </div>
+  
+
+  <div class="mdm-box">
+    <div class="mdm-title">Diagnostic Conclusion &amp; Medical Decision Making (MDM):</div>
+    <div style="font-size: 8pt; color: #475569; margin-bottom: 4px;">
+      ☐ Full Diagnostic Criteria Met &nbsp;&nbsp;&nbsp;&nbsp; ☐ Sub-threshold Symptoms &nbsp;&nbsp;&nbsp;&nbsp; ☐ Ruled Out (Alternative Differential Documented Below)
+    </div>
+    <div class="mdm-lines"></div>
+  </div>
+
+  <div class="signature-grid">
+    <div>
+      <div class="field-label">Clinician Signature:</div>
+      <div class="sig-line"></div>
+      <div style="font-weight: bold; color: #0f766e;">Monica Preder, MSN, APRN, PMHNP-BC</div>
+      <div style="color: #64748b;">Board Certified Psychiatric Nurse Practitioner • DEA / WA State APRN on file</div>
+    </div>
+    <div>
+      <div class="field-label">Date &amp; Clinical Time:</div>
+      <div class="sig-line"></div>
+      <div style="color: #64748b;">Time Spent in Diagnostic Assessment &amp; Counseling: ______ min</div>
+    </div>
+  </div>
+
+</body>
+</html>
