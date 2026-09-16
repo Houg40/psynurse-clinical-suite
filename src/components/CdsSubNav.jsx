@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stethoscope, Pill, GitFork, AlertTriangle, ArrowLeftRight, HeartPulse, FileEdit, Bot, ClipboardCheck, Sparkles } from 'lucide-react';
+import { Stethoscope, Pill, GitFork, AlertTriangle, ArrowLeftRight, HeartPulse, FileEdit, Bot, ClipboardCheck, Sparkles, Lightbulb } from 'lucide-react';
 
 export default function CdsSubNav({ activeTab, setActiveTab }) {
   const navItems = [
@@ -12,6 +12,7 @@ export default function CdsSubNav({ activeTab, setActiveTab }) {
     { id: 'advisor', label: 'AI Clinical Advisor', shortLabel: 'AI Advisor', icon: Bot },
     { id: 'pathways', label: 'Step-Therapy', shortLabel: 'Pathways', icon: GitFork },
     { id: 'crosstaper', label: 'Cross-Taper', shortLabel: 'Cross-Taper', icon: ArrowLeftRight },
+    { id: 'misc', label: 'Misc. Information', shortLabel: 'Misc. Info', icon: Lightbulb },
     { id: 'safety', label: 'Safety & Rules', shortLabel: 'Safety', icon: AlertTriangle },
   ];
 

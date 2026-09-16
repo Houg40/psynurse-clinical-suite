@@ -22,6 +22,7 @@ export default function FeedbackModal({ currentTab }) {
     advisor: 'AI Clinical Advisor',
     pathways: 'Step-Therapy Pathways',
     crosstaper: 'Cross-Tapering Calculator',
+    misc: 'Misc. Information & Pharmacology Pearls',
     safety: 'Safety & Rule-Outs'
   };
 

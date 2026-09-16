@@ -1009,6 +1009,49 @@ export default function CrossTaperCalculator() {
                 </div>
               </div>
 
+              {/* Notecard 7: Misc. Information — Neurobiology, Buspar & Benzo Safety */}
+              <div className="bg-teal-50/70 border-2 border-teal-300 rounded-xl p-4 shadow-sm space-y-3 font-mono text-xs md:col-span-2 lg:col-span-3">
+                <div className="flex items-center justify-between border-b border-teal-200 pb-1.5 font-sans">
+                  <div className="flex items-center gap-2">
+                    <span className="font-black text-teal-950 text-xs tracking-wider uppercase">NOTECARD 7</span>
+                    <span className="text-[10px] font-bold bg-teal-200 text-teal-900 px-2 py-0.5 rounded">MISC. INFORMATION</span>
+                  </div>
+                  <span className="text-[10px] text-teal-800 font-bold uppercase tracking-wider">Clinical Pharmacology Pearls</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-slate-800 text-[11px] leading-relaxed">
+                  {/* Antidepressants & Neurotransmitters */}
+                  <div className="bg-white/80 p-3 rounded-lg border border-teal-200/80 space-y-1">
+                    <p className="font-black text-teal-950 text-xs uppercase tracking-wide">🧠 Antidepressant Neurobiology</p>
+                    <p className="font-bold text-slate-900 mt-1">Regulating Serotonin (5-HT) &amp; Norepinephrine (NE)</p>
+                    <p className="text-slate-700">
+                      When imbalanced, depleted, or receptor-dysregulated, can lead to persistent <strong>mood changes</strong>, <strong>behavioral shifts</strong> (apathy, withdrawal), and <strong>increased symptoms of anxiety</strong>.
+                    </p>
+                  </div>
+
+                  {/* Buspar (Buspirone) */}
+                  <div className="bg-white/80 p-3 rounded-lg border border-teal-200/80 space-y-1">
+                    <p className="font-black text-teal-950 text-xs uppercase tracking-wide">💊 Buspar (Buspirone)</p>
+                    <p className="font-bold text-slate-900 mt-1">5-HT1A Partial Agonist &amp; Dopamine Interaction</p>
+                    <p className="text-slate-700">
+                      Gradually alleviates anxiety symptoms (anxiolytic). <strong>Does NOT cause drowsiness or cognitive impairment</strong>. Non-controlled, non-addictive; requires scheduled daily dosing.
+                    </p>
+                  </div>
+
+                  {/* Benzodiazepines */}
+                  <div className="bg-white/80 p-3 rounded-lg border border-rose-200 space-y-1">
+                    <p className="font-black text-rose-950 text-xs uppercase tracking-wide">⚠️ Benzodiazepines Safety</p>
+                    <p className="font-bold text-rose-900 mt-1">Short-Term Use Only (1–4 Weeks Max)</p>
+                    <p className="text-slate-700">
+                      <strong>Tolerance:</strong> Physiological response where continued use requires more and more drug to achieve effect.
+                    </p>
+                    <p className="text-slate-700">
+                      <strong>Dependence:</strong> Physiological and psychological withdrawal symptoms (rebound anxiety, tremors, seizures).
+                    </p>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             {/* Citations Footer */}
