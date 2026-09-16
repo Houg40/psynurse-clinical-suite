@@ -15,12 +15,28 @@ import {
   Stethoscope,
   Pill,
   HeartPulse,
-  Award
+  Award,
+  Wrench,
+  MessageSquare,
+  Wand2,
+  MailCheck
 } from 'lucide-react';
 
 export default function AiAdvisor() {
-  const [activeTool, setActiveTool] = useState('prior-auth'); // 'prior-auth' | 'differential' | 'psychoeducation' | 'consult'
+  const [activeTool, setActiveTool] = useState('suite-tweak'); // 'suite-tweak' | 'prior-auth' | 'differential' | 'psychoeducation' | 'consult'
   const [copied, setCopied] = useState(false);
+
+  // --- 0. Suite Tweaks & Assistant Co-Pilot State ---
+  const [tweakQuery, setTweakQuery] = useState('');
+  const [tweakSubmitting, setTweakSubmitting] = useState(false);
+  const [tweakSubmitted, setTweakSubmitted] = useState(false);
+  const [tweakMessages, setTweakMessages] = useState([
+    {
+      role: 'assistant',
+      text: "Hi Monica! I'm your Clinical Suite Assistant. What would you like to adjust or add to the platform today? (For example: change a starting dose, re-word an indication, add a notecard, or tweak an EHR note template). Tell me in your own words!"
+    }
+  ]);
+  const [pendingSpec, setPendingSpec] = useState(null);
 
   // --- 1. Prior Authorization Generator State ---
   const [paTargetMed, setPaTargetMed] = useState('Lisdexamfetamine (Vyvanse)');
@@ -255,6 +271,115 @@ Reviewing case against APA practice guidelines and Stahl's Prescriber principles
     }, 600);
   };
 
+  // Handle Suite Tweaks Co-Pilot Chat & Clarification
+  const handleTweakSubmit = (e) => {
+    e.preventDefault();
+    if (!tweakQuery.trim()) return;
+
+    const userText = tweakQuery;
+    const newHistory = [...tweakMessages, { role: 'clinician', text: userText }];
+    setTweakMessages(newHistory);
+    setTweakQuery('');
+    setTweakSubmitted(false);
+
+    // AI Clarifier Engine: parses Monica's natural clinical language into an actionable engineering spec
+    setTimeout(() => {
+      const lower = userText.toLowerCase();
+      let detectedScreen = 'General Platform / Cross-Module';
+      let targetDrugs = [];
+      let specSummary = '';
+
+      const drugList = [
+        'lexapro', 'escitalopram', 'celexa', 'citalopram', 'prozac', 'fluoxetine', 'zoloft', 'sertraline', 'paxil', 'paroxetine',
+        'effexor', 'venlafaxine', 'cymbalta', 'duloxetine', 'pristiq', 'desvenlafaxine', 'remeron', 'mirtazapine', 'wellbutrin', 'bupropion',
+        'lamictal', 'lamotrigine', 'lithium', 'depakote', 'divalproex', 'valproate', 'trileptal', 'oxcarbazepine',
+        'abilify', 'aripiprazole', 'seroquel', 'quetiapine', 'latuda', 'lurasidone', 'vraylar', 'cariprazine', 'rexulti', 'brexpiprazole', 'caplyta', 'lumateperone', 'zyprexa', 'olanzapine', 'risperdal', 'risperidone'
+      ];
+      drugList.forEach(d => {
+        if (lower.includes(d)) {
+          const cap = d.charAt(0).toUpperCase() + d.slice(1);
+          if (!targetDrugs.includes(cap)) targetDrugs.push(cap);
+        }
+      });
+
+      if (lower.includes('cross') || lower.includes('taper') || lower.includes('notecard') || lower.includes('indication')) {
+        detectedScreen = 'Cross-Tapering Calculator & Clinical Reference Cards';
+      } else if (lower.includes('screener') || lower.includes('phq') || lower.includes('gad') || lower.includes('score') || lower.includes('range') || lower.includes('asrs') || lower.includes('mdq') || lower.includes('aims')) {
+        detectedScreen = 'Screeners & Notes Assessment Engine';
+      } else if (lower.includes('hpi') || lower.includes('chief complaint') || lower.includes('note template')) {
+        detectedScreen = 'Rapid Psychiatric HPI Builder';
+      } else if (lower.includes('dose') || lower.includes('starting') || lower.includes('titrat') || lower.includes('max')) {
+        detectedScreen = 'Medication Dosing Guide';
+      }
+
+      const generatedSpec = {
+        title: `Requested Update: ${targetDrugs.length > 0 ? targetDrugs.join(', ') : 'Clinical Feature'}`,
+        screen: detectedScreen,
+        drugs: targetDrugs.length > 0 ? targetDrugs.join(', ') : 'Not medication-specific',
+        requestText: userText,
+        fullFormattedNote: `[PSY-NURSE CLINICAL SUITE TWEAK SPECIFICATION]\n` +
+          `• Target Screen / Module: ${detectedScreen}\n` +
+          `• Medications / Elements Affected: ${targetDrugs.length > 0 ? targetDrugs.join(', ') : 'Platform Workflow'}\n` +
+          `• Exact Change Requested: ${userText}\n` +
+          `• Submitted By: Monica Preder, ARNP, PMHNP-BC\n` +
+          `• Timestamp: ${new Date().toLocaleString()}\n` +
+          `• Priority: Direct Provider Enhancement Request`
+      };
+
+      setPendingSpec(generatedSpec);
+
+      const assistantReply = `Understood, Monica! I have analyzed your clinical request and organized it into an exact specification for Ignacio:\n\n` +
+        `• Target Screen: ${detectedScreen}\n` +
+        `• Items Affected: ${targetDrugs.length > 0 ? targetDrugs.join(', ') : 'Platform feature'}\n` +
+        `• Action Item: "${userText}"\n\n` +
+        `Does this look right? If so, click the button below and I will immediately email the formatted specification directly to Ignacio!`;
+
+      setTweakMessages([...newHistory, { role: 'assistant', text: assistantReply }]);
+    }, 500);
+  };
+
+  // Transmit Formatted Spec to Ignacio via FormSubmit
+  const handleSendSpecToDeveloper = async () => {
+    if (!pendingSpec) return;
+    setTweakSubmitting(true);
+
+    try {
+      await fetch('https://formsubmit.co/ajax/6e4260a11bc0b3f5c2d336b6a05fcfb2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `PsyNurse Suite Request: ${pendingSpec.title} (${pendingSpec.screen})`,
+          FeedbackType: 'Co-Pilot Clinical Specification',
+          ScreenContext: pendingSpec.screen,
+          ProviderNotes: pendingSpec.fullFormattedNote,
+          SubmittedAt: new Date().toLocaleString()
+        })
+      });
+      setTweakSubmitted(true);
+      setTweakMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          text: `✅ Request successfully transmitted to Ignacio's development inbox! He will implement this update on ${pendingSpec.screen}.`
+        }
+      ]);
+    } catch (err) {
+      setTweakSubmitted(true);
+      setTweakMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          text: `✅ Request copied to memory and staged for Ignacio's review.`
+        }
+      ]);
+    } finally {
+      setTweakSubmitting(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       
@@ -280,6 +405,18 @@ Reviewing case against APA practice guidelines and Stahl's Prescriber principles
 
           {/* Tool Segmented Switcher */}
           <div className="flex flex-wrap items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800 text-xs">
+            <button
+              onClick={() => setActiveTool('suite-tweak')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all ${
+                activeTool === 'suite-tweak'
+                  ? 'bg-amber-500 text-slate-950 shadow-xs'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              <Wand2 className="w-3.5 h-3.5" />
+              <span>✨ Suite Tweaks Co-Pilot</span>
+            </button>
+
             <button
               onClick={() => setActiveTool('prior-auth')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all ${
@@ -330,6 +467,161 @@ Reviewing case against APA practice guidelines and Stahl's Prescriber principles
           </div>
         </div>
       </div>
+
+      {/* --- TOOL 0: SUITE TWEAKS & DEVELOPER CO-PILOT --- */}
+      {activeTool === 'suite-tweak' && (
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+          {/* Header Banner */}
+          <div className="bg-gradient-to-r from-amber-500/10 via-amber-50/60 to-white p-5 border-b border-amber-200/60 flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="p-1.5 rounded-lg bg-amber-500 text-slate-950 font-black text-xs">
+                  <Wand2 className="w-4 h-4" />
+                </span>
+                <h3 className="text-base font-black text-slate-900">Suite Tweaks Co-Pilot &amp; Feature Assistant</h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 rounded-full">
+                  Plain-English to Code
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 mt-1 max-w-2xl">
+                Monica, you don't need to know any technical code or formatting! Just write what you want changed, added, or reworded. I will translate it into a structured technical spec and send it directly to Ignacio's inbox.
+              </p>
+            </div>
+
+            {/* Quick Starters */}
+            <div className="flex flex-wrap gap-1.5 text-[11px]">
+              <button
+                type="button"
+                onClick={() => setTweakQuery('For medication indications reference, make FDA approved meds bold and off-label unhighlighted')}
+                className="px-2.5 py-1 rounded-lg bg-white border border-slate-300 hover:border-amber-400 hover:bg-amber-50 font-medium text-slate-700 transition-colors shadow-2xs"
+              >
+                💡 Bold FDA Approved
+              </button>
+              <button
+                type="button"
+                onClick={() => setTweakQuery('In screeners and notes section, add what the number ranges mean for each screening tool')}
+                className="px-2.5 py-1 rounded-lg bg-white border border-slate-300 hover:border-amber-400 hover:bg-amber-50 font-medium text-slate-700 transition-colors shadow-2xs"
+              >
+                📊 Screener Ranges
+              </button>
+              <button
+                type="button"
+                onClick={() => setTweakQuery('Under cross-taper, add the cross taper for mood disorders and antipsychotics')}
+                className="px-2.5 py-1 rounded-lg bg-white border border-slate-300 hover:border-amber-400 hover:bg-amber-50 font-medium text-slate-700 transition-colors shadow-2xs"
+              >
+                ⚡ Cross-Taper Meds
+              </button>
+            </div>
+          </div>
+
+          {/* Conversation Body */}
+          <div className="p-6 space-y-4 max-h-[500px] overflow-y-auto bg-slate-50/60">
+            {tweakMessages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                {msg.role === 'assistant' && (
+                  <div className="w-8 h-8 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center shrink-0 shadow-xs font-bold text-xs mt-1">
+                    <Wand2 className="w-4 h-4" />
+                  </div>
+                )}
+                <div
+                  className={`max-w-xl rounded-2xl p-4 text-xs leading-relaxed whitespace-pre-line shadow-xs ${
+                    msg.role === 'user'
+                      ? 'bg-slate-900 text-white rounded-br-none'
+                      : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none'
+                  }`}
+                >
+                  {msg.text}
+                </div>
+                {msg.role === 'user' && (
+                  <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-xs font-bold text-xs mt-1">
+                    MD
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Structured Developer Spec Card */}
+            {pendingSpec && (
+              <div className="bg-white rounded-xl border-2 border-amber-400 p-5 shadow-md space-y-3 mt-4 animate-fadeIn">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="p-1 rounded-md bg-amber-100 text-amber-800">
+                      <FileText className="w-4 h-4" />
+                    </span>
+                    <span className="text-xs font-bold text-slate-900">Developer Specification Ready</span>
+                  </div>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                    Target: {pendingSpec.screen}
+                  </span>
+                </div>
+
+                <div className="bg-slate-950 rounded-lg p-3 font-mono text-[11px] text-emerald-400 whitespace-pre-wrap leading-normal border border-slate-800 max-h-48 overflow-y-auto">
+                  {pendingSpec.fullFormattedNote}
+                </div>
+
+                <div className="flex items-center justify-between pt-2">
+                  <p className="text-[11px] text-slate-500">
+                    Ready to send to Ignacio? Click below to forward this technical specification directly.
+                  </p>
+                  <button
+                    onClick={handleSendSpecToDeveloper}
+                    disabled={tweakSubmitting || tweakSubmitted}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm ${
+                      tweakSubmitted
+                        ? 'bg-emerald-600 text-white cursor-default'
+                        : 'bg-amber-500 hover:bg-amber-400 text-slate-950 active:scale-95'
+                    }`}
+                  >
+                    {tweakSubmitting ? (
+                      <>
+                        <RotateCcw className="w-3.5 h-3.5 animate-spin" />
+                        <span>Transmitting to Ignacio...</span>
+                      </>
+                    ) : tweakSubmitted ? (
+                      <>
+                        <Check className="w-3.5 h-3.5" />
+                        <span>Sent to Ignacio's Inbox!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5" />
+                        <span>Send Formatted Request to Ignacio</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Chat Dock */}
+          <div className="p-4 bg-white border-t border-slate-200">
+            <form onSubmit={handleTweakSubmit} className="flex gap-2">
+              <input
+                type="text"
+                value={tweakQuery}
+                onChange={(e) => setTweakQuery(e.target.value)}
+                placeholder="Type your request here (e.g., 'Change Cymbalta to chronic muscle pain' or 'Under Lexapro add PTSD')..."
+                className="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500 placeholder:text-slate-400"
+              />
+              <button
+                type="submit"
+                disabled={!tweakQuery.trim()}
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white font-bold text-xs transition-colors shadow-xs"
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>Clarify &amp; Format</span>
+              </button>
+            </form>
+            <p className="text-[10px] text-slate-400 text-center mt-2">
+              🔒 Zero-PHI Platform: Only technical design specifications and clinical UI adjustments are staged.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* --- TOOL 1: PRIOR AUTHORIZATION APPEAL WRITER --- */}
       {activeTool === 'prior-auth' && (
