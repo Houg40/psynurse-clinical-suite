@@ -8,7 +8,9 @@ import {
   ShieldCheck, 
   AlertTriangle,
   ChevronRight,
-  ClipboardList
+  ClipboardList,
+  Stethoscope,
+  BookOpen
 } from 'lucide-react';
 
 export default function HpiBuilder() {
@@ -79,6 +81,14 @@ export default function HpiBuilder() {
     'med_never_tried_mood_stabilizer': true
   });
 
+  // Clinical Screener Scores & Number Ranges
+  const [screenerPhq9, setScreenerPhq9] = useState('14'); // 0-27
+  const [screenerGad7, setScreenerGad7] = useState('11'); // 0-21
+  const [screenerAsrs, setScreenerAsrs] = useState('none'); // 'none' | 'positive' | 'negative'
+  const [screenerMdq, setScreenerMdq] = useState('none'); // 'none' | 'positive' | 'negative'
+  const [screenerAims, setScreenerAims] = useState('none'); // 'none' | 'negative' | 'positive'
+  const [includeScreenersInNote, setIncludeScreenersInNote] = useState(true);
+
   // Custom Notes / Additions per Category
   const [customChiefComplaint, setCustomChiefComplaint] = useState('');
   const [customPrecipitant, setCustomPrecipitant] = useState('recent increase in workload and managerial restructuring');
@@ -124,6 +134,11 @@ export default function HpiBuilder() {
       });
       setCustomPrecipitant('occupational burnout and persistent corporate deadlines');
       setCustomPriorMeds('Sertraline 50mg tried 2 years ago, discontinued secondary to GI upset');
+      setScreenerPhq9('14');
+      setScreenerGad7('11');
+      setScreenerAsrs('none');
+      setScreenerMdq('none');
+      setScreenerAims('none');
     } else if (presetName === 'panic_gad') {
       setSelectedItems({
         'cc_anxiety_panic': true,
@@ -147,6 +162,11 @@ export default function HpiBuilder() {
       });
       setCustomPrecipitant('increased social demands and promotion into high-visibility client role');
       setCustomPriorMeds('Medication naive; has used occasional chamomile tea with minimal relief');
+      setScreenerPhq9('6');
+      setScreenerGad7('16');
+      setScreenerAsrs('none');
+      setScreenerMdq('none');
+      setScreenerAims('none');
     } else if (presetName === 'bipolar_screen') {
       setSelectedItems({
         'cc_depressed_mood': true,
@@ -166,6 +186,11 @@ export default function HpiBuilder() {
       });
       setCustomPrecipitant('recurrent depressive phase following a period of high energy and reduced sleep');
       setCustomPriorMeds('Previous trial of Citalopram induced dysphoric agitation/activation');
+      setScreenerPhq9('16');
+      setScreenerGad7('9');
+      setScreenerAsrs('none');
+      setScreenerMdq('positive');
+      setScreenerAims('none');
     }
   };
 
@@ -173,6 +198,11 @@ export default function HpiBuilder() {
     setSelectedItems({});
     setCustomPrecipitant('');
     setCustomPriorMeds('');
+    setScreenerPhq9('');
+    setScreenerGad7('');
+    setScreenerAsrs('none');
+    setScreenerMdq('none');
+    setScreenerAims('none');
   };
 
   // Synthesize Narrative HPI Paragraph
@@ -285,8 +315,60 @@ export default function HpiBuilder() {
       medText += `Past psychopharmacologic history: ${customPriorMeds || 'Reports previous trial of SSRI discontinued due to side effects'}. `;
     }
 
-    return `${para1}\n\n${safetyPara}${ruleOutText}\n\n${medText}Patient was an active participant in diagnostic formulation and verbalizes agreement with the collaborative treatment plan.`;
-  }, [patientAge, patientGender, visitType, selectedItems, customPrecipitant, customPriorMeds]);
+    // 7. Standardized Clinical Screeners & Score Interpretations
+    let screenerText = '';
+    if (includeScreenersInNote) {
+      const screenerParts = [];
+
+      // PHQ-9 interpretation
+      if (screenerPhq9 !== '') {
+        const pScore = parseInt(screenerPhq9, 10);
+        let pSeverity = 'None-Minimal Depression (range: 0-4)';
+        if (pScore >= 20) pSeverity = 'Severe Depression (range: 20-27; pharmacotherapy + urgent referral)';
+        else if (pScore >= 15) pSeverity = 'Moderately Severe Depression (range: 15-19; pharmacotherapy + therapy)';
+        else if (pScore >= 10) pSeverity = 'Moderate Depression (range: 10-14; clinically significant, first-line antidepressant)';
+        else if (pScore >= 5) pSeverity = 'Mild Depression (range: 5-9; psychoeducation, watchful waiting)';
+        screenerParts.push(`PHQ-9 score: ${pScore}/27 indicating ${pSeverity}`);
+      }
+
+      // GAD-7 interpretation
+      if (screenerGad7 !== '') {
+        const gScore = parseInt(screenerGad7, 10);
+        let gSeverity = 'Minimal Anxiety (range: 0-4)';
+        if (gScore >= 15) gSeverity = 'Severe Anxiety (range: 15-21; active pharmacotherapy)';
+        else if (gScore >= 10) gSeverity = 'Moderate Anxiety (range: 10-14; clinically significant, first-line SSRI/SNRI/CBT)';
+        else if (gScore >= 5) gSeverity = 'Mild Anxiety (range: 5-9; supportive care, sleep hygiene)';
+        screenerParts.push(`GAD-7 score: ${gScore}/21 indicating ${gSeverity}`);
+      }
+
+      // ASRS Part A
+      if (screenerAsrs === 'positive') {
+        screenerParts.push(`ASRS-v1.1 Part A positive (>=4 threshold criteria met: high likelihood of adult ADHD)`);
+      } else if (screenerAsrs === 'negative') {
+        screenerParts.push(`ASRS-v1.1 Part A sub-threshold (0-3 criteria: below standard adult ADHD cutoff)`);
+      }
+
+      // MDQ
+      if (screenerMdq === 'positive') {
+        screenerParts.push(`MDQ positive screen (>=7 co-occurring manic symptoms with functional impairment: bipolar spectrum risk noted; antidepressant monotherapy contraindicated)`);
+      } else if (screenerMdq === 'negative') {
+        screenerParts.push(`MDQ negative screen (<7 symptoms: negative for bipolar spectrum)`);
+      }
+
+      // AIMS
+      if (screenerAims === 'positive') {
+        screenerParts.push(`AIMS exam positive (mild involuntary movements in >=2 domains or moderate in >=1 domain: presumptive Tardive Dyskinesia)`);
+      } else if (screenerAims === 'negative') {
+        screenerParts.push(`AIMS score 0/28 (negative for abnormal involuntary movements or tardive dyskinesia)`);
+      }
+
+      if (screenerParts.length > 0) {
+        screenerText = `Standardized rating scale assessments administered at this encounter: ${screenerParts.join('; ')}. `;
+      }
+    }
+
+    return `${para1}\n\n${safetyPara}${ruleOutText}\n\n${medText}${screenerText}Patient was an active participant in diagnostic formulation and verbalizes agreement with the collaborative treatment plan.`;
+  }, [patientAge, patientGender, visitType, selectedItems, customPrecipitant, customPriorMeds, screenerPhq9, screenerGad7, screenerAsrs, screenerMdq, screenerAims, includeScreenersInNote]);
 
   const handleCopyNote = () => {
     navigator.clipboard.writeText(synthesizedHpi);
@@ -611,6 +693,159 @@ export default function HpiBuilder() {
                 placeholder="e.g., Sertraline 50mg x 3 weeks stopped for nausea..."
                 className="w-full text-xs font-medium py-2.5 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
               />
+            </div>
+          </div>
+
+          {/* Section 6: Standardized Clinical Screeners & Score Ranges */}
+          <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <div className="flex items-center gap-2">
+                <Stethoscope className="w-4 h-4 text-teal-600" />
+                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                  6. Standardized Screeners &amp; Score Number Ranges
+                </h3>
+              </div>
+              <label className="flex items-center gap-1.5 text-xs font-semibold text-teal-800 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={includeScreenersInNote}
+                  onChange={(e) => setIncludeScreenersInNote(e.target.checked)}
+                  className="rounded text-teal-600 focus:ring-teal-500 h-3.5 w-3.5"
+                />
+                <span>Include in HPI Narrative</span>
+              </label>
+            </div>
+
+            <p className="text-[11px] text-slate-500">
+              Record validated rating scores. The clinical number ranges and diagnostic interpretations automatically update and feed into the synthesized note:
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* PHQ-9 Entry */}
+              <div className="p-3 rounded-xl border border-slate-200 bg-slate-50/50 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-800">PHQ-9 Depression Score</label>
+                  <span className="text-[10px] font-bold text-slate-400">Range: 0 – 27</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    min="0"
+                    max="27"
+                    value={screenerPhq9}
+                    onChange={(e) => setScreenerPhq9(e.target.value)}
+                    placeholder="0-27"
+                    className="w-20 text-xs font-bold py-1.5 px-2.5 rounded-lg border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none"
+                  />
+                  <div className="text-[11px] font-medium leading-tight">
+                    {screenerPhq9 === '' ? (
+                      <span className="text-slate-400">Not administered</span>
+                    ) : parseInt(screenerPhq9, 10) >= 20 ? (
+                      <span className="text-rose-700 font-bold">Severe (20-27)</span>
+                    ) : parseInt(screenerPhq9, 10) >= 15 ? (
+                      <span className="text-orange-700 font-bold">Mod. Severe (15-19)</span>
+                    ) : parseInt(screenerPhq9, 10) >= 10 ? (
+                      <span className="text-amber-700 font-bold">Moderate (10-14)</span>
+                    ) : parseInt(screenerPhq9, 10) >= 5 ? (
+                      <span className="text-teal-700 font-bold">Mild (5-9)</span>
+                    ) : (
+                      <span className="text-emerald-700 font-bold">None-Minimal (0-4)</span>
+                    )}
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-400">
+                  0-4: Minimal • 5-9: Mild • 10-14: Moderate • 15-19: Mod. Severe • 20-27: Severe
+                </p>
+              </div>
+
+              {/* GAD-7 Entry */}
+              <div className="p-3 rounded-xl border border-slate-200 bg-slate-50/50 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-800">GAD-7 Anxiety Score</label>
+                  <span className="text-[10px] font-bold text-slate-400">Range: 0 – 21</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    min="0"
+                    max="21"
+                    value={screenerGad7}
+                    onChange={(e) => setScreenerGad7(e.target.value)}
+                    placeholder="0-21"
+                    className="w-20 text-xs font-bold py-1.5 px-2.5 rounded-lg border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none"
+                  />
+                  <div className="text-[11px] font-medium leading-tight">
+                    {screenerGad7 === '' ? (
+                      <span className="text-slate-400">Not administered</span>
+                    ) : parseInt(screenerGad7, 10) >= 15 ? (
+                      <span className="text-rose-700 font-bold">Severe (15-21)</span>
+                    ) : parseInt(screenerGad7, 10) >= 10 ? (
+                      <span className="text-amber-700 font-bold">Moderate (10-14)</span>
+                    ) : parseInt(screenerGad7, 10) >= 5 ? (
+                      <span className="text-teal-700 font-bold">Mild (5-9)</span>
+                    ) : (
+                      <span className="text-emerald-700 font-bold">Minimal (0-4)</span>
+                    )}
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-400">
+                  0-4: Minimal • 5-9: Mild • 10-14: Moderate • 15-21: Severe
+                </p>
+              </div>
+            </div>
+
+            {/* Qualitative Diagnostic Screeners (ASRS, MDQ, AIMS) */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+              {/* ASRS Part A */}
+              <div className="p-3 rounded-xl border border-slate-200 bg-slate-50/50 space-y-1.5">
+                <label className="block text-xs font-bold text-slate-800">ASRS-v1.1 (ADHD)</label>
+                <select
+                  value={screenerAsrs}
+                  onChange={(e) => setScreenerAsrs(e.target.value)}
+                  className="w-full text-xs font-bold py-1.5 px-2 rounded-lg border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                >
+                  <option value="none">Not Assessed</option>
+                  <option value="positive">Positive (≥4 threshold items)</option>
+                  <option value="negative">Negative (0-3 threshold items)</option>
+                </select>
+                <p className="text-[10px] text-slate-400">
+                  Cutoff: ≥4 positive shaded items indicates high likelihood adult ADHD
+                </p>
+              </div>
+
+              {/* MDQ Bipolar */}
+              <div className="p-3 rounded-xl border border-slate-200 bg-slate-50/50 space-y-1.5">
+                <label className="block text-xs font-bold text-slate-800">MDQ (Bipolar)</label>
+                <select
+                  value={screenerMdq}
+                  onChange={(e) => setScreenerMdq(e.target.value)}
+                  className="w-full text-xs font-bold py-1.5 px-2 rounded-lg border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                >
+                  <option value="none">Not Assessed</option>
+                  <option value="positive">Positive (≥7 symptoms + co-occur)</option>
+                  <option value="negative">Negative (&lt;7 symptoms)</option>
+                </select>
+                <p className="text-[10px] text-slate-400">
+                  Cutoff: ≥7 symptoms co-occurring warns against SSRI monotherapy
+                </p>
+              </div>
+
+              {/* AIMS TD */}
+              <div className="p-3 rounded-xl border border-slate-200 bg-slate-50/50 space-y-1.5">
+                <label className="block text-xs font-bold text-slate-800">AIMS (Tardive Dysk.)</label>
+                <select
+                  value={screenerAims}
+                  onChange={(e) => setScreenerAims(e.target.value)}
+                  className="w-full text-xs font-bold py-1.5 px-2 rounded-lg border border-slate-300 bg-white text-slate-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                >
+                  <option value="none">Not Assessed</option>
+                  <option value="negative">Negative (Score 0 / No TD)</option>
+                  <option value="positive">Positive (TD movements detected)</option>
+                </select>
+                <p className="text-[10px] text-slate-400">
+                  Cutoff: ≥2 in 1+ area or ≥1 in 2+ areas indicates presumptive TD
+                </p>
+              </div>
             </div>
           </div>
 
