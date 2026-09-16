@@ -79,8 +79,11 @@ export default function HpiBuilder() {
     'med_never_tried_mood_stabilizer': true
   });
 
-  // Custom Notes / Additions
+  // Custom Notes / Additions per Category
+  const [customChiefComplaint, setCustomChiefComplaint] = useState('');
   const [customPrecipitant, setCustomPrecipitant] = useState('recent increase in workload and managerial restructuring');
+  const [customSymptoms, setCustomSymptoms] = useState('');
+  const [customSafety, setCustomSafety] = useState('');
   const [customPriorMeds, setCustomPriorMeds] = useState('Sertraline 50mg briefly tried 2 years ago, discontinued due to persistent GI distress');
 
   const toggleItem = (key) => {
@@ -187,7 +190,14 @@ export default function HpiBuilder() {
     if (selectedItems['cc_adhd_focus']) chiefComplaints.push('executive dysfunction and inattention');
     if (selectedItems['cc_mood_swings']) chiefComplaints.push('affective lability and mood variability');
 
-    const ccText = chiefComplaints.length > 0 ? chiefComplaints.join(', ') : 'psychiatric symptom evaluation';
+    let ccText = chiefComplaints.length > 0 ? chiefComplaints.join(', ') : 'psychiatric symptom evaluation';
+    if (customChiefComplaint.trim()) {
+      if (chiefComplaints.length > 0) {
+        ccText += `, as well as ${customChiefComplaint.trim()}`;
+      } else {
+        ccText = customChiefComplaint.trim();
+      }
+    }
     const visitText = visitType === 'initial' ? 'initial comprehensive psychiatric telehealth evaluation' : 'routine follow-up psychiatric evaluation';
 
     let para1 = `Patient is a ${patientAge}-year-old ${patientGender} presenting for ${visitText} with chief complaints of ${ccText}. `;
@@ -223,6 +233,9 @@ export default function HpiBuilder() {
     if (symptoms.length > 0) {
       para1 += `Current symptom presentation is notable for ${symptoms.join(', ')}. `;
     }
+    if (customSymptoms.trim()) {
+      para1 += `Additional clinical symptom details: ${customSymptoms.trim()}. `;
+    }
 
     // 4. Safety & Suicide Risk Assessment
     let safetyPara = '';
@@ -240,6 +253,9 @@ export default function HpiBuilder() {
     }
     if (selectedItems['safety_denies_hi']) {
       safetyPara += `Denies homicidal ideation, intent, or plan. `;
+    }
+    if (customSafety.trim()) {
+      safetyPara += `Safety & collateral notes: ${customSafety.trim()}. `;
     }
 
     // 5. Differential & Rule-Outs
@@ -416,6 +432,20 @@ export default function HpiBuilder() {
                 </label>
               ))}
             </div>
+
+            {/* Custom Chief Complaint Input */}
+            <div className="pt-2">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Custom Chief Complaint / In Patient's Own Words:
+              </label>
+              <input
+                type="text"
+                value={customChiefComplaint}
+                onChange={(e) => setCustomChiefComplaint(e.target.value)}
+                placeholder='e.g., "panic attacks when driving over bridges", "severe burnout and grief after loss of spouse"...'
+                className="w-full text-xs font-medium py-2.5 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
+              />
+            </div>
           </div>
 
           {/* Section 3: Target Symptoms (SIGECAPS & Anxiety) */}
@@ -469,6 +499,20 @@ export default function HpiBuilder() {
                 className="w-full text-xs font-medium py-2.5 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
               />
             </div>
+
+            {/* Custom Symptom Details input */}
+            <div className="pt-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Additional Symptom Nuances / Details:
+              </label>
+              <input
+                type="text"
+                value={customSymptoms}
+                onChange={(e) => setCustomSymptoms(e.target.value)}
+                placeholder="e.g., jaw clenching leading to morning tension headaches, crying spells 3x/week..."
+                className="w-full text-xs font-medium py-2.5 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
+              />
+            </div>
           </div>
 
           {/* Section 4: Suicide Screening & Safety (Medicolegal Protection) */}
@@ -505,6 +549,20 @@ export default function HpiBuilder() {
                   <span>{item.label}</span>
                 </label>
               ))}
+            </div>
+
+            {/* Custom Safety / Protective Factors Input */}
+            <div className="pt-2">
+              <label className="block text-xs font-bold text-rose-950 mb-1">
+                Additional Safety / Collateral / Protective Factors:
+              </label>
+              <input
+                type="text"
+                value={customSafety}
+                onChange={(e) => setCustomSafety(e.target.value)}
+                placeholder="e.g., lives with supportive spouse; gun safe code held exclusively by partner..."
+                className="w-full text-xs font-medium py-2.5 px-3 rounded-lg border border-rose-200 bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:outline-none shadow-2xs"
+              />
             </div>
           </div>
 
