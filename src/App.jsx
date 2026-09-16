@@ -4,16 +4,8 @@ import CdsSubNav from './components/CdsSubNav';
 import CfsSubNav from './components/CfsSubNav';
 import CdsApp from './modules/cds/CdsApp';
 import CfsApp from './modules/cfs/CfsApp';
-import AccessLockout from './components/AccessLockout';
 
 export default function App() {
-  const [isUnlocked, setIsUnlocked] = useState(() => {
-    try {
-      return sessionStorage.getItem('psynurse_admin_auth') === 'true';
-    } catch {
-      return false;
-    }
-  });
   const [currentModule, setCurrentModule] = useState('cds');
   const [cdsActiveTab, setCdsActiveTab] = useState('screeners');
   const [cfsActivePhase, setCfsActivePhase] = useState('interview');
@@ -22,10 +14,6 @@ export default function App() {
   const handleCluesUpdated = (revealed, total) => {
     setCluesCount({ revealed, total });
   };
-
-  if (!isUnlocked) {
-    return <AccessLockout onAdminUnlock={() => setIsUnlocked(true)} />;
-  }
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-slate-950">
