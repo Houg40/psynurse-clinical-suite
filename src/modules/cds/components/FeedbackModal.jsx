@@ -25,7 +25,7 @@ export default function FeedbackModal({ currentTab }) {
 
     setSubmitting(true);
     try {
-      await fetch('https://formsubmit.co/ajax/houg40@gmail.com', {
+      await fetch('https://formsubmit.co/ajax/6e4260a11bc0b3f5c2d336b6a05fcfb2', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
