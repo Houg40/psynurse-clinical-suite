@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeftRight, AlertCircle, Clipboard, Check, Sparkles, Calendar, ShieldAlert, Printer, Info, Activity } from 'lucide-react';
+import { ArrowLeftRight, AlertCircle, Clipboard, Check, Sparkles, Calendar, ShieldAlert, Printer, Info, Activity, BookOpen, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 
 const TAPER_MEDICATIONS = [
   // SSRIs
@@ -543,6 +543,16 @@ export default function CrossTaperCalculator() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const [showReferences, setShowReferences] = useState(false);
+  const [copiedRef, setCopiedRef] = useState(false);
+
+  const copyClinicalCitation = () => {
+    const citation = "Cross-titration protocol formulated in accordance with The Maudsley Prescribing Guidelines in Psychiatry (14th Edition) and Stahl's Essential Psychopharmacology: Prescriber's Guide (8th Edition). Adheres to FDA-mandated slow titration schedule for Lamotrigine and therapeutic drug monitoring protocols.";
+    navigator.clipboard.writeText(citation);
+    setCopiedRef(true);
+    setTimeout(() => setCopiedRef(false), 2000);
+  };
+
   // Group medications by category for dropdowns
   const categories = [
     'SSRIs (Selective Serotonin Reuptake Inhibitors)',
@@ -555,18 +565,94 @@ export default function CrossTaperCalculator() {
   return (
     <div className="space-y-6">
       {/* Header Card (Hidden on Print) */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm print:hidden">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-9 h-9 rounded-xl bg-teal-100 flex items-center justify-center text-teal-800">
-            <ArrowLeftRight className="w-5 h-5" />
+      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm print:hidden space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-teal-100 flex items-center justify-center text-teal-800 flex-shrink-0">
+              <ArrowLeftRight className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="text-xl font-black text-slate-900">Psychiatric Medication Cross-Tapering Calculator</h2>
+              <p className="text-xs text-slate-500">
+                Evidence-based cross-titration protocols for Antidepressants, Second-Generation Antipsychotics, and Mood Stabilizers. Prevents discontinuation syndrome, D2 receptor rebound, and Stevens-Johnson Syndrome.
+              </p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-xl font-black text-slate-900">Psychiatric Medication Cross-Tapering Calculator</h2>
-            <p className="text-xs text-slate-500">
-              Evidence-based cross-titration protocols for Antidepressants, Second-Generation Antipsychotics, and Mood Stabilizers. Prevents discontinuation syndrome, D2 receptor rebound, and Stevens-Johnson Syndrome.
-            </p>
-          </div>
+
+          {/* Collapsible Reference Toggle Button */}
+          <button
+            onClick={() => setShowReferences(!showReferences)}
+            className="flex items-center gap-2 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-all flex-shrink-0 self-start sm:self-auto border border-slate-200"
+          >
+            <BookOpen className="w-4 h-4 text-teal-700" />
+            <span>Clinical References &amp; Guidelines</span>
+            {showReferences ? <ChevronUp className="w-3.5 h-3.5 text-slate-500" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-500" />}
+          </button>
         </div>
+
+        {/* Expandable Clinical References & Guidelines Drawer */}
+        {showReferences && (
+          <div className="p-4 bg-teal-50/50 border border-teal-200 rounded-xl space-y-3 animate-in fade-in duration-150">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-teal-200/70 pb-2">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-teal-700" />
+                <h4 className="text-xs font-black text-teal-950 uppercase tracking-wider">
+                  Authoritative Clinical Switching Standards &amp; Citations
+                </h4>
+              </div>
+              <button
+                onClick={copyClinicalCitation}
+                className="flex items-center gap-1 text-[11px] font-bold bg-teal-700 hover:bg-teal-600 text-white px-2.5 py-1 rounded-lg transition-all shadow-2xs self-start"
+              >
+                {copiedRef ? <Check className="w-3 h-3" /> : <Clipboard className="w-3 h-3" />}
+                <span>{copiedRef ? 'Copied Citation!' : 'Copy Chart MDM Citation'}</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div className="p-3 bg-white rounded-lg border border-teal-100 space-y-1">
+                <span className="font-bold text-slate-900 block">1. The Maudsley Guidelines</span>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  <em>The Maudsley Prescribing Guidelines in Psychiatry (14th Edition)</em>. Taylor D, Barnes TRE, Young AH. Wiley-Blackwell. Gold standard for psychiatric cross-taper matrices and receptor washout intervals.
+                </p>
+              </div>
+
+              <div className="p-3 bg-white rounded-lg border border-teal-100 space-y-1">
+                <span className="font-bold text-slate-900 block">2. Stahl's Prescriber's Guide</span>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  <em>Stahl's Essential Psychopharmacology: Prescriber's Guide (8th Edition)</em>. Stahl SM. Cambridge University Press. Primary reference for D2 partial agonist switches, half-life kinetics, and direct versus overlapping strategies.
+                </p>
+              </div>
+
+              <div className="p-3 bg-white rounded-lg border border-teal-100 space-y-1">
+                <span className="font-bold text-slate-900 block">3. APA &amp; CANMAT Clinical Practice</span>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  APA Practice Guidelines for Major Depressive Disorder &amp; CANMAT Bipolar Guidelines. Incorporates mandatory FDA package insert titration schedules (Lamotrigine SJS prevention; Valproate UGT1A4 interactions).
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Principles Banner */}
+            <div className="pt-2 border-t border-teal-200/50 grid grid-cols-1 sm:grid-cols-4 gap-2 text-[11px]">
+              <div className="bg-white/80 p-2 rounded border border-teal-100">
+                <span className="font-bold text-teal-950 block">Direct Switch</span>
+                <span className="text-slate-600">Stop Drug A, start Drug B next day at starting dose (SSRI to SSRI at standard doses).</span>
+              </div>
+              <div className="bg-white/80 p-2 rounded border border-teal-100">
+                <span className="font-bold text-teal-950 block">Cross-Taper (Default)</span>
+                <span className="text-slate-600">Step down Drug A over 2–4 weeks while titrating Drug B up to mitigate withdrawal.</span>
+              </div>
+              <div className="bg-white/80 p-2 rounded border border-teal-100">
+                <span className="font-bold text-teal-950 block">Overlapping Plateau</span>
+                <span className="text-slate-600">Maintain Drug A at baseline while escalating Drug B slowly (mandatory for Lamictal &amp; SGAs).</span>
+              </div>
+              <div className="bg-white/80 p-2 rounded border border-teal-100">
+                <span className="font-bold text-teal-950 block">Self-Taper / Washout</span>
+                <span className="text-slate-600">Fluoxetine long half-life (norfluoxetine 7-15 days) creates built-in self-taper without dose steps.</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Drug Selection Controls */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 p-5 bg-slate-50 rounded-xl border border-slate-200">
