@@ -16,6 +16,7 @@ export default function FeedbackModal({ currentTab }) {
     hpi: 'Rapid HPI Builder',
     screeners: 'Screeners & Notes',
     checklists: 'DSM-5 Diagnostic Checklists',
+    psychotherapy: 'Psychotherapy Practice Scripts',
     medications: 'Medication Dosing Guide',
     interactions: 'QTc & Interactions',
     advisor: 'AI Clinical Advisor',

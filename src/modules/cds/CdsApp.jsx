@@ -8,6 +8,7 @@ import InteractionChecker from './components/InteractionChecker';
 import HpiBuilder from './components/HpiBuilder';
 import AiAdvisor from './components/AiAdvisor';
 import Dsm5Checklists from './components/Dsm5Checklists';
+import PsychotherapyModule from './components/PsychotherapyModule';
 import FeedbackModal from './components/FeedbackModal';
 
 export default function CdsApp({ activeTab, setActiveTab }) {
@@ -17,6 +18,7 @@ export default function CdsApp({ activeTab, setActiveTab }) {
         {activeTab === 'hpi' && <HpiBuilder />}
         {activeTab === 'screeners' && <ScreenerAssessment />}
         {activeTab === 'checklists' && <Dsm5Checklists />}
+        {activeTab === 'psychotherapy' && <PsychotherapyModule />}
         {activeTab === 'medications' && <MedicationDirectory />}
         {activeTab === 'interactions' && <InteractionChecker />}
         {activeTab === 'advisor' && <AiAdvisor />}

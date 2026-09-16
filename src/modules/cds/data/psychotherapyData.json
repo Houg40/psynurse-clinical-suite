@@ -1,0 +1,222 @@
+{
+  "modalities": [
+    {
+      "id": "mi",
+      "title": "Motivational Interviewing (MI)",
+      "subtitle": "Miller & Rollnick Evidence-Based Clinical Framework",
+      "badge": "Ambivalence & Readiness for Change",
+      "description": "Collaborative, goal-oriented communication method paying particular attention to the language of change, designed to strengthen personal motivation for and commitment to a specific goal.",
+      "oars": [
+        {
+          "letter": "O",
+          "technique": "Open-Ended Questions",
+          "purpose": "Invites the patient to tell their story without single-word or yes/no constraints. Establishes rapport and uncovers internal motivations.",
+          "clinicalPrompt": "How would you like things to be different?",
+          "scripts": [
+            "\"What makes you think it might be time to take a look at your drinking/substance use/medication routine?\"",
+            "\"How do you think your life would look six months from now if you made this change?\"",
+            "\"Tell me about the times when you feel most in control of your anxiety.\"",
+            "\"What are some of the things you enjoy about your current routine, and what are some things that aren't working as well?\""
+          ]
+        },
+        {
+          "letter": "A",
+          "technique": "Affirmations",
+          "purpose": "Recognizes and validates patient strengths, efforts, values, and past successes. Rebuilds self-efficacy and agency.",
+          "clinicalPrompt": "Validating effort and resilience.",
+          "scripts": [
+            "\"I really appreciate how open and honest you're being with me today, even though discussing this is uncomfortable.\"",
+            "\"It takes genuine courage to come to therapy and talk about these challenges after everything you've experienced.\"",
+            "\"You've handled some really heavy situations in the past, and that shows a lot of resilience.\"",
+            "\"The fact that you remembered to take your medication five out of seven days this week is real progress from where we started.\""
+          ]
+        },
+        {
+          "letter": "R",
+          "technique": "Reflective Listening",
+          "purpose": "Statements (not questions) reflecting the patient's underlying emotional meaning, ambivalence, or core dilemmas. Deepens exploration.",
+          "clinicalPrompt": "Simple, Complex, and Double-Sided Reflections.",
+          "scripts": [
+            "Simple Reflection: \"You're feeling overwhelmed by all the demands coming at you at once.\"",
+            "Complex Reflection: \"It sounds like you're exhausted from trying to keep everyone else happy while feeling like your own tank is completely empty.\"",
+            "Double-Sided Reflection: \"On the one hand, drinking wine in the evening helps you unwind from work immediately; on the other hand, you notice you wake up at 3 AM with heart racing and guilt the next morning.\"",
+            "Action Reflection: \"Part of you is ready to try something new, but the fear of withdrawal or failure feels paralyzing right now.\""
+          ]
+        },
+        {
+          "letter": "S",
+          "technique": "Summaries",
+          "purpose": "Pulls together multiple strands of discussion, highlights change talk, explicitly acknowledges ambivalence, and transitions to next steps.",
+          "clinicalPrompt": "Collecting, linking, and transitioning.",
+          "scripts": [
+            "\"Let me see if I'm understanding everything we've touched on today: You came in because the panic attacks have started interfering with driving to work. You've noticed that drinking energy drinks and sleeping four hours makes it worse, but caffeine feels necessary to stay employed. You're hesitant about starting an SSRI because of side effects your friend had, but you really want to feel calm enough to take your kids to the park again. Did I capture that accurately? What did I miss?\""
+          ]
+        }
+      ],
+      "darnCat": [
+        {
+          "type": "Preparatory (DARN)",
+          "items": [
+            { "code": "D", "label": "Desire", "inquiry": "\"What do you hope will be different in your daily life?\"", "changeTalkSample": "\"I really want to stop feeling like a prisoner to my panic.\"" },
+            { "code": "A", "label": "Ability", "inquiry": "\"If you decided to make this change, what gives you confidence you could do it?\"", "changeTalkSample": "\"I was sober for three years before, so I know I have the tools somewhere inside.\"" },
+            { "code": "R", "label": "Reasons", "inquiry": "\"What are the three most important reasons for you to cut back on alcohol?\"", "changeTalkSample": "\"I need to be fully present and clear-headed for my children on weekends.\"" },
+            { "code": "N", "label": "Need", "inquiry": "\"How serious or urgent does this feel for you right now?\"", "changeTalkSample": "\"I can't go on living like this; something has to give.\"" }
+          ]
+        },
+        {
+          "type": "Mobilizing (CAT)",
+          "items": [
+            { "code": "C", "label": "Commitment", "inquiry": "\"What are you willing to commit to between now and our next appointment?\"", "changeTalkSample": "\"I will attend one 12-step meeting on Tuesday night.\"" },
+            { "code": "A", "label": "Activation", "inquiry": "\"Are you prepared to take that first step this week?\"", "changeTalkSample": "\"I'm ready to throw away the alcohol in my cabinet tonight.\"" },
+            { "code": "T", "label": "Taking Steps", "inquiry": "\"What have you already done recently toward this goal?\"", "changeTalkSample": "\"I downloaded a sober tracker app and told my partner I need their support.\"" }
+          ]
+        }
+      ],
+      "readinessRulerGuide": {
+        "title": "The 1–10 Importance / Confidence Ruler",
+        "description": "Ask: 'On a scale from 1 to 10, where 1 is not at all ready and 10 is completely ready, how ready do you feel to [make target change]?'",
+        "lowerComparisonScript": "Why did you choose a {score} and not a {lowerScore}? (Elicits the patient's own organic arguments FOR change instead of defending non-change).",
+        "upperComparisonScript": "What do you think it would take for you to move from a {score} to an {upperScore}? (Invites concrete barrier identification and realistic problem-solving)."
+      },
+      "resistanceDiscord": [
+        {
+          "strategy": "Emphasizing Personal Autonomy",
+          "script": "\"It really is completely up to you. Nobody can force you to take this medication or cut back on drinking. My role is just to provide the medical information and collaborate with you on what makes sense for your goals.\""
+        },
+        {
+          "strategy": "Reframing",
+          "script": "Patient: \"My spouse is constantly nagging me about seeing a doctor.\" -> Provider: \"It sounds like your spouse cares deeply about your well-being and is worried about losing you, even if their way of expressing it feels frustrating right now.\""
+        },
+        {
+          "strategy": "Agreement with a Twist",
+          "script": "\"You're right that medication isn't a magic wand and won't fix your boss or solve financial stress overnight. And alongside therapy, it can give your nervous system enough breathing room so you have the energy to tackle those problems.\""
+        },
+        {
+          "strategy": "Apologizing & Shifting Focus",
+          "script": "\"I apologize—I think I got ahead of myself by jumping straight into solutions when you were just sharing how exhausted you feel. Let's step back. What feels most important to focus on today?\""
+        }
+      ]
+    },
+    {
+      "id": "mindfulness",
+      "title": "Mindfulness & Somatic Grounding",
+      "subtitle": "Polyvagal Regulation, Sensory Grounding & Distress Tolerance",
+      "badge": "Nervous System De-Escalation",
+      "description": "Somatic and attentional tools to down-regulate sympathetic nervous system hyperactivity, interrupt dissociative loops, and activate vagal parasympathetic recovery.",
+      "interventions": [
+        {
+          "id": "grounding_54321",
+          "title": "5-4-3-2-1 Sensory Grounding Script",
+          "clinicalIndications": "Acute panic, hyperventilation, dissociation, trauma triggers, emotional overwhelm.",
+          "duration": "3–5 minutes",
+          "mechanics": "Engages the prefrontal cortex via external sensory orienting, interrupting the amygdala-driven fight-or-flight feedback loop.",
+          "scriptSteps": [
+            { "step": "5", "sense": "SEE", "instruction": "Look around your space right now and name 5 distinct things you can see.", "script": "\"Look around the room and name five things you can see. Notice small details: a pattern on the floor, light reflecting off a picture frame, a pen on the desk, the color of the wall.\"" },
+            { "step": "4", "sense": "TOUCH", "instruction": "Notice 4 things you can physically feel against your skin.", "script": "\"Notice four physical sensations you can feel right now: the firmness of the chair supporting your back, your feet pressed flat against the floor, the texture of your jeans, or the cool air on your hands.\"" },
+            { "step": "3", "sense": "HEAR", "instruction": "Listen for 3 distinct sounds in your environment.", "script": "\"Listen carefully and identify three sounds you can hear: perhaps the hum of the refrigerator or air conditioning, distant traffic outside, or the sound of my voice.\"" },
+            { "step": "2", "sense": "SMELL", "instruction": "Identify 2 things you can smell (or memories of comforting scents).", "script": "\"Notice two things you can smell around you right now: fresh air, hand lotion, coffee, or imagine the scent of rain or lavender.\"" },
+            { "step": "1", "sense": "TASTE", "instruction": "Notice 1 taste in your mouth.", "script": "\"Notice one taste in your mouth: lingering mint, coffee, toothpaste, or simply take a sip of cool water and notice how it feels sliding down your throat.\"" }
+          ]
+        },
+        {
+          "id": "box_breathing",
+          "title": "Box Breathing (4-4-4-4 Tactical Breath)",
+          "clinicalIndications": "High autonomic arousal, performance anxiety, acute agitation, procedural anxiety.",
+          "duration": "2–4 minutes (4 to 6 cycles)",
+          "mechanics": "Equalized breath cycle balances blood carbon dioxide/oxygen ratios and stabilizes cardiac vagal tone.",
+          "pacerSettings": { "inhale": 4, "hold1": 4, "exhale": 4, "hold2": 4 },
+          "script": "\"Imagine drawing a square with your breath. Inhale through your nose slowly for 1, 2, 3, 4. Hold your breath gently for 1, 2, 3, 4. Release smoothly through your mouth for 1, 2, 3, 4. Hold empty at the bottom for 1, 2, 3, 4. Let's do three cycles together.\""
+        },
+        {
+          "id": "breathing_478",
+          "title": "4-7-8 Parasympathetic Vagal Reset (Dr. Weil)",
+          "clinicalIndications": "Sleep onset insomnia, nighttime racing thoughts, severe generalized tension.",
+          "duration": "4 breath cycles (maximum 8 cycles per session)",
+          "mechanics": "Prolonged exhalation activates the vagus nerve and cardiac brake, slowing heart rate and initiating parasympathetic rest-and-digest response.",
+          "pacerSettings": { "inhale": 4, "hold1": 7, "exhale": 8, "hold2": 0 },
+          "script": "\"Place the tip of your tongue behind your upper front teeth. Exhale completely with a whoosh. Inhale quietly through your nose for 4 counts. Hold your breath calmly for 7 counts. Exhale audibly through your mouth with a whoosh for 8 full counts. That extended 8-second exhale signals your nervous system that you are physically safe.\""
+        },
+        {
+          "id": "urge_surfing",
+          "title": "Urge Surfing (Alan Marlatt Protocol)",
+          "clinicalIndications": "Substance cravings (alcohol, nicotine, stimulants), binge eating, skin picking/trichotillomania, reactive anger outbursts.",
+          "duration": "5–10 minutes",
+          "mechanics": "Mindful acceptance without resistance or indulgence. Recognizes that cravings naturally peak within 10–20 minutes and subside on their own.",
+          "script": "\"A craving is like an ocean wave. It starts small, builds in intensity, crests at a peak, and then naturally breaks and recedes back into the ocean. Instead of fighting the wave or drowning in it, we learn to surf on top of it. Notice where you physically feel the urge in your body—is it in your stomach, your chest, your throat? Describe the sensation without judgment: Is it hot? Tight? Buzzing? Take slow breaths directly into that sensation. You don't have to act on it; you just need to ride the wave for the next ten minutes until it subsides.\""
+        },
+        {
+          "id": "body_scan_pmr",
+          "title": "Brief Progressive Muscle Relaxation (PMR)",
+          "clinicalIndications": "Somatic muscle tension, tension headaches, jaw clenching, fibromyalgia pain exacerbation.",
+          "duration": "5–8 minutes",
+          "mechanics": "Alternating systematic muscle contraction and release facilitates awareness of chronic subconscious tension and lowers systemic cortisol.",
+          "script": "\"Begin by tensing your shoulder muscles—pull them all the way up toward your ears as tightly as you can for 5, 4, 3, 2, 1... now let them completely drop. Notice the immediate rush of warmth and softness as the tension leaves. Now clench both fists tightly for 5 counts... and release, spreading your fingers open. Let's move down through your abdomen, thighs, and feet, releasing the armor your body has been carrying all day.\""
+        }
+      ]
+    },
+    {
+      "id": "cbt",
+      "title": "Cognitive Behavioral Therapy (CBT)",
+      "subtitle": "Beckian Cognitive Restructuring & Behavioral Activation",
+      "badge": "Cognitive Restructuring & Behavioral Activation",
+      "description": "Structured, problem-focused psychotherapy identifying and challenging automatic negative thoughts (ANTs), cognitive distortions, and maladaptive core beliefs while implementing behavioral activation.",
+      "cognitiveDistortions": [
+        { "name": "All-or-Nothing Thinking", "aka": "Black-and-White Thinking", "definition": "Viewing situations in rigid binary categories; if performance falls short of perfection, it's considered a complete failure.", "example": "\"If I can't finish this entire project perfectly tonight, I'm a complete failure.\"", "reframe": "\"Progress is not all-or-nothing. Getting 60% done today is meaningful progress.\"" },
+        { "name": "Catastrophizing", "aka": "Magnification", "definition": "Expecting the worst-case scenario to occur and assuming you will be completely unable to cope if it happens.", "example": "\"My chest feels tight; I'm definitely having a heart attack and going to die.\"", "reframe": "\"My doctor evaluated my heart and it's healthy. This is adrenaline from anxiety; it will peak and pass in a few minutes, just like before.\"" },
+        { "name": "Mind Reading", "aka": "Jumping to Conclusions", "definition": "Assuming you know what other people are thinking, almost always assuming they hold a negative opinion of you.", "example": "\"My coworker didn't say hi in the hallway; they must secretly hate me.\"", "reframe": "\"I don't have telepathic powers. They might be distracted, stressed, or rushing to a meeting.\"" },
+        { "name": "Fortune Telling", "aka": "Predictive Thinking", "definition": "Predicting that things will inevitably turn out badly as if it were an established fact.", "example": "\"I know I'm going to bomb this presentation tomorrow and humiliate myself.\"", "reframe": "\"Anxiety is making predictions, not reality. I've prepared well, and even if I get nervous, I can communicate my points.\"" },
+        { "name": "Emotional Reasoning", "aka": "Feelings as Facts", "definition": "Assuming that because you feel a negative emotion, it must reflect objective reality.", "example": "\"I feel so guilty, so I must have done something terrible.\"", "reframe": "\"Feelings are biological sensations and signals, not facts. Feeling anxious does not mean I am in danger.\"" },
+        { "name": "'Should' and 'Must' Statements", "aka": "Imperative Thinking", "definition": "Motivating oneself or criticizing others with rigid demands, leading to guilt, shame, and frustration.", "example": "\"I should never feel anxious at this age. I must always be strong.\"", "reframe": "\"I would prefer not to feel anxious, but it is a natural human emotion. Beating myself up only amplifies the distress.\"" },
+        { "name": "Mental Filter", "aka": "Selective Abstraction", "definition": "Picking out a single negative detail and dwelling on it exclusively, darkening the entire picture.", "example": "\"I got 9 positive reviews from my supervisor, but 1 constructive suggestion; my career is over.\"", "reframe": "\"I am hyper-focusing on one piece of feedback while completely ignoring 9 affirmations of my hard work.\"" },
+        { "name": "Disqualifying the Positive", "aka": "Discounting Success", "definition": "Rejecting positive experiences by insisting that they 'don't count' for some arbitrary reason.", "example": "\"They only complimented my work because they feel sorry for me.\"", "reframe": "\"When someone compliments me, the most respectful and realistic response is to accept it at face value: 'Thank you.'\"" },
+        { "name": "Overgeneralization", "aka": "Always / Never Thinking", "definition": "Viewing a single negative event as a never-ending pattern of defeat using words like 'always' or 'never'.", "example": "\"This first medication gave me nausea; no psychiatric medicine will ever work for me.\"", "reframe": "\"This specific medication wasn't the right fit for my body. There are multiple different classes and mechanisms we can try.\"" },
+        { "name": "Personalization", "aka": "Blame Allocation", "definition": "Holding yourself personally responsible for an event that wasn't entirely within your control.", "example": "\"My son failed his math test; I am a horrible mother.\"", "reframe": "\"I can provide love, resources, and tutoring, but I cannot control his day-to-day choices or test scores alone.\"" }
+      ],
+      "socraticQuestioning": [
+        {
+          "category": "Examining the Evidence",
+          "script": "\"What objective, factual evidence supports that automatic thought? What factual evidence contradicts it? If we were presenting this in a court of law, would the evidence stand up?\""
+        },
+        {
+          "category": "Exploring Alternative Explanations",
+          "script": "\"Is there another way of looking at this situation that isn't so devastating? If a close friend came to you with this exact dilemma, what would you tell them?\""
+        },
+        {
+          "category": "Decatastrophizing (Evaluating the Worst-Case)",
+          "script": "\"Let's suppose the absolute worst-case scenario actually happened: What is the realistic likelihood of that occurring? And if it did, how would you cope? Have you survived difficult things before?\""
+        },
+        {
+          "category": "Assessing the Utility of the Thought",
+          "script": "\"How is holding onto this thought serving you right now? Does believing this thought help you take action, or does it keep you frozen in bed?\""
+        },
+        {
+          "category": "Cognitive Distance / Third-Person Perspective",
+          "script": "\"If your 10-year-old child or your best friend said to themselves: 'I'm stupid because I made a mistake,' what would you say to them? Why don't you offer that same grace to yourself?\""
+        }
+      ],
+      "behavioralActivation": {
+        "title": "Behavioral Activation (BA) for Depressive Inertia",
+        "description": "Depression creates a vicious cycle: Low mood -> Behavioral withdrawal / Inactivity -> Loss of positive reinforcement -> Deeper depression. BA breaks the loop through action before motivation.",
+        "corePrinciple": "Action precedes motivation. Do not wait until you feel like doing something to do it.",
+        "steps": [
+          { "step": 1, "title": "Identify Values-Aligned Activities", "detail": "Select 1–2 simple activities that provide either Mastery (sense of accomplishment, e.g., folding 5 shirts, paying a bill) or Pleasure (enjoyment, e.g., sitting in sunshine, petting dog, listening to favorite album)." },
+          { "step": 2, "title": "Graded Task Assignment (Micro-Steps)", "detail": "Break daunting tasks into micro-steps so small they are impossible to fail. Example: Instead of 'clean the whole apartment', the micro-step is 'throw away 3 pieces of trash from the coffee table'." },
+          { "step": 3, "title": "Schedule Ahead (Implementation Intentions)", "detail": "Specify exact Day, Time, and Location. 'On Wednesday at 10:00 AM, I will put on my sneakers and walk to the end of the block and back for 5 minutes.'" },
+          { "step": 4, "title": "Rate Mood Before & After (0–10)", "detail": "Track whether doing the activity shifted your mood even by 0.5 points. Demonstrates that behavior impacts neurochemistry." }
+        ]
+      }
+    }
+  ],
+  "cptBillingBlurbs": [
+    {
+      "code": "CPT 90833",
+      "description": "Psychotherapy add-on, 16–37 minutes with E/M visit",
+      "template": "PSYCHOTHERAPY ADD-ON (CPT 90833 - 30 MIN):\n• MODALITY UTILIZED: Cognitive Behavioral Therapy (CBT) / Motivational Interviewing (MI) / Mindfulness-Based Grounding.\n• TARGET SYMPTOM / FOCUS: Patient's persistent depressive rumination, anticipatory anxiety, and ambivalence regarding psychotropic medication adherence.\n• INTERVENTIONS DELIVERED:\n  1. Explored ambivalence using Motivational Interviewing OARS framework; evaluated readiness ruler (rated 6/10) to elicit organic change talk.\n  2. Examined cognitive distortions (Catastrophizing & All-or-Nothing thinking) via Socratic questioning; guided patient through 5-column thought record reframing.\n  3. Conducted in-session somatic grounding exercise (Box Breathing 4-4-4-4 and 5-4-3-2-1 sensory grounding) with observable reduction in autonomic psychomotor agitation.\n• PATIENT RESPONSE: Patient engaged actively, demonstrated insight into maladaptive cognitive loops, and successfully formulated an adaptive behavioral activation plan.\n• HOMEWORK / ASSIGNMENT: Practice 4-7-8 breathing twice daily; record 1 thought reframe before next follow-up.\n• TIME: 30 minutes face-to-face dedicated solely to psychotherapy separate from medical evaluation and management."
+    },
+    {
+      "code": "CPT 90836",
+      "description": "Psychotherapy add-on, 38–52 minutes with E/M visit",
+      "template": "PSYCHOTHERAPY ADD-ON (CPT 90836 - 45 MIN):\n• MODALITY UTILIZED: Comprehensive Cognitive Behavioral Therapy (CBT) & Polyvagal Somatic Regulation.\n• TARGET SYMPTOM / FOCUS: Severe panic disorder with agoraphobic avoidance and chronic demoralization.\n• INTERVENTIONS DELIVERED:\n  1. Reviewed cognitive triangle (Thoughts-Emotions-Behaviors); identified catastrophic misinterpretation of normal somatic sensations (heart palpitations -> impending demise).\n  2. Utilized Socratic questioning to evaluate empirical evidence regarding cardiac health; constructed balanced alternative thought.\n  3. Introduced interoceptive exposure psychoeducation and progressive muscle relaxation (PMR) protocol.\n• PATIENT RESPONSE: Patient reported an in-session subjective units of distress (SUDs) score reduction from 8/10 to 3/10 following grounding interventions.\n• TIME: 45 minutes face-to-face dedicated solely to psychotherapy separate from medical evaluation and management."
+    }
+  ]
+}
