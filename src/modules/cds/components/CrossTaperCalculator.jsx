@@ -197,6 +197,26 @@ const TAPER_MEDICATIONS = [
     halfLife: '18h',
     pearl: 'Fixed 42mg dose; approved for Bipolar I & II depression; highly weight/prolactin neutral.'
   },
+  {
+    id: 'ziprasidone',
+    name: 'Ziprasidone (Geodon)',
+    class: 'SGA (SDA)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'done',
+    doses: ['20 mg', '40 mg', '60 mg', '80 mg', '120 mg', '160 mg'],
+    halfLife: '7h',
+    pearl: 'MUST take with ≥500 calorie meal for absorption; highly weight-neutral; monitor baseline QTc.'
+  },
+  {
+    id: 'paliperidone',
+    name: 'Paliperidone (Invega)',
+    class: 'SGA (SDA / Active Metabolite)',
+    category: 'Antipsychotics (SGAs)',
+    subgroup: 'done',
+    doses: ['3 mg', '6 mg', '9 mg', '12 mg'],
+    halfLife: '23h',
+    pearl: 'Active 9-OH metabolite of risperidone; predominantly renal elimination; minimal hepatic CYP interactions.'
+  },
 
   // Mood Stabilizers
   {
@@ -238,6 +258,16 @@ const TAPER_MEDICATIONS = [
     doses: ['150 mg', '300 mg', '600 mg', '900 mg', '1200 mg'],
     halfLife: '2h (Active MHD 9h)',
     pearl: 'Cleaner tolerability than carbamazepine; check baseline and follow-up serum sodium (hyponatremia risk).'
+  },
+  {
+    id: 'carbamazepine',
+    name: 'Carbamazepine (Tegretol / Equetro)',
+    class: 'Mood Stabilizer (Anticonvulsant)',
+    category: 'Mood Stabilizers',
+    subgroup: 'carbamazepine',
+    doses: ['100 mg', '200 mg', '400 mg', '600 mg', '800 mg', '1200 mg'],
+    halfLife: '12-17h (Auto-inducer)',
+    pearl: 'Potent CYP3A4 auto-inducer; HLA-B*1502 screening required in Asian ancestry; target 4-12 mcg/mL.'
   }
 ];
 
@@ -246,7 +276,16 @@ export default function CrossTaperCalculator() {
   const [currentDose, setCurrentDose] = useState('100 mg');
   const [targetMedId, setTargetMedId] = useState('duloxetine');
   const [targetDose, setTargetDose] = useState('60 mg');
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('all'); // 'all' | 'antipsychotics' | 'mood-stabilizers' | 'antidepressants' | 'cross-class'
   const [copied, setCopied] = useState(false);
+
+  const applyPreset = (currId, currDose, tgtId, tgtDose, filter = 'all') => {
+    setCurrentMedId(currId);
+    setCurrentDose(currDose);
+    setTargetMedId(tgtId);
+    setTargetDose(tgtDose);
+    setSelectedCategoryFilter(filter);
+  };
 
   const currentMed = TAPER_MEDICATIONS.find(m => m.id === currentMedId) || TAPER_MEDICATIONS[0];
   const targetMed = TAPER_MEDICATIONS.find(m => m.id === targetMedId) || TAPER_MEDICATIONS[1];
@@ -254,8 +293,14 @@ export default function CrossTaperCalculator() {
   // Specific clinical flags
   const isTargetLamictal = targetMed.id === 'lamotrigine';
   const isCurrentDepakote = currentMed.id === 'divalproex';
+  const isCurrentCarbamazepine = currentMed.id === 'carbamazepine';
   const isCurrentFluoxetine = currentMed.id === 'fluoxetine';
   const isHighWithdrawalAntidepressant = currentMed.id === 'venlafaxine' || currentMed.id === 'paroxetine';
+  const isBothAntipsychotics = currentMed.category === 'Antipsychotics (SGAs)' && targetMed.category === 'Antipsychotics (SGAs)';
+  const isBothMoodStabilizers = currentMed.category === 'Mood Stabilizers' && targetMed.category === 'Mood Stabilizers';
+  const isAntidepressantToMoodStabilizer = 
+    (currentMed.class === 'SSRI' || currentMed.class === 'SNRI' || currentMed.class === 'NDRI' || currentMed.category.includes('Antidepressant') || currentMed.category.includes('SSRI') || currentMed.category.includes('SNRI')) && 
+    targetMed.category === 'Mood Stabilizers';
   const isPineToOtherAntipsychotic = currentMed.subgroup === 'pine' && targetMed.category === 'Antipsychotics (SGAs)' && targetMed.subgroup !== 'pine';
   const isToPartialAgonist = targetMed.subgroup === 'partial-agonist' && currentMed.category === 'Antipsychotics (SGAs)';
   const isFromPartialAgonist = currentMed.subgroup === 'partial-agonist' && targetMed.category === 'Antipsychotics (SGAs)';
@@ -296,7 +341,37 @@ export default function CrossTaperCalculator() {
         ];
       }
 
-      // Standard Lamotrigine Titration (Non-Valproate)
+      if (isCurrentCarbamazepine) {
+        // Carbamazepine potent CYP/UGT auto-inducer halves lamotrigine levels
+        return [
+          {
+            week: 'Weeks 1–2 (Days 1–14)',
+            drugA: `Maintain ${currentMed.name} at baseline (${currentDose})`,
+            drugB: `Initiate Lamotrigine at 50 mg ONCE DAILY`,
+            notes: 'CARBAMAZEPINE INDUCTION: Tegretol induces glucuronidation, halving Lamictal levels. Starting dose must be doubled under close surveillance.'
+          },
+          {
+            week: 'Weeks 3–4 (Days 15–28)',
+            drugA: `Reduce ${currentMed.name} to 66% of baseline`,
+            drugB: `Increase Lamotrigine to 100 mg ONCE DAILY (split BID)`,
+            notes: 'Skin inspection protocol: report any rash or mucosal irritation immediately.'
+          },
+          {
+            week: 'Weeks 5–6 (Days 29–42)',
+            drugA: `Reduce ${currentMed.name} to 33% of baseline`,
+            drugB: `Increase Lamotrigine to 200 mg ONCE DAILY`,
+            notes: 'As Tegretol tapers off, enzyme de-induction occurs over 2-3 weeks.'
+          },
+          {
+            week: 'Week 7+ (Day 43+)',
+            drugA: `Discontinue ${currentMed.name} completely`,
+            drugB: `Adjust Lamotrigine to target maintenance (${targetDose})`,
+            notes: 'Transition complete. Standard monotherapy maintenance target is reached.'
+          }
+        ];
+      }
+
+      // Standard Lamotrigine Titration (Non-Valproate / Non-Inducer)
       return [
         {
           week: 'Weeks 1–2 (Days 1–14)',
@@ -445,7 +520,97 @@ export default function CrossTaperCalculator() {
       ];
     }
 
-    // 6. RULE: Mood Stabilizer Cross-Titration (Lithium / Divalproex / Oxcarbazepine)
+    // 6. RULE: Antipsychotic SGA-to-SGA Cross-Titration (General / Done-to-Done / Pine-to-Pine)
+    if (isBothAntipsychotics) {
+      return [
+        {
+          week: 'Week 1 (Days 1–7)',
+          drugA: `Reduce ${currentMed.name} to 75% baseline dose (${currentDose})`,
+          drugB: `Initiate ${targetMed.name} at starting dose (${targetMed.doses[0]})`,
+          notes: 'ANTIPSYCHOTIC OVERLAP: Maintain continuous D2/5-HT2A blockade to prevent breakthrough psychosis or mood destabilization.'
+        },
+        {
+          week: 'Week 2 (Days 8–14)',
+          drugA: `Reduce ${currentMed.name} to 50% baseline dose`,
+          drugB: `Titrate ${targetMed.name} to intermediate dose`,
+          notes: 'EPS & AKATHISIA SURVEILLANCE: Monitor motor symptoms, sedation trajectory, and evening administration.'
+        },
+        {
+          week: 'Week 3 (Days 15–21)',
+          drugA: `Reduce ${currentMed.name} to 25% baseline (or lowest manufactured tablet)`,
+          drugB: `Advance ${targetMed.name} toward target maintenance (${targetDose})`,
+          notes: 'Assess clinical stability. Check baseline metabolic markers or prolactin if switching for tolerability.'
+        },
+        {
+          week: 'Week 4 (Day 22+)',
+          drugA: `Discontinue ${currentMed.name} completely`,
+          drugB: `Achieve full target dose: ${targetMed.name} ${targetDose}`,
+          notes: 'SGA cross-taper complete. Schedule clinic follow-up at 2–4 weeks to evaluate ongoing response.'
+        }
+      ];
+    }
+
+    // 7. RULE: Antidepressant to Mood Stabilizer (Bipolar Switch / Preventing Mania)
+    if (isAntidepressantToMoodStabilizer) {
+      return [
+        {
+          week: 'Week 1 (Days 1–7)',
+          drugA: `Maintain ${currentMed.name} at baseline (${currentDose})`,
+          drugB: `Initiate ${targetMed.name} at starting dose (${targetMed.doses[0]})`,
+          notes: 'BIPOLAR STABILIZATION: Establish mood stabilizer kinetics before withdrawing antidepressant to avoid rebound depression.'
+        },
+        {
+          week: 'Week 2 (Days 8–14)',
+          drugA: `Reduce ${currentMed.name} to 50% of baseline dose`,
+          drugB: `Advance ${targetMed.name} toward therapeutic dose`,
+          notes: 'MANIC FLIP SAFEGUARD: Tapering antidepressant monotherapy reduces risk of rapid cycling and mixed manic states.'
+        },
+        {
+          week: 'Week 3 (Days 15–21)',
+          drugA: `Reduce ${currentMed.name} to 25% of baseline`,
+          drugB: `Titrate ${targetMed.name} toward target maintenance`,
+          notes: 'Monitor mood polarity daily (sleep latency, psychomotor agitation, racing thoughts).'
+        },
+        {
+          week: 'Week 4 (Day 22+)',
+          drugA: `Discontinue ${currentMed.name} completely`,
+          drugB: `Maintain ${targetMed.name} at full maintenance (${targetDose})`,
+          notes: 'Mood stabilizer monotherapy established. Order baseline/follow-up labs as indicated.'
+        }
+      ];
+    }
+
+    // 8. RULE: Mood Stabilizer to Mood Stabilizer Cross-Titration
+    if (isBothMoodStabilizers) {
+      return [
+        {
+          week: 'Week 1 (Days 1–7)',
+          drugA: `Maintain ${currentMed.name} at full baseline dose (${currentDose})`,
+          drugB: `Initiate ${targetMed.name} at starting dose (${targetMed.doses[0]})`,
+          notes: 'DUAL MOOD COVERAGE: Maintain primary agent while building therapeutic blood levels of the incoming mood stabilizer.'
+        },
+        {
+          week: 'Week 2 (Days 8–14)',
+          drugA: `Reduce ${currentMed.name} to 50%–66% of baseline`,
+          drugB: `Advance ${targetMed.name} toward therapeutic target (${targetDose})`,
+          notes: 'TDM PROTOCOL: Order 12-hour trough level for Lithium (0.6–0.8 mEq/L) or Valproate (50–125 mcg/mL) if applicable.'
+        },
+        {
+          week: 'Week 3 (Days 15–21)',
+          drugA: `Reduce ${currentMed.name} to 25%–33% of baseline`,
+          drugB: `Achieve full target dose: ${targetMed.name} ${targetDose}`,
+          notes: 'Monitor electrolytes, renal (eGFR/Cr), and liver panel per agent requirements.'
+        },
+        {
+          week: 'Week 4 (Day 22+)',
+          drugA: `Discontinue ${currentMed.name} completely`,
+          drugB: `Maintain ${targetMed.name} at ${targetDose}`,
+          notes: 'Transition complete. Confirm 12-hour steady-state trough level of new agent in 1–2 weeks.'
+        }
+      ];
+    }
+
+    // 9. RULE: General Mood Stabilizer Cross-Titration
     if (currentMed.category === 'Mood Stabilizers' || targetMed.category === 'Mood Stabilizers') {
       return [
         {
@@ -475,7 +640,7 @@ export default function CrossTaperCalculator() {
       ];
     }
 
-    // 7. Standard 3-Week Antidepressant Cross-Taper
+    // 10. Standard 3-Week Antidepressant Cross-Taper
     return [
       {
         week: 'Week 1 (Days 1–7)',
@@ -522,6 +687,18 @@ export default function CrossTaperCalculator() {
       msg += `- IMPORTANT SKIN MONITORING: If you develop ANY new skin rash, hives, blistering, peeling, fever, or swollen glands, STOP taking Lamictal immediately and contact our clinic or seek medical attention right away.\n`;
       msg += `- MISSED DOSES: If you miss taking Lamictal for more than 4-5 consecutive days, DO NOT resume your regular dose. Call the office first because you may need to restart at the lowest 25mg dose.\n`;
     }
+    if (targetMed.id === 'ziprasidone') {
+      msg += `- IMPORTANT FOOD RULE: Ziprasidone (Geodon) MUST be taken with a substantial meal containing at least 500 calories for your body to absorb it properly.\n`;
+    }
+    if (targetMed.id === 'carbamazepine' || currentMed.id === 'carbamazepine') {
+      msg += `- LAB MONITORING & AUTO-INDUCTION: Periodic Complete Blood Count (CBC) and Liver Function Tests (LFTs) required. Report unusual bruising, fever, or rash.\n`;
+    }
+    if (isBothAntipsychotics) {
+      msg += `- EPS & RESTLESSNESS: If you feel an inner urge to pace or motor restlessness (akathisia) or muscle stiffness during the switch, notify our office.\n`;
+    }
+    if (isAntidepressantToMoodStabilizer) {
+      msg += `- BIPOLAR MOOD LOG: Track your daily sleep duration and goal-directed energy to ensure mood stability during this transition.\n`;
+    }
     if (isLithiumTransition) {
       msg += `- HYDRATION & NSAID WARNING: Maintain regular water intake and avoid dehydration. Avoid over-the-counter NSAIDs (ibuprofen/Advil/Motrin, naproxen/Aleve) without consulting the provider as they can cause lithium levels to rise.\n`;
     }
@@ -561,6 +738,23 @@ export default function CrossTaperCalculator() {
     'Antipsychotics (SGAs)',
     'Mood Stabilizers'
   ];
+
+  const filteredCategories = (() => {
+    if (selectedCategoryFilter === 'antipsychotics') {
+      return ['Antipsychotics (SGAs)'];
+    }
+    if (selectedCategoryFilter === 'mood-stabilizers') {
+      return ['Mood Stabilizers'];
+    }
+    if (selectedCategoryFilter === 'antidepressants') {
+      return [
+        'SSRIs (Selective Serotonin Reuptake Inhibitors)',
+        'SNRIs (Serotonin-Norepinephrine Reuptake Inhibitors)',
+        'NDRIs & Atypical Antidepressants'
+      ];
+    }
+    return categories;
+  })();
 
   return (
     <div className="space-y-6">
@@ -825,8 +1019,185 @@ export default function CrossTaperCalculator() {
           </div>
         )}
 
+        {/* Drug Class Protocol Filter Tabs */}
+        <div className="mt-6 p-4 bg-slate-900 text-white rounded-2xl border border-slate-800 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span className="text-xs font-black text-white uppercase tracking-wider">
+                Cross-Taper Protocol Mode:
+              </span>
+            </div>
+            <span className="text-[11px] text-slate-400">
+              Filter formulary by class or tap a 1-click evidence-based protocol
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
+            <button
+              type="button"
+              onClick={() => setSelectedCategoryFilter('all')}
+              className={`px-3 py-2 rounded-xl font-bold transition-all text-center flex flex-col items-center justify-center gap-0.5 ${
+                selectedCategoryFilter === 'all'
+                  ? 'bg-white text-slate-950 shadow-md font-black ring-2 ring-white/50'
+                  : 'bg-slate-800/80 hover:bg-slate-800 text-slate-300'
+              }`}
+            >
+              <span>🌐 All Classes</span>
+              <span className="text-[9px] font-normal opacity-70">Complete formulary</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                applyPreset('quetiapine', '300 mg', 'aripiprazole', '15 mg', 'antipsychotics');
+              }}
+              className={`px-3 py-2 rounded-xl font-bold transition-all text-center flex flex-col items-center justify-center gap-0.5 ${
+                selectedCategoryFilter === 'antipsychotics'
+                  ? 'bg-rose-500 text-white shadow-md font-black ring-2 ring-rose-400/50'
+                  : 'bg-slate-800/80 hover:bg-slate-800 text-rose-300'
+              }`}
+            >
+              <span>⚡ Antipsychotics</span>
+              <span className="text-[9px] font-normal opacity-80">SGAs (Abilify, Seroquel...)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                applyPreset('divalproex', '1000 mg', 'lamotrigine', '100 mg', 'mood-stabilizers');
+              }}
+              className={`px-3 py-2 rounded-xl font-bold transition-all text-center flex flex-col items-center justify-center gap-0.5 ${
+                selectedCategoryFilter === 'mood-stabilizers'
+                  ? 'bg-purple-500 text-white shadow-md font-black ring-2 ring-purple-400/50'
+                  : 'bg-slate-800/80 hover:bg-slate-800 text-purple-300'
+              }`}
+            >
+              <span>🧠 Mood Stabilizers</span>
+              <span className="text-[9px] font-normal opacity-80">Lamictal, Lithium, Depakote</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                applyPreset('sertraline', '100 mg', 'duloxetine', '60 mg', 'antidepressants');
+              }}
+              className={`px-3 py-2 rounded-xl font-bold transition-all text-center flex flex-col items-center justify-center gap-0.5 ${
+                selectedCategoryFilter === 'antidepressants'
+                  ? 'bg-teal-500 text-white shadow-md font-black ring-2 ring-teal-400/50'
+                  : 'bg-slate-800/80 hover:bg-slate-800 text-teal-300'
+              }`}
+            >
+              <span>💊 Antidepressants</span>
+              <span className="text-[9px] font-normal opacity-80">SSRI / SNRI / NDRI</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                applyPreset('escitalopram', '20 mg', 'lamotrigine', '100 mg', 'cross-class');
+              }}
+              className={`col-span-2 sm:col-span-1 px-3 py-2 rounded-xl font-bold transition-all text-center flex flex-col items-center justify-center gap-0.5 ${
+                selectedCategoryFilter === 'cross-class'
+                  ? 'bg-amber-500 text-slate-950 shadow-md font-black ring-2 ring-amber-400/50'
+                  : 'bg-slate-800/80 hover:bg-slate-800 text-amber-300'
+              }`}
+            >
+              <span>🔄 Cross-Class</span>
+              <span className="text-[9px] font-normal opacity-80">Antidepressant ➔ Mood/SGA</span>
+            </button>
+          </div>
+
+          {/* 1-Click Clinical Cross-Taper Quick Presets */}
+          <div className="pt-2 border-t border-slate-800 space-y-1.5">
+            <div className="flex items-center justify-between text-[11px] text-slate-400 px-1">
+              <span className="font-bold text-slate-300">⚡ 1-Click Popular Clinical Protocols:</span>
+              <span className="italic text-[10px]">Tap to load evidence-based schedule</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5 text-xs">
+              {/* SGA Presets */}
+              <button
+                type="button"
+                onClick={() => applyPreset('quetiapine', '300 mg', 'aripiprazole', '15 mg', 'antipsychotics')}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-rose-900/60 border border-slate-700 hover:border-rose-400 text-rose-200 transition-colors flex items-center gap-1.5"
+                title="Quetiapine to Aripiprazole: Slower taper prevents rebound cholinergic insomnia & akathisia"
+              >
+                <span>⚡ Seroquel ➔ Abilify</span>
+                <span className="text-[9px] opacity-70 bg-rose-950 px-1 rounded">Receptor Switch</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset('olanzapine', '10 mg', 'lurasidone', '40 mg', 'antipsychotics')}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-rose-900/60 border border-slate-700 hover:border-rose-400 text-rose-200 transition-colors flex items-center gap-1.5"
+                title="Olanzapine to Lurasidone: Metabolic & weight improvement switch (take with 350+ cal meal)"
+              >
+                <span>⚡ Zyprexa ➔ Latuda</span>
+                <span className="text-[9px] opacity-70 bg-rose-950 px-1 rounded">Metabolic</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset('risperidone', '2 mg', 'cariprazine', '3 mg', 'antipsychotics')}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-rose-900/60 border border-slate-700 hover:border-rose-400 text-rose-200 transition-colors flex items-center gap-1.5"
+                title="Risperidone to Cariprazine: Prolactin normalization and negative symptoms activation"
+              >
+                <span>⚡ Risperdal ➔ Vraylar</span>
+                <span className="text-[9px] opacity-70 bg-rose-950 px-1 rounded">Prolactin / D3</span>
+              </button>
+
+              {/* Mood Stabilizer Presets */}
+              <button
+                type="button"
+                onClick={() => applyPreset('divalproex', '1000 mg', 'lamotrigine', '100 mg', 'mood-stabilizers')}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-900/60 border border-slate-700 hover:border-purple-400 text-purple-200 transition-colors flex items-center gap-1.5"
+                title="Depakote to Lamictal: Halved Lamotrigine starting dose (25mg QOD) due to UGT1A4 inhibition"
+              >
+                <span>🧠 Depakote ➔ Lamictal</span>
+                <span className="text-[9px] font-bold text-amber-300 bg-purple-950 px-1 rounded">⚠️ Halved QOD Dose</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset('lithium', '600 mg', 'lamotrigine', '100 mg', 'mood-stabilizers')}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-900/60 border border-slate-700 hover:border-purple-400 text-purple-200 transition-colors flex items-center gap-1.5"
+                title="Lithium to Lamictal: Overlapping cross-titration to maintain bipolar affective coverage"
+              >
+                <span>🧠 Lithium ➔ Lamictal</span>
+                <span className="text-[9px] opacity-70 bg-purple-950 px-1 rounded">Bipolar Maint</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset('lithium', '900 mg', 'divalproex', '1000 mg', 'mood-stabilizers')}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-900/60 border border-slate-700 hover:border-purple-400 text-purple-200 transition-colors flex items-center gap-1.5"
+                title="Lithium to Depakote: Acute mania / mixed state transition with TDM trough monitoring"
+              >
+                <span>🧠 Lithium ➔ Depakote</span>
+                <span className="text-[9px] opacity-70 bg-purple-950 px-1 rounded">TDM Trough</span>
+              </button>
+
+              {/* Cross-Class Presets */}
+              <button
+                type="button"
+                onClick={() => applyPreset('escitalopram', '20 mg', 'lamotrigine', '100 mg', 'cross-class')}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-amber-900/60 border border-slate-700 hover:border-amber-400 text-amber-200 transition-colors flex items-center gap-1.5"
+                title="Lexapro to Lamictal: Discontinuing antidepressant monotherapy to prevent manic induction in Bipolar II"
+              >
+                <span>🔄 Lexapro ➔ Lamictal</span>
+                <span className="text-[9px] opacity-70 bg-amber-950 px-1 rounded">Bipolar Switch</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset('venlafaxine', '150 mg', 'bupropion', '300 mg', 'antidepressants')}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-teal-900/60 border border-slate-700 hover:border-teal-400 text-teal-200 transition-colors flex items-center gap-1.5"
+                title="Venlafaxine to Bupropion: Step-down schedule avoiding SNRI brain zaps and sexual dysfunction"
+              >
+                <span>💊 Effexor ➔ Wellbutrin</span>
+                <span className="text-[9px] opacity-70 bg-teal-950 px-1 rounded">Low-Discontinuation</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* Drug Selection Controls */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 p-5 bg-slate-50 rounded-xl border border-slate-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 p-5 bg-slate-50 rounded-xl border border-slate-200">
           {/* Current Medication (Drug A) */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -838,7 +1209,18 @@ export default function CrossTaperCalculator() {
               </span>
             </div>
             <div>
-              <label className="text-[11px] font-semibold text-slate-600 block mb-1">Select Current Drug:</label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[11px] font-semibold text-slate-600 block">Select Current Drug:</label>
+                {selectedCategoryFilter !== 'all' && (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCategoryFilter('all')}
+                    className="text-[10px] text-teal-700 hover:underline font-bold"
+                  >
+                    Show all classes
+                  </button>
+                )}
+              </div>
               <select
                 value={currentMedId}
                 onChange={(e) => {
@@ -847,9 +1229,9 @@ export default function CrossTaperCalculator() {
                   const med = TAPER_MEDICATIONS.find(m => m.id === newId);
                   if (med) setCurrentDose(med.doses[Math.min(1, med.doses.length - 1)]);
                 }}
-                className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none shadow-2xs"
               >
-                {categories.map(cat => (
+                {filteredCategories.map(cat => (
                   <optgroup key={cat} label={`── ${cat.toUpperCase()} ──`}>
                     {TAPER_MEDICATIONS.filter(m => m.category === cat).map(m => (
                       <option key={m.id} value={m.id}>{m.name} — ({m.class})</option>
@@ -887,7 +1269,18 @@ export default function CrossTaperCalculator() {
               </span>
             </div>
             <div>
-              <label className="text-[11px] font-semibold text-slate-600 block mb-1">Select Target Drug:</label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[11px] font-semibold text-slate-600 block">Select Target Drug:</label>
+                {selectedCategoryFilter !== 'all' && (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCategoryFilter('all')}
+                    className="text-[10px] text-teal-700 hover:underline font-bold"
+                  >
+                    Show all classes
+                  </button>
+                )}
+              </div>
               <select
                 value={targetMedId}
                 onChange={(e) => {
@@ -896,9 +1289,9 @@ export default function CrossTaperCalculator() {
                   const med = TAPER_MEDICATIONS.find(m => m.id === newId);
                   if (med) setTargetDose(med.doses[Math.min(1, med.doses.length - 1)]);
                 }}
-                className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none shadow-2xs"
               >
-                {categories.map(cat => (
+                {filteredCategories.map(cat => (
                   <optgroup key={cat} label={`── ${cat.toUpperCase()} ──`}>
                     {TAPER_MEDICATIONS.filter(m => m.category === cat && m.id !== currentMedId).map(m => (
                       <option key={m.id} value={m.id}>{m.name} — ({m.class})</option>
@@ -939,13 +1332,49 @@ export default function CrossTaperCalculator() {
           </div>
         )}
 
-        {isTargetLamictal && !isCurrentDepakote && (
+        {isTargetLamictal && isCurrentCarbamazepine && (
+          <div className="mt-4 p-3.5 bg-amber-50 border border-amber-300 rounded-xl text-xs text-amber-900 flex items-start gap-2.5">
+            <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-black text-amber-950">HEPATIC ENZYME INDUCTION: Carbamazepine + Lamotrigine</p>
+              <p className="mt-0.5">
+                Carbamazepine (Tegretol) strongly induces UGT glucuronidation enzymes, halving Lamictal serum concentrations. The initial titration dose must be doubled (starting at <strong>50 mg daily</strong> instead of 25 mg) under close clinical supervision.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {isTargetLamictal && !isCurrentDepakote && !isCurrentCarbamazepine && (
           <div className="mt-4 p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-start gap-2.5">
             <ShieldAlert className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
             <div>
               <p className="font-bold text-amber-950">BLACK BOX WARNING PROTOCOL: Mandatory Slow Lamotrigine Titration</p>
               <p className="mt-0.5">
                 Regardless of which medication is being tapered off, Lamotrigine must adhere strictly to the 6-week slow titration steps (25mg x 2 wks, 50mg x 2 wks, 100mg x 1 wk) to minimize life-threatening Stevens-Johnson Syndrome (SJS/TEN).
+              </p>
+            </div>
+          </div>
+        )}
+
+        {isBothAntipsychotics && !isPineToOtherAntipsychotic && !isToPartialAgonist && !isFromPartialAgonist && (
+          <div className="mt-4 p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-900 flex items-start gap-2.5">
+            <Info className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-rose-950">ANTIPSYCHOTIC (SGA) CROSS-TITRATION PROTOCOL</p>
+              <p className="mt-0.5">
+                Overlapping cross-titration maintains continuous dopamine D2 and 5-HT2A receptor coverage to prevent symptom recurrence. Assess motor symptoms (EPS/akathisia) and metabolic profiles weekly throughout the 4-week transition.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {isAntidepressantToMoodStabilizer && (
+          <div className="mt-4 p-3.5 bg-purple-50 border border-purple-200 rounded-xl text-xs text-purple-900 flex items-start gap-2.5">
+            <ShieldAlert className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-purple-950">BIPOLAR MOOD STABILIZER SWITCH PROTOCOL</p>
+              <p className="mt-0.5">
+                Tapering off antidepressant monotherapy while initiating a mood stabilizer reduces the risk of mood destabilization, rapid cycling, or manic switch. Daily mood logs (sleep latency, energy levels) are recommended.
               </p>
             </div>
           </div>
