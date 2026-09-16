@@ -21,7 +21,9 @@ import {
   Volume2,
   FileText,
   Sliders,
-  Compass
+  Compass,
+  Eye,
+  Award
 } from 'lucide-react';
 import psychotherapyData from '../data/psychotherapyData.json';
 
@@ -605,6 +607,76 @@ export default function PsychotherapyModule() {
                 {copiedKey === 'pmr_script' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
                 Copy PMR Script
               </button>
+            </div>
+          </div>
+
+          {/* Guided Visualization: Amy Purdy & The Author of Your Life */}
+          <div className="bg-gradient-to-br from-indigo-900 via-slate-900 to-teal-950 text-white rounded-2xl p-6 shadow-md border border-indigo-500/30">
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="bg-indigo-400/20 text-indigo-200 text-xs font-black uppercase px-2.5 py-0.5 rounded-full border border-indigo-400/30 inline-flex items-center gap-1.5">
+                    <Eye className="w-3.5 h-3.5 text-indigo-300" />
+                    Neuroplastic Mental Rehearsal
+                  </span>
+                  <span className="bg-amber-400/20 text-amber-200 text-xs font-bold px-2 py-0.5 rounded-full border border-amber-400/30 inline-flex items-center gap-1">
+                    <Award className="w-3 h-3 text-amber-300" />
+                    Paralympic Bronze Medal Case Study
+                  </span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                  Guided Visualization: "The Author of Your Life" (The Amy Purdy Protocol)
+                </h3>
+                <p className="text-xs sm:text-sm text-indigo-200 mt-1 max-w-2xl">
+                  A clinical reframing script for patients facing profound loss, chronic illness, demoralization, or traumatic disruption.
+                </p>
+              </div>
+
+              <button
+                onClick={() => copyToClipboard(psychotherapyData.modalities[1].interventions[5].script, 'amy_purdy_script')}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-xs shrink-0"
+              >
+                {copiedKey === 'amy_purdy_script' ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Copy className="w-3.5 h-3.5" />}
+                Copy Visualization Script
+              </button>
+            </div>
+
+            {/* Inspirational Metaphor & Case Foundation Card */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+              <div className="bg-white/10 backdrop-blur-xs border border-white/10 p-4 rounded-xl">
+                <span className="text-[11px] font-black uppercase tracking-wider text-amber-300 block mb-1">
+                  Core In-Session Prompt:
+                </span>
+                <p className="text-sm sm:text-base font-bold text-white italic">
+                  "{psychotherapyData.modalities[1].interventions[5].authorPrompt}"
+                </p>
+                <p className="text-xs text-indigo-200/90 mt-2 leading-relaxed">
+                  Shifts the patient's locus of control from passive victim of circumstance to the active creative author of their future chapters.
+                </p>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-xs border border-white/10 p-4 rounded-xl">
+                <span className="text-[11px] font-black uppercase tracking-wider text-teal-300 block mb-1">
+                  Clinical Evidence & Background:
+                </span>
+                <p className="text-xs text-indigo-100 leading-relaxed">
+                  {psychotherapyData.modalities[1].interventions[5].clinicalStory}
+                </p>
+              </div>
+            </div>
+
+            {/* Verbatim Guided Visualization Script to Say */}
+            <div className="bg-slate-950/60 border border-indigo-400/20 rounded-xl p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-extrabold uppercase tracking-wider text-indigo-300 flex items-center gap-1.5">
+                  <Quote className="w-3.5 h-3.5 text-indigo-400" />
+                  Verbatim Clinician Guided Script (Read Slowly in Calm Tone):
+                </span>
+                <span className="text-[11px] text-slate-400">Duration: 5–8 min</span>
+              </div>
+              <div className="text-xs sm:text-sm text-slate-200 italic whitespace-pre-wrap leading-relaxed font-sans bg-black/20 p-3.5 rounded-lg border border-white/5">
+                {psychotherapyData.modalities[1].interventions[5].script}
+              </div>
             </div>
           </div>
         </div>
