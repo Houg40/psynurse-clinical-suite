@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Bot, 
   Sparkles, 
@@ -19,12 +19,62 @@ import {
   Wrench,
   MessageSquare,
   Wand2,
-  MailCheck
+  MailCheck,
+  Search,
+  ShieldCheck,
+  CheckCircle2
 } from 'lucide-react';
+import { auditEvaluation, generateEhrAuditAddendum, SAMPLE_EVALUATIONS } from '../utils/evaluationAuditor';
 
-export default function AiAdvisor() {
-  const [activeTool, setActiveTool] = useState('suite-tweak'); // 'suite-tweak' | 'prior-auth' | 'differential' | 'psychoeducation' | 'consult'
+export default function AiAdvisor({ setActiveTab }) {
+  const [activeTool, setActiveTool] = useState('eval-audit'); // 'eval-audit' | 'suite-tweak' | 'prior-auth' | 'differential' | 'psychoeducation' | 'consult'
   const [copied, setCopied] = useState(false);
+
+  // --- Evaluation Audit & Second-Opinion State ---
+  const [evalInput, setEvalInput] = useState('');
+  const [auditResult, setAuditResult] = useState(null);
+  const [pillarFilter, setPillarFilter] = useState('all'); // 'all' | 'high' | 'medium' | 'low'
+  const [copiedAuditKey, setCopiedAuditKey] = useState(null);
+
+  // Load queued HPI note from sessionStorage if navigated from HpiBuilder
+  useEffect(() => {
+    try {
+      const queuedNote = sessionStorage.getItem('psynurse_audit_draft');
+      if (queuedNote) {
+        setEvalInput(queuedNote);
+        sessionStorage.removeItem('psynurse_audit_draft');
+        setActiveTool('eval-audit');
+        const res = auditEvaluation(queuedNote);
+        setAuditResult(res);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  const handleRunAudit = (textToAudit) => {
+    const target = textToAudit !== undefined ? textToAudit : evalInput;
+    if (!target || target.trim().length < 10) return;
+    const res = auditEvaluation(target);
+    setAuditResult(res);
+  };
+
+  const handleLoadSample = (sample) => {
+    setEvalInput(sample.text);
+    const res = auditEvaluation(sample.text);
+    setAuditResult(res);
+  };
+
+  const handleCopyAuditSnippet = (text, key) => {
+    navigator.clipboard.writeText(text);
+    setCopiedAuditKey(key);
+    setTimeout(() => setCopiedAuditKey(null), 2500);
+  };
+
+  const handleClearAudit = () => {
+    setEvalInput('');
+    setAuditResult(null);
+  };
 
   // --- 0. Suite Tweaks & Assistant Co-Pilot State ---
   const [tweakQuery, setTweakQuery] = useState('');
@@ -406,6 +456,18 @@ Reviewing case against APA practice guidelines and Stahl's Prescriber principles
           {/* Tool Segmented Switcher */}
           <div className="flex flex-wrap items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800 text-xs">
             <button
+              onClick={() => setActiveTool('eval-audit')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all ${
+                activeTool === 'eval-audit'
+                  ? 'bg-teal-500 text-slate-950 shadow-xs'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              <Search className="w-3.5 h-3.5" />
+              <span>🔍 Evaluation Audit &amp; 2nd Opinion</span>
+            </button>
+
+            <button
               onClick={() => setActiveTool('suite-tweak')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all ${
                 activeTool === 'suite-tweak'
@@ -467,6 +529,361 @@ Reviewing case against APA practice guidelines and Stahl's Prescriber principles
           </div>
         </div>
       </div>
+
+      {/* --- TOOL 1: EVALUATION AUDIT & CLINICAL SECOND OPINION --- */}
+      {activeTool === 'eval-audit' && (
+        <div className="space-y-6">
+          {/* Sub-header Banner */}
+          <div className="bg-gradient-to-r from-teal-900 via-slate-900 to-teal-950 p-6 rounded-2xl border border-teal-700/50 text-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="p-1.5 rounded-lg bg-teal-500 text-slate-950 font-black text-xs">
+                  <Search className="w-4 h-4" />
+                </span>
+                <h3 className="text-lg font-black text-white">
+                  Psychiatric Evaluation Quality Audit &amp; Second Opinion
+                </h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-teal-400/20 text-teal-200 border border-teal-400/40 px-2 py-0.5 rounded-full">
+                  5-Pillar Decision Support
+                </span>
+              </div>
+              <p className="text-xs text-teal-100 max-w-3xl leading-relaxed">
+                Paste any drafted intake, progress note, or HPI narrative from Tebra. The clinical engine scans for overlooked safety guardrails (bipolar/suicide), omitted medical/organic rule-outs (A1c, Thyroid, OSA, Ferritin), pharmacotherapy food/titration rules, and Washington State telehealth compliance.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="inline-flex items-center gap-1.5 text-xs text-teal-200 bg-teal-950/80 px-3 py-1.5 rounded-xl border border-teal-700/60 font-semibold">
+                <ShieldCheck className="w-4 h-4 text-teal-400" />
+                Zero-PHI Local De-Identifier Active
+              </span>
+            </div>
+          </div>
+
+          {/* 1-Click Sample Cases & Input Workspace */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            {/* Left Column: Evaluation Input (5 cols on lg) */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-teal-600" />
+                    <span className="text-xs font-black text-slate-900 uppercase tracking-wide">
+                      Draft Evaluation Note
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-slate-400 font-mono">
+                    {evalInput.trim().split(/\s+/).filter(Boolean).length} words
+                  </span>
+                </div>
+
+                {/* Quick Sample Selector */}
+                <div className="space-y-1.5">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                    ⚡ 1-Click Sample Test Cases:
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {SAMPLE_EVALUATIONS.map((sample) => (
+                      <button
+                        key={sample.id}
+                        type="button"
+                        onClick={() => handleLoadSample(sample)}
+                        className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-900 hover:border-teal-300 border border-slate-200 text-slate-700 transition-all text-left"
+                      >
+                        {sample.title}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Textarea */}
+                <div className="relative">
+                  <textarea
+                    value={evalInput}
+                    onChange={(e) => setEvalInput(e.target.value)}
+                    placeholder={`Paste draft evaluation, intake narrative, or SOAP note here (from Tebra EHR or HPI Builder)...
+
+Example:
+CHIEF COMPLAINT: "Severe fatigue and focus issues..."
+HPI: 32yo female with 6-month inattention, brain fog...
+ASSESSMENT & PLAN: Dx: Adult ADHD. Plan: Start Adderall XR 20mg...`}
+                    rows={14}
+                    className="w-full text-xs font-sans text-slate-800 p-3.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-1 focus:ring-teal-600 focus:outline-none leading-relaxed transition-all resize-none placeholder-slate-400 bg-slate-50/50"
+                  />
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex items-center justify-between gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={handleClearAudit}
+                    disabled={!evalInput}
+                    className="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-800 disabled:opacity-30 disabled:pointer-events-none px-2.5 py-2 rounded-lg font-medium transition-colors"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Clear</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleRunAudit()}
+                    disabled={!evalInput || evalInput.trim().length < 15}
+                    className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 bg-teal-600 hover:bg-teal-500 disabled:bg-slate-300 text-white font-black text-xs rounded-xl transition-all shadow-sm"
+                  >
+                    <Sparkles className="w-4 h-4 text-amber-300" />
+                    <span>Run Clinical Audit &amp; Second Opinion</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* 5-Pillar Reference Legend */}
+              <div className="bg-slate-50 rounded-2xl border border-slate-200/80 p-4 space-y-2 text-xs text-slate-600">
+                <span className="font-bold text-slate-900 block text-[11px] uppercase tracking-wider">
+                  Audit Engine Coverage:
+                </span>
+                <ul className="space-y-1.5 text-[11px]">
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-rose-600 font-black shrink-0">🔴 Safety:</span>
+                    <span>Suicide (C-SSRS), Bipolar/MDQ manic switch, SJS Lamictal titration, Bupropion seizure/eating d/o, Benzo tolerance/dependence.</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-amber-600 font-black shrink-0">🟡 Labs:</span>
+                    <span>A1c (Diabetes processing speed), Thyroid (TSH/T3/T4 visuospatial), Sleep/OSA (Berlin survey), Ferritin/B12 (dopamine synthesis).</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-indigo-600 font-black shrink-0">🔵 Meds:</span>
+                    <span>Latuda 350+ kcal food rule, Geodon 500+ kcal food rule, therapeutic drug monitoring, QTc warnings.</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-teal-600 font-black shrink-0">🟢 Legal:</span>
+                    <span>WA State telehealth jurisdiction, mandatory WA PDMP check, baseline BP/pulse for CNS stimulants.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Right Column: Audit Results & EHR Addendum (7 cols on lg) */}
+            <div className="lg:col-span-7 space-y-4">
+              
+              {!auditResult ? (
+                /* Empty State Prompt */
+                <div className="bg-white rounded-2xl border border-dashed border-slate-300 p-12 text-center space-y-4">
+                  <div className="w-16 h-16 rounded-2xl bg-teal-50 border border-teal-200 text-teal-700 flex items-center justify-center mx-auto">
+                    <Search className="w-8 h-8" />
+                  </div>
+                  <div className="space-y-1 max-w-md mx-auto">
+                    <h4 className="text-base font-black text-slate-900">
+                      Awaiting Clinical Documentation
+                    </h4>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      Paste a draft evaluation or click one of the <strong>1-Click Sample Test Cases</strong> on the left to view the clinical second opinion, detected diagnostic gaps, and ready-to-paste EHR addendum.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                /* Active Audit Findings View */
+                <div className="space-y-4">
+                  
+                  {/* Score & Summary Banner */}
+                  <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black border-2 ${
+                          auditResult.statusColor === 'emerald'
+                            ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                            : auditResult.statusColor === 'amber'
+                            ? 'bg-amber-50 text-amber-800 border-amber-300'
+                            : 'bg-rose-50 text-rose-800 border-rose-300'
+                        }`}>
+                          <span className="text-lg leading-none">{auditResult.score}</span>
+                          <span className="text-[9px] uppercase tracking-wider font-bold">/ 100</span>
+                        </div>
+
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider border ${
+                              auditResult.statusColor === 'emerald'
+                                ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                                : auditResult.statusColor === 'amber'
+                                ? 'bg-amber-100 text-amber-900 border-amber-300'
+                                : 'bg-rose-100 text-rose-900 border-rose-300'
+                            }`}>
+                              {auditResult.status}
+                            </span>
+                          </div>
+                          <p className="text-xs font-bold text-slate-900 mt-1">
+                            {auditResult.findings.length === 0 
+                              ? 'Documentation meets all core CDS quality and regulatory standards'
+                              : `${auditResult.findings.length} clinical consideration(s) identified for defensible charting`
+                            }
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* 1-Click Full EHR Addendum Copy */}
+                      <button
+                        type="button"
+                        onClick={() => handleCopyAuditSnippet(generateEhrAuditAddendum(auditResult.findings, evalInput), 'full_addendum')}
+                        className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black transition-all shadow-sm shrink-0 self-start sm:self-auto"
+                      >
+                        {copiedAuditKey === 'full_addendum' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        <span>{copiedAuditKey === 'full_addendum' ? 'Copied Full Addendum!' : 'Copy EHR Addendum'}</span>
+                      </button>
+                    </div>
+
+                    {/* Filter Pills */}
+                    <div className="flex flex-wrap items-center gap-1.5 text-xs">
+                      <span className="text-[11px] font-bold text-slate-400 mr-1">Filter:</span>
+                      <button
+                        type="button"
+                        onClick={() => setPillarFilter('all')}
+                        className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                          pillarFilter === 'all'
+                            ? 'bg-slate-900 text-white'
+                            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        }`}
+                      >
+                        All ({auditResult.findings.length})
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setPillarFilter('high')}
+                        className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                          pillarFilter === 'high'
+                            ? 'bg-rose-600 text-white'
+                            : 'bg-rose-50 text-rose-800 border border-rose-200 hover:bg-rose-100'
+                        }`}
+                      >
+                        🔴 Safety &amp; Black Box ({auditResult.findings.filter(f => f.severity === 'high').length})
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setPillarFilter('medium')}
+                        className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                          pillarFilter === 'medium'
+                            ? 'bg-amber-600 text-white'
+                            : 'bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100'
+                        }`}
+                      >
+                        🟡 Organic Labs &amp; Differentials ({auditResult.findings.filter(f => f.severity === 'medium').length})
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setPillarFilter('low')}
+                        className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                          pillarFilter === 'low'
+                            ? 'bg-teal-600 text-white'
+                            : 'bg-teal-50 text-teal-800 border border-teal-200 hover:bg-teal-100'
+                        }`}
+                      >
+                        🟢 Compliance Polish ({auditResult.findings.filter(f => f.severity === 'low').length})
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Findings Cards List */}
+                  <div className="space-y-3">
+                    {auditResult.findings
+                      .filter(f => pillarFilter === 'all' || f.severity === pillarFilter)
+                      .map((finding) => (
+                        <div
+                          key={finding.id}
+                          className={`bg-white rounded-2xl border-2 p-5 shadow-xs space-y-3 transition-all ${
+                            finding.severity === 'high'
+                              ? 'border-rose-300'
+                              : finding.severity === 'medium'
+                              ? 'border-amber-300'
+                              : 'border-teal-200'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div>
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border ${
+                                  finding.severity === 'high'
+                                    ? 'bg-rose-100 text-rose-900 border-rose-300'
+                                    : finding.severity === 'medium'
+                                    ? 'bg-amber-100 text-amber-900 border-amber-300'
+                                    : 'bg-teal-100 text-teal-900 border-teal-300'
+                                }`}>
+                                  {finding.pillar}
+                                </span>
+                                <span className="text-[10px] text-slate-400 font-mono">
+                                  {finding.ruleCode}
+                                </span>
+                              </div>
+                              <h4 className="text-sm font-black text-slate-900">
+                                {finding.title}
+                              </h4>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={() => handleCopyAuditSnippet(finding.suggestedAddition, finding.id)}
+                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 hover:bg-teal-50 text-slate-700 hover:text-teal-900 border border-slate-200 hover:border-teal-300 rounded-lg text-xs font-bold transition-all shrink-0 shadow-2xs"
+                              title="Copy this specific documentation snippet to clipboard"
+                            >
+                              {copiedAuditKey === finding.id ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3 text-slate-500" />}
+                              <span>{copiedAuditKey === finding.id ? 'Copied Snippet!' : 'Copy Snippet'}</span>
+                            </button>
+                          </div>
+
+                          <div className="text-xs text-slate-700 space-y-1.5">
+                            <p><strong>Clinical Issue:</strong> {finding.issue}</p>
+                            <p className="text-slate-600 leading-relaxed"><strong>Medical Rationale:</strong> {finding.rationale}</p>
+                          </div>
+
+                          {/* Suggested EHR Documentation Block */}
+                          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1">
+                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider block">
+                              Suggested EHR Note Addition:
+                            </span>
+                            <p className="text-xs text-slate-900 font-medium whitespace-pre-line leading-relaxed italic">
+                              "{finding.suggestedAddition}"
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+
+                    {auditResult.findings.filter(f => pillarFilter === 'all' || f.severity === pillarFilter).length === 0 && (
+                      <div className="bg-slate-50 rounded-xl border border-slate-200 p-6 text-center text-xs text-slate-500">
+                        No findings in this category.
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Passed Clinical Verification Checklist */}
+                  {auditResult.passedChecks.length > 0 && (
+                    <div className="bg-emerald-50/60 rounded-2xl border border-emerald-200 p-4 space-y-2">
+                      <span className="text-xs font-black text-emerald-950 uppercase tracking-wider flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                        Verified Clinical Elements ({auditResult.passedChecks.length} Passed):
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        {auditResult.passedChecks.map((check, idx) => (
+                          <div key={idx} className="flex items-start gap-1.5 bg-white p-2 rounded-lg border border-emerald-100">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 mt-0.5 shrink-0" />
+                            <div>
+                              <strong className="text-slate-900 block text-[11px]">{check.title}</strong>
+                              <span className="text-[10px] text-slate-500">{check.detail}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+              )}
+
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* --- TOOL 0: SUITE TWEAKS & DEVELOPER CO-PILOT --- */}
       {activeTool === 'suite-tweak' && (

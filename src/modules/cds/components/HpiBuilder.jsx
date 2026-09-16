@@ -13,8 +13,19 @@ import {
   BookOpen
 } from 'lucide-react';
 
-export default function HpiBuilder() {
+export default function HpiBuilder({ setActiveTab }) {
   const [copied, setCopied] = useState(false);
+
+  const handleAuditWithAi = () => {
+    try {
+      sessionStorage.setItem('psynurse_audit_draft', synthesizedHpi);
+    } catch {
+      // ignore
+    }
+    if (typeof setActiveTab === 'function') {
+      setActiveTab('advisor');
+    }
+  };
 
   // Demographics / Visit Context
   const [patientAge, setPatientAge] = useState('32');
@@ -865,13 +876,24 @@ export default function HpiBuilder() {
                 </h3>
               </div>
 
-              <button
-                onClick={handleCopyNote}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-extrabold transition-all shadow-sm"
-              >
-                {copied ? <Check className="w-3.5 h-3.5 text-slate-950" /> : <Copy className="w-3.5 h-3.5 text-slate-950" />}
-                {copied ? 'Copied to EHR!' : 'Copy HPI'}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleAuditWithAi}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black transition-all shadow-sm"
+                  title="Send to AI Clinical Advisor for evaluation audit and missed criteria detection"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                  <span>Audit with AI</span>
+                </button>
+
+                <button
+                  onClick={handleCopyNote}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-extrabold transition-all shadow-sm"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-slate-950" /> : <Copy className="w-3.5 h-3.5 text-slate-950" />}
+                  {copied ? 'Copied to EHR!' : 'Copy HPI'}
+                </button>
+              </div>
             </div>
 
             <p className="text-[11px] text-slate-400 leading-relaxed mb-3">
