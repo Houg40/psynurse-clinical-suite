@@ -594,11 +594,24 @@ export default function CrossTaperCalculator() {
         {showReferences && (
           <div className="p-5 bg-teal-50/60 border border-teal-200 rounded-2xl space-y-4 animate-in fade-in duration-150">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-teal-200/80 pb-3">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-teal-700" />
-                <h4 className="text-xs font-black text-teal-950 uppercase tracking-wider">
-                  Medication Indications Reference Cards (SSRI, SNRI, SNRA, NDRI)
-                </h4>
+              <div>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-teal-700" />
+                  <h4 className="text-xs font-black text-teal-950 uppercase tracking-wider">
+                    Medication Indications Reference Cards (SSRI, SNRI, SNRA, NDRI, SGAs, Mood Stabilizers)
+                  </h4>
+                </div>
+                <div className="flex items-center gap-3 mt-1.5 text-[11px] font-sans">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-slate-950 inline-block" />
+                    <strong className="font-extrabold text-slate-950">Bold: FDA-Approved Indication</strong>
+                  </span>
+                  <span className="text-slate-400">•</span>
+                  <span className="flex items-center gap-1.5 text-slate-500">
+                    <span className="w-2.5 h-2.5 rounded-full bg-slate-400/50 inline-block" />
+                    <span>Unhighlighted in (parentheses): Off-Label Indication</span>
+                  </span>
+                </div>
               </div>
               <button
                 onClick={copyClinicalCitation}
@@ -621,35 +634,35 @@ export default function CrossTaperCalculator() {
 
                 <div className="space-y-3 text-slate-800 text-[11px] leading-relaxed">
                   <div>
-                    <p className="font-bold text-slate-950">Escitalopram — Lexapro — SSRI</p>
-                    <p>MDD, GAD</p>
-                    <p className="text-slate-600">(Panic disorder, OCD, PTSD, PMDD)</p>
+                    <p className="font-extrabold text-slate-950">Escitalopram — Lexapro — SSRI</p>
+                    <p className="font-bold text-slate-950">MDD, GAD</p>
+                    <p className="text-slate-500 font-normal">(Panic disorder, OCD, PTSD, PMDD)</p>
                   </div>
 
                   <div className="pt-1 border-t border-amber-200/60">
-                    <p className="font-bold text-slate-950">Citalopram — Celexa — SSRI</p>
-                    <p>Depression</p>
-                    <p className="text-slate-600">(PMDD, OCD, panic d/o, GAD, PTSD, SAD)</p>
+                    <p className="font-extrabold text-slate-950">Citalopram — Celexa — SSRI</p>
+                    <p className="font-bold text-slate-950">Depression</p>
+                    <p className="text-slate-500 font-normal">(PMDD, OCD, panic d/o, GAD, PTSD, SAD)</p>
                   </div>
 
                   <div className="pt-1 border-t border-amber-200/60">
-                    <p className="font-bold text-slate-950">Fluoxetine — Prozac — SSRI</p>
-                    <p>MDD, OCD, PMDD, bulimia nervosa, panic d/o, bipolar depression</p>
-                    <p className="mt-0.5 font-semibold text-teal-900">In combo c̄ olanzapine (Symbyax)</p>
-                    <p className="text-teal-900 font-semibold">Treatment-resistant depression c̄ Symbyax</p>
-                    <p className="text-slate-600">(SAD, PTSD)</p>
+                    <p className="font-extrabold text-slate-950">Fluoxetine — Prozac — SSRI</p>
+                    <p className="font-bold text-slate-950">MDD, OCD, PMDD, bulimia nervosa, panic d/o, bipolar depression</p>
+                    <p className="mt-0.5 font-extrabold text-teal-950">In combo c̄ olanzapine (Symbyax)</p>
+                    <p className="font-bold text-teal-900">Treatment-resistant depression c̄ Symbyax</p>
+                    <p className="text-slate-500 font-normal">(SAD, PTSD)</p>
                   </div>
 
                   <div className="pt-1 border-t border-amber-200/60">
-                    <p className="font-bold text-slate-950">Sertraline — Zoloft — SSRI</p>
-                    <p>MDD, PMDD, panic d/o, PTSD, SAD, OCD</p>
-                    <p className="text-slate-600">(GAD)</p>
+                    <p className="font-extrabold text-slate-950">Sertraline — Zoloft — SSRI</p>
+                    <p className="font-bold text-slate-950">MDD, PMDD, panic d/o, PTSD, SAD, OCD</p>
+                    <p className="text-slate-500 font-normal">(GAD)</p>
                   </div>
 
                   <div className="pt-1 border-t border-amber-200/60">
-                    <p className="font-bold text-slate-950">Paroxetine — Paxil — SSRI</p>
-                    <p>PTSD, GAD, PMDD</p>
-                    <p>MDD, OCD, panic d/o, SAD</p>
+                    <p className="font-extrabold text-slate-950">Paroxetine — Paxil — SSRI</p>
+                    <p className="font-bold text-slate-950">PTSD, GAD, PMDD</p>
+                    <p className="font-bold text-slate-950">MDD, OCD, panic d/o, SAD</p>
                   </div>
                 </div>
               </div>
@@ -663,16 +676,17 @@ export default function CrossTaperCalculator() {
 
                 <div className="space-y-4 text-slate-800 text-[11px] leading-relaxed">
                   <div>
-                    <p className="font-bold text-slate-950">Mirtazapine — Remeron — SNRA</p>
-                    <p>MDD, panic d/o, GAD, PTSD</p>
+                    <p className="font-extrabold text-slate-950">Mirtazapine — Remeron — SNRA</p>
+                    <p className="font-bold text-slate-950">MDD</p>
+                    <p className="text-slate-500 font-normal">(Panic d/o, GAD, PTSD)</p>
                   </div>
 
                   <div className="pt-2 border-t border-sky-200/60">
-                    <p className="font-bold text-slate-950">Bupropion — Wellbutrin — NDRI</p>
-                    <p>MDD (SR, XL)</p>
-                    <p>SAD (XL)</p>
-                    <p>Nicotine (SR)</p>
-                    <p className="text-slate-700 mt-1 font-semibold">Bipolar depression, ADHD, sexual dysfunction</p>
+                    <p className="font-extrabold text-slate-950">Bupropion — Wellbutrin — NDRI</p>
+                    <p className="font-bold text-slate-950">MDD (SR, XL)</p>
+                    <p className="font-bold text-slate-950">SAD (XL)</p>
+                    <p className="font-bold text-slate-950">Nicotine (SR)</p>
+                    <p className="text-slate-500 font-normal mt-1">(Bipolar depression, ADHD, sexual dysfunction)</p>
                   </div>
                 </div>
               </div>
@@ -686,22 +700,22 @@ export default function CrossTaperCalculator() {
 
                 <div className="space-y-3 text-slate-800 text-[11px] leading-relaxed">
                   <div>
-                    <p className="font-bold text-slate-950">Venlafaxine — Effexor — SNRI</p>
-                    <p>Depression, GAD, SAD, panic d/o</p>
-                    <p className="text-slate-600">PTSD, PMDD</p>
+                    <p className="font-extrabold text-slate-950">Venlafaxine — Effexor — SNRI</p>
+                    <p className="font-bold text-slate-950">Depression, GAD, SAD, panic d/o</p>
+                    <p className="text-slate-500 font-normal">(PTSD, PMDD)</p>
                   </div>
 
                   <div className="pt-1 border-t border-emerald-200/60">
-                    <p className="font-bold text-slate-950">Duloxetine — Cymbalta — SNRI</p>
-                    <p>MDD, DPNP, fibromyalgia, GAD, chronic MSK pain</p>
-                    <p className="text-slate-700 font-semibold">Stress urinary incontinence, neuropathic pain/chronic</p>
-                    <p className="text-slate-600">Other anxiety d/o</p>
+                    <p className="font-extrabold text-slate-950">Duloxetine — Cymbalta — SNRI</p>
+                    <p className="font-bold text-slate-950">MDD, DPNP, fibromyalgia, GAD, chronic muscle pain</p>
+                    <p className="text-slate-500 font-normal">(Stress urinary incontinence, neuropathic pain/chronic)</p>
+                    <p className="text-slate-500 font-normal">(Other anxiety d/o)</p>
                   </div>
 
                   <div className="pt-1 border-t border-emerald-200/60">
-                    <p className="font-bold text-slate-950">Desvenlafaxine — Pristiq — SNRI</p>
-                    <p>MDD</p>
-                    <p className="text-slate-700 font-semibold">Vasomotor symptoms, fibromyalgia, GAD, SAD, panic d/o, PTSD, PMDD</p>
+                    <p className="font-extrabold text-slate-950">Desvenlafaxine — Pristiq — SNRI</p>
+                    <p className="font-bold text-slate-950">MDD</p>
+                    <p className="text-slate-500 font-normal">(Vasomotor symptoms, fibromyalgia, GAD, SAD, panic d/o, PTSD, PMDD)</p>
                   </div>
                 </div>
               </div>
@@ -715,30 +729,30 @@ export default function CrossTaperCalculator() {
 
                 <div className="space-y-3 text-slate-800 text-[11px] leading-relaxed">
                   <div>
-                    <p className="font-bold text-slate-950">Lamotrigine — Lamictal — Mood Stabilizer</p>
-                    <p>Bipolar I maintenance (depression prevention)</p>
-                    <p className="text-slate-600">(TRD augmentation, bipolar II depression)</p>
+                    <p className="font-extrabold text-slate-950">Lamotrigine — Lamictal — Mood Stabilizer</p>
+                    <p className="font-bold text-slate-950">Bipolar I maintenance (depression prevention)</p>
+                    <p className="text-slate-500 font-normal">(TRD augmentation, bipolar II depression)</p>
                     <p className="text-purple-950 font-bold text-[10px] mt-0.5">⚠️ Mandatory slow titration to avoid SJS/TEN</p>
                   </div>
 
                   <div className="pt-1 border-t border-purple-200/60">
-                    <p className="font-bold text-slate-950">Lithium — Lithobid / Eskalith — Mood Stabilizer</p>
-                    <p>Bipolar I mania &amp; maintenance, anti-suicide</p>
-                    <p className="text-slate-600">(MDD augmentation, vascular headaches)</p>
+                    <p className="font-extrabold text-slate-950">Lithium — Lithobid / Eskalith — Mood Stabilizer</p>
+                    <p className="font-bold text-slate-950">Bipolar I mania &amp; maintenance, anti-suicide</p>
+                    <p className="text-slate-500 font-normal">(MDD augmentation, vascular headaches)</p>
                     <p className="text-purple-950 font-semibold text-[10px] mt-0.5">Trough target: 0.6–0.8 mEq/L (maintenance)</p>
                   </div>
 
                   <div className="pt-1 border-t border-purple-200/60">
-                    <p className="font-bold text-slate-950">Divalproex / Valproic Acid — Depakote — Mood Stabilizer</p>
-                    <p>Bipolar I acute mania &amp; mixed episodes</p>
-                    <p className="text-slate-600">(Migraine prophylaxis, impulsivity, rapid cycling)</p>
+                    <p className="font-extrabold text-slate-950">Divalproex / Valproic Acid — Depakote — Mood Stabilizer</p>
+                    <p className="font-bold text-slate-950">Bipolar I acute mania &amp; mixed episodes</p>
+                    <p className="text-slate-500 font-normal">(Migraine prophylaxis, impulsivity, rapid cycling)</p>
                     <p className="text-purple-950 font-semibold text-[10px] mt-0.5">Trough target: 50–125 mcg/mL • Teratogen</p>
                   </div>
 
                   <div className="pt-1 border-t border-purple-200/60">
-                    <p className="font-bold text-slate-950">Oxcarbazepine — Trileptal — Mood Stabilizer</p>
-                    <p>Bipolar mood instability / affective lability (off-label)</p>
-                    <p className="text-slate-600">(Trigeminal neuralgia, focal seizures)</p>
+                    <p className="font-extrabold text-slate-950">Oxcarbazepine — Trileptal — Mood Stabilizer</p>
+                    <p className="font-bold text-slate-950">Focal seizures</p>
+                    <p className="text-slate-500 font-normal">(Bipolar mood instability / affective lability, trigeminal neuralgia)</p>
                   </div>
                 </div>
               </div>
@@ -753,50 +767,49 @@ export default function CrossTaperCalculator() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-800 text-[11px] leading-relaxed">
                   <div className="space-y-2">
                     <div>
-                      <p className="font-bold text-slate-950">Aripiprazole — Abilify — SGA (D2 Partial Agonist)</p>
-                      <p>MDD adjunct, bipolar I mania/maintenance, schizophrenia</p>
-                      <p className="text-slate-600">(Tourette's, autism irritability)</p>
+                      <p className="font-extrabold text-slate-950">Aripiprazole — Abilify — SGA (D2 Partial Agonist)</p>
+                      <p className="font-bold text-slate-950">MDD adjunct, bipolar I mania/maintenance, schizophrenia, Tourette's, autism irritability</p>
                     </div>
 
                     <div className="pt-1 border-t border-rose-200/60">
-                      <p className="font-bold text-slate-950">Quetiapine — Seroquel / XR — SGA (SDA / Pine)</p>
-                      <p>Bipolar depression (monotherapy), bipolar mania, MDD adjunct (XR), schizophrenia</p>
-                      <p className="text-slate-600">(Insomnia, severe GAD)</p>
+                      <p className="font-extrabold text-slate-950">Quetiapine — Seroquel / XR — SGA (SDA / Pine)</p>
+                      <p className="font-bold text-slate-950">Bipolar depression (monotherapy), bipolar mania, MDD adjunct (XR), schizophrenia</p>
+                      <p className="text-slate-500 font-normal">(Insomnia, severe GAD)</p>
                     </div>
 
                     <div className="pt-1 border-t border-rose-200/60">
-                      <p className="font-bold text-slate-950">Lurasidone — Latuda — SGA (SDA / Done)</p>
-                      <p>Bipolar I depression (monotherapy or c̄ Li/DVP), schizophrenia</p>
+                      <p className="font-extrabold text-slate-950">Lurasidone — Latuda — SGA (SDA / Done)</p>
+                      <p className="font-bold text-slate-950">Bipolar I depression (monotherapy or c̄ Li/DVP), schizophrenia</p>
                       <p className="text-rose-900 font-semibold text-[10px]">Take c̄ ≥350 cal meal</p>
                     </div>
 
                     <div className="pt-1 border-t border-rose-200/60">
-                      <p className="font-bold text-slate-950">Cariprazine — Vraylar — SGA (D3/D2 Partial Agonist)</p>
-                      <p>Bipolar I depression, bipolar I mania/mixed, MDD adjunct, schizophrenia</p>
+                      <p className="font-extrabold text-slate-950">Cariprazine — Vraylar — SGA (D3/D2 Partial Agonist)</p>
+                      <p className="font-bold text-slate-950">Bipolar I depression, bipolar I mania/mixed, MDD adjunct, schizophrenia</p>
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <div>
-                      <p className="font-bold text-slate-950">Lumateperone — Caplyta — SGA</p>
-                      <p>Bipolar I &amp; Bipolar II depression (monotherapy &amp; adjunct), schizophrenia</p>
+                      <p className="font-extrabold text-slate-950">Lumateperone — Caplyta — SGA</p>
+                      <p className="font-bold text-slate-950">Bipolar I &amp; Bipolar II depression (monotherapy &amp; adjunct), schizophrenia</p>
                     </div>
 
                     <div className="pt-1 border-t border-rose-200/60">
-                      <p className="font-bold text-slate-950">Olanzapine — Zyprexa — SGA (SDA / Pine)</p>
-                      <p>Bipolar I mania/mixed, schizophrenia, bipolar depression c̄ fluoxetine (Symbyax)</p>
-                      <p className="text-slate-600">(Treatment-resistant depression, acute agitation)</p>
+                      <p className="font-extrabold text-slate-950">Olanzapine — Zyprexa — SGA (SDA / Pine)</p>
+                      <p className="font-bold text-slate-950">Bipolar I mania/mixed, schizophrenia, bipolar depression c̄ fluoxetine (Symbyax)</p>
+                      <p className="text-slate-500 font-normal">(Treatment-resistant depression, acute agitation)</p>
                     </div>
 
                     <div className="pt-1 border-t border-rose-200/60">
-                      <p className="font-bold text-slate-950">Risperidone — Risperdal — SGA (SDA / Done)</p>
-                      <p>Bipolar I mania, schizophrenia</p>
-                      <p className="text-slate-600">(Autism irritability, Tourette's)</p>
+                      <p className="font-extrabold text-slate-950">Risperidone — Risperdal — SGA (SDA / Done)</p>
+                      <p className="font-bold text-slate-950">Bipolar I mania, schizophrenia, autism irritability</p>
+                      <p className="text-slate-500 font-normal">(Tourette's)</p>
                     </div>
 
                     <div className="pt-1 border-t border-rose-200/60">
-                      <p className="font-bold text-slate-950">Brexpiprazole — Rexulti — SGA (D2 Partial Agonist)</p>
-                      <p>MDD adjunct, schizophrenia, Alzheimer's agitation</p>
+                      <p className="font-extrabold text-slate-950">Brexpiprazole — Rexulti — SGA (D2 Partial Agonist)</p>
+                      <p className="font-bold text-slate-950">MDD adjunct, schizophrenia, Alzheimer's agitation</p>
                     </div>
                   </div>
                 </div>
@@ -807,7 +820,7 @@ export default function CrossTaperCalculator() {
             {/* Citations Footer */}
             <div className="pt-2 border-t border-teal-200/60 flex flex-col sm:flex-row justify-between items-start sm:items-center text-[10px] text-slate-500 gap-1 font-sans">
               <span>References: FDA Prescribing Information • Maudsley Prescribing Guidelines (14th Ed) • Stahl's Prescriber's Guide (8th Ed)</span>
-              <span className="italic">Notation: c̄ = with • d/o = disorder • DPNP = Diabetic Peripheral Neuropathic Pain • MSK = Musculoskeletal • TRD = Treatment-Resistant Depression</span>
+              <span className="italic">Notation: Bold = FDA Approved • (Parentheses) = Off-label • c̄ = with • d/o = disorder • DPNP = Diabetic Peripheral Neuropathic Pain • MSK = Musculoskeletal • TRD = Treatment-Resistant Depression</span>
             </div>
           </div>
         )}
