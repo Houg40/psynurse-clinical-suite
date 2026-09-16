@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, ShieldCheck, FileCheck, ArrowLeftRight, HeartPulse } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, FileCheck, ArrowLeftRight, HeartPulse, Stethoscope } from 'lucide-react';
 
 export default function SafetyGuide() {
   return (
@@ -87,6 +87,74 @@ export default function SafetyGuide() {
               <strong className="text-slate-900 block">Citalopram / High-dose Escitalopram:</strong>
               <span className="text-slate-600">ECG / QTc interval monitoring if age &gt;60 or on concurrent QTc prolonging agents.</span>
             </div>
+          </div>
+        </div>
+
+        {/* Card 5: Medical & Organic Mimics of Inattention (Laboratory Rule-Outs) */}
+        <div className="bg-white rounded-2xl border-2 border-amber-300/80 p-6 shadow-sm space-y-4 md:col-span-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-100 pb-3">
+            <div className="flex items-center gap-2.5 text-amber-950 font-black text-base">
+              <Stethoscope className="w-5 h-5 text-amber-700 flex-shrink-0" />
+              <span>Medical &amp; Organic Mimics of Inattention (Laboratory Rule-Outs)</span>
+            </div>
+            <span className="text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
+              Mandatory Diagnostic Workup Before ADHD Stimulants
+            </span>
+          </div>
+
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Prior to attributing chronic inattention or executive dysfunction exclusively to primary Adult ADHD or escalating CNS stimulant dosages, the following organic endocrine, metabolic, hematologic, and hypoxic drivers must be ruled out:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-xs">
+            {/* A1c / DM */}
+            <div className="p-3.5 bg-amber-50/60 border border-amber-200 rounded-xl space-y-1.5 text-slate-800">
+              <div className="flex items-center justify-between">
+                <strong className="font-extrabold text-amber-950 text-xs">Hemoglobin A1c / DM</strong>
+                <span className="text-[10px] font-mono text-amber-700 bg-amber-100/80 px-1.5 py-0.5 rounded">Metabolic</span>
+              </div>
+              <p className="text-[11px] text-slate-700 leading-relaxed">
+                Diabetes mellitus &amp; chronic hyperglycemia cause microvascular frontostriatal disruption leading to <strong>reduced sustained attention</strong>, <strong>reduced information processing speed</strong>, and <strong>impaired executive functioning</strong>.
+              </p>
+            </div>
+
+            {/* Thyroid */}
+            <div className="p-3.5 bg-indigo-50/60 border border-indigo-200 rounded-xl space-y-1.5 text-slate-800">
+              <div className="flex items-center justify-between">
+                <strong className="font-extrabold text-indigo-950 text-xs">TSH, Free T3 &amp; T4</strong>
+                <span className="text-[10px] font-mono text-indigo-700 bg-indigo-100/80 px-1.5 py-0.5 rounded">Endocrine</span>
+              </div>
+              <p className="text-[11px] text-slate-700 leading-relaxed">
+                Thyroid hormone dysregulation impairs <strong>verbal memory</strong>, <strong>attention &amp; concentration</strong>, and <strong>visuospatial processing</strong> (<em>the ability to perceive, analyze, and manipulate visual patterns and images — e.g. using a map, walking through doors, making sense of letters and numbers</em>).
+              </p>
+            </div>
+
+            {/* Sleep & OSA */}
+            <div className="p-3.5 bg-cyan-50/60 border border-cyan-200 rounded-xl space-y-1.5 text-slate-800">
+              <div className="flex items-center justify-between">
+                <strong className="font-extrabold text-cyan-950 text-xs">Sleep Deprivation &amp; OSA</strong>
+                <span className="text-[10px] font-mono text-cyan-700 bg-cyan-100/80 px-1.5 py-0.5 rounded">Hypoxic</span>
+              </div>
+              <p className="text-[11px] text-slate-700 leading-relaxed">
+                Produces severe <strong>impairment in attention</strong>, vigilance lapses, and daytime micro-sleeps. Screen with <strong>Berlin Questionnaire</strong> (snoring, daytime tiredness/fatigue, hypertension/BMI &gt; 30). Refer for overnight <strong>Polysomnography (Sleep Study)</strong>.
+              </p>
+            </div>
+
+            {/* Anemia & Micronutrients */}
+            <div className="p-3.5 bg-rose-50/60 border border-rose-200 rounded-xl space-y-1.5 text-slate-800">
+              <div className="flex items-center justify-between">
+                <strong className="font-extrabold text-rose-950 text-xs">Anemia &amp; Micronutrients</strong>
+                <span className="text-[10px] font-mono text-rose-700 bg-rose-100/80 px-1.5 py-0.5 rounded">Hematologic</span>
+              </div>
+              <p className="text-[11px] text-slate-700 leading-relaxed">
+                Depleted oxygen-carrying capacity &amp; cofactor deficiency cause profound inattention. Order <strong>CBC with differential</strong>, <strong>CMP-14</strong>, <strong>Vitamin B12</strong>, and <strong>Serum Ferritin</strong> (iron stores; ferritin &lt; 30–50 ng/mL impairs dopamine synthesis).
+              </p>
+            </div>
+          </div>
+
+          <div className="p-3 bg-amber-100/50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center justify-between font-medium">
+            <span>💡 Cross-referenced in the <strong>Misc. Information</strong> tab with 1-click EHR lab workup MDM template.</span>
+            <span className="text-[11px] font-bold text-amber-950">Zero-PHI Local CDS</span>
           </div>
         </div>
       </div>

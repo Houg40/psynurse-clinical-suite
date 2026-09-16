@@ -16,7 +16,13 @@ import {
   BookOpen,
   HelpCircle,
   TrendingUp,
-  AlertCircle
+  AlertCircle,
+  Moon,
+  Droplets,
+  Eye,
+  Stethoscope,
+  Compass,
+  CheckCircle2
 } from 'lucide-react';
 
 export default function MiscClinicalInfo() {
@@ -57,6 +63,19 @@ Benzodiazepines act on GABA receptors to produce immediate, temporary sedation a
 • NEUROBIOLOGY DISCUSSED: Reviewed monoaminergic dysregulation (serotonin & norepinephrine imbalance) underlying patient's mood instability, behavioral withdrawal, and anxiety symptoms.
 • BUSPAR (BUSPIRONE) EDUCATION: Educated on 5-HT1A partial agonism and presynaptic dopamine modulation. Emphasized lack of sedation, absence of cognitive impairment, and lack of dependence liability. Reinforced that therapeutic benefits accrue gradually with scheduled BID/TID dosing.
 • BENZODIAZEPINE RISK PROTOCOL: Thoroughly reviewed risks of physiological tolerance (requiring dose escalation) and physiological/psychological dependence. Documented that benzodiazepine therapy is strictly time-limited to prevent withdrawal syndrome and cognitive blunting. Patient voiced understanding and agreed to conservative tapering schedule.`;
+  };
+
+  const getEhrLabRuleOutNote = () => {
+    return `ORGANIC & MEDICAL RULE-OUT ASSESSMENT FOR INATTENTION / COGNITIVE DYSFUNCTION:
+• CLINICAL INDICATION: Evaluation of complaints of chronic inattention, mental sluggishness, concentration deficits, and impaired executive functioning prior to initiating or escalating psychiatric stimulant therapy.
+• COMPREHENSIVE LABORATORY WORKUP ORDERED:
+  1. HEMOGLOBIN A1c: Evaluating glycemic control and diabetic microvascular cognitive impairment (reduced sustained attention and processing speed).
+  2. THYROID CASCADE (TSH, FREE T3, FREE T4): Ruling out thyroid-induced deficits in verbal memory, concentration, and visuospatial processing (visual patterns, letter/number deciphering, spatial navigation).
+  3. HEMATOLOGIC & ANEMIA PANEL (CBC WITH DIFF, CMP-14, SERUM FERRITIN, VITAMIN B12): Ruling out microcytic/macrocytic anemia, iron store depletion, electrolyte disturbances, and B12 deficiency driving prefrontal inattention.
+• SLEEP & SLEEP APNEA (OSA) SCREENING:
+  - Administered Berlin Questionnaire for Obstructive Sleep Apnea risk stratification (snoring intensity, morning tiredness, hypertension/BMI).
+  - Patient advised regarding sleep deprivation's catastrophic impact on vigilance and working memory. Referral for formal overnight polysomnography (Sleep Study) indicated if high risk on Berlin screen.
+• CLINICAL IMPRESSION: Rule-out of reversible organic, endocrine, metabolic, and hypoxic causes of executive dysfunction in progress.`;
   };
 
   return (
@@ -357,6 +376,237 @@ Benzodiazepines act on GABA receptors to produce immediate, temporary sedation a
             <p className="text-slate-800 italic leading-relaxed bg-white p-3 rounded-lg border border-slate-200">
               "Benzodiazepines like Xanax or Ativan are like putting a cast on a broken arm—they can help in an emergency for a week or two, but if you keep a cast on for months, the muscle underneath withers away. Your brain develops tolerance, requiring higher doses to feel normal, and quitting abruptly is dangerous. That's why we're starting Buspar: it takes a couple of weeks to work, but it strengthens your natural anxiety defenses without fogging your brain, making you sleepy, or causing dependence."
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* NEW SECTION: Medical & Organic Rule-Outs for Inattention, Brain Fog & Executive Dysfunction */}
+      <div className="bg-gradient-to-br from-amber-50/80 via-white to-teal-50/50 border-2 border-amber-300/80 rounded-2xl p-6 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-amber-200 pb-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="bg-amber-100 text-amber-950 text-xs font-black uppercase px-2.5 py-0.5 rounded-full border border-amber-300 flex items-center gap-1.5">
+                <Stethoscope className="w-3.5 h-3.5 text-amber-700" />
+                Differential Diagnosis &amp; Lab Workup
+              </span>
+              <span className="bg-teal-100 text-teal-900 text-xs font-bold px-2 py-0.5 rounded-full border border-teal-300">
+                Rule-Outs Prior to ADHD Rx
+              </span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              Medical &amp; Organic Rule-Outs for Inattention &amp; Executive Dysfunction
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl">
+              Before concluding a patient has primary Adult ADHD or escalating stimulants, rule out these organic metabolic, endocrine, hematologic, and hypoxic drivers of attention failure and cognitive impairment.
+            </p>
+          </div>
+
+          <button
+            onClick={() => copyToClipboard(getEhrLabRuleOutNote(), 'ehr_lab_note')}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-amber-700 hover:bg-amber-800 text-white rounded-xl text-xs font-bold transition-all shadow-xs shrink-0 self-start sm:self-auto"
+          >
+            {copiedKey === 'ehr_lab_note' ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4 text-amber-200" />}
+            Copy Lab Workup Note for EHR
+          </button>
+        </div>
+
+        {/* 4 Organic Drivers Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          
+          {/* Driver 1: Hemoglobin A1c & Diabetes Mellitus */}
+          <div className="bg-white border-2 border-amber-200 rounded-xl p-5 shadow-xs space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="text-xs font-black uppercase tracking-wider text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 flex items-center gap-1.5">
+                <Activity className="w-3.5 h-3.5 text-amber-600" />
+                Metabolic &amp; Glycemic Control
+              </span>
+              <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">Hemoglobin A1c</span>
+            </div>
+
+            <h3 className="text-sm font-black text-slate-900">
+              Diabetes Mellitus (DM) &amp; Chronic Hyperglycemia
+            </h3>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Glucose dysregulation and microvascular cerebral capillary damage impair frontostriatal brain networks:
+            </p>
+
+            <div className="p-3 bg-amber-50/50 rounded-lg border border-amber-100 space-y-1.5 text-xs text-slate-800">
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-600 mt-1.5 shrink-0" />
+                <span><strong className="text-amber-950 font-bold">Reduced Sustained Attention:</strong> Inability to hold focus during lengthy or complex tasks.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-600 mt-1.5 shrink-0" />
+                <span><strong className="text-amber-950 font-bold">Reduced Processing Speed:</strong> Sluggish cognitive reaction time and delayed mental retrieval.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-600 mt-1.5 shrink-0" />
+                <span><strong className="text-amber-950 font-bold">Impaired Executive Functioning:</strong> Disorganization, working memory lapses, and poor impulse control mimicking ADHD.</span>
+              </div>
+            </div>
+
+            <div className="text-[11px] font-semibold text-slate-500 pt-1 border-t border-slate-100 flex items-center justify-between">
+              <span>Target: A1c &lt; 5.7% (Normal) • 5.7–6.4% (Pre-DM)</span>
+              <span className="text-amber-700 font-bold">&gt; 6.5% Diagnostic for DM</span>
+            </div>
+          </div>
+
+          {/* Driver 2: Thyroid Axis (TSH, Free T3, Free T4) */}
+          <div className="bg-white border-2 border-indigo-200 rounded-xl p-5 shadow-xs space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="text-xs font-black uppercase tracking-wider text-indigo-800 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5 text-indigo-600" />
+                Endocrine Cascade
+              </span>
+              <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">TSH • Free T3 • Free T4</span>
+            </div>
+
+            <h3 className="text-sm font-black text-slate-900">
+              Thyroid Dysfunction: Cognitive &amp; Visuospatial Deficits
+            </h3>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Thyroid hormone is essential for cerebral perfusion, synaptic plasticity, and hippocampal memory encoding:
+            </p>
+
+            <div className="p-3 bg-indigo-50/50 rounded-lg border border-indigo-100 space-y-1.5 text-xs text-slate-800">
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 mt-1.5 shrink-0" />
+                <span><strong className="text-indigo-950 font-bold">Verbal Memory &amp; Concentration:</strong> Difficulty recalling words, short-term forgetting, and attention drifting.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 mt-1.5 shrink-0" />
+                <div>
+                  <strong className="text-indigo-950 font-bold">Impaired Visuospatial Processing:</strong>
+                  <p className="text-[11px] text-slate-700 mt-0.5 italic">
+                    The ability to perceive, analyze, and manipulate visual patterns and images — e.g. using a map, navigating familiar environments, walking through doorways without bumping, making sense of numbers, symbols, and letter layouts.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-[11px] font-semibold text-slate-500 pt-1 border-t border-slate-100 flex items-center justify-between">
+              <span>TSH Normal: 0.4–4.0 mIU/L</span>
+              <span className="text-indigo-700 font-bold">Always check Free T3/T4 if TSH borderline</span>
+            </div>
+          </div>
+
+          {/* Driver 3: Sleep Deprivation & Obstructive Sleep Apnea (OSA) */}
+          <div className="bg-white border-2 border-cyan-200 rounded-xl p-5 shadow-xs space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="text-xs font-black uppercase tracking-wider text-cyan-800 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200 flex items-center gap-1.5">
+                <Moon className="w-3.5 h-3.5 text-cyan-600" />
+                Sleep Architecture &amp; Hypoxia
+              </span>
+              <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">Sleep Study • Berlin Survey</span>
+            </div>
+
+            <h3 className="text-sm font-black text-slate-900">
+              Sleep Deprivation &amp; Obstructive Sleep Apnea (OSA)
+            </h3>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Chronic nocturnal micro-arousals and intermittent hypoxemia destroy prefrontal cortex restorative sleep:
+            </p>
+
+            <div className="p-3 bg-cyan-50/50 rounded-lg border border-cyan-100 space-y-1.5 text-xs text-slate-800">
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 mt-1.5 shrink-0" />
+                <span><strong className="text-cyan-950 font-bold">Severe Inattention &amp; Vigilance Lapses:</strong> Daytime micro-sleeps, spacing out during conversations, and extreme midday drowsiness.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 mt-1.5 shrink-0" />
+                <span><strong className="text-cyan-950 font-bold">Nocturnal Polysomnography (Sleep Study):</strong> Gold-standard diagnostic evaluation when loud snoring, gasping, or morning dry mouth are endorsed.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 mt-1.5 shrink-0" />
+                <span><strong className="text-cyan-950 font-bold">The Berlin Questionnaire:</strong> Validated clinical screening tool assessing 3 categories (snoring, daytime tiredness/fatigue, and hypertension/BMI &gt; 30).</span>
+              </div>
+            </div>
+
+            <div className="text-[11px] font-semibold text-slate-500 pt-1 border-t border-slate-100 flex items-center justify-between">
+              <span>Stimulants are contraindicated without CPAP</span>
+              <span className="text-cyan-700 font-bold">Rule out OSA prior to Adderall/Vyvanse</span>
+            </div>
+          </div>
+
+          {/* Driver 4: Anemia, B12, Ferritin, CBC & CMP-14 */}
+          <div className="bg-white border-2 border-rose-200 rounded-xl p-5 shadow-xs space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="text-xs font-black uppercase tracking-wider text-rose-800 bg-rose-50 px-2 py-0.5 rounded border border-rose-200 flex items-center gap-1.5">
+                <Droplets className="w-3.5 h-3.5 text-rose-600" />
+                Hematologic &amp; Micronutrient
+              </span>
+              <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">CBC • CMP-14 • Ferritin • B12</span>
+            </div>
+
+            <h3 className="text-sm font-black text-slate-900">
+              Anemia &amp; Nutrient Deficiencies: Cognitive Fatigue
+            </h3>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Inadequate oxygen-carrying capacity and neurochemical co-factor depletion mimic severe inattentive ADHD:
+            </p>
+
+            <div className="p-3 bg-rose-50/50 rounded-lg border border-rose-100 space-y-1.5 text-xs text-slate-800">
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-600 mt-1.5 shrink-0" />
+                <span><strong className="text-rose-950 font-bold">Serum Ferritin &amp; Iron Stores:</strong> Iron is an obligatory cofactor for tyrosine hydroxylase (dopamine synthesis). Ferritin &lt; 30–50 ng/mL causes marked brain fog and motor restlessness (RLS).</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-600 mt-1.5 shrink-0" />
+                <span><strong className="text-rose-950 font-bold">Vitamin B12 &amp; Folate:</strong> Required for neuronal myelin maintenance and monoamine synthesis; deficiency causes apathy, memory loss, and inattention.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-600 mt-1.5 shrink-0" />
+                <span><strong className="text-rose-950 font-bold">CBC with Diff &amp; CMP-14:</strong> Evaluates microcytic/macrocytic anemia, renal function, liver enzymes, calcium, and electrolyte homeostasis.</span>
+              </div>
+            </div>
+
+            <div className="text-[11px] font-semibold text-slate-500 pt-1 border-t border-slate-100 flex items-center justify-between">
+              <span>CBC: Check Hgb / Hct / MCV</span>
+              <span className="text-rose-700 font-bold">Check Ferritin even if Hgb normal</span>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Quick Screening Protocol: The Berlin Questionnaire for Sleep Apnea */}
+        <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-teal-600" />
+              <h4 className="text-sm font-black text-slate-900">
+                The Berlin Questionnaire: Quick 3-Category Screening Protocol for OSA
+              </h4>
+            </div>
+            <span className="text-[11px] font-bold bg-teal-50 text-teal-800 px-2 py-0.5 rounded border border-teal-200">
+              High Risk = Positive in 2 or more Categories
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+              <strong className="text-slate-900 block font-bold mb-1">Category 1: Snoring &amp; Breathing</strong>
+              <p className="text-slate-600 leading-normal">
+                Do you snore louder than talking? Does your snoring bother others? Has anyone noticed you stop breathing or gasp in your sleep?
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+              <strong className="text-slate-900 block font-bold mb-1">Category 2: Daytime Sleepiness</strong>
+              <p className="text-slate-600 leading-normal">
+                How often do you feel tired, fatigued, or not rested upon awakening? How often do you feel tired during waking hours or nod off driving?
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+              <strong className="text-slate-900 block font-bold mb-1">Category 3: Blood Pressure &amp; BMI</strong>
+              <p className="text-slate-600 leading-normal">
+                Do you have high blood pressure (hypertension)? Is your Body Mass Index (BMI) greater than 30 kg/m²?
+              </p>
+            </div>
           </div>
         </div>
       </div>

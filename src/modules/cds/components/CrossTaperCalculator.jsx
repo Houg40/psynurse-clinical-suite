@@ -1016,7 +1016,7 @@ export default function CrossTaperCalculator() {
                     <span className="font-black text-teal-950 text-xs tracking-wider uppercase">NOTECARD 7</span>
                     <span className="text-[10px] font-bold bg-teal-200 text-teal-900 px-2 py-0.5 rounded">MISC. INFORMATION</span>
                   </div>
-                  <span className="text-[10px] text-teal-800 font-bold uppercase tracking-wider">Clinical Pharmacology Pearls</span>
+                  <span className="text-[10px] text-teal-800 font-bold uppercase tracking-wider">Clinical Pharmacology &amp; Lab Pearls</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-slate-800 text-[11px] leading-relaxed">
@@ -1048,6 +1048,34 @@ export default function CrossTaperCalculator() {
                     <p className="text-slate-700">
                       <strong>Dependence:</strong> Physiological and psychological withdrawal symptoms (rebound anxiety, tremors, seizures).
                     </p>
+                  </div>
+                </div>
+
+                {/* Essential Medical & Lab Rule-Out Checklist */}
+                <div className="pt-2 border-t border-teal-200/80 font-sans">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                    <span className="text-xs font-black text-teal-950 uppercase tracking-wide flex items-center gap-1.5">
+                      🔬 Essential Medical &amp; Organic Rule-Outs for Inattention (Before ADHD Stimulants):
+                    </span>
+                    <span className="text-[10px] text-teal-800 font-bold bg-teal-100/80 px-2 py-0.5 rounded">See "Misc. Information" Tab for 1-Click EHR MDM Note</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-[11px]">
+                    <div className="bg-white/90 p-2.5 rounded-lg border border-teal-200/80">
+                      <strong className="text-teal-950 block font-black">A1c / Diabetes (DM):</strong>
+                      <span className="text-slate-700">Reduced sustained attention, reduced processing speed, impaired executive functioning.</span>
+                    </div>
+                    <div className="bg-white/90 p-2.5 rounded-lg border border-teal-200/80">
+                      <strong className="text-teal-950 block font-black">TSH, Free T3 &amp; T4:</strong>
+                      <span className="text-slate-700">Verbal memory, concentration, visuospatial processing (map reading, walking through doors, letters/numbers).</span>
+                    </div>
+                    <div className="bg-white/90 p-2.5 rounded-lg border border-teal-200/80">
+                      <strong className="text-teal-950 block font-black">Sleep &amp; OSA:</strong>
+                      <span className="text-slate-700">Inattention &amp; fatigue. Berlin Questionnaire screening; overnight Polysomnography (Sleep Study).</span>
+                    </div>
+                    <div className="bg-white/90 p-2.5 rounded-lg border border-teal-200/80">
+                      <strong className="text-teal-950 block font-black">Anemia &amp; Micronutrients:</strong>
+                      <span className="text-slate-700">Inattention workup: Serum Ferritin (iron stores), Vitamin B12, CBC with diff, CMP-14.</span>
+                    </div>
                   </div>
                 </div>
               </div>
