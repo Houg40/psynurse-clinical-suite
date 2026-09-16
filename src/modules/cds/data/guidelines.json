@@ -2,109 +2,745 @@
   "pathways": [
     {
       "conditionId": "mdd",
-      "conditionName": "Major Depressive Disorder (Adult)",
+      "conditionName": "Major Depressive Disorder",
+      "category": "Mood & Psychosis",
       "diagnosticCriteriaSummary": "5+ symptoms during same 2-week period including depressed mood or anhedonia (DSM-5-TR).",
-      "ruleOuts": ["Bipolar disorder (run MDQ)", "Substance-induced mood disorder", "Hypothyroidism (check TSH)", "Vitamin D/B12 deficiency"],
+      "ruleOuts": ["Bipolar disorder (run MDQ / rule out hypomania)", "Substance-induced mood disorder", "Hypothyroidism (check TSH)", "Vitamin D/B12 deficiency", "Obstructive sleep apnea"],
+      "psychotherapyFirstOrAdjunct": "CBT (Cognitive Restructuring), Behavioral Activation (BA), or Interpersonal Psychotherapy (IPT). In mild depression, psychotherapy alone is first-line; in moderate-to-severe, combined pharmacotherapy + CBT yields superior recovery rates.",
       "firstLine": [
         {
-          "agent": "Escitalopram",
-          "rationale": "High tolerability, minimal CYP drug-drug interactions. Great for mixed depression & anxiety."
+          "agent": "Escitalopram (10–20mg)",
+          "rationale": "High tolerability, predictable kinetics, minimal CYP450 drug-drug interactions. Excellent for comorbid anxiety."
         },
         {
-          "agent": "Sertraline",
-          "rationale": "Preferred in cardiac patients; mild activating effect at higher doses."
+          "agent": "Sertraline (50–200mg)",
+          "rationale": "Gold standard in cardiac patients (SADHART trial); mild activating dopaminergic tone at >=100mg."
         },
         {
-          "agent": "Bupropion XL",
-          "rationale": "Zero sexual side effects, weight-neutral/weight loss, energizing. Best for lethargy, fatigue, or comorbid ADHD. (Contraindicated in seizure/eating disorders)."
+          "agent": "Bupropion XL (150–300mg)",
+          "rationale": "Zero sexual side effects, weight-neutral or mild weight loss, energizing noradrenergic/dopaminergic tone. (Contraindicated in seizure disorders or bulimia/anorexia)."
         }
       ],
       "secondLine": [
         {
-          "agent": "Duloxetine / Venlafaxine ER (SNRI)",
-          "rationale": "Dual 5-HT and NE reuptake inhibition. Ideal if SSRI response is partial or if chronic pain/fibromyalgia is present."
+          "agent": "Duloxetine (30–60mg) / Venlafaxine ER (75–225mg)",
+          "rationale": "Dual 5-HT and NE reuptake inhibition (SNRI). Superior when physical fatigue, psychomotor retardation, or chronic pain/fibromyalgia co-exists."
         },
         {
-          "agent": "Mirtazapine",
-          "rationale": "Different mechanism (NaSSA). Promotes appetite and restorative sleep. Excellent for insomnia and low BMI."
+          "agent": "Mirtazapine (15–45mg)",
+          "rationale": "NaSSA antagonist (alpha-2, 5-HT2A/C, 5-HT3, H1). Restores deep sleep architecture and stimulates appetite. Ideal for insomnia and unintended weight loss."
+        },
+        {
+          "agent": "Vortioxetine (10–20mg)",
+          "rationale": "Multimodal serotonergic modulator with documented procognitive benefits for executive dysfunction and residual brain fog."
         }
       ],
       "augmentationStrategies": [
         {
           "strategy": "SSRI + Bupropion XL (Wellbutrin)",
-          "rationale": "Addresses residual fatigue, anhedonia, and alleviates SSRI-induced sexual dysfunction."
+          "rationale": "Addresses residual anhedonia, fatigue, and reverses SSRI-induced sexual dysfunction (W-Wellbutrin synergy)."
         },
         {
-          "strategy": "SSRI/SNRI + Atypical Antipsychotic (Aripiprazole 2-5mg)",
-          "rationale": "Evidence-based rapid augmentation for treatment-resistant depression."
+          "strategy": "SSRI/SNRI + Atypical Antipsychotic (Aripiprazole 2–5mg or Brexpiprazole 1–2mg)",
+          "rationale": "FDA-approved partial dopamine agonist augmentation for treatment-resistant major depression."
         },
         {
-          "strategy": "Antidepressant + Mood Stabilizer (Lamotrigine)",
-          "rationale": "Recommended when subthreshold bipolarity or chronic treatment-resistance exists."
+          "strategy": "Lithium (300–600mg, target level 0.6–0.8 mEq/L)",
+          "rationale": "Level 1 evidence for treatment-resistant depression and documented independent anti-suicide effect."
+        },
+        {
+          "strategy": "Ketamine / Spravato (Esketamine) or TMS",
+          "rationale": "Rapid synaptogenic NMDA receptor antagonism for acute suicidal ideation or failed >=2 medication trials."
+        }
+      ]
+    },
+    {
+      "conditionId": "bipolar",
+      "conditionName": "Bipolar Disorder (I & II)",
+      "category": "Mood & Psychosis",
+      "diagnosticCriteriaSummary": "Bipolar I: At least 1 lifetime manic episode (>= 7 days or requiring hospitalization). Bipolar II: At least 1 hypomanic episode (>= 4 days) + 1 major depressive episode; no lifetime mania.",
+      "ruleOuts": ["Borderline personality disorder (affective instability lasts hours, not days/weeks)", "ADHD (chronic baseline distractibility vs episodic mood elevation)", "Substance-induced mood episode (stimulant/steroid use)"],
+      "psychotherapyFirstOrAdjunct": "Social Rhythm Therapy (IPSRT) to stabilize circadian rhythms, Family-Focused Therapy (FFT), and CBT for bipolar disorder. Mandatory warning: Antidepressant monotherapy is strictly contraindicated due to manic switch and rapid-cycling risk.",
+      "firstLine": [
+        {
+          "agent": "Lithium Carbonate (600–1200mg, trough 0.8–1.1 acute, 0.6–0.8 maintenance)",
+          "rationale": "Gold-standard mood stabilizer for classic euphoric mania and maintenance. Proven neuroprotective and independent suicide-reduction efficacy."
+        },
+        {
+          "agent": "Quetiapine (Seroquel 300mg depression; 400–800mg mania)",
+          "rationale": "First-line monotherapy approved across both acute mania and acute bipolar depression via active metabolite norquetiapine."
+        },
+        {
+          "agent": "Lamotrigine (Lamictal 100–200mg) — *Bipolar Depression & Maintenance*",
+          "rationale": "Superior for preventing and treating bipolar depression. Requires slow bi-weekly titration to prevent Stevens-Johnson syndrome (SJS)."
+        },
+        {
+          "agent": "Lurasidone (Latuda 20–120mg) or Cariprazine (Vraylar 1.5–3mg) — *Bipolar Depression*",
+          "rationale": "FDA-approved for bipolar I depression. Low metabolic risk profile; take Latuda with >=350 calories."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Divalproex Sodium (Depakote ER 750–1500mg, trough 50–100 mcg/mL)",
+          "rationale": "Preferred over lithium for dysphoric/mixed mania and rapid cycling. Monitor CBC, LFTs, and teratogenic risk in childbearing potential."
+        },
+        {
+          "agent": "Aripiprazole (10–30mg) or Asenapine (5–10mg SL)",
+          "rationale": "Rapid antimanic control with minimal metabolic weight gain."
+        },
+        {
+          "agent": "Olanzapine + Fluoxetine (Symbyax)",
+          "rationale": "FDA-approved for treatment-resistant bipolar depression. High metabolic vigilance required."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Lithium + Divalproex (Depakote) Combination",
+          "rationale": "Dual mood stabilizer coverage for severe refractory mania or rapid cycling."
+        },
+        {
+          "strategy": "Mood Stabilizer (Lithium or Depakote) + SGA (Quetiapine / Aripiprazole)",
+          "rationale": "Standard of care for breakthrough manic episodes or severe psychotic features."
+        }
+      ]
+    },
+    {
+      "conditionId": "schizophrenia",
+      "conditionName": "Schizophrenia",
+      "category": "Mood & Psychosis",
+      "diagnosticCriteriaSummary": ">= 2 characteristic psychotic symptoms (delusions, hallucinations, disorganized speech, grossly disorganized behavior, negative symptoms) active for >= 1 month, with total disturbance >= 6 months.",
+      "ruleOuts": ["Substance/medication-induced psychotic disorder (cannabis, methamphetamine)", "Schizoaffective disorder (evaluate prominent mood episode timeline)", "Anti-NMDA receptor encephalitis / autoimmune encephalitis"],
+      "psychotherapyFirstOrAdjunct": "Cognitive Behavioral Therapy for Psychosis (CBTp), Social Skills Training (SST), and Coordinated Specialty Care (CSC) for first-episode psychosis. Involve assertive community treatment (ACT) if adherence is compromised.",
+      "firstLine": [
+        {
+          "agent": "Aripiprazole (10–30mg) or Cariprazine (1.5–6mg)",
+          "rationale": "Second-generation partial D2/D3 agonists. Low risk of metabolic syndrome, hyperprolactinemia, and sedation. Preferred for first-episode psychosis."
+        },
+        {
+          "agent": "Risperidone (2–6mg) / Paliperidone (3–12mg or Invega Sustenna LAI)",
+          "rationale": "High D2 potency providing robust positive symptom resolution. Consider Long-Acting Injectable (LAI) early to prevent non-adherence and relapse."
+        },
+        {
+          "agent": "Lurasidone (Latuda 40–160mg)",
+          "rationale": "Favorable metabolic profile; potent 5-HT7 antagonism improves cognitive functioning. Take with >=350 calories."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Olanzapine (Zyprexa 10–20mg) or Quetiapine (400–800mg)",
+          "rationale": "Potent 5-HT2A/D2 antagonists with strong sedation and agitation control. High risk of metabolic syndrome, diabetes, and dyslipidemia."
+        },
+        {
+          "agent": "Long-Acting Injectable Antipsychotics (LAIs: Invega Sustenna/Trinza, Aristada, Abilify Maintena)",
+          "rationale": "Indicated after establishing oral tolerability to ensure relapse-free maintenance and bypass oral non-compliance."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Clozapine (Clozaril 300–600mg, target trough >= 350 ng/mL)",
+          "rationale": "MANDATORY STEP 3: Indicated after failure of 2 adequate trials of different antipsychotics (at least 1 SGA). Gold standard for treatment-resistant schizophrenia and persistent suicidality. Requires ANC monitoring via REMS."
+        },
+        {
+          "strategy": "Antipsychotic + Mood Stabilizer (Divalproex / Lithium)",
+          "rationale": "Advisable for persistent affective instability, impulsive hostility, or behavioral agitation."
+        }
+      ]
+    },
+    {
+      "conditionId": "schizoaffective",
+      "conditionName": "Schizoaffective Disorder",
+      "category": "Mood & Psychosis",
+      "diagnosticCriteriaSummary": "Uninterrupted period of illness with a major mood episode (depressive or manic) concurrent with schizophrenia Criterion A, PLUS >= 2 weeks of delusions or hallucinations in the absence of a major mood episode.",
+      "ruleOuts": ["Bipolar disorder with psychotic features (psychosis occurs ONLY during mood episodes)", "Major depression with psychotic features", "Substance-induced psychosis"],
+      "psychotherapyFirstOrAdjunct": "Psychoeducation regarding medication adherence, CBT for psychosis, and family-focused supportive therapy.",
+      "firstLine": [
+        {
+          "agent": "Paliperidone (Invega 6–12mg / Invega Sustenna LAI)",
+          "rationale": "The ONLY monotherapy specifically FDA-approved for Schizoaffective Disorder (both bipolar and depressive types)."
+        },
+        {
+          "agent": "Atypical Antipsychotic + Mood Stabilizer (Quetiapine / Risperidone + Lithium or Depakote) — *Bipolar Type*",
+          "rationale": "Dual coverage to suppress psychotic delusions while stabilizing manic/hypomanic polarity shifts."
+        },
+        {
+          "agent": "Atypical Antipsychotic + SSRI/SNRI (Aripiprazole / Lurasidone + Sertraline / Escitalopram) — *Depressive Type*",
+          "rationale": "Targeted combination treating core psychotic features without destabilizing mood."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Clozapine (Clozaril 200–500mg)",
+          "rationale": "High efficacy for refractory schizoaffective disorder with persistent mood and psychotic instability."
+        },
+        {
+          "agent": "Long-Acting Injectable Antipsychotic (LAI) + Oral Mood Stabilizer",
+          "rationale": "Stabilizes baseline psychosis and reduces hospitalization frequency in outpatient settings."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Electroconvulsive Therapy (ECT)",
+          "rationale": "High-yield evidence for intractable schizoaffective episodes, catatonia, or life-threatening depressive exhaustion."
+        }
+      ]
+    },
+    {
+      "conditionId": "delusional",
+      "conditionName": "Delusional Disorder",
+      "category": "Mood & Psychosis",
+      "diagnosticCriteriaSummary": "Presence of 1+ delusions of at least 1 month's duration; functioning is not markedly impaired and behavior is not obviously bizarre outside the delusion; schizophrenia Criterion A is not met.",
+      "ruleOuts": ["Schizophrenia (prominent hallucinations, negative symptoms, disorganization)", "OCD with absent insight", "Dementia / Lewy Body disease", "Paranoid personality disorder (pervasive trait vs encapsulated fixed delusion)"],
+      "psychotherapyFirstOrAdjunct": "Cognitive Behavioral Therapy (CBT) adopting a collaborative, non-confrontational stance. Crucial clinical rule: Never directly challenge or validate the delusion; explore the distress and anxiety caused by the beliefs.",
+      "firstLine": [
+        {
+          "agent": "Second-Generation Antipsychotic (Aripiprazole 10–15mg or Risperidone 2–4mg)",
+          "rationale": "Modest D2 blockade to reduce delusional conviction and hyper-vigilant paranoia without severe side effects."
+        },
+        {
+          "agent": "Pimozide (Orap 2–6mg) — *Historically preferred for Somatosensory / Monodelusional Paranoia*",
+          "rationale": "High affinity D2/opiate antagonist historically cited for somatic delusions (e.g. delusional parasitosis), requiring baseline ECG/QTc surveillance."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Olanzapine (Zyprexa 5–15mg) or Paliperidone (3–9mg)",
+          "rationale": "Stronger sedative properties beneficial when delusions generate severe agitation, insomnia, or confrontational behavioral discord."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Antipsychotic + SSRI (Escitalopram / Sertraline)",
+          "rationale": "Addresses secondary depressive demoralization, social withdrawal, or comorbid obsessional anxiety."
         }
       ]
     },
     {
       "conditionId": "gad",
       "conditionName": "Generalized Anxiety Disorder",
-      "diagnosticCriteriaSummary": "Excessive anxiety and worry occurring more days than not for at least 6 months across multiple events (DSM-5-TR).",
-      "ruleOuts": ["Hyperthyroidism", "Excessive caffeine/stimulant intake", "Pheochromocytoma", "Cardiac arrhythmias"],
+      "category": "Anxiety & Trauma",
+      "diagnosticCriteriaSummary": "Excessive anxiety and worry occurring more days than not for at least 6 months across multiple events, with >= 3 somatic symptoms (restlessness, fatigue, concentration, muscle tension, sleep).",
+      "ruleOuts": ["Hyperthyroidism", "Excessive caffeine/stimulant intake", "Pheochromocytoma", "Cardiac arrhythmias", "Major depression with anxious distress"],
+      "psychotherapyFirstOrAdjunct": "CBT (identifying worry loops, cognitive restructuring), Mindfulness-Based Stress Reduction (MBSR), and applied progressive relaxation. Equal or superior to medication for long-term relapse prevention.",
       "firstLine": [
         {
-          "agent": "Escitalopram",
-          "rationale": "Cleanest side-effect profile; start at 5mg for 7-10 days to minimize initial paradoxical anxiety."
+          "agent": "Escitalopram (10–20mg)",
+          "rationale": "Cleanest side-effect profile; start at 5mg for 7–10 days to minimize initial paradoxical jitteriness."
         },
         {
-          "agent": "Sertraline",
-          "rationale": "Broad-spectrum anxiolytic efficacy (GAD, panic, OCD, social anxiety). Start at 25mg."
+          "agent": "Sertraline (50–150mg)",
+          "rationale": "Broad-spectrum anxiolytic efficacy (covers comorbid panic, SAD, and OCD). Start low at 25mg."
         },
         {
-          "agent": "Duloxetine",
-          "rationale": "SNRI indicated for GAD; effective when chronic somatic anxiety or muscle tension is prominent."
+          "agent": "Duloxetine (30–90mg) / Venlafaxine ER (75–225mg)",
+          "rationale": "SNRIs are first-line for GAD; especially beneficial when muscle tension and chronic somatic complaints are prominent."
         }
       ],
-      "adjunctiveOptions": [
+      "secondLine": [
         {
-          "agent": "Buspirone",
-          "rationale": "Non-controlled 5-HT1A partial agonist. Must be taken scheduled BID/TID; does not cause sedation or dependence."
+          "agent": "Buspirone (15–60mg daily divided BID/TID)",
+          "rationale": "Non-controlled 5-HT1A partial agonist. Must be taken scheduled; zero risk of tolerance, dependence, or cognitive slowing."
         },
         {
-          "agent": "Hydroxyzine (Vistaril)",
-          "rationale": "Non-addictive H1 antihistamine for PRN acute anxiety episodes without controlled-substance risks."
+          "agent": "Pregabalin (Lyrica 150–450mg) / Gabapentin (Off-label)",
+          "rationale": "Alpha-2-delta calcium channel ligand; rapid onset anxiolysis without typical serotonergic sexual side effects."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "SSRI/SNRI + Hydroxyzine Pamoate (25–50mg PRN)",
+          "rationale": "Non-addictive H1 antihistamine for acute breakthrough anxiety episodes without controlled-substance risks."
+        },
+        {
+          "strategy": "SSRI/SNRI + Buspirone",
+          "rationale": "Dual serotonergic synergy augmenting partial SSRI responders."
+        }
+      ]
+    },
+    {
+      "conditionId": "social_anxiety",
+      "conditionName": "Social Anxiety Disorder (Social Phobia)",
+      "category": "Anxiety & Trauma",
+      "diagnosticCriteriaSummary": "Marked fear or anxiety about one or more social situations in which the individual is exposed to possible scrutiny by others, persisting >= 6 months.",
+      "ruleOuts": ["Avoidant personality disorder (pervasive self-concept of unworthiness vs social scrutiny)", "Panic disorder", "Agoraphobia", "Autism spectrum disorder"],
+      "psychotherapyFirstOrAdjunct": "CBT with In-Vivo and Imaginal Exposure, Social Skills Training, and Acceptance and Commitment Therapy (ACT). Exposure therapy is first-line gold standard.",
+      "firstLine": [
+        {
+          "agent": "Sertraline (50–200mg) or Paroxetine (20–50mg)",
+          "rationale": "FDA-approved SSRIs with extensive clinical trials demonstrating reduction in social avoidance and autonomic blush/tremor."
+        },
+        {
+          "agent": "Escitalopram (10–20mg) or Venlafaxine ER (75–225mg)",
+          "rationale": "High tolerability and broad anxiolytic efficacy across generalized social fears."
+        },
+        {
+          "agent": "Propranolol (10–40mg PRN 30–60 min prior) — *Performance Only Specifier*",
+          "rationale": "Beta-blocker that blocks peripheral autonomic symptoms (tachycardia, diaphoresis, vocal tremor) during public speaking or musical performances without CNS sedation."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Clonazepam (0.25–1mg) or Lorazepam (0.5–1mg) — *Short-Term Bridge Only*",
+          "rationale": "Reserved for severe, disabling social paralysis while waiting for SSRI onset. High risk of dependence and blunting exposure therapy efficacy."
+        },
+        {
+          "agent": "Gabapentin (300–900mg TID)",
+          "rationale": "Documented efficacy in social anxiety with minimal drug interactions."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "SSRI + Scheduled Exposure Psychotherapy",
+          "rationale": "Combined medication + behavioral exposure prevents relapse upon eventual medication tapering."
+        }
+      ]
+    },
+    {
+      "conditionId": "agoraphobia",
+      "conditionName": "Agoraphobia",
+      "category": "Anxiety & Trauma",
+      "diagnosticCriteriaSummary": "Marked fear or anxiety about >= 2 of 5 situations: public transit, open spaces, enclosed places, lines/crowds, or being outside home alone, due to fear that escape might be difficult or help unavailable in the event of panic/incapacitation.",
+      "ruleOuts": ["Panic disorder without agoraphobia", "Social anxiety disorder (fear of negative scrutiny rather than physical entrapment)", "PTSD avoidance", "Specific phobia (situational)"],
+      "psychotherapyFirstOrAdjunct": "In-Vivo Exposure Therapy (Graded Hierarchy) + CBT. Exposure to avoided real-world settings is the cornerstone of definitive recovery.",
+      "firstLine": [
+        {
+          "agent": "Sertraline (50–200mg) or Paroxetine (20–60mg)",
+          "rationale": "Suppresses anticipatory dread and underlying panic surges, creating neurochemical stability required to engage in real-world exposure."
+        },
+        {
+          "agent": "Escitalopram (10–20mg) or Venlafaxine ER (75–225mg)",
+          "rationale": "Proven efficacy in broad panic spectrum and agoraphobic avoidance. Start at low doses (e.g. Escitalopram 5mg) to avoid paradoxical activation."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Clomipramine (25–150mg)",
+          "rationale": "Potent tricyclic antidepressant (TCA) with pronounced serotonergic properties for SSRI-refractory panic/agoraphobia. Monitor ECG for QTc/conduction."
+        },
+        {
+          "agent": "Citalopram (20–40mg) or Duloxetine (60–120mg)",
+          "rationale": "Alternative serotonergic switches if first trials fail."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "SSRI + High-Intensity Behavioral In-Vivo Exposure Coach",
+          "rationale": "Pharmacotherapy suppresses somatic panic while behavioral exposure extinguishes catastrophic safety behaviors."
+        }
+      ]
+    },
+    {
+      "conditionId": "ocd",
+      "conditionName": "Obsessive-Compulsive Disorder (OCD)",
+      "category": "Anxiety & Trauma",
+      "diagnosticCriteriaSummary": "Presence of obsessions (intrusive, unwanted thoughts/urges) and/or compulsions (repetitive mental or physical acts performed to neutralize anxiety), consuming >= 1 hour per day.",
+      "ruleOuts": ["Generalized anxiety disorder (worries about real-life concerns)", "Depressive rumination (past failures vs future threat)", "Illness anxiety disorder", "Psychotic disorder (evaluate insight / delusional conviction)"],
+      "psychotherapyFirstOrAdjunct": "Exposure and Response Prevention (ERP) is the first-line psychotherapy of choice with the strongest empirical support. Compulsions must be systematically prevented during anxiety exposure.",
+      "firstLine": [
+        {
+          "agent": "High-Dose SSRIs: Fluoxetine (40–80mg), Sertraline (150–200+ mg), Fluvoxamine (150–300mg)",
+          "rationale": "OCD requires significantly HIGHER SSRI doses and LONGER trials (10–12 weeks at maximum tolerated dose) than major depression."
+        },
+        {
+          "agent": "Escitalopram (20–40mg) or Paroxetine (40–60mg)",
+          "rationale": "Proven antiobsessional efficacy; dosages above standard depression ranges often needed with ECG monitoring."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Clomipramine (Anafranil 100–250mg)",
+          "rationale": "Gold-standard TCA with unmatched serotonergic reuptake potency. Highly effective in severe refractory OCD; requires baseline ECG and seizure vigilance."
+        },
+        {
+          "agent": "Class Switch to Alternative High-Dose SSRI",
+          "rationale": "Failure of one SSRI does not predict failure of another in OCD; try at least 2 distinct SSRIs before advancing."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "High-Dose SSRI + Low-Dose Atypical Antipsychotic (Aripiprazole 2–5mg, Risperidone 0.5–2mg, or Haloperidol)",
+          "rationale": "Dopamine D2 blockade synergizes with 5-HT reuptake inhibition to quiet basal ganglia hyperactivity in refractory OCD."
+        },
+        {
+          "strategy": "Glutamate Modulators (Memantine 10–20mg or N-Acetylcysteine / NAC 1200–2400mg)",
+          "rationale": "Attenuates hyperglutamatergic cortico-striatal-thalamo-cortical (CSTC) loop circuitry."
+        }
+      ]
+    },
+    {
+      "conditionId": "ptsd",
+      "conditionName": "Post-Traumatic Stress Disorder (PTSD)",
+      "category": "Anxiety & Trauma",
+      "diagnosticCriteriaSummary": "Exposure to actual or threatened death, serious injury, or sexual violence; followed by >= 1 month of intrusion, avoidance, negative alterations in mood/cognition, and marked hyperarousal (Criterion A–G).",
+      "ruleOuts": ["Acute stress disorder (duration < 1 month)", "Borderline personality disorder", "Substance-induced symptoms", "Traumatic brain injury (TBI)"],
+      "psychotherapyFirstOrAdjunct": "Trauma-Focused Psychotherapy: Prolonged Exposure (PE), Cognitive Processing Therapy (CPT), or Eye Movement Desensitization and Reprocessing (EMDR). Psychotherapy has larger effect sizes than medication alone.",
+      "firstLine": [
+        {
+          "agent": "Sertraline (50–200mg) or Paroxetine (20–50mg)",
+          "rationale": "Only FDA-approved medications for PTSD. Broadly reduces hyperarousal, avoidance, and depressive intrusions."
+        },
+        {
+          "agent": "Venlafaxine ER (75–225mg) or Fluoxetine (20–60mg)",
+          "rationale": "First-line recommendation per VA/DoD and APA guidelines with robust clinical trial data."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Prazosin (Minipress 1–15mg at bedtime) — *Trauma Nightmares & Sleep Fragmentation*",
+          "rationale": "Centrally acting alpha-1 adrenergic antagonist. Dampens locus coeruleus noradrenergic hyperactivation, resolving trauma nightmares and insomnia. Titrate slowly to avoid orthostasis."
+        },
+        {
+          "agent": "Mirtazapine (15–45mg QHS)",
+          "rationale": "Enhances sleep continuity, reduces autonomic nightmares, and counteracts hyper-reactivity."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "SSRI/SNRI + Prazosin (Nightmares) + Trauma Psychotherapy (PE/CPT)",
+          "rationale": "Multimodal standard of care: Stabilizes daytime hyperarousal, normalizes sleep, and processes traumatic memory networks."
+        },
+        {
+          "strategy": "Atypical Antipsychotic (Quetiapine 25–100mg QHS or Aripiprazole 2–5mg)",
+          "rationale": "Adjunctive suppression of refractory hypervigilance, paranoia, and severe dissociative flash-forwards."
+        }
+      ]
+    },
+    {
+      "conditionId": "adjustment",
+      "conditionName": "Adjustment Disorders",
+      "category": "Anxiety & Trauma",
+      "diagnosticCriteriaSummary": "Emotional or behavioral symptoms in response to an identifiable stressor occurring within 3 months of the onset of the stressor, causing marked distress out of proportion and/or significant functional impairment; does not meet criteria for MDD or PTSD.",
+      "ruleOuts": ["Major depressive disorder", "Acute stress disorder / PTSD", "Normal bereavement / grief reaction", "Exacerbation of pre-existing personality disorder"],
+      "psychotherapyFirstOrAdjunct": "FIRST-LINE TREATMENT IS PSYCHOTHERAPY: Problem-solving therapy, crisis intervention, CBT, and stress management. Medication is NOT first-line and is strictly time-limited.",
+      "firstLine": [
+        {
+          "agent": "Short-Term Supportive Counseling / CBT & Sleep Hygiene",
+          "rationale": "Identifies adaptive coping strategies, processes situational transition (divorce, job loss, medical diagnosis), and prevents chronification."
+        },
+        {
+          "agent": "Hydroxyzine (25–50mg PRN) or Trazodone (25–50mg QHS PRN) — *Short-Term Symptomatic Relief*",
+          "rationale": "Non-habit-forming, short-term relief of situational acute insomnia or daytime anxiety spikes. Avoid initiating chronic SSRIs or daily benzodiazepines."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Low-Dose SSRI (Sertraline 25–50mg or Escitalopram 5–10mg)",
+          "rationale": "Indicated ONLY if symptoms fail to resolve after 4–8 weeks, if functional impairment escalates, or if the presentation evolves into a formal Major Depressive Episode."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Mindfulness Grounding + Social Work / Community Resource Connection",
+          "rationale": "Targets the tangible environmental or financial stressor driving the adjustment crisis."
+        }
+      ]
+    },
+    {
+      "conditionId": "did",
+      "conditionName": "Dissociative Identity Disorder (DID)",
+      "category": "Anxiety & Trauma",
+      "diagnosticCriteriaSummary": "Disruption of identity characterized by 2+ distinct personality states; recurrent gaps in recall of everyday events, personal info, and/or traumatic events; causes clinically significant distress.",
+      "ruleOuts": ["Borderline personality disorder (identity disturbance without amnesic barriers or separate executive states)", "Malingering / factitious disorder", "Substance-induced amnesia", "Complex partial seizures"],
+      "psychotherapyFirstOrAdjunct": "GOLD STANDARD: Phase-Oriented Trauma Psychotherapy (ISSTD Guidelines). Phase 1: Safety, stabilization, grounding, and symptom reduction. Phase 2: Processing traumatic memories. Phase 3: Identity integration and rehabilitation. NO FDA-APPROVED MEDICATIONS EXIST FOR DID.",
+      "firstLine": [
+        {
+          "agent": "Phase 1 Psychotherapy (Grounding, Somatic Regulation, Co-consciousness)",
+          "rationale": "Primary treatment is therapeutic, focused on internal communication, dialectical behavioral distress tolerance, and mapping alter states."
+        },
+        {
+          "agent": "SSRI/SNRI (Sertraline / Venlafaxine) — *Targeting Comorbid Depression & PTSD*",
+          "rationale": "Treats secondary affective and trauma-related intrusive symptoms without disrupting internal system stability."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Prazosin (1–10mg QHS) / Clonidine (0.1mg QHS)",
+          "rationale": "Reduces severe nocturnal hyperarousal, night sweats, and dissociative night terrors."
+        },
+        {
+          "agent": "Low-Dose Second-Generation Antipsychotic (Quetiapine 25–100mg or Aripiprazole 2–5mg)",
+          "rationale": "Use cautiously for severe intrusive trauma-related auditory pseudohallucinations or overwhelming affective panic. (Avoid high doses that blunt cognitive processing)."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Dialectical Behavior Therapy (DBT) Skills Training",
+          "rationale": "Strengthens distress tolerance, sensory grounding (TIPP skills), and self-soothing to eliminate self-harm and crisis hospitalizations."
+        }
+      ]
+    },
+    {
+      "conditionId": "aud",
+      "conditionName": "Alcohol Use Disorder (AUD)",
+      "category": "Substance & Impulse",
+      "diagnosticCriteriaSummary": "Problematic pattern of alcohol use leading to clinically significant impairment or distress, manifested by >= 2 of 11 DSM-5 criteria within a 12-month period.",
+      "ruleOuts": ["Primary major depressive or anxiety disorder masked by alcohol self-medication", "Wernicke-Korsakoff encephalopathy (administer Thiamine 100mg IV/PO)", "Hepatic cirrhosis / severe liver failure"],
+      "psychotherapyFirstOrAdjunct": "Motivational Interviewing (MI), CBT for relapse prevention, Twelve-Step Facilitation (AA), and Contingency Management.",
+      "firstLine": [
+        {
+          "agent": "Naltrexone (50mg PO daily or Vivitrol 380mg IM monthly)",
+          "rationale": "Mu-opioid receptor antagonist. Blocks dopamine surge associated with alcohol intake, extinguishing euphoria and reducing heavy drinking days. (Contraindicated in acute hepatitis or current opioid use)."
+        },
+        {
+          "agent": "Acamprosate (Campral 666mg TID)",
+          "rationale": "Modulates NMDA and GABA receptors, dampening chronic alcohol withdrawal protracted dysphoria. Preferred in patients with hepatic impairment (renally cleared)."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Disulfiram (Antabuse 250–500mg daily)",
+          "rationale": "Aldehyde dehydrogenase inhibitor producing toxic acetaldehyde accumulation if alcohol is consumed. Effective ONLY with supervised administration in highly motivated patients."
+        },
+        {
+          "agent": "Topiramate (Topamax 100–300mg daily, off-label) or Gabapentin (900–1800mg daily, off-label)",
+          "rationale": "Facilitates GABAergic tone and inhibits glutamate; reduces cravings, improves sleep, and attenuates withdrawal anxiety."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Naltrexone (or Vivitrol) + Behavioral Relapse Prevention Therapy",
+          "rationale": "Synergistic reduction in craving and improved medication adherence."
+        }
+      ]
+    },
+    {
+      "conditionId": "cud",
+      "conditionName": "Cannabis Use Disorder (CUD)",
+      "category": "Substance & Impulse",
+      "diagnosticCriteriaSummary": "Problematic pattern of cannabis use leading to clinically significant impairment or distress, manifested by >= 2 of 11 criteria within 12 months.",
+      "ruleOuts": ["Cannabis Hyperemesis Syndrome (CHS - cyclical vomiting relieved by hot showers)", "Cannabis-induced anxiety/psychotic disorder", "Primary mood or psychotic disorder"],
+      "psychotherapyFirstOrAdjunct": "FIRST-LINE TREATMENT IS PSYCHOTHERAPY: Motivational Enhancement Therapy (MET), Cognitive Behavioral Therapy (CBT), and Contingency Management. No medications are currently FDA-approved for CUD.",
+      "firstLine": [
+        {
+          "agent": "Motivational Enhancement Therapy (MET) + CBT Coping Skills",
+          "rationale": "Resolves ambivalence, maps high-risk triggers, and develops alternative dopaminergic rewards and stress reduction."
+        },
+        {
+          "agent": "N-Acetylcysteine (NAC 1200mg PO BID)",
+          "rationale": "Restores glutamate homeostasis in the nucleus accumbens. Shown in clinical trials to double abstinence odds and reduce cravings, particularly in adolescents and young adults."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Gabapentin (300–1200mg daily divided)",
+          "rationale": "Significantly suppresses cannabis withdrawal symptoms (insomnia, vivid dreams, irritability, anorexia) during acute cessation."
+        },
+        {
+          "agent": "Dronabinol (Synthetic THC, 10–30mg daily) — *Refractory Withdrawal Protocol*",
+          "rationale": "Agonist replacement therapy off-label for severe withdrawal in inpatient or specialized addiction medicine contexts."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "NAC + Sleep Optimization (Trazodone / Melatonin) + Relapse Prevention",
+          "rationale": "Eliminates sleep disturbance as the primary trigger for cannabis relapse."
+        }
+      ]
+    },
+    {
+      "conditionId": "ied",
+      "conditionName": "Intermittent Explosive Disorder (IED)",
+      "category": "Substance & Impulse",
+      "diagnosticCriteriaSummary": "Recurrent behavioral outbursts representing failure to control aggressive impulses (verbal/physical aggression 2x/wk for 3 months, or 3 destructive/assaultive outbursts in 12 months); gross disproportion to provocation; chronologic age >= 6 years.",
+      "ruleOuts": ["Bipolar mania", "Borderline / Antisocial personality disorder", "ADHD (impulsivity without violent rage)", "Substance intoxication", "Traumatic brain injury (frontal lobe syndrome)"],
+      "psychotherapyFirstOrAdjunct": "Cognitive Behavioral Therapy for Anger Regulation: Identifying somatic anger cues, cognitive restructuring of hostile attribution bias, relaxation skills, and structured time-outs.",
+      "firstLine": [
+        {
+          "agent": "Fluoxetine (20–60mg) or Sertraline (50–150mg)",
+          "rationale": "First-line pharmacotherapy: SSRIs enhance central serotonergic transmission, which is chronically hypoactive in impulsive aggression circuits (orbitofrontal cortex)."
+        },
+        {
+          "agent": "CBT Anger Management Protocol (Individual or Group)",
+          "rationale": "Teaches cognitive appraisal interruption before autonomic rage escalation occurs."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Divalproex Sodium (Depakote 500–1500mg) or Carbamazepine (Tegretol 400–800mg)",
+          "rationale": "Anticonvulsant mood stabilizers dampen central nervous system excitability and reduce frequency of violent outbursts."
+        },
+        {
+          "agent": "Lithium Carbonate (600–900mg daily)",
+          "rationale": "Anti-aggressive and anti-impulsive properties well-documented in clinical trials."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "SSRI + Mood Stabilizer (Depakote or Lithium) + Second-Generation Antipsychotic (Risperidone 0.5–2mg)",
+          "rationale": "Triple modulation for severe, dangerous, refractory physical aggression."
+        }
+      ]
+    },
+    {
+      "conditionId": "asd",
+      "conditionName": "Autism Spectrum Disorder (ASD)",
+      "category": "Neuro & Personality",
+      "diagnosticCriteriaSummary": "Persistent deficits in social communication and social interaction across multiple contexts (A1–A3), accompanied by restricted, repetitive patterns of behavior, interests, or activities (>= 2 of B1–B4); present in early development.",
+      "ruleOuts": ["Social anxiety disorder", "ADHD (high comorbidity)", "Obsessive-compulsive disorder", "Intellectual developmental disorder without ASD"],
+      "psychotherapyFirstOrAdjunct": "Applied Behavior Analysis (ABA), Social Skills Training, Speech/Language Therapy, Sensory Integration Occupational Therapy, and Parent Management Training. Core deficits do not respond to medications.",
+      "firstLine": [
+        {
+          "agent": "Aripiprazole (Abilify 2–15mg) or Risperidone (Risperdal 0.5–3mg) — *Targeting Severe Irritability & Agitation*",
+          "rationale": "The ONLY two FDA-approved medications for the treatment of severe irritability, physical aggression, tantrums, and self-injurious behavior associated with ASD."
+        },
+        {
+          "agent": "Methylphenidate ER or Lisdexamfetamine (Vyvanse) — *Targeting Comorbid ADHD Symptoms*",
+          "rationale": "Improves inattention and hyperactivity in up to 50% of ASD patients; titrate slowly due to increased sensitivity to behavioral side effects."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Guanfacine ER (Intuniv 1–4mg) or Clonidine (0.1–0.3mg)",
+          "rationale": "Alpha-2A agonists improve hyperactivity, impulsivity, sensory over-reactivity, and sleep initiation."
+        },
+        {
+          "agent": "Fluoxetine (Prozac 5–20mg) or Sertraline (25–75mg)",
+          "rationale": "Addresses comorbid anxiety, rigid repetitive compulsions, and transition meltdowns. Start at very low doses."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Sensory Environmental Accommodation + Pharmacotherapy",
+          "rationale": "Minimizing auditory/visual overload dramatically enhances medication response."
+        }
+      ]
+    },
+    {
+      "conditionId": "cluster_a",
+      "conditionName": "Cluster A Personality Disorders (Paranoid, Schizoid, Schizotypal)",
+      "category": "Neuro & Personality",
+      "diagnosticCriteriaSummary": "Odd, eccentric personality configurations: Paranoid (SUSPECT - pervasive distrust/suspiciousness), Schizoid (DISTANT - detachment from social relationships, flat affect), Schizotypal (ME PECULIAR - magical thinking, ideas of reference, eccentric behavior).",
+      "ruleOuts": ["Schizophrenia (fixed unshakeable delusions, formal thought disorder, prominent hallucinations)", "Autism spectrum disorder", "Social anxiety disorder"],
+      "psychotherapyFirstOrAdjunct": "Supportive Psychotherapy: Maintain professional distance, respect autonomy, do not challenge suspiciousness directly, provide clear and transparent treatment rationale. (Avoid overly intrusive group therapies for schizoid/paranoid).",
+      "firstLine": [
+        {
+          "agent": "Low-Dose Atypical Antipsychotics (Aripiprazole 2–5mg or Risperidone 0.5–2mg)",
+          "rationale": "Targeted reduction in transient cognitive-perceptual distortions, ideas of reference, and intense hyper-vigilant paranoia (especially in Schizotypal & Paranoid)."
+        },
+        {
+          "agent": "Supportive Medical Alliance & Routine Structure",
+          "rationale": "Consistency and predictable clinical scheduling without forcing intense intimacy."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Low-Dose SSRI (Sertraline 25–50mg or Escitalopram 5–10mg)",
+          "rationale": "Attenuates secondary social anxiety and depressive demoralization."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Low-Dose SGA + Gentle CBT for Social Skills and Cognitive Flexibility",
+          "rationale": "Enhances day-to-day functional stability while avoiding institutional or adversarial conflict."
+        }
+      ]
+    },
+    {
+      "conditionId": "cluster_b",
+      "conditionName": "Cluster B Personality Disorders (Borderline, Antisocial, Histrionic, Narcissistic)",
+      "category": "Neuro & Personality",
+      "diagnosticCriteriaSummary": "Dramatic, emotional, erratic personality configurations: Borderline (I DESPAIRR - abandonment fears, unstable relationships/identity, suicidal/self-harm gestures, affective instability), Antisocial (CORRUPT), Histrionic (PRAISE ME), Narcissistic (SPEEECIAL).",
+      "ruleOuts": ["Bipolar II disorder (mood shifts in BPD are triggered by interpersonal stress and last hours, not weeks)", "Complex PTSD", "Substance use disorder"],
+      "psychotherapyFirstOrAdjunct": "FIRST-LINE TREATMENT IS SPECIALIZED PSYCHOTHERAPY: Dialectical Behavior Therapy (DBT - gold standard for BPD), Mentalization-Based Therapy (MBT), or Schema Therapy. NO MEDICATIONS ARE FDA-APPROVED FOR PERSONALITY DISORDERS.",
+      "firstLine": [
+        {
+          "agent": "Dialectical Behavior Therapy (DBT: Mindfulness, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness)",
+          "rationale": "First-line primary intervention. Significantly reduces suicide attempts, self-harm, ER visits, and hospitalizations."
+        },
+        {
+          "agent": "Low-Dose Second-Generation Antipsychotic (Aripiprazole 2–5mg or Quetiapine 25–100mg)",
+          "rationale": "Targeted off-label symptom relief for severe affective dysregulation, transient stress-induced paranoia, and impulsive anger."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "Mood Stabilizer (Lamotrigine 100–200mg or Topiramate 50–150mg)",
+          "rationale": "Shown in randomized trials to improve affective instability and reduce impulsive behavioral reactivity."
+        },
+        {
+          "agent": "Omega-3 Fatty Acids (EPA 1000–2000mg)",
+          "rationale": "Evidence-supported adjunctive reduction in impulsive aggression and depressive symptoms in BPD."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "STRICT BENZODIAZEPINE AVOIDANCE",
+          "rationale": "CRITICAL RULE: Benzodiazepines cause behavioral disinhibition, worsen impulsivity, and present lethal overdose risk with alcohol."
+        },
+        {
+          "strategy": "Comprehensive DBT + Clear Boundary Setting + Interdisciplinary Care Coordination",
+          "rationale": "Prevents institutional splitting and maintains safe, compassionate therapeutic containers."
+        }
+      ]
+    },
+    {
+      "conditionId": "cluster_c",
+      "conditionName": "Cluster C Personality Disorders (Avoidant, Dependent, OCPD)",
+      "category": "Neuro & Personality",
+      "diagnosticCriteriaSummary": "Anxious, fearful personality configurations: Avoidant (CRINGES - social inhibition, feelings of inadequacy, hypersensitivity to negative evaluation), Dependent (RELIANCE - submissive, clinging behavior, fear of separation), Obsessive-Compulsive PD (LAW FIRMS - preoccupation with orderliness, perfectionism, mental/interpersonal control).",
+      "ruleOuts": ["Social anxiety disorder (overlaps heavily with Avoidant PD)", "Major depression", "OCD (OCPD is egosyntonic; OCD is egodystonic with distressing obsessions/compulsions)"],
+      "psychotherapyFirstOrAdjunct": "Cognitive Behavioral Therapy (CBT), Schema Therapy, and Graded Exposure Therapy. Helps patients build emotional tolerance for imperfection and autonomy.",
+      "firstLine": [
+        {
+          "agent": "CBT for Core Maladaptive Schemas (Defectiveness, Vulnerability, Perfectionism)",
+          "rationale": "Primary intervention targeting ingrained cognitive schemas and interpersonal avoidance."
+        },
+        {
+          "agent": "SSRI (Escitalopram 10–20mg or Sertraline 50–150mg)",
+          "rationale": "Reduces underlying autonomic trait anxiety, rejection hypersensitivity, and secondary depressive demoralization."
+        }
+      ],
+      "secondLine": [
+        {
+          "agent": "SNRI (Venlafaxine ER 75–225mg or Duloxetine 60mg)",
+          "rationale": "Addresses chronic perfectionistic somatic distress and severe anticipatory anxiety."
+        },
+        {
+          "agent": "Buspirone (15–45mg daily)",
+          "rationale": "Anxiolytic adjunct to promote engagement in independence and exposure exercises."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Assertiveness Training & Exposure Hierarchy",
+          "rationale": "Dismantles safety behaviors and builds autonomous decision-making capacity."
         }
       ]
     },
     {
       "conditionId": "adhd",
       "conditionName": "Adult ADHD",
-      "diagnosticCriteriaSummary": "Persistent pattern of inattention and/or hyperactivity-impulsivity interfering with functioning, with symptoms originating prior to age 12.",
-      "ruleOuts": ["Undiagnosed bipolar disorder", "Severe primary anxiety/depression causing executive dysfunction", "Obstructive sleep apnea"],
+      "category": "Neuro & Personality",
+      "diagnosticCriteriaSummary": "Persistent pattern of inattention and/or hyperactivity-impulsivity interfering with functioning (>= 5 symptoms in adults), with origin prior to age 12.",
+      "ruleOuts": ["Undiagnosed bipolar disorder", "Severe primary anxiety/depression causing executive dysfunction", "Obstructive sleep apnea", "Substance use disorder"],
+      "psychotherapyFirstOrAdjunct": "ADHD-focused CBT, Executive Function Coaching, and Environmental Accommodations. Combined stimulant medication + behavioral coaching provides the highest functional outcome.",
       "firstLine": [
         {
-          "agent": "Lisdexamfetamine (Vyvanse)",
-          "rationale": "Prodrug with smooth 12-14 hour therapeutic curve and lower abuse liability compared to IR stimulants."
+          "agent": "Lisdexamfetamine (Vyvanse 30–70mg)",
+          "rationale": "Lysine-bound prodrug converted to active dextroamphetamine via red blood cell enzymes; provides 12–14 hour smooth coverage with lower abuse/diversion liability."
         },
         {
-          "agent": "Mixed Amphetamine Salts XR (Adderall XR)",
-          "rationale": "Dual-bead delivery with proven clinical efficacy; covers workday 8-10 hours."
-        },
-        {
-          "agent": "Methylphenidate ER (Concerta)",
-          "rationale": "OROS delivery technology providing steady osmotic release; well-tolerated baseline stimulant."
+          "agent": "Mixed Amphetamine Salts XR (Adderall XR 10–30mg) or Methylphenidate ER (Concerta 18–72mg)",
+          "rationale": "First-line stimulants with extensive evidence base. Concerta's OROS delivery system ensures stable osmotic delivery."
         }
       ],
-      "nonStimulantAlternatives": [
+      "secondLine": [
         {
-          "agent": "Atomoxetine (Strattera)",
-          "rationale": "First-line non-controlled NRI option when patient has personal/family history of substance use disorder, severe anxiety, or cardiovascular risk."
+          "agent": "Atomoxetine (Strattera 40–100mg)",
+          "rationale": "First-line non-controlled NRI option when patient has history of substance use disorder, severe anxiety, tic disorders, or cardiovascular contraindications."
         },
         {
-          "agent": "Bupropion XL (Off-label)",
-          "rationale": "Dopaminergic/noradrenergic tone can improve mild executive dysfunction while addressing comorbid depressive symptoms."
+          "agent": "Viloxazine ER (Qelbree 200–600mg)",
+          "rationale": "Novel non-controlled multimodal NRI approved for adult ADHD. Monitor CYP1A2 interactions."
         },
         {
-          "agent": "Guanfacine ER / Clonidine ER",
-          "rationale": "Alpha-2A adrenergic agonists; beneficial for emotional dysregulation, rejection sensitivity, and sleep disruption."
+          "agent": "Bupropion XL (150–450mg, off-label)",
+          "rationale": "Dual noradrenergic/dopaminergic reuptake inhibition; ideal when adult ADHD co-occurs with Major Depression."
+        }
+      ],
+      "augmentationStrategies": [
+        {
+          "strategy": "Stimulant + Guanfacine ER (Intuniv 1–4mg) or Clonidine ER",
+          "rationale": "Alpha-2A agonist synergy strengthening prefrontal cortex networking, mitigating evening stimulant rebound, and managing rejection sensitive dysphoria."
         }
       ]
     }
