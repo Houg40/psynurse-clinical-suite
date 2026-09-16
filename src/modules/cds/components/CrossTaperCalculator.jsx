@@ -592,12 +592,12 @@ export default function CrossTaperCalculator() {
 
         {/* Expandable Clinical References & Guidelines Drawer */}
         {showReferences && (
-          <div className="p-4 bg-teal-50/50 border border-teal-200 rounded-xl space-y-3 animate-in fade-in duration-150">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-teal-200/70 pb-2">
+          <div className="p-5 bg-teal-50/60 border border-teal-200 rounded-2xl space-y-4 animate-in fade-in duration-150">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-teal-200/80 pb-3">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-teal-700" />
                 <h4 className="text-xs font-black text-teal-950 uppercase tracking-wider">
-                  Authoritative Clinical Switching Standards &amp; Citations
+                  Medication Indications Reference Cards (SSRI, SNRI, SNRA, NDRI)
                 </h4>
               </div>
               <button
@@ -609,47 +609,109 @@ export default function CrossTaperCalculator() {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-              <div className="p-3 bg-white rounded-lg border border-teal-100 space-y-1">
-                <span className="font-bold text-slate-900 block">1. The Maudsley Guidelines</span>
-                <p className="text-[11px] text-slate-600 leading-relaxed">
-                  <em>The Maudsley Prescribing Guidelines in Psychiatry (14th Edition)</em>. Taylor D, Barnes TRE, Young AH. Wiley-Blackwell. Gold standard for psychiatric cross-taper matrices and receptor washout intervals.
-                </p>
+            {/* Provider Notecards Grid - Exactly Written as Provider Requested */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              
+              {/* Notecard 1: SSRIs */}
+              <div className="bg-amber-50/60 border-2 border-amber-200/80 rounded-xl p-4 shadow-sm space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between border-b border-amber-200 pb-1.5 font-sans">
+                  <span className="font-black text-amber-950 text-xs tracking-wider uppercase">NOTECARD 1</span>
+                  <span className="text-[10px] font-bold bg-amber-200/70 text-amber-900 px-2 py-0.5 rounded">SSRI</span>
+                </div>
+
+                <div className="space-y-3 text-slate-800 text-[11px] leading-relaxed">
+                  <div>
+                    <p className="font-bold text-slate-950">Escitalopram — Lexapro — SSRI</p>
+                    <p>MDD, GAD</p>
+                    <p className="text-slate-600">(Panic disorder, OCD, PTSD, PMDD)</p>
+                  </div>
+
+                  <div className="pt-1 border-t border-amber-200/60">
+                    <p className="font-bold text-slate-950">Citalopram — Celexa — SSRI</p>
+                    <p>Depression</p>
+                    <p className="text-slate-600">(PMDD, OCD, panic d/o, GAD, PTSD, SAD)</p>
+                  </div>
+
+                  <div className="pt-1 border-t border-amber-200/60">
+                    <p className="font-bold text-slate-950">Fluoxetine — Prozac — SSRI</p>
+                    <p>MDD, OCD, PMDD, bulimia nervosa, panic d/o, bipolar depression</p>
+                    <p className="mt-0.5 font-semibold text-teal-900">In combo c̄ olanzapine (Symbyax)</p>
+                    <p className="text-teal-900 font-semibold">Treatment-resistant depression c̄ Symbyax</p>
+                    <p className="text-slate-600">(SAD, PTSD)</p>
+                  </div>
+
+                  <div className="pt-1 border-t border-amber-200/60">
+                    <p className="font-bold text-slate-950">Sertraline — Zoloft — SSRI</p>
+                    <p>MDD, PMDD, panic d/o, PTSD, SAD, OCD</p>
+                    <p className="text-slate-600">(GAD)</p>
+                  </div>
+
+                  <div className="pt-1 border-t border-amber-200/60">
+                    <p className="font-bold text-slate-950">Paroxetine — Paxil — SSRI</p>
+                    <p>PTSD, GAD, PMDD</p>
+                    <p>MDD, OCD, panic d/o, SAD</p>
+                  </div>
+                </div>
               </div>
 
-              <div className="p-3 bg-white rounded-lg border border-teal-100 space-y-1">
-                <span className="font-bold text-slate-900 block">2. Stahl's Prescriber's Guide</span>
-                <p className="text-[11px] text-slate-600 leading-relaxed">
-                  <em>Stahl's Essential Psychopharmacology: Prescriber's Guide (8th Edition)</em>. Stahl SM. Cambridge University Press. Primary reference for D2 partial agonist switches, half-life kinetics, and direct versus overlapping strategies.
-                </p>
+              {/* Notecard 2: SNRA & NDRI */}
+              <div className="bg-sky-50/60 border-2 border-sky-200/80 rounded-xl p-4 shadow-sm space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between border-b border-sky-200 pb-1.5 font-sans">
+                  <span className="font-black text-sky-950 text-xs tracking-wider uppercase">NOTECARD 2</span>
+                  <span className="text-[10px] font-bold bg-sky-200/70 text-sky-900 px-2 py-0.5 rounded">SNRA &amp; NDRI</span>
+                </div>
+
+                <div className="space-y-4 text-slate-800 text-[11px] leading-relaxed">
+                  <div>
+                    <p className="font-bold text-slate-950">Mirtazapine — Remeron — SNRA</p>
+                    <p>MDD, panic d/o, GAD, PTSD</p>
+                  </div>
+
+                  <div className="pt-2 border-t border-sky-200/60">
+                    <p className="font-bold text-slate-950">Bupropion — Wellbutrin — NDRI</p>
+                    <p>MDD (SR, XL)</p>
+                    <p>SAD (XL)</p>
+                    <p>Nicotine (SR)</p>
+                    <p className="text-slate-700 mt-1 font-semibold">Bipolar depression, ADHD, sexual dysfunction</p>
+                  </div>
+                </div>
               </div>
 
-              <div className="p-3 bg-white rounded-lg border border-teal-100 space-y-1">
-                <span className="font-bold text-slate-900 block">3. APA &amp; CANMAT Clinical Practice</span>
-                <p className="text-[11px] text-slate-600 leading-relaxed">
-                  APA Practice Guidelines for Major Depressive Disorder &amp; CANMAT Bipolar Guidelines. Incorporates mandatory FDA package insert titration schedules (Lamotrigine SJS prevention; Valproate UGT1A4 interactions).
-                </p>
+              {/* Notecard 3: SNRIs */}
+              <div className="bg-emerald-50/60 border-2 border-emerald-200/80 rounded-xl p-4 shadow-sm space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between border-b border-emerald-200 pb-1.5 font-sans">
+                  <span className="font-black text-emerald-950 text-xs tracking-wider uppercase">NOTECARD 3</span>
+                  <span className="text-[10px] font-bold bg-emerald-200/70 text-emerald-900 px-2 py-0.5 rounded">SNRI</span>
+                </div>
+
+                <div className="space-y-3 text-slate-800 text-[11px] leading-relaxed">
+                  <div>
+                    <p className="font-bold text-slate-950">Venlafaxine — Effexor — SNRI</p>
+                    <p>Depression, GAD, SAD, panic d/o</p>
+                    <p className="text-slate-600">PTSD, PMDD</p>
+                  </div>
+
+                  <div className="pt-1 border-t border-emerald-200/60">
+                    <p className="font-bold text-slate-950">Duloxetine — Cymbalta — SNRI</p>
+                    <p>MDD, DPNP, fibromyalgia, GAD, chronic MSK pain</p>
+                    <p className="text-slate-700 font-semibold">Stress urinary incontinence, neuropathic pain/chronic</p>
+                    <p className="text-slate-600">Other anxiety d/o</p>
+                  </div>
+
+                  <div className="pt-1 border-t border-emerald-200/60">
+                    <p className="font-bold text-slate-950">Desvenlafaxine — Pristiq — SNRI</p>
+                    <p>MDD</p>
+                    <p className="text-slate-700 font-semibold">Vasomotor symptoms, fibromyalgia, GAD, SAD, panic d/o, PTSD, PMDD</p>
+                  </div>
+                </div>
               </div>
+
             </div>
 
-            {/* Quick Principles Banner */}
-            <div className="pt-2 border-t border-teal-200/50 grid grid-cols-1 sm:grid-cols-4 gap-2 text-[11px]">
-              <div className="bg-white/80 p-2 rounded border border-teal-100">
-                <span className="font-bold text-teal-950 block">Direct Switch</span>
-                <span className="text-slate-600">Stop Drug A, start Drug B next day at starting dose (SSRI to SSRI at standard doses).</span>
-              </div>
-              <div className="bg-white/80 p-2 rounded border border-teal-100">
-                <span className="font-bold text-teal-950 block">Cross-Taper (Default)</span>
-                <span className="text-slate-600">Step down Drug A over 2–4 weeks while titrating Drug B up to mitigate withdrawal.</span>
-              </div>
-              <div className="bg-white/80 p-2 rounded border border-teal-100">
-                <span className="font-bold text-teal-950 block">Overlapping Plateau</span>
-                <span className="text-slate-600">Maintain Drug A at baseline while escalating Drug B slowly (mandatory for Lamictal &amp; SGAs).</span>
-              </div>
-              <div className="bg-white/80 p-2 rounded border border-teal-100">
-                <span className="font-bold text-teal-950 block">Self-Taper / Washout</span>
-                <span className="text-slate-600">Fluoxetine long half-life (norfluoxetine 7-15 days) creates built-in self-taper without dose steps.</span>
-              </div>
+            {/* Citations Footer */}
+            <div className="pt-2 border-t border-teal-200/60 flex flex-col sm:flex-row justify-between items-start sm:items-center text-[10px] text-slate-500 gap-1 font-sans">
+              <span>References: FDA Prescribing Information • Maudsley Prescribing Guidelines (14th Ed) • Stahl's Prescriber's Guide (8th Ed)</span>
+              <span className="italic">Notation: c̄ = with • d/o = disorder • DPNP = Diabetic Peripheral Neuropathic Pain • MSK = Musculoskeletal</span>
             </div>
           </div>
         )}
