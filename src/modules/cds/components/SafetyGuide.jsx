@@ -152,9 +152,9 @@ export default function SafetyGuide() {
             </div>
           </div>
 
-          <div className="p-3 bg-amber-100/50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center justify-between font-medium">
-            <span>💡 Cross-referenced in the <strong>Misc. Information</strong> tab with 1-click EHR lab workup MDM template.</span>
-            <span className="text-[11px] font-bold text-amber-950">Zero-PHI Local CDS</span>
+          <div className="p-3 bg-amber-100/50 border border-amber-200 rounded-xl text-xs text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-medium">
+            <span>💡 Complete diagnostic panels, fasting protocols, and insurance ICD-10 pairings available in the <strong>Standard Labs</strong> tab.</span>
+            <span className="text-[11px] font-bold text-amber-950 whitespace-nowrap">Zero-PHI Local CDS</span>
           </div>
         </div>
       </div>

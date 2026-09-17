@@ -14,7 +14,8 @@ import {
   Search,
   CheckCircle2,
   AlertOctagon,
-  FileText
+  FileText,
+  FlaskConical
 } from 'lucide-react';
 import { 
   DSM5_DOMAINS, 
@@ -117,6 +118,8 @@ export default function HpiBuilder({ setActiveTab }) {
   const [screenerMdq, setScreenerMdq] = useState('none'); // 'none' | 'positive' | 'negative'
   const [screenerAims, setScreenerAims] = useState('none'); // 'none' | 'negative' | 'positive'
   const [includeScreenersInNote, setIncludeScreenersInNote] = useState(true);
+  const [includeLabsInNote, setIncludeLabsInNote] = useState(true);
+  const [selectedLabTierPreset, setSelectedLabTierPreset] = useState('tier1'); // 'tier1' | 'tier1_2' | 'all'
 
   // Custom Notes / Additions per Category
   const [customChiefComplaint, setCustomChiefComplaint] = useState('');
@@ -663,6 +666,18 @@ export default function HpiBuilder({ setActiveTab }) {
       }
     }
 
+    // 14. Standard Diagnostic Laboratory Orders & Medical Rule-Outs
+    let labNarrativeText = '';
+    if (includeLabsInNote) {
+      if (selectedLabTierPreset === 'tier1') {
+        labNarrativeText = 'Diagnostic Laboratory Orders: Ordered Tier 1 Universal Psychiatric Baseline (Hemoglobin A1c, Fasting Lipid Panel, TSH with reflex Free T4, CBC with differential, CMP-14). Patient counseled on 8–12 hour morning fasting requirements. Labs ordered to rule out glycemic/thyroid/hematologic organic mimics and establish baseline organ safety. ';
+      } else if (selectedLabTierPreset === 'tier1_2') {
+        labNarrativeText = 'Diagnostic Laboratory Orders: Ordered Tier 1 & 2 Comprehensive Psychiatric & Neuro-Nutrient Baseline (HbA1c, Lipid Panel, TSH w/ Free T4, CBC w/ diff, CMP-14, Vitamin B12, Serum Folate, 25-OH Vitamin D, Serum Magnesium, and Serum Ferritin). Patient counseled on 8–12 hour morning fasting. Ordered to rule out endocrine/metabolic disorders and micronutrient depletion driving cognitive fatigue, inattention, and affective symptoms. ';
+      } else {
+        labNarrativeText = 'Diagnostic Laboratory Orders: Ordered Full Comprehensive & Hormonal Workup (HbA1c, Lipid Panel, TSH w/ Free T4, CBC w/ diff, CMP-14, B12, Folate, 25-OH Vit D, Magnesium, Ferritin, Progesterone, Estradiol, and Prolactin). Patient educated on fasting protocols and cycle-specific timing (mid-luteal day 19–22) to evaluate endocrine, reproductive, and metabolic contributors to psychiatric symptoms. ';
+      }
+    }
+
     const clinicalParas = [
       para1,
       depPara,
@@ -674,7 +689,7 @@ export default function HpiBuilder({ setActiveTab }) {
       ocdSleepPara,
       customSymptomsPara,
       `${safetyPara}${ruleOutText}`.trim(),
-      `${medText}${screenerText}Patient was an active participant in diagnostic formulation and verbalizes agreement with the collaborative treatment plan.`.trim()
+      `${medText}${screenerText}${labNarrativeText}Patient was an active participant in diagnostic formulation and verbalizes agreement with the collaborative treatment plan.`.trim()
     ].filter(Boolean);
 
     return clinicalParas.join('\n\n');
@@ -694,6 +709,8 @@ export default function HpiBuilder({ setActiveTab }) {
     screenerMdq,
     screenerAims,
     includeScreenersInNote,
+    includeLabsInNote,
+    selectedLabTierPreset,
     diagnosticStatus
   ]);
 
@@ -1327,6 +1344,100 @@ export default function HpiBuilder({ setActiveTab }) {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Section 7: Standard Laboratory Workup & Medical Rule-Outs */}
+          <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <div className="flex items-center gap-2">
+                <FlaskConical className="w-4 h-4 text-teal-600" />
+                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                  7. Standard Psychiatric Laboratory Orders
+                </h3>
+              </div>
+              <label className="flex items-center gap-1.5 text-xs font-semibold text-teal-800 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={includeLabsInNote}
+                  onChange={(e) => setIncludeLabsInNote(e.target.checked)}
+                  className="rounded text-teal-600 focus:ring-teal-500 h-3.5 w-3.5"
+                />
+                <span>Include in HPI Plan</span>
+              </label>
+            </div>
+
+            <p className="text-[11px] text-slate-500">
+              Standardized baseline lab draw set for ruling out organic etiologies and establishing psychotropic baseline safety:
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => setSelectedLabTierPreset('tier1')}
+                className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                  selectedLabTierPreset === 'tier1'
+                    ? 'bg-teal-50 border-teal-500 ring-1 ring-teal-500'
+                    : 'bg-slate-50 border-slate-200 hover:bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs font-bold text-slate-900">Tier 1 Baseline</span>
+                  <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">100% Pt</span>
+                </div>
+                <p className="text-[10px] text-slate-500 leading-tight">
+                  A1c, Lipids, TSH w/ FT4, CBC w/ diff, CMP-14
+                </p>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedLabTierPreset('tier1_2')}
+                className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                  selectedLabTierPreset === 'tier1_2'
+                    ? 'bg-teal-50 border-teal-500 ring-1 ring-teal-500'
+                    : 'bg-slate-50 border-slate-200 hover:bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs font-bold text-slate-900">Tiers 1 &amp; 2</span>
+                  <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-sky-100 text-sky-800">+Nutrients</span>
+                </div>
+                <p className="text-[10px] text-slate-500 leading-tight">
+                  Adds B12, Folate, Vit D-25, Magnesium, Ferritin
+                </p>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedLabTierPreset('all')}
+                className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                  selectedLabTierPreset === 'all'
+                    ? 'bg-teal-50 border-teal-500 ring-1 ring-teal-500'
+                    : 'bg-slate-50 border-slate-200 hover:bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs font-bold text-slate-900">All Tiers</span>
+                  <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-purple-100 text-purple-800">+Hormones</span>
+                </div>
+                <p className="text-[10px] text-slate-500 leading-tight">
+                  Adds Progesterone, Estradiol, Prolactin
+                </p>
+              </button>
+            </div>
+
+            {typeof setActiveTab === 'function' && (
+              <div className="pt-1 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('labs')}
+                  className="text-[11px] font-bold text-teal-700 hover:text-teal-900 flex items-center gap-1 hover:underline cursor-pointer"
+                >
+                  <span>Open Full Lab Requisition Builder &amp; Fasting Protocols</span>
+                  <span>&rarr;</span>
+                </button>
+              </div>
+            )}
           </div>
 
         </div>

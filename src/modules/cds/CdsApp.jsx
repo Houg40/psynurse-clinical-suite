@@ -10,6 +10,7 @@ import AiAdvisor from './components/AiAdvisor';
 import Dsm5Checklists from './components/Dsm5Checklists';
 import PsychotherapyModule from './components/PsychotherapyModule';
 import MiscClinicalInfo from './components/MiscClinicalInfo';
+import StandardLabPanels from './components/StandardLabPanels';
 import FeedbackModal from './components/FeedbackModal';
 
 export default function CdsApp({ activeTab, setActiveTab }) {
@@ -25,6 +26,7 @@ export default function CdsApp({ activeTab, setActiveTab }) {
         {activeTab === 'advisor' && <AiAdvisor setActiveTab={setActiveTab} />}
         {activeTab === 'pathways' && <DecisionTreeWizard />}
         {activeTab === 'crosstaper' && <CrossTaperCalculator />}
+        {activeTab === 'labs' && <StandardLabPanels />}
         {activeTab === 'misc' && <MiscClinicalInfo />}
         {activeTab === 'safety' && <SafetyGuide />}
       </main>

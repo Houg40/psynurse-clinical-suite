@@ -309,6 +309,29 @@ export function auditEvaluation(rawText) {
     }
   }
 
+  // 5. Standard Psychiatric Baseline Workup (Intakes / Med Starts)
+  const isIntakeOrMedStart = lower.includes('initial') || lower.includes('intake') || lower.includes('start') || lower.includes('initiat') || lower.includes('plan:');
+  const hasAnyBaselineLabs = lower.includes('lab') || lower.includes('cbc') || lower.includes('cmp') || lower.includes('tsh') || lower.includes('a1c') || lower.includes('lipid') || lower.includes('blood draw');
+  if (isIntakeOrMedStart && !hasAnyBaselineLabs && !mentionsInattention) {
+    findings.push({
+      id: 'organic_standard_baseline_labs',
+      pillar: 'Medical & Organic Rule-Outs',
+      severity: 'low',
+      title: 'Standard Baseline Psychiatric Labs Recommended',
+      issue: 'Initial intake or pharmacotherapy initiation documented without ordering or reviewing baseline medical safety labs.',
+      rationale: "Monica's standard lab draw set (Tier 1: Hemoglobin A1c, Lipid Panel, TSH with Free T4, CBC with diff, CMP-14) rules out occult endocrine/metabolic mimics and establishes baseline hepatic/renal/hematologic safety prior to pharmacotherapy.",
+      ruleCode: "Monica's Standard Psychiatric Lab Protocol",
+      suggestedAddition: 'LABORATORY EVALUATION: Ordered Tier 1 Universal Psychiatric Baseline (HbA1c, Fasting Lipid Panel, TSH with reflex Free T4, CBC with diff, CMP-14). Patient counseled on 8–12 hour fasting instructions.'
+    });
+  } else if (hasAnyBaselineLabs && !mentionsInattention) {
+    passedChecks.push({
+      pillar: 'Organic Labs',
+      title: 'Psychiatric Laboratory Evaluation Documented',
+      detail: 'Baseline medical/metabolic lab workup or safety surveillance ordered.'
+    });
+  }
+
+
   // =========================================================================
   // PILLAR 3: DIAGNOSTIC DIFFERENTIAL & DSM-5 CRITERIA
   // =========================================================================
