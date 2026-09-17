@@ -10,8 +10,18 @@ import {
   ChevronRight,
   ClipboardList,
   Stethoscope,
-  BookOpen
+  BookOpen,
+  Search,
+  CheckCircle2,
+  AlertOctagon,
+  FileText
 } from 'lucide-react';
+import { 
+  DSM5_DOMAINS, 
+  DSM5_CRITERIA_LIST, 
+  calculateDiagnosticStatus 
+} from '../data/hpiDsm5Criteria.js';
+
 
 export default function HpiBuilder({ setActiveTab }) {
   const [copied, setCopied] = useState(false);
@@ -32,6 +42,10 @@ export default function HpiBuilder({ setActiveTab }) {
   const [patientGender, setPatientGender] = useState('female');
   const [visitType, setVisitType] = useState('initial'); // 'initial' | 'followup'
 
+  // DSM-5 Section 3 Active Domain Tab & Filter
+  const [activeDomainTab, setActiveDomainTab] = useState('all');
+  const [dsmSearchQuery, setDsmSearchQuery] = useState('');
+
   // Selected Checklist Items (Set of strings)
   const [selectedItems, setSelectedItems] = useState({
     // Chief Complaints
@@ -49,7 +63,8 @@ export default function HpiBuilder({ setActiveTab }) {
     'onset_life_transition': false,
     'onset_postpartum': false,
 
-    // Depressive SIGECAPS
+    // Depressive SIGECAPS (Mapped to DSM-5 MDD Criteria)
+    'dep_core_mood': true,
     'dep_anhedonia': true,
     'dep_low_energy': true,
     'dep_poor_concentration': true,
@@ -59,13 +74,16 @@ export default function HpiBuilder({ setActiveTab }) {
     'dep_appetite_increased': false,
     'dep_guilt_worthlessness': false,
     'dep_psychomotor_slowing': false,
+    'dep_suicidal_thoughts': false,
 
-    // Anxiety & Panic Features
+    // Generalized Anxiety Criteria (GAD-7)
     'anx_generalized_worry': true,
+    'anx_difficulty_controlling': true,
     'anx_physical_tension': true,
+    'anx_restlessness': true,
+    'anx_sleep_disturbance': true,
     'anx_panic_attacks': false,
     'anx_social_avoidance': false,
-    'anx_obsessive_thoughts': false,
 
     // Safety & Suicide Screening (Critical)
     'safety_denies_all_si': false,
@@ -114,6 +132,99 @@ export default function HpiBuilder({ setActiveTab }) {
     }));
   };
 
+  // Diagnostic Status & Threshold calculations
+  const diagnosticStatus = useMemo(() => {
+    return calculateDiagnosticStatus(selectedItems);
+  }, [selectedItems]);
+
+  // Filtered DSM-5 Criteria based on active domain tab and search input
+  const filteredCriteria = useMemo(() => {
+    return DSM5_CRITERIA_LIST.filter(c => {
+      const matchDomain = activeDomainTab === 'all' || c.domain === activeDomainTab;
+      const matchQuery = !dsmSearchQuery.trim() || 
+        c.label.toLowerCase().includes(dsmSearchQuery.toLowerCase()) ||
+        c.code.toLowerCase().includes(dsmSearchQuery.toLowerCase());
+      return matchDomain && matchQuery;
+    });
+  }, [activeDomainTab, dsmSearchQuery]);
+
+  const getDomainCheckedCount = (domainId) => {
+    if (domainId === 'all') {
+      return DSM5_CRITERIA_LIST.filter(c => !!selectedItems[c.id]).length;
+    }
+    return DSM5_CRITERIA_LIST.filter(c => c.domain === domainId && !!selectedItems[c.id]).length;
+  };
+
+  // Quick Select Helpers
+  const handleCheckCoreMdd = () => {
+    setSelectedItems(prev => ({
+      ...prev,
+      dep_core_mood: true,
+      dep_anhedonia: true,
+      dep_low_energy: true,
+      dep_poor_concentration: true,
+      dep_early_morning_wake: true,
+      dep_appetite_decreased: true
+    }));
+    setActiveDomainTab('mdd');
+  };
+
+  const handleCheckClassicGad = () => {
+    setSelectedItems(prev => ({
+      ...prev,
+      anx_generalized_worry: true,
+      anx_difficulty_controlling: true,
+      anx_physical_tension: true,
+      anx_restlessness: true,
+      anx_sleep_disturbance: true
+    }));
+    setActiveDomainTab('gad');
+  };
+
+  const handleCheckInattentiveAdhd = () => {
+    setSelectedItems(prev => ({
+      ...prev,
+      cc_adhd_focus: true,
+      adhd_careless_mistakes: true,
+      adhd_sustaining_attention: true,
+      adhd_poor_followthrough: true,
+      adhd_disorganization: true,
+      adhd_avoids_mental_effort: true,
+      adhd_easily_distracted: true,
+      adhd_forgetful_daily: true
+    }));
+    setActiveDomainTab('adhd_inatt');
+  };
+
+  const handleCheckPanicAttack = () => {
+    setSelectedItems(prev => ({
+      ...prev,
+      panic_recurrent_attacks: true,
+      panic_palpitations: true,
+      panic_shortness_breath: true,
+      panic_chest_pain: true,
+      panic_dizziness: true,
+      panic_trembling: true,
+      panic_fear_dying: true,
+      panic_anticipatory_worry: true
+    }));
+    setActiveDomainTab('panic');
+  };
+
+  const handleClearCurrentDomain = () => {
+    setSelectedItems(prev => {
+      const next = { ...prev };
+      if (activeDomainTab === 'all') {
+        DSM5_CRITERIA_LIST.forEach(c => { delete next[c.id]; });
+      } else {
+        DSM5_CRITERIA_LIST.filter(c => c.domain === activeDomainTab).forEach(c => {
+          delete next[c.id];
+        });
+      }
+      return next;
+    });
+  };
+
   // Quick Preset Templates
   const applyPreset = (presetName) => {
     if (presetName === 'mdd_anxiety') {
@@ -125,13 +236,18 @@ export default function HpiBuilder({ setActiveTab }) {
         'onset_recent_months': true,
         'onset_gradual': true,
         'onset_work_stress': true,
+        'dep_core_mood': true,
         'dep_anhedonia': true,
         'dep_low_energy': true,
         'dep_poor_concentration': true,
         'dep_early_morning_wake': true,
         'dep_appetite_decreased': true,
+        'dep_guilt_worthlessness': true,
         'anx_generalized_worry': true,
+        'anx_difficulty_controlling': true,
         'anx_physical_tension': true,
+        'anx_restlessness': true,
+        'anx_sleep_disturbance': true,
         'safety_passive_wishes_no_plan': true,
         'safety_protective_family': true,
         'safety_lethal_means_discussed': true,
@@ -150,6 +266,7 @@ export default function HpiBuilder({ setActiveTab }) {
       setScreenerAsrs('none');
       setScreenerMdq('none');
       setScreenerAims('none');
+      setActiveDomainTab('mdd');
     } else if (presetName === 'panic_gad') {
       setSelectedItems({
         'cc_anxiety_panic': true,
@@ -157,11 +274,19 @@ export default function HpiBuilder({ setActiveTab }) {
         'onset_gradual': true,
         'onset_life_transition': true,
         'anx_generalized_worry': true,
+        'anx_difficulty_controlling': true,
         'anx_physical_tension': true,
-        'anx_panic_attacks': true,
-        'anx_social_avoidance': true,
-        'dep_initial_insomnia': true,
-        'dep_low_energy': true,
+        'anx_restlessness': true,
+        'anx_sleep_disturbance': true,
+        'panic_recurrent_attacks': true,
+        'panic_palpitations': true,
+        'panic_shortness_breath': true,
+        'panic_chest_pain': true,
+        'panic_dizziness': true,
+        'panic_trembling': true,
+        'panic_fear_dying': true,
+        'panic_anticipatory_worry': true,
+        'agora_avoidance': true,
         'safety_denies_all_si': true,
         'safety_denies_hi': true,
         'ro_denies_mania': true,
@@ -178,15 +303,56 @@ export default function HpiBuilder({ setActiveTab }) {
       setScreenerAsrs('none');
       setScreenerMdq('none');
       setScreenerAims('none');
+      setActiveDomainTab('panic');
+    } else if (presetName === 'adhd_inattentive') {
+      setSelectedItems({
+        'cc_adhd_focus': true,
+        'cc_brain_fog': true,
+        'cc_insomnia': true,
+        'onset_gradual': true,
+        'onset_work_stress': true,
+        'adhd_careless_mistakes': true,
+        'adhd_sustaining_attention': true,
+        'adhd_mind_elsewhere': true,
+        'adhd_poor_followthrough': true,
+        'adhd_disorganization': true,
+        'adhd_avoids_mental_effort': true,
+        'adhd_easily_distracted': true,
+        'adhd_forgetful_daily': true,
+        'anx_generalized_worry': true,
+        'sleep_initial_insomnia': true,
+        'safety_denies_all_si': true,
+        'safety_denies_hi': true,
+        'ro_denies_mania': true,
+        'ro_denies_decreased_sleep_need': true,
+        'ro_denies_hallucinations': true,
+        'sub_social_alcohol_only': true,
+        'sub_denies_illicit': true,
+        'med_naive': true
+      });
+      setCustomPrecipitant('escalating managerial complexity, multiple project deadlines, and remote work disorganization');
+      setCustomPriorMeds('Psychotropic naive; relies on 3-4 cups of coffee daily for task initiation');
+      setScreenerPhq9('7');
+      setScreenerGad7('8');
+      setScreenerAsrs('positive');
+      setScreenerMdq('none');
+      setScreenerAims('none');
+      setActiveDomainTab('adhd_inatt');
     } else if (presetName === 'bipolar_screen') {
       setSelectedItems({
         'cc_depressed_mood': true,
         'cc_mood_swings': true,
         'cc_insomnia': true,
         'onset_gradual': true,
+        'dep_core_mood': true,
         'dep_anhedonia': true,
         'dep_low_energy': true,
         'dep_psychomotor_slowing': true,
+        'bip_elevated_mood': true,
+        'bip_decreased_sleep': true,
+        'bip_racing_thoughts': true,
+        'bip_pressured_speech': true,
+        'bip_distractibility': true,
         'safety_passive_wishes_no_plan': true,
         'safety_protective_family': true,
         'safety_lethal_means_discussed': true,
@@ -202,8 +368,41 @@ export default function HpiBuilder({ setActiveTab }) {
       setScreenerAsrs('none');
       setScreenerMdq('positive');
       setScreenerAims('none');
+      setActiveDomainTab('bipolar');
+    } else if (presetName === 'ptsd_trauma') {
+      setSelectedItems({
+        'cc_anxiety_panic': true,
+        'cc_insomnia': true,
+        'cc_mood_swings': true,
+        'onset_gradual': true,
+        'ptsd_trauma_exposure': true,
+        'ptsd_intrusive_memories': true,
+        'ptsd_nightmares': true,
+        'ptsd_cue_reactivity': true,
+        'ptsd_avoidance': true,
+        'ptsd_negative_cognitions': true,
+        'ptsd_hypervigilance': true,
+        'sleep_terminal_insomnia': true,
+        'anx_physical_tension': true,
+        'safety_denies_all_si': true,
+        'safety_denies_hi': true,
+        'ro_denies_mania': true,
+        'ro_denies_hallucinations': true,
+        'sub_social_alcohol_only': true,
+        'sub_denies_illicit': true,
+        'med_naive': true
+      });
+      setCustomPrecipitant('anniversary of motor vehicle collision and return to driving on interstate highways');
+      setCustomPriorMeds('Tried Hydroxyzine 25mg PRN with minimal effect on trauma nightmares');
+      setScreenerPhq9('11');
+      setScreenerGad7('14');
+      setScreenerAsrs('none');
+      setScreenerMdq('none');
+      setScreenerAims('none');
+      setActiveDomainTab('ptsd');
     }
   };
+
 
   const handleReset = () => {
     setSelectedItems({});
@@ -255,30 +454,116 @@ export default function HpiBuilder({ setActiveTab }) {
       para1 += `Symptoms are described as ${onsetParts.join(', ')}. `;
     }
 
-    // 3. Clinical Symptom Complex (Depression & Anxiety)
-    const symptoms = [];
-    if (selectedItems['dep_anhedonia']) symptoms.push('pervasive anhedonia and loss of interest in previously enjoyed activities');
-    if (selectedItems['dep_low_energy']) symptoms.push('daily fatigue and diminished vitality');
-    if (selectedItems['dep_poor_concentration']) symptoms.push('concentration deficits and difficulty completing complex executive tasks');
-    if (selectedItems['dep_early_morning_wake']) symptoms.push('terminal insomnia with early morning awakenings (3:00-4:00 AM) and rumination');
-    if (selectedItems['dep_initial_insomnia']) symptoms.push('initial insomnia with sleep latency exceeding 90-120 minutes');
-    if (selectedItems['dep_appetite_decreased']) symptoms.push('hyporexia with unintentional weight loss');
-    if (selectedItems['dep_appetite_increased']) symptoms.push('hyperphagia with carbohydrate craving');
-    if (selectedItems['dep_guilt_worthlessness']) symptoms.push('excessive feelings of guilt and perceived inadequacy');
-    if (selectedItems['dep_psychomotor_slowing']) symptoms.push('subjective psychomotor retardation and heaviness');
-    if (selectedItems['anx_generalized_worry']) symptoms.push('pervasive free-floating worry and difficulty controlling anxious thoughts');
-    if (selectedItems['anx_physical_tension']) symptoms.push('somatic tension including muscle tightness, jaw clenching, and restlessness');
-    if (selectedItems['anx_panic_attacks']) symptoms.push('episodic panic symptoms including palpitations, dyspnea, and sudden impending dread');
-    if (selectedItems['anx_social_avoidance']) symptoms.push('social withdrawal and avoidance of interpersonal interactions');
-
-    if (symptoms.length > 0) {
-      para1 += `Current symptom presentation is notable for ${symptoms.join(', ')}. `;
+    // 3. Depressive Neurovegetative & Affective Symptoms (MDD SIGECAPS)
+    const depNarratives = [];
+    DSM5_CRITERIA_LIST.filter(c => c.domain === 'mdd').forEach(c => {
+      if (selectedItems[c.id]) depNarratives.push(c.narrative);
+    });
+    // Fallback/backward compat with old keys
+    if (selectedItems['dep_anhedonia'] && !depNarratives.includes('pervasive anhedonia and loss of interest in previously enjoyed activities')) {
+      depNarratives.push('pervasive anhedonia and loss of interest in previously enjoyed activities');
     }
-    if (customSymptoms.trim()) {
-      para1 += `Additional clinical symptom details: ${customSymptoms.trim()}. `;
+    if (selectedItems['dep_low_energy'] && !depNarratives.includes('daily fatigue and diminished physical vitality')) {
+      depNarratives.push('daily fatigue and diminished physical vitality');
+    }
+    if (selectedItems['dep_poor_concentration'] && !depNarratives.includes('concentration deficits, brain fog, and difficulty completing complex executive tasks')) {
+      depNarratives.push('concentration deficits, brain fog, and difficulty completing complex executive tasks');
     }
 
-    // 4. Safety & Suicide Risk Assessment
+    let depPara = '';
+    if (depNarratives.length > 0) {
+      const thresholdNote = diagnosticStatus.mdd.thresholdMet
+        ? `(${diagnosticStatus.mdd.count}/9 DSM-5 criteria endorsed, meeting clinical threshold for Major Depressive Episode)`
+        : `(${diagnosticStatus.mdd.count}/9 depressive symptoms endorsed)`;
+      depPara = `Clinical evaluation of depressive symptoms is notable for ${depNarratives.join(', ')} ${thresholdNote}. `;
+    }
+
+    // 4. Generalized Anxiety & Somatic Features (GAD)
+    const gadNarratives = [];
+    DSM5_CRITERIA_LIST.filter(c => c.domain === 'gad').forEach(c => {
+      if (selectedItems[c.id]) gadNarratives.push(c.narrative);
+    });
+    let gadPara = '';
+    if (gadNarratives.length > 0) {
+      const gadNote = diagnosticStatus.gad.thresholdMet
+        ? `(${diagnosticStatus.gad.count}/6 somatic criteria endorsed with chronic uncontrollable worry, meeting diagnostic threshold for Generalized Anxiety Disorder)`
+        : `(${diagnosticStatus.gad.count}/6 somatic anxiety symptoms endorsed)`;
+      gadPara = `Anxiety evaluation is notable for ${gadNarratives.join(', ')} ${gadNote}. `;
+    }
+
+    // 5. Adult ADHD & Executive Functioning
+    const adhdInattNarratives = [];
+    DSM5_CRITERIA_LIST.filter(c => c.domain === 'adhd_inatt').forEach(c => {
+      if (selectedItems[c.id]) adhdInattNarratives.push(c.narrative);
+    });
+    const adhdHyperNarratives = [];
+    DSM5_CRITERIA_LIST.filter(c => c.domain === 'adhd_hyper').forEach(c => {
+      if (selectedItems[c.id]) adhdHyperNarratives.push(c.narrative);
+    });
+    let adhdPara = '';
+    if (adhdInattNarratives.length > 0 || adhdHyperNarratives.length > 0) {
+      const parts = [];
+      if (adhdInattNarratives.length > 0) {
+        const inattNote = diagnosticStatus.adhdInatt.thresholdMet
+          ? `(${diagnosticStatus.adhdInatt.count}/9 inattention symptoms endorsed, meeting DSM-5 adult diagnostic threshold of >= 5)`
+          : `(${diagnosticStatus.adhdInatt.count}/9 inattention symptoms endorsed)`;
+        parts.push(`marked inattention characterized by ${adhdInattNarratives.join(', ')} ${inattNote}`);
+      }
+      if (adhdHyperNarratives.length > 0) {
+        const hyperNote = diagnosticStatus.adhdHyper.thresholdMet
+          ? `(${diagnosticStatus.adhdHyper.count}/9 hyperactivity/impulsivity criteria met)`
+          : `(${diagnosticStatus.adhdHyper.count}/9 hyperactivity symptoms)`;
+        parts.push(`hyperactivity and impulsivity features including ${adhdHyperNarratives.join(', ')} ${hyperNote}`);
+      }
+      adhdPara = `Executive functioning assessment demonstrates ${parts.join('. Furthermore, presentation is notable for ')}. Symptoms cause marked occupational/academic inefficiency and disorganization. `;
+    }
+
+    // 6. Bipolar Spectrum Signs (DIGFAST)
+    const bipNarratives = [];
+    DSM5_CRITERIA_LIST.filter(c => c.domain === 'bipolar').forEach(c => {
+      if (selectedItems[c.id]) bipNarratives.push(c.narrative);
+    });
+    let bipPara = '';
+    if (bipNarratives.length > 0) {
+      bipPara = `Screening for affective elevation reveals ${bipNarratives.join(', ')} (${diagnosticStatus.bipolar.count}/8 DIGFAST criteria endorsed; bipolar spectrum rule-out warranted). `;
+    }
+
+    // 7. Panic Disorder & Agoraphobia
+    const panicNarratives = [];
+    DSM5_CRITERIA_LIST.filter(c => c.domain === 'panic').forEach(c => {
+      if (selectedItems[c.id]) panicNarratives.push(c.narrative);
+    });
+    let panicPara = '';
+    if (panicNarratives.length > 0) {
+      const panicNote = diagnosticStatus.panic.thresholdMet
+        ? `(${diagnosticStatus.panic.count}/13 physical symptoms endorsed, meeting formal panic attack threshold)`
+        : `(${diagnosticStatus.panic.count} panic features endorsed)`;
+      panicPara = `Episodic panic assessment confirms ${panicNarratives.join(', ')} ${panicNote}. `;
+    }
+
+    // 8. PTSD & Trauma Intrusions
+    const ptsdNarratives = [];
+    DSM5_CRITERIA_LIST.filter(c => c.domain === 'ptsd').forEach(c => {
+      if (selectedItems[c.id]) ptsdNarratives.push(c.narrative);
+    });
+    let ptsdPara = '';
+    if (ptsdNarratives.length > 0) {
+      ptsdPara = `Trauma-related symptom screening is significant for ${ptsdNarratives.join(', ')}. `;
+    }
+
+    // 9. OCD & Sleep Architecture
+    const ocdSleepNarratives = [];
+    DSM5_CRITERIA_LIST.filter(c => c.domain === 'ocd_sleep').forEach(c => {
+      if (selectedItems[c.id]) ocdSleepNarratives.push(c.narrative);
+    });
+    let ocdSleepPara = '';
+    if (ocdSleepNarratives.length > 0) {
+      ocdSleepPara = `Sleep architecture and intrusive thoughts evaluation: ${ocdSleepNarratives.join(', ')}. `;
+    }
+
+    let customSymptomsPara = customSymptoms.trim() ? `Additional clinical details: ${customSymptoms.trim()}. ` : '';
+
+    // 10. Safety & Suicide Risk Assessment
     let safetyPara = '';
     if (selectedItems['safety_denies_all_si']) {
       safetyPara = `${pronounSubject} unequivocally denies active or passive suicidal ideation, intent, or plan. Denies history of self-harm. `;
@@ -299,7 +584,7 @@ export default function HpiBuilder({ setActiveTab }) {
       safetyPara += `Safety & collateral notes: ${customSafety.trim()}. `;
     }
 
-    // 5. Differential & Rule-Outs
+    // 11. Differential & Rule-Outs
     const ruleOuts = [];
     if (selectedItems['ro_denies_mania']) ruleOuts.push('past manic, hypomanic, or euphoric episodes');
     if (selectedItems['ro_denies_decreased_sleep_need']) ruleOuts.push('periods of decreased need for sleep with energized daytime function');
@@ -311,7 +596,7 @@ export default function HpiBuilder({ setActiveTab }) {
       ruleOutText = `${pronounSubject} denies ${ruleOuts.join(', ')}. `;
     }
 
-    // 6. Substance & Medication Trials
+    // 12. Substance & Medication Trials
     let medText = '';
     if (selectedItems['sub_social_alcohol_only']) {
       medText += `Substance use history notable for occasional social alcohol consumption only; denies illicit substance use or prescription misuse. `;
@@ -326,7 +611,7 @@ export default function HpiBuilder({ setActiveTab }) {
       medText += `Past psychopharmacologic history: ${customPriorMeds || 'Reports previous trial of SSRI discontinued due to side effects'}. `;
     }
 
-    // 7. Standardized Clinical Screeners & Score Interpretations
+    // 13. Standardized Clinical Screeners & Score Interpretations
     let screenerText = '';
     if (includeScreenersInNote) {
       const screenerParts = [];
@@ -378,8 +663,39 @@ export default function HpiBuilder({ setActiveTab }) {
       }
     }
 
-    return `${para1}\n\n${safetyPara}${ruleOutText}\n\n${medText}${screenerText}Patient was an active participant in diagnostic formulation and verbalizes agreement with the collaborative treatment plan.`;
-  }, [patientAge, patientGender, visitType, selectedItems, customPrecipitant, customPriorMeds, screenerPhq9, screenerGad7, screenerAsrs, screenerMdq, screenerAims, includeScreenersInNote]);
+    const clinicalParas = [
+      para1,
+      depPara,
+      gadPara,
+      adhdPara,
+      panicPara,
+      bipPara,
+      ptsdPara,
+      ocdSleepPara,
+      customSymptomsPara,
+      `${safetyPara}${ruleOutText}`.trim(),
+      `${medText}${screenerText}Patient was an active participant in diagnostic formulation and verbalizes agreement with the collaborative treatment plan.`.trim()
+    ].filter(Boolean);
+
+    return clinicalParas.join('\n\n');
+  }, [
+    patientAge,
+    patientGender,
+    visitType,
+    selectedItems,
+    customChiefComplaint,
+    customPrecipitant,
+    customSymptoms,
+    customSafety,
+    customPriorMeds,
+    screenerPhq9,
+    screenerGad7,
+    screenerAsrs,
+    screenerMdq,
+    screenerAims,
+    includeScreenersInNote,
+    diagnosticStatus
+  ]);
 
   const handleCopyNote = () => {
     navigator.clipboard.writeText(synthesizedHpi);
@@ -438,10 +754,22 @@ export default function HpiBuilder({ setActiveTab }) {
             Generalized Anxiety &amp; Panic Attacks
           </button>
           <button
+            onClick={() => applyPreset('adhd_inattentive')}
+            className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 hover:bg-purple-50 hover:text-purple-700 text-slate-700 border border-slate-200/80 transition-all"
+          >
+            Adult ADHD (Inattentive)
+          </button>
+          <button
             onClick={() => applyPreset('bipolar_screen')}
-            className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 border border-slate-200/80 transition-all"
+            className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 hover:bg-amber-50 hover:text-amber-800 text-slate-700 border border-slate-200/80 transition-all"
           >
             Bipolar II Rule-Out Complex
+          </button>
+          <button
+            onClick={() => applyPreset('ptsd_trauma')}
+            className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 hover:bg-rose-50 hover:text-rose-700 text-slate-700 border border-slate-200/80 transition-all"
+          >
+            PTSD &amp; Trauma Intrusions
           </button>
         </div>
       </div>
@@ -541,70 +869,211 @@ export default function HpiBuilder({ setActiveTab }) {
             </div>
           </div>
 
-          {/* Section 3: Target Symptoms (SIGECAPS & Anxiety) */}
-          <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-3">
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-              3. DSM-5 Neurovegetative &amp; Anxiety Criteria (SIGECAPS)
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {[
-                { id: 'dep_anhedonia', label: 'Pervasive Anhedonia / Loss of Interest' },
-                { id: 'dep_low_energy', label: 'Daily Lethargy / Fatigue' },
-                { id: 'dep_poor_concentration', label: 'Poor Focus / Executive Deficits' },
-                { id: 'dep_early_morning_wake', label: 'Terminal Insomnia (Awake 3-4 AM)' },
-                { id: 'dep_initial_insomnia', label: 'Initial Insomnia (>90 min latency)' },
-                { id: 'dep_appetite_decreased', label: 'Decreased Appetite / Weight Loss' },
-                { id: 'dep_guilt_worthlessness', label: 'Excessive Guilt / Worthlessness' },
-                { id: 'anx_generalized_worry', label: 'Free-Floating Uncontrollable Worry' },
-                { id: 'anx_physical_tension', label: 'Somatic Muscle Tension & Jitteriness' },
-                { id: 'anx_panic_attacks', label: 'Spontaneous Panic Episodes' },
-                { id: 'anx_social_avoidance', label: 'Social Isolation / Withdrawal' }
-              ].map((item) => (
-                <label
-                  key={item.id}
-                  className={`flex items-center gap-2 p-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all ${
-                    selectedItems[item.id]
-                      ? 'bg-teal-50 border-teal-500 text-teal-900 shadow-2xs font-semibold'
-                      : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
+          {/* Section 3: DSM-5 Diagnostic Criteria (Comprehensive Evaluation from Standalone PDFs) */}
+          <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+              <div>
+                <div className="flex items-center gap-2">
+                  <ClipboardList className="w-4 h-4 text-teal-600" />
+                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                    3. DSM-5 Diagnostic Criteria Checklist (From Evaluation PDFs)
+                  </h3>
+                </div>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Criteria mapped directly to the 26 practice DSM-5 assessment templates with live diagnostic thresholds:
+                </p>
+              </div>
+
+              {/* Live Diagnostic Threshold Pill summary */}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {diagnosticStatus.mdd.thresholdMet && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                    MDD Met ({diagnosticStatus.mdd.count}/9)
+                  </span>
+                )}
+                {diagnosticStatus.gad.thresholdMet && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-teal-100 text-teal-800 border border-teal-300 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-teal-600" />
+                    GAD Met ({diagnosticStatus.gad.count}/6)
+                  </span>
+                )}
+                {diagnosticStatus.adhdInatt.thresholdMet && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-purple-100 text-purple-800 border border-purple-300 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-purple-600" />
+                    ADHD-Inatt Met ({diagnosticStatus.adhdInatt.count}/9)
+                  </span>
+                )}
+                {diagnosticStatus.bipolar.thresholdMet && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3 text-amber-600" />
+                    Bipolar Warning ({diagnosticStatus.bipolar.count}/8)
+                  </span>
+                )}
+                {diagnosticStatus.panic.thresholdMet && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-100 text-rose-800 border border-rose-300 flex items-center gap-1">
+                    <AlertOctagon className="w-3 h-3 text-rose-600" />
+                    Panic Attack Met ({diagnosticStatus.panic.count}/13)
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Category Filter Tabs & Search Controls */}
+            <div className="space-y-2.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                {/* Search Filter */}
+                <div className="relative flex-1 max-w-sm">
+                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
                   <input
-                    type="checkbox"
-                    checked={!!selectedItems[item.id]}
-                    onChange={() => toggleItem(item.id)}
-                    className="rounded text-teal-600 focus:ring-teal-500 h-3.5 w-3.5"
+                    type="text"
+                    value={dsmSearchQuery}
+                    onChange={(e) => setDsmSearchQuery(e.target.value)}
+                    placeholder="Filter symptoms (e.g., sleep, focus, panic, guilt)..."
+                    className="w-full text-xs pl-8 pr-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 focus:bg-white focus:ring-2 focus:ring-teal-500 focus:outline-none"
                   />
-                  <span className="truncate">{item.label}</span>
-                </label>
-              ))}
+                </div>
+
+                {/* Quick Select Buttons */}
+                <div className="flex items-center gap-1 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={handleCheckCoreMdd}
+                    className="px-2 py-1 rounded-lg text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                    title="Check 5 core MDD criteria"
+                  >
+                    + Core MDD
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCheckClassicGad}
+                    className="px-2 py-1 rounded-lg text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                    title="Check GAD worry and somatic tension"
+                  >
+                    + Classic GAD
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCheckInattentiveAdhd}
+                    className="px-2 py-1 rounded-lg text-[10px] font-bold bg-purple-50 hover:bg-purple-100 text-purple-700 transition-colors"
+                    title="Check inattentive ADHD criteria"
+                  >
+                    + Inattentive ADHD
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCheckPanicAttack}
+                    className="px-2 py-1 rounded-lg text-[10px] font-bold bg-rose-50 hover:bg-rose-100 text-rose-700 transition-colors"
+                    title="Check panic attack symptoms"
+                  >
+                    + Panic Attack
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleClearCurrentDomain}
+                    className="px-2 py-1 rounded-lg text-[10px] font-bold text-slate-400 hover:text-slate-600 transition-colors"
+                    title="Clear criteria in this view"
+                  >
+                    Clear View
+                  </button>
+                </div>
+              </div>
+
+              {/* Category Filter Tabs Bar */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
+                {DSM5_DOMAINS.map((domain) => {
+                  const count = getDomainCheckedCount(domain.id);
+                  const isActive = activeDomainTab === domain.id;
+                  return (
+                    <button
+                      key={domain.id}
+                      type="button"
+                      onClick={() => setActiveDomainTab(domain.id)}
+                      className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
+                        isActive
+                          ? 'bg-teal-600 text-white shadow-xs'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      <span>{domain.short}</span>
+                      {count > 0 && (
+                        <span className={`px-1 py-0.2 rounded-full text-[9px] font-extrabold ${
+                          isActive ? 'bg-white text-teal-800' : 'bg-teal-100 text-teal-800'
+                        }`}>
+                          {count}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Filtered Criteria Checklist Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[460px] overflow-y-auto pr-1">
+              {filteredCriteria.map((item) => {
+                const isChecked = !!selectedItems[item.id];
+                return (
+                  <label
+                    key={item.id}
+                    className={`flex items-start gap-2.5 p-2.5 rounded-xl border text-xs cursor-pointer transition-all ${
+                      isChecked
+                        ? 'bg-teal-50/90 border-teal-500 text-teal-950 shadow-2xs font-semibold'
+                        : 'bg-slate-50/60 border-slate-200 text-slate-700 hover:bg-slate-100/80'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => toggleItem(item.id)}
+                      className="rounded text-teal-600 focus:ring-teal-500 h-3.5 w-3.5 mt-0.5 flex-shrink-0"
+                    />
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 mb-0.5">
+                        <span className="text-[10px] font-extrabold text-teal-700 uppercase tracking-wider bg-teal-100/70 px-1 py-0.2 rounded">
+                          {item.code}
+                        </span>
+                        {item.isCore && (
+                          <span className="text-[9px] font-extrabold text-amber-700 bg-amber-100 px-1 py-0.2 rounded uppercase">
+                            CORE
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[11.5px] leading-snug">{item.label}</p>
+                    </div>
+                  </label>
+                );
+              })}
             </div>
 
             {/* Custom Precipitants input */}
-            <div className="pt-2">
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Identified Precipitant / Stressor:
-              </label>
-              <input
-                type="text"
-                value={customPrecipitant}
-                onChange={(e) => setCustomPrecipitant(e.target.value)}
-                placeholder="e.g., job restructuring, marital strain, recent loss..."
-                className="w-full text-xs font-medium py-2.5 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
-              />
-            </div>
+            <div className="pt-2 border-t border-slate-100 space-y-2">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Identified Precipitant / Stressor:
+                </label>
+                <input
+                  type="text"
+                  value={customPrecipitant}
+                  onChange={(e) => setCustomPrecipitant(e.target.value)}
+                  placeholder="e.g., job restructuring, marital strain, recent bereavement, postpartum transition..."
+                  className="w-full text-xs font-medium py-2 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
+                />
+              </div>
 
-            {/* Custom Symptom Details input */}
-            <div className="pt-1">
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Additional Symptom Nuances / Details:
-              </label>
-              <input
-                type="text"
-                value={customSymptoms}
-                onChange={(e) => setCustomSymptoms(e.target.value)}
-                placeholder="e.g., jaw clenching leading to morning tension headaches, crying spells 3x/week..."
-                className="w-full text-xs font-medium py-2.5 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
-              />
+              {/* Custom Symptom Details input */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Additional Symptom Nuances / Frequency / Clinical Details:
+                </label>
+                <input
+                  type="text"
+                  value={customSymptoms}
+                  onChange={(e) => setCustomSymptoms(e.target.value)}
+                  placeholder="e.g., panic attacks occur 2-3x/week while driving on I-5; crying spells every morning..."
+                  className="w-full text-xs font-medium py-2 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:outline-none shadow-2xs"
+                />
+              </div>
             </div>
           </div>
 
