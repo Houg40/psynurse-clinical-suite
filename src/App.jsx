@@ -4,12 +4,27 @@ import CdsSubNav from './components/CdsSubNav';
 import CfsSubNav from './components/CfsSubNav';
 import CdsApp from './modules/cds/CdsApp';
 import CfsApp from './modules/cfs/CfsApp';
+import UpdateNotification from './components/UpdateNotification';
+import { useAppUpdate } from './hooks/useAppUpdate';
 
 export default function App() {
   const [currentModule, setCurrentModule] = useState('cds');
   const [cdsActiveTab, setCdsActiveTab] = useState('screeners');
   const [cfsActivePhase, setCfsActivePhase] = useState('interview');
   const [cluesCount, setCluesCount] = useState({ revealed: 0, total: 4 });
+
+  // PWA live update and "Restart to Update" state
+  const {
+    updateAvailable,
+    isChecking,
+    isUpdating,
+    checkResult,
+    isDismissed,
+    checkForUpdates,
+    restartToUpdate,
+    dismissNotification,
+    currentVersion
+  } = useAppUpdate();
 
   const handleCluesUpdated = (revealed, total) => {
     setCluesCount({ revealed, total });
@@ -26,6 +41,12 @@ export default function App() {
           setCdsActiveTab={setCdsActiveTab}
           cfsActivePhase={cfsActivePhase}
           setCfsActivePhase={setCfsActivePhase}
+          updateAvailable={updateAvailable}
+          isChecking={isChecking}
+          checkResult={checkResult}
+          checkForUpdates={checkForUpdates}
+          restartToUpdate={restartToUpdate}
+          currentVersion={currentVersion}
         />
 
         {/* Dynamic Contextual Sub-Nav */}
@@ -64,6 +85,15 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      {/* Floating PWA Update Notification Banner */}
+      <UpdateNotification
+        updateAvailable={updateAvailable}
+        isUpdating={isUpdating}
+        isDismissed={isDismissed}
+        onRestart={restartToUpdate}
+        onDismiss={dismissNotification}
+      />
     </div>
   );
 }

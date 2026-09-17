@@ -7,7 +7,10 @@ import {
   Sparkles, 
   BookOpen,
   SlidersHorizontal,
-  GraduationCap
+  GraduationCap,
+  RefreshCw,
+  CheckCircle2,
+  AlertCircle
 } from 'lucide-react';
 
 export default function SuiteHeader({ 
@@ -16,7 +19,13 @@ export default function SuiteHeader({
   cdsActiveTab, 
   setCdsActiveTab, 
   cfsActivePhase, 
-  setCfsActivePhase 
+  setCfsActivePhase,
+  updateAvailable = false,
+  isChecking = false,
+  checkResult = null,
+  checkForUpdates = () => {},
+  restartToUpdate = () => {},
+  currentVersion = '1.1.0'
 }) {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isInstallable, setIsInstallable] = useState(false);
@@ -145,6 +154,53 @@ export default function SuiteHeader({
               <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-800 text-slate-300 text-[11px] font-semibold border border-slate-700">
                 ✓ Desktop App
               </span>
+            )}
+
+            {/* Application Update Controls & Restart to Update Button */}
+            {updateAvailable ? (
+              <button
+                onClick={restartToUpdate}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black text-xs shadow-lg shadow-teal-500/30 animate-pulse transition-all transform active:scale-95 cursor-pointer"
+                title="A new clinical update is ready! Click to restart and activate immediately."
+              >
+                <RefreshCw className="w-3.5 h-3.5 animate-spin text-slate-950" />
+                <span>Restart to Update</span>
+              </button>
+            ) : (
+              <div className="relative flex items-center">
+                <button
+                  onClick={checkForUpdates}
+                  disabled={isChecking}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/70 text-xs font-semibold transition-all cursor-pointer"
+                  title="Check for PsyNurse Clinical Suite updates"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 text-slate-400 ${isChecking ? 'animate-spin text-teal-400' : ''}`} />
+                  <span className="hidden sm:inline">
+                    {isChecking ? 'Checking...' : `Check for Updates (v${currentVersion})`}
+                  </span>
+                </button>
+                
+                {checkResult && (
+                  <div className={`absolute top-full right-0 mt-2 px-3 py-1.5 rounded-lg text-xs font-medium shadow-xl border z-50 whitespace-nowrap animate-in fade-in slide-in-from-top-1 ${
+                    checkResult.type === 'success' 
+                      ? 'bg-emerald-950 text-emerald-200 border-emerald-700' 
+                      : checkResult.type === 'error'
+                      ? 'bg-rose-950 text-rose-200 border-rose-700'
+                      : 'bg-slate-800 text-slate-200 border-slate-700'
+                  }`}>
+                    <div className="flex items-center gap-1.5">
+                      {checkResult.type === 'success' ? (
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      ) : checkResult.type === 'error' ? (
+                        <AlertCircle className="w-3.5 h-3.5 text-rose-400" />
+                      ) : (
+                        <CheckCircle2 className="w-3.5 h-3.5 text-teal-400" />
+                      )}
+                      <span>{checkResult.message}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
 
           </div>
