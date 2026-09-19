@@ -9,7 +9,7 @@ export default function CdsSubNav({ activeTab, setActiveTab }) {
     { id: 'psychotherapy', label: 'Psychotherapy', shortLabel: 'Therapy', icon: Sparkles },
     { id: 'medications', label: 'Dosing Guide', shortLabel: 'Dosing', icon: Pill },
     { id: 'interactions', label: 'QTc & Interactions', shortLabel: 'Interactions', icon: HeartPulse },
-    { id: 'advisor', label: 'AI Clinical Advisor', shortLabel: 'AI Advisor', icon: Bot },
+    { id: 'advisor', label: 'Clinical Reference Assistant', shortLabel: 'Ref. Assistant', icon: Bot },
     { id: 'pathways', label: 'Step-Therapy', shortLabel: 'Pathways', icon: GitFork },
     { id: 'crosstaper', label: 'Cross-Taper', shortLabel: 'Cross-Taper', icon: ArrowLeftRight },
     { id: 'labs', label: 'Standard Labs', shortLabel: 'Labs', icon: FlaskConical },

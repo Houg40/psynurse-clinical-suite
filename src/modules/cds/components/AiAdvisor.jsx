@@ -442,7 +442,7 @@ Reviewing case against APA practice guidelines and Stahl's Prescriber principles
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-xl font-black text-white">AI Clinical Advisor &amp; Assistant</h2>
+                <h2 className="text-xl font-black text-white">Clinical Reference Assistant</h2>
                 <span className="text-[10px] font-bold uppercase tracking-wider bg-teal-500/20 text-teal-300 border border-teal-500/40 px-2 py-0.5 rounded-full">
                   Zero-PHI Architecture
                 </span>

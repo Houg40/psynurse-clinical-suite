@@ -19,7 +19,7 @@ export default function FeedbackModal({ currentTab }) {
     psychotherapy: 'Psychotherapy Practice Scripts',
     medications: 'Medication Dosing Guide',
     interactions: 'QTc & Interactions',
-    advisor: 'AI Clinical Advisor',
+    advisor: 'Clinical Reference Assistant',
     pathways: 'Step-Therapy Pathways',
     crosstaper: 'Cross-Tapering Calculator',
     misc: 'Misc. Information & Pharmacology Pearls',

@@ -1460,7 +1460,7 @@ export default function HpiBuilder({ setActiveTab }) {
                 <button
                   onClick={handleAuditWithAi}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black transition-all shadow-sm"
-                  title="Send to AI Clinical Advisor for evaluation audit and missed criteria detection"
+                  title="Send to Clinical Reference Assistant for evaluation audit and missed criteria detection"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                   <span>Audit with AI</span>
