@@ -185,6 +185,14 @@ export default function FeedbackModal({ currentTab }) {
               </button>
             </div>
 
+            {/* PHI Disclaimer */}
+            <div className="flex items-start gap-2 p-2.5 bg-amber-50 border border-amber-200 rounded-xl mb-1">
+              <span className="text-amber-600 flex-shrink-0 text-sm leading-none mt-0.5">⚠️</span>
+              <p className="text-[11px] text-amber-900 leading-snug">
+                <strong>Do not include patient-identifying information.</strong> This feedback is transmitted to an external service (formsubmit.co) with no HIPAA Business Associate Agreement. Keep notes to clinical workflow topics, dosing preferences, and feature requests only.
+              </p>
+            </div>
+
             {submitted ? (
               <div className="py-8 text-center space-y-3">
                 <div className="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto">
@@ -294,7 +302,10 @@ export default function FeedbackModal({ currentTab }) {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                <div className="text-[10px] text-slate-400 text-center pt-2 border-t border-slate-100 pb-1">
+                  No patient names, DOBs, or identifying details — clinical workflow notes only.
+                </div>
+                <div className="flex items-center justify-between">
                   <button
                     type="button"
                     onClick={copyFeedback}
