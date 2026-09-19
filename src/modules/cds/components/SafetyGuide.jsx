@@ -87,9 +87,84 @@ export default function SafetyGuide() {
               <strong className="text-slate-900 block">Citalopram / High-dose Escitalopram:</strong>
               <span className="text-slate-600">ECG / QTc interval monitoring if age &gt;60 or on concurrent QTc prolonging agents.</span>
             </div>
+            {/* ── NEW: Depakote Myoclonus Rule ── */}
+            <div className="p-2.5 bg-red-50 border border-red-200 rounded-lg">
+              <div className="flex items-center justify-between mb-1">
+                <strong className="text-red-950 block">Divalproex / Valproate (Depakote) — Myoclonus:</strong>
+                <span className="text-[10px] font-bold bg-red-200 text-red-900 px-1.5 py-0.5 rounded ml-2 whitespace-nowrap">ACTION REQUIRED</span>
+              </div>
+              <span className="text-red-900 leading-relaxed">
+                <strong>If a patient on Depakote reports dropping objects, clumsiness, or involuntary jerking:</strong> this is a <strong>myoclonus red flag</strong> — a known dose-related adverse effect of valproate. Obtain <strong>Valproate serum trough level</strong>, <strong>serum Ammonia</strong> (valproate-induced hyperammonemic encephalopathy can be insidious), and a <strong>CMP-14</strong> (hepatotoxicity, electrolytes). Hold or dose-reduce pending results if neurotoxicity is suspected.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Full-Width Card: Depakote Toxicity & Myoclonus Safety Alert */}
+      <div className="bg-white rounded-2xl border-2 border-red-300 p-6 shadow-sm space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-red-100 pb-4">
+          <div className="flex items-center gap-2.5">
+            <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0" />
+            <div>
+              <h3 className="text-base font-black text-red-950">Depakote (Valproate) — Myoclonus & Dropping Objects: Toxicity Rule-Out</h3>
+              <p className="text-xs text-red-700 mt-0.5">Dose-related neurotoxicity sign requiring urgent labs</p>
+            </div>
+          </div>
+          <span className="text-[11px] font-bold text-white bg-red-600 px-3 py-1 rounded-full self-start whitespace-nowrap">
+            ⚠️ Safety Rule-Out
+          </span>
+        </div>
+
+        <p className="text-xs text-slate-700 leading-relaxed">
+          Valproic acid (Depakote / Depakene) can cause <strong>myoclonus</strong> — involuntary, sudden muscle jerks — as a dose-related central nervous system adverse effect. When a patient on valproate reports <strong>dropping objects, hand tremors, or uncoordinated movements</strong>, this should immediately trigger a toxicity rule-out workup rather than being dismissed as anxiety or clumsiness.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          {/* Lab 1 */}
+          <div className="p-3.5 bg-red-50/60 border border-red-200 rounded-xl space-y-1.5">
+            <div className="flex items-center justify-between">
+              <strong className="font-extrabold text-red-950 text-xs">1. Valproate Serum Level</strong>
+              <span className="text-[10px] font-mono text-red-700 bg-red-100 px-1.5 py-0.5 rounded">Trough</span>
+            </div>
+            <p className="text-[11px] text-slate-700 leading-relaxed">
+              Draw as a <strong>12-hour trough</strong> (just before morning dose). Therapeutic range: <strong>50–125 mcg/mL</strong>. Levels &gt;100–125 mcg/mL significantly increase neurotoxicity risk, particularly myoclonus, ataxia, and sedation.
+            </p>
+          </div>
+
+          {/* Lab 2 */}
+          <div className="p-3.5 bg-amber-50/60 border border-amber-200 rounded-xl space-y-1.5">
+            <div className="flex items-center justify-between">
+              <strong className="font-extrabold text-amber-950 text-xs">2. Serum Ammonia (NH₃)</strong>
+              <span className="text-[10px] font-mono text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">Urgent</span>
+            </div>
+            <p className="text-[11px] text-slate-700 leading-relaxed">
+              Valproate inhibits the urea cycle, causing <strong>hyperammonemic encephalopathy (VHE)</strong> — which can occur even with <em>normal</em> drug levels. Presents as confusion, asterixis, myoclonus, and reduced consciousness. Normal NH₃: <strong>&lt;35 μmol/L</strong>. Elevated = discontinue and consult.
+            </p>
+          </div>
+
+          {/* Lab 3 */}
+          <div className="p-3.5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-1.5">
+            <div className="flex items-center justify-between">
+              <strong className="font-extrabold text-slate-900 text-xs">3. CMP-14</strong>
+              <span className="text-[10px] font-mono text-slate-600 bg-slate-200 px-1.5 py-0.5 rounded">Hepatic / Metabolic</span>
+            </div>
+            <p className="text-[11px] text-slate-700 leading-relaxed">
+              Check <strong>LFTs (AST, ALT, total bilirubin)</strong> for hepatotoxicity, <strong>electrolytes</strong> (hyponatremia can potentiate CNS effects), and <strong>glucose</strong>. Valproate carries a Black Box Warning for <strong>fatal hepatic failure</strong> — especially in children under 2 on polytherapy.
+            </p>
           </div>
         </div>
 
+        <div className="p-3 bg-red-100/60 border border-red-200 rounded-xl text-xs text-red-950 space-y-1 font-medium">
+          <p className="font-black">Clinical Decision Points:</p>
+          <p>• <strong>Valproate level supratherapeutic (&gt;125 mcg/mL):</strong> Reduce dose by 10–20%. Re-check level in 5–7 days.</p>
+          <p>• <strong>Elevated ammonia with encephalopathy signs:</strong> Discontinue valproate. Consider L-carnitine supplementation (100 mg/kg/day IV or PO, max 3g). Urgent neurology or ER referral.</p>
+          <p>• <strong>Symptomatic myoclonus persisting at therapeutic levels:</strong> Consider switching to an alternative mood stabilizer. Myoclonus may not resolve with dose reduction alone.</p>
+          <p>• <strong>Normal labs with persistent symptoms:</strong> Rule out other causes (essential tremor, medication interactions, B12 deficiency).</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Card 5: Medical & Organic Mimics of Inattention (Laboratory Rule-Outs) */}
         <div className="bg-white rounded-2xl border-2 border-amber-300/80 p-6 shadow-sm space-y-4 md:col-span-2">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-100 pb-3">
