@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeftRight, AlertCircle, Clipboard, Check, Sparkles, Calendar, ShieldAlert, Printer, Info, Activity, BookOpen, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeftRight, AlertCircle, Clipboard, Check, Sparkles, Calendar, ShieldAlert, Printer, Info, Activity, BookOpen, ExternalLink, ChevronDown, ChevronUp, TrendingDown, FlaskConical } from 'lucide-react';
 
 const TAPER_MEDICATIONS = [
   // SSRIs
@@ -271,7 +271,423 @@ const TAPER_MEDICATIONS = [
   }
 ];
 
+// ─────────────────────────────────────────────────────────────
+// BENZODIAZEPINE TAPER PANEL
+// Diazepam-equivalent conversion + Ashton-protocol taper schedule
+// ─────────────────────────────────────────────────────────────
+
+const BENZO_AGENTS = [
+  {
+    id: 'alprazolam',
+    name: 'Alprazolam (Xanax)',
+    diazepamEquiv: 0.5,     // 0.5 mg alprazolam = 10 mg diazepam
+    halfLife: '6–27 h (short-intermediate)',
+    availableDoses: [0.25, 0.5, 1, 2],
+    pearl: 'High potency, short half-life — most severe withdrawal risk. NEVER abrupt stop.'
+  },
+  {
+    id: 'clonazepam',
+    name: 'Clonazepam (Klonopin)',
+    diazepamEquiv: 0.5,     // 0.5 mg clonazepam = 10 mg diazepam
+    halfLife: '18–50 h (long)',
+    availableDoses: [0.5, 1, 2],
+    pearl: 'Long half-life; smoother taper than alprazolam. Often used directly as the tapering agent.'
+  },
+  {
+    id: 'lorazepam',
+    name: 'Lorazepam (Ativan)',
+    diazepamEquiv: 1,       // 1 mg lorazepam = 10 mg diazepam
+    halfLife: '10–20 h (intermediate)',
+    availableDoses: [0.5, 1, 2],
+    pearl: 'No active metabolites; preferred in hepatic impairment. Intermediate withdrawal risk.'
+  },
+  {
+    id: 'diazepam',
+    name: 'Diazepam (Valium)',
+    diazepamEquiv: 10,      // reference agent — 10 mg = 10 mg
+    halfLife: '20–100 h + active metabolite (desmethyldiazepam 36–200 h)',
+    availableDoses: [2, 5, 10],
+    pearl: 'Gold-standard taper agent. Ultra-long half-life self-tapers smoothly; minimal interdose withdrawal.'
+  },
+  {
+    id: 'temazepam',
+    name: 'Temazepam (Restoril)',
+    diazepamEquiv: 10,      // 10 mg temazepam = 10 mg diazepam
+    halfLife: '8–20 h (intermediate)',
+    availableDoses: [7.5, 15, 22.5, 30],
+    pearl: 'Primarily used for sleep. Often abused; intermediate withdrawal risk.'
+  },
+  {
+    id: 'oxazepam',
+    name: 'Oxazepam (Serax)',
+    diazepamEquiv: 10,      // 10 mg oxazepam = 10 mg diazepam
+    halfLife: '4–15 h (short)',
+    availableDoses: [10, 15, 30],
+    pearl: 'Short half-life, no active metabolites. Preferred in elderly and hepatic disease alongside lorazepam.'
+  },
+  {
+    id: 'chlordiazepoxide',
+    name: 'Chlordiazepoxide (Librium)',
+    diazepamEquiv: 25,      // 25 mg chlordiazepoxide = 10 mg diazepam
+    halfLife: '5–30 h + active metabolites',
+    availableDoses: [5, 10, 25],
+    pearl: 'Oldest benzo; used in alcohol withdrawal protocols (CIWA). Multiple active metabolites.'
+  },
+  {
+    id: 'triazolam',
+    name: 'Triazolam (Halcion)',
+    diazepamEquiv: 0.25,    // 0.25 mg triazolam = 10 mg diazepam
+    halfLife: '1.5–5.5 h (ultra-short)',
+    availableDoses: [0.125, 0.25],
+    pearl: 'Ultra-short half-life; highest rebound insomnia and anterograde amnesia risk.'
+  }
+];
+
+// Taper rate options
+const TAPER_RATES = [
+  { id: 'standard', label: 'Standard (10%/2 wks)', pct: 10, intervalWeeks: 2 },
+  { id: 'moderate', label: 'Moderate (10%/1 wk)', pct: 10, intervalWeeks: 1 },
+  { id: 'slow', label: 'Slow (5%/2 wks)', pct: 5, intervalWeeks: 2 },
+  { id: 'very_slow', label: 'Very Slow (5%/4 wks)', pct: 5, intervalWeeks: 4 }
+];
+
+function BenzoTaperPanel() {
+  const [benzId, setBenzId] = useState('alprazolam');
+  const [currentDoseStr, setCurrentDoseStr] = useState('');
+  const [taperRateId, setTaperRateId] = useState('standard');
+  const [copied, setCopied] = useState(false);
+
+  const benzo = BENZO_AGENTS.find(b => b.id === benzId);
+  const rate = TAPER_RATES.find(r => r.id === taperRateId);
+
+  const currentDoseMg = parseFloat(currentDoseStr) || 0;
+
+  // Convert current dose to diazepam equivalent
+  // ratio: X mg benzo = diazepamEquiv mg of diazepam equivalent per unit
+  // diazepamEq = currentDose * (10 / diazepamEquiv)
+  const diazepamEqDose = benzo && currentDoseMg > 0
+    ? Math.round((currentDoseMg * 10 / benzo.diazepamEquiv) * 10) / 10
+    : 0;
+
+  // Generate taper schedule
+  const generateTaperSchedule = () => {
+    if (!benzo || currentDoseMg <= 0) return [];
+    const steps = [];
+    let dose = diazepamEqDose;
+    const reductionPct = rate.pct / 100;
+    const interval = rate.intervalWeeks;
+    let weekNum = 1;
+    let stepCount = 0;
+    const MAX_STEPS = 30;
+
+    // Phase 1: Switch to diazepam equivalent (if not already on diazepam)
+    if (benzo.id !== 'diazepam') {
+      steps.push({
+        phase: 'PHASE 1 — CONVERSION',
+        label: `Week 1–2`,
+        dose: `${diazepamEqDose} mg diazepam`,
+        action: `Convert from ${benzo.name} ${currentDoseMg} mg/day → Diazepam (Valium) ${diazepamEqDose} mg/day`,
+        notes: `Switch to equivalent diazepam dose in 1–2 divided doses per day. The long half-life of diazepam provides a natural buffer between reductions. Monitor for 1–2 weeks at the equivalent dose before beginning taper.`
+      });
+      weekNum = 3;
+    }
+
+    // Phase 2: Gradual reduction
+    while (dose > 0 && stepCount < MAX_STEPS) {
+      const reduction = Math.max(Math.round(dose * reductionPct * 10) / 10, 0.5);
+      const nextDose = Math.max(Math.round((dose - reduction) * 10) / 10, 0);
+      const endWeek = weekNum + interval - 1;
+
+      steps.push({
+        phase: stepCount === 0 ? 'PHASE 2 — TAPER' : '',
+        label: `Week ${weekNum}–${endWeek}`,
+        dose: dose <= 1 ? `${dose} mg diazepam → STOP` : `${nextDose} mg diazepam`,
+        action: dose <= 1
+          ? `Final reduction: ${dose} mg → 0 mg. Discontinue diazepam.`
+          : `Reduce diazepam from ${dose} mg → ${nextDose} mg/day (↓${reduction} mg)`,
+        notes: dose > 5
+          ? `Hold at ${nextDose} mg for ${interval} week${interval > 1 ? 's' : ''} before next reduction. Do NOT skip or accelerate steps.`
+          : dose > 1
+          ? `Near-final reduction. Expect mild resurgence of anxiety; this is normal and temporary. Reassess weekly.`
+          : `Final step. Patient discontinues diazepam. Follow up within 1 week after stopping.`
+      });
+
+      if (dose <= 1) break;
+      dose = nextDose;
+      weekNum += interval;
+      stepCount++;
+    }
+
+    return steps;
+  };
+
+  const schedule = generateTaperSchedule();
+  const totalWeeks = schedule.length > 0
+    ? schedule[schedule.length - 1]?.label?.match(/Week (\d+)/)?.[1]
+    : '—';
+
+  const generateEhrNote = () => {
+    const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    let note = `BENZODIAZEPINE TAPER PLAN — Diazepam (Valium) Conversion Protocol\n`;
+    note += `Date: ${today}\n`;
+    note += `Current Agent: ${benzo?.name} ${currentDoseMg} mg/day\n`;
+    note += `Diazepam Equivalent: ${diazepamEqDose} mg/day\n`;
+    note += `Taper Rate: ${rate?.label}\n`;
+    note += `Estimated Duration: ~${totalWeeks} weeks to discontinuation\n\n`;
+    note += `CLINICAL RATIONALE:\n`;
+    note += `Patient is being transitioned to diazepam (Valium) for a structured benzodiazepine taper using the Ashton Manual protocol. Diazepam is selected due to its ultra-long half-life (20–100h + active metabolite), which minimizes interdose withdrawal and enables smooth, predictable dose reductions. Taper rate of ${rate?.pct}% every ${rate?.intervalWeeks} week(s) minimizes risk of seizure, rebound anxiety, and autonomic withdrawal.\n\n`;
+    note += `TAPER SCHEDULE:\n`;
+    schedule.forEach(s => {
+      note += `${s.phase ? `[${s.phase}]\n` : ''}`;
+      note += `${s.label}: ${s.action}\n`;
+      note += `  Notes: ${s.notes}\n\n`;
+    });
+    note += `SAFETY PROTOCOLS:\n`;
+    note += `• DO NOT abruptly discontinue benzodiazepines — risk of withdrawal seizures, status epilepticus, and death.\n`;
+    note += `• If patient reports severe withdrawal symptoms (tremors, diaphoresis, vomiting, confusion, seizures), treat as medical emergency — seek ER evaluation immediately.\n`;
+    note += `• Adjunct supportive agents (propranolol for autonomic symptoms, hydroxyzine for anxiety) may be used.\n`;
+    note += `• Weekly check-ins recommended during active taper.\n`;
+    note += `\nProvider: Monica Preder, ARNP, PMHNP-BC`;
+    return note;
+  };
+
+  const copyNote = () => {
+    navigator.clipboard.writeText(generateEhrNote());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const isReady = currentDoseMg > 0 && benzo;
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="flex items-center gap-3 mb-1">
+          <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0">
+            <TrendingDown className="w-5 h-5 text-amber-800" />
+          </div>
+          <div>
+            <h2 className="text-xl font-black text-slate-900">Benzodiazepine Taper Calculator</h2>
+            <p className="text-xs text-slate-500">
+              Diazepam (Valium) conversion + Ashton-protocol taper schedule. Supports safe, structured weaning from all common benzodiazepines.
+            </p>
+          </div>
+        </div>
+
+        {/* Critical Safety Banner */}
+        <div className="mt-4 p-3.5 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2.5 text-xs text-red-900">
+          <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+          <div className="space-y-0.5">
+            <p className="font-black text-red-950">⚠️ CRITICAL SAFETY: NEVER ABRUPTLY DISCONTINUE BENZODIAZEPINES</p>
+            <p>Abrupt cessation after physiological dependence can cause <strong>withdrawal seizures, status epilepticus, severe autonomic instability, and death.</strong> Always taper gradually. If patient has any history of alcohol use disorder, GABA receptor sensitivity may be markedly altered — exercise additional caution.</p>
+          </div>
+        </div>
+
+        {/* Diazepam Equivalency Reference */}
+        <div className="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-xl">
+          <div className="flex items-center gap-1.5 mb-2">
+            <FlaskConical className="w-3.5 h-3.5 text-teal-700" />
+            <span className="text-xs font-bold text-slate-700 uppercase tracking-wide">Diazepam Equivalency Reference (Ashton Manual)</span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[11px]">
+            {BENZO_AGENTS.map(b => (
+              <div key={b.id} className={`p-2 rounded-lg border text-center ${benzId === b.id ? 'bg-amber-50 border-amber-300 font-bold text-amber-900' : 'bg-white border-slate-200 text-slate-700'}`}>
+                <p className="font-semibold">{b.name.split(' ')[0]}</p>
+                <p className="text-teal-700 font-bold">{b.diazepamEquiv} mg = 10 mg Valium</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Input Controls */}
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase tracking-wide">Configure Taper</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* Current Benzo */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block">Current Benzodiazepine</label>
+            <select
+              value={benzId}
+              onChange={e => setBenzId(e.target.value)}
+              className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:ring-2 focus:ring-amber-400 focus:outline-none"
+            >
+              {BENZO_AGENTS.map(b => (
+                <option key={b.id} value={b.id}>{b.name}</option>
+              ))}
+            </select>
+            {benzo && (
+              <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-[11px] space-y-0.5">
+                <p><span className="font-semibold text-slate-600">Half-life:</span> {benzo.halfLife}</p>
+                <p className="text-slate-500 italic">{benzo.pearl}</p>
+              </div>
+            )}
+          </div>
+
+          {/* Current Daily Dose */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block">Current Total Daily Dose (mg)</label>
+            <input
+              type="number"
+              min="0"
+              step="0.25"
+              value={currentDoseStr}
+              onChange={e => setCurrentDoseStr(e.target.value)}
+              placeholder={`e.g. ${benzo?.availableDoses[1] || 1}`}
+              className="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-sm font-bold text-slate-800 focus:ring-2 focus:ring-amber-400 focus:outline-none"
+            />
+            {benzo && currentDoseMg > 0 && (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs space-y-1">
+                <p className="text-amber-700 text-[11px] font-semibold uppercase tracking-wide">Calculated Diazepam Equivalent</p>
+                <p className="text-2xl font-black text-amber-800">{diazepamEqDose} mg</p>
+                <p className="text-amber-700 text-[11px]">of Diazepam (Valium) per day</p>
+              </div>
+            )}
+          </div>
+
+          {/* Taper Rate */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block">Taper Rate</label>
+            <div className="space-y-1.5">
+              {TAPER_RATES.map(r => (
+                <label key={r.id} className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer transition-all text-xs font-semibold ${taperRateId === r.id ? 'bg-amber-50 border-amber-400 text-amber-900' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'}`}>
+                  <input
+                    type="radio"
+                    name="taperRate"
+                    value={r.id}
+                    checked={taperRateId === r.id}
+                    onChange={() => setTaperRateId(r.id)}
+                    className="text-amber-500 h-3.5 w-3.5"
+                  />
+                  {r.label}
+                </label>
+              ))}
+            </div>
+            <p className="text-[10px] text-slate-500 italic leading-snug">
+              Ashton Manual recommends 5–10% reductions every 1–4 weeks based on patient tolerance. Always slower for high-potency or long-term users.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Taper Schedule */}
+      {isReady && schedule.length > 0 && (
+        <div className="space-y-3">
+          {/* Schedule Header */}
+          <div className="flex items-center justify-between px-1">
+            <div>
+              <h3 className="text-sm font-black text-slate-900">Generated Taper Schedule</h3>
+              <p className="text-xs text-slate-500">
+                {benzo.id !== 'diazepam'
+                  ? `Phase 1: Convert → Diazepam ${diazepamEqDose} mg/day. Phase 2: Taper at ${rate.pct}% every ${rate.intervalWeeks} wk(s).`
+                  : `Direct diazepam taper at ${rate.pct}% reduction every ${rate.intervalWeeks} wk(s).`}
+              </p>
+            </div>
+            <div className="flex items-center gap-1.5 bg-amber-100 text-amber-900 px-3 py-1.5 rounded-xl text-xs font-bold">
+              <Calendar className="w-3.5 h-3.5" />
+              ~{totalWeeks} weeks total
+            </div>
+          </div>
+
+          {/* Steps */}
+          <div className="space-y-2">
+            {schedule.map((step, idx) => (
+              <div
+                key={idx}
+                className={`p-4 rounded-xl border transition-all ${
+                  step.phase?.includes('CONVERSION')
+                    ? 'bg-blue-50/60 border-blue-200'
+                    : idx === schedule.length - 1
+                    ? 'bg-emerald-50/60 border-emerald-300'
+                    : 'bg-white border-slate-200 hover:border-slate-300'
+                }`}
+              >
+                {step.phase && (
+                  <span className={`text-[10px] font-extrabold uppercase tracking-widest px-2 py-0.5 rounded-full mb-2 inline-block ${
+                    step.phase.includes('CONVERSION') ? 'bg-blue-200 text-blue-900' : 'bg-amber-200 text-amber-900'
+                  }`}>
+                    {step.phase}
+                  </span>
+                )}
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-black text-slate-900">{step.label}</span>
+                  <span className={`text-[11px] font-bold px-2 py-0.5 rounded-lg ${
+                    idx === schedule.length - 1
+                      ? 'bg-emerald-600 text-white'
+                      : step.phase?.includes('CONVERSION')
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-amber-100 text-amber-900'
+                  }`}>
+                    {step.dose}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-800 font-medium">{step.action}</p>
+                <p className="text-[11px] text-slate-500 mt-1 italic">{step.notes}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Withdrawal Symptoms Warning Card */}
+          <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl text-xs space-y-2">
+            <p className="font-black text-rose-950 flex items-center gap-1.5">
+              <ShieldAlert className="w-4 h-4 text-rose-600" />
+              Monitor for Benzo Withdrawal Symptoms — Report Immediately If Severe
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
+              {[
+                { label: 'Mild', items: 'Insomnia, irritability, mild anxiety, muscle tension, sweating', color: 'bg-amber-50 border-amber-200 text-amber-900' },
+                { label: 'Moderate', items: 'Tremors, palpitations, diaphoresis, nausea, photophobia', color: 'bg-orange-50 border-orange-200 text-orange-900' },
+                { label: 'Severe — ER NOW', items: 'Seizures, confusion, hallucinations, fever, autonomic crisis', color: 'bg-red-50 border-red-300 text-red-900 font-bold ring-1 ring-red-400' }
+              ].map(tier => (
+                <div key={tier.label} className={`p-2.5 rounded-lg border ${tier.color}`}>
+                  <p className="font-bold uppercase text-[10px] tracking-wide mb-1">{tier.label}</p>
+                  <p>{tier.items}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[11px] text-rose-800">
+              <strong>If patient reports severity escalating or plateau-ing for &gt;2 weeks:</strong> Consider slowing taper rate (5%/4 wks) or holding at current dose for 2–4 weeks before resuming.
+            </p>
+          </div>
+
+          {/* EHR Note Exporter */}
+          <div className="bg-slate-900 text-white rounded-2xl p-6 shadow-sm">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-amber-400" />
+                <h4 className="text-sm font-bold">Tebra EHR Chart Note — Benzo Taper Plan</h4>
+              </div>
+              <button
+                onClick={copyNote}
+                className="flex items-center gap-1.5 text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-1.5 rounded-lg transition-all shadow-sm"
+              >
+                {copied ? <Check className="w-3.5 h-3.5" /> : <Clipboard className="w-3.5 h-3.5" />}
+                {copied ? 'Copied!' : 'Copy Note'}
+              </button>
+            </div>
+            <textarea
+              readOnly
+              value={generateEhrNote()}
+              rows={12}
+              className="w-full text-xs font-mono bg-slate-950/80 text-emerald-300 border border-slate-800 rounded-xl p-3 focus:outline-none resize-none leading-relaxed"
+            />
+          </div>
+        </div>
+      )}
+
+      {!isReady && (
+        <div className="p-8 bg-white rounded-2xl border border-dashed border-slate-300 text-center text-slate-400 text-sm">
+          <TrendingDown className="w-8 h-8 mx-auto mb-2 opacity-30" />
+          <p className="font-semibold">Select a benzodiazepine and enter the current daily dose to generate a taper schedule.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function CrossTaperCalculator() {
+  const [taperMode, setTaperMode] = useState('cross'); // 'cross' | 'benzo'
   const [currentMedId, setCurrentMedId] = useState('sertraline');
   const [currentDose, setCurrentDose] = useState('100 mg');
   const [targetMedId, setTargetMedId] = useState('duloxetine');
@@ -758,6 +1174,38 @@ export default function CrossTaperCalculator() {
 
   return (
     <div className="space-y-6">
+      {/* Mode Switcher Tabs */}
+      <div className="flex gap-2 p-1.5 bg-slate-200/60 rounded-xl w-fit">
+        <button
+          onClick={() => setTaperMode('cross')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+            taperMode === 'cross'
+              ? 'bg-white text-teal-800 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
+          }`}
+        >
+          <ArrowLeftRight className="w-4 h-4" />
+          Cross-Taper Calculator
+        </button>
+        <button
+          onClick={() => setTaperMode('benzo')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+            taperMode === 'benzo'
+              ? 'bg-white text-amber-800 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
+          }`}
+        >
+          <TrendingDown className="w-4 h-4" />
+          Benzo Taper (Valium)
+        </button>
+      </div>
+
+      {/* Benzo Taper Mode */}
+      {taperMode === 'benzo' && <BenzoTaperPanel />}
+
+      {/* Cross-Taper Mode */}
+      {taperMode === 'cross' && <>
+
       {/* Header Card (Hidden on Print) */}
       <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm print:hidden space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -1619,6 +2067,8 @@ export default function CrossTaperCalculator() {
         </div>
 
       </div>
+
+      </>}
     </div>
   );
 }
