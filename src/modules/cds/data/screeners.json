@@ -126,6 +126,125 @@
         "...you did things that were unusual for you or that other people might have thought were excessive, foolish, or risky?",
         "...spending money got you or your family into trouble?"
       ]
+    },
+    {
+      "id": "berlin",
+      "name": "Berlin",
+      "fullName": "Berlin Questionnaire (Sleep Apnea Screening)",
+      "targetCondition": "Obstructive Sleep Apnea (OSA)",
+      "instructions": "Please answer each question about your sleep habits and health. This questionnaire identifies risk for obstructive sleep apnea across three clinical categories.",
+      "categories": [
+        {
+          "id": "cat1",
+          "label": "Category 1 — Snoring & Witnessed Apneas",
+          "questions": [
+            {
+              "id": "q1",
+              "text": "Do you snore?",
+              "options": [
+                { "value": 0, "label": "No" },
+                { "value": 0, "label": "Don't know" },
+                { "value": 1, "label": "Yes" }
+              ]
+            },
+            {
+              "id": "q2",
+              "text": "Your snoring is:",
+              "options": [
+                { "value": 0, "label": "Slightly louder than breathing" },
+                { "value": 0, "label": "As loud as talking" },
+                { "value": 1, "label": "Louder than talking" },
+                { "value": 1, "label": "Very loud — heard in adjacent rooms" }
+              ]
+            },
+            {
+              "id": "q3",
+              "text": "How often do you snore?",
+              "options": [
+                { "value": 0, "label": "Never or almost never" },
+                { "value": 0, "label": "1–2 times per week" },
+                { "value": 1, "label": "3–4 times per week" },
+                { "value": 1, "label": "Nearly every day" }
+              ]
+            },
+            {
+              "id": "q4",
+              "text": "Has your snoring ever bothered other people?",
+              "options": [
+                { "value": 0, "label": "No" },
+                { "value": 1, "label": "Yes" }
+              ]
+            },
+            {
+              "id": "q5",
+              "text": "Has anyone noticed that you quit breathing during your sleep?",
+              "options": [
+                { "value": 0, "label": "Never or almost never" },
+                { "value": 0, "label": "1–2 times per week" },
+                { "value": 2, "label": "3–4 times per week" },
+                { "value": 2, "label": "Nearly every day" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cat2",
+          "label": "Category 2 — Daytime Sleepiness & Fatigue",
+          "questions": [
+            {
+              "id": "q6",
+              "text": "How often do you feel tired or fatigued after your sleep?",
+              "options": [
+                { "value": 0, "label": "Never or almost never" },
+                { "value": 0, "label": "1–2 times per week" },
+                { "value": 1, "label": "3–4 times per week" },
+                { "value": 1, "label": "Nearly every day" }
+              ]
+            },
+            {
+              "id": "q7",
+              "text": "During your waking time, do you feel tired, fatigued, or not up to par?",
+              "options": [
+                { "value": 0, "label": "Never or almost never" },
+                { "value": 0, "label": "1–2 times per week" },
+                { "value": 1, "label": "3–4 times per week" },
+                { "value": 1, "label": "Nearly every day" }
+              ]
+            },
+            {
+              "id": "q8",
+              "text": "Have you ever nodded off or fallen asleep while driving a vehicle?",
+              "options": [
+                { "value": 0, "label": "No" },
+                { "value": 1, "label": "Yes" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cat3",
+          "label": "Category 3 — Hypertension & Obesity",
+          "questions": [
+            {
+              "id": "q9",
+              "text": "Do you have high blood pressure?",
+              "options": [
+                { "value": 0, "label": "No" },
+                { "value": 0, "label": "Don't know" },
+                { "value": 1, "label": "Yes" }
+              ]
+            },
+            {
+              "id": "q10",
+              "text": "Body Mass Index (BMI) >= 30 kg/m2",
+              "options": [
+                { "value": 0, "label": "BMI < 30 (Not obese)" },
+                { "value": 1, "label": "BMI >= 30 (Obese)" }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

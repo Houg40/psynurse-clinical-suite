@@ -93,6 +93,30 @@ export default function ScreenerAssessment() {
     if (isTdPositive) {
       criticalAlert = "TARDIVE DYSKINESIA ALERT: Involuntary choreiform/athetoid movements detected. Document informed consent, discuss VMAT2 inhibitor referral, and re-evaluate antipsychotic necessity.";
     }
+  } else if (activeScreenerId === 'berlin') {
+    // Berlin: category risk is HIGH if >= 2 positive answers within that category
+    // (Q5 in cat1: witnessed apneas 3-4x/wk or daily counts as 2 positive points)
+    // Overall HIGH risk = 2+ categories are high risk
+    const berlinCatRisks = activeScreener.categories.map((cat, catIdx) => {
+      let positiveCount = 0;
+      cat.questions.forEach((q, qIdx) => {
+        const key = `berlin_${catIdx}_${qIdx}`;
+        positiveCount += (answers[key] || 0);
+      });
+      return positiveCount >= 2;
+    });
+    const highRiskCatCount = berlinCatRisks.filter(Boolean).length;
+    totalScore = highRiskCatCount;
+    const isHighRisk = highRiskCatCount >= 2;
+    severityInfo = {
+      severity: isHighRisk ? 'HIGH Risk for Obstructive Sleep Apnea' : 'LOW Risk for Obstructive Sleep Apnea',
+      treatmentRecommendation: isHighRisk
+        ? 'Patient is HIGH RISK for OSA (2+ Berlin categories positive). Refer for polysomnography (sleep study) or home sleep apnea test (HSAT). Consider impact on psychiatric medication efficacy — untreated OSA impairs antidepressant response and worsens ADHD, fatigue, and mood symptoms.'
+        : 'Patient scores LOW RISK for OSA. Routine clinical surveillance recommended. Reassess if depressive/ADHD symptoms are refractory to pharmacotherapy, as sleep-disordered breathing is an underdiagnosed confounder.'
+    };
+    if (isHighRisk) {
+      criticalAlert = 'OSA SAFETY FLAG: Positive Berlin screen. Untreated sleep apnea can blunt antidepressant response and worsen ADHD/fatigue. Sleep study referral strongly recommended before escalating psychiatric medications.';
+    }
   }
 
   // Generate Tebra EHR Note
@@ -100,7 +124,7 @@ export default function ScreenerAssessment() {
     const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     let note = `CLINICAL RATING ASSESSMENT: ${activeScreener.fullName} (${activeScreener.name})\nDate: ${today}\n`;
     note += `Target Condition: ${activeScreener.targetCondition}\n`;
-    note += `Total Score: ${totalScore} ${activeScreenerId === 'phq9' ? '/ 27' : activeScreenerId === 'gad7' ? '/ 21' : activeScreenerId === 'aims' ? '/ 28 (Items 1-7)' : activeScreenerId === 'asrs' ? '/ 6 positive threshold items' : '/ 13 symptoms'}\n`;
+    note += `Total Score: ${totalScore} ${activeScreenerId === 'phq9' ? '/ 27' : activeScreenerId === 'gad7' ? '/ 21' : activeScreenerId === 'aims' ? '/ 28 (Items 1-7)' : activeScreenerId === 'asrs' ? '/ 6 positive threshold items' : activeScreenerId === 'berlin' ? '/ 3 high-risk categories' : '/ 13 symptoms'}\n`;
     note += `Clinical Impression: ${severityInfo ? severityInfo.severity : 'Assessment in progress'}\n`;
     note += `Clinical Recommendation: ${severityInfo ? severityInfo.treatmentRecommendation : 'Complete evaluation'}\n`;
 
@@ -129,6 +153,11 @@ export default function ScreenerAssessment() {
       note += `• Score 0: Negative AIMS (no involuntary movements detected).\n`;
       note += `• Score 1 (Minimal) in <=1 area: Sub-threshold movement; routine quarterly surveillance.\n`;
       note += `• Score >=2 (Mild) in 1+ domain OR Score >=1 (Minimal) in 2+ domains: POSITIVE screen for Tardive Dyskinesia (TD). Review antipsychotic regimen; consider VMAT2 inhibitor therapy.\n`;
+    } else if (activeScreenerId === 'berlin') {
+      note += `• 0–1 High-Risk Categories: LOW RISK for OSA. Routine surveillance; reassess if psychiatric symptoms remain refractory.\n`;
+      note += `• 2–3 High-Risk Categories: HIGH RISK for OSA. Refer for polysomnography or home sleep apnea test (HSAT).\n`;
+      note += `* Scoring rule: A category is HIGH RISK if >= 2 positive symptom points within it. Witnessed apneas >= 3–4x/wk score 2 points each.\n`;
+      note += `* Clinical note: Untreated OSA impairs antidepressant and stimulant efficacy; sleep-disordered breathing is a major confounder for refractory depression, fatigue, and ADHD.\n`;
     }
     
     if (criticalAlert) {
@@ -182,6 +211,70 @@ export default function ScreenerAssessment() {
           </div>
 
           {/* Question List */}
+          {activeScreenerId === 'berlin' ? (
+            <div className="space-y-6">
+              {activeScreener.categories.map((cat, catIdx) => {
+                // Compute category risk live
+                let catPositive = 0;
+                cat.questions.forEach((q, qIdx) => {
+                  catPositive += (answers[`berlin_${catIdx}_${qIdx}`] || 0);
+                });
+                const catHigh = catPositive >= 2;
+                return (
+                  <div key={cat.id} className={`rounded-xl border p-4 ${catHigh ? 'border-amber-300 bg-amber-50/40' : 'border-slate-200 bg-slate-50/30'}`}>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-bold text-slate-700 uppercase tracking-wide">{cat.label}</span>
+                      <span className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full ${catHigh ? 'bg-amber-500 text-white' : 'bg-slate-200 text-slate-600'}`}>
+                        {catHigh ? 'HIGH RISK' : 'Low Risk'}
+                      </span>
+                    </div>
+                    <div className="space-y-3">
+                      {cat.questions.map((q, qIdx) => {
+                        const key = `berlin_${catIdx}_${qIdx}`;
+                        return (
+                          <div key={q.id} className="p-3 rounded-lg border border-slate-100 bg-white hover:border-slate-300 transition-all">
+                            <div className="flex items-start gap-2.5 mb-2.5">
+                              <span className="font-bold text-xs bg-slate-200 text-slate-700 rounded-md w-6 h-6 flex items-center justify-center flex-shrink-0">
+                                Q{catIdx === 0 ? qIdx + 1 : catIdx === 1 ? qIdx + 6 : qIdx + 9}
+                              </span>
+                              <span className="text-sm font-medium text-slate-800">{q.text}</span>
+                            </div>
+                            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 pl-9">
+                              {q.options.map((opt, optIdx) => (
+                                <label
+                                  key={optIdx}
+                                  className={`flex items-center gap-2 p-2 rounded-lg border text-xs font-semibold cursor-pointer transition-all ${
+                                    answers[key] !== undefined && answers[key] === opt.value && answers[`${key}_optIdx`] === optIdx
+                                      ? 'border-teal-500 bg-teal-50 text-teal-800'
+                                      : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+                                  }`}
+                                >
+                                  <input
+                                    type="radio"
+                                    name={key}
+                                    checked={answers[`${key}_sel`] === optIdx}
+                                    onChange={() => {
+                                      setAnswers(prev => ({
+                                        ...prev,
+                                        [key]: opt.value,
+                                        [`${key}_sel`]: optIdx
+                                      }));
+                                    }}
+                                    className="text-teal-600 focus:ring-teal-500 h-3.5 w-3.5"
+                                  />
+                                  <span>{opt.label}</span>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
           <div className="space-y-4">
             {(activeScreenerId === 'asrs' ? activeScreener.partAQuestions : activeScreener.questions).map((q, idx) => {
               const qText = typeof q === 'string' ? q : q.text;
@@ -250,6 +343,7 @@ export default function ScreenerAssessment() {
               );
             })}
           </div>
+          )}
         </div>
 
         {/* Right Col: Live Score & EHR Note Generator */}
@@ -260,7 +354,7 @@ export default function ScreenerAssessment() {
             <div className="flex items-baseline gap-3">
               <span className="text-5xl font-black text-teal-700">{totalScore}</span>
               <span className="text-sm font-semibold text-slate-500">
-                {activeScreenerId === 'phq9' ? '/ 27 points' : activeScreenerId === 'gad7' ? '/ 21 points' : activeScreenerId === 'aims' ? '/ 28 points' : activeScreenerId === 'asrs' ? '/ 6 positive items' : '/ 13 symptoms'}
+                {activeScreenerId === 'phq9' ? '/ 27 points' : activeScreenerId === 'gad7' ? '/ 21 points' : activeScreenerId === 'aims' ? '/ 28 points' : activeScreenerId === 'asrs' ? '/ 6 positive items' : activeScreenerId === 'berlin' ? '/ 3 high-risk categories' : '/ 13 symptoms'}
               </span>
             </div>
 
@@ -451,6 +545,51 @@ export default function ScreenerAssessment() {
                       <p className="text-[10px] text-slate-500 mt-0.5">{tier.desc}</p>
                     </div>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Berlin Questionnaire Ranges */}
+            {activeScreenerId === 'berlin' && (
+              <div className="space-y-2 text-xs">
+                <div className="p-2.5 rounded-xl border bg-slate-50 border-slate-200">
+                  <span className="font-bold text-slate-900 block mb-1">Berlin Scoring Rule (Category-Based):</span>
+                  <p className="text-[11px] text-slate-600 leading-snug">
+                    Each category is rated <strong>HIGH RISK</strong> if ≥ 2 positive symptom points. Overall high risk = <strong>2+ categories are HIGH RISK</strong>.
+                  </p>
+                </div>
+
+                {activeScreener.categories.map((cat, catIdx) => {
+                  let catPositive = 0;
+                  cat.questions.forEach((q, qIdx) => {
+                    catPositive += (answers[`berlin_${catIdx}_${qIdx}`] || 0);
+                  });
+                  const catHigh = catPositive >= 2;
+                  return (
+                    <div key={cat.id} className={`p-2 rounded-lg border transition-all ${catHigh ? 'bg-amber-50 border-amber-300 ring-1 ring-amber-400' : 'bg-slate-50 border-slate-100'}`}>
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-[11px] text-slate-800">{cat.label}</span>
+                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${catHigh ? 'bg-amber-500 text-white' : 'bg-slate-200 text-slate-600'}`}>
+                          {catHigh ? 'HIGH RISK' : 'Low Risk'}
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-slate-500 mt-0.5">Points scored: {catPositive} (threshold: ≥ 2)</p>
+                    </div>
+                  );
+                })}
+
+                <div className={`p-2.5 rounded-xl border font-semibold transition-all ${totalScore >= 2 ? 'bg-rose-50 border-rose-300 ring-2 ring-rose-400 text-rose-900' : 'bg-emerald-50 border-emerald-300 ring-2 ring-emerald-400 text-emerald-900'}`}>
+                  <div className="flex items-center justify-between">
+                    <span>Overall OSA Risk:</span>
+                    <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${totalScore >= 2 ? 'bg-rose-600 text-white' : 'bg-emerald-600 text-white'}`}>
+                      {totalScore >= 2 ? 'HIGH RISK' : 'LOW RISK'}
+                    </span>
+                  </div>
+                  <p className="text-[11px] mt-1 font-normal">
+                    {totalScore >= 2
+                      ? 'Refer for polysomnography or HSAT. Counsel re: OSA impact on psychiatric med efficacy.'
+                      : 'Low probability of OSA. Reassess if psychiatric symptoms remain treatment-refractory.'}
+                  </p>
                 </div>
               </div>
             )}
