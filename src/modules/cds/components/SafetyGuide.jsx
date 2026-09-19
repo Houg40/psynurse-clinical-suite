@@ -164,6 +164,144 @@ export default function SafetyGuide() {
         </div>
       </div>
 
+      {/* Full-Width Card: Serotonin Syndrome */}
+      <div className="bg-white rounded-2xl border-2 border-orange-300 p-6 shadow-sm space-y-5">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-orange-100 pb-4">
+          <div className="flex items-center gap-2.5">
+            <AlertTriangle className="w-5 h-5 text-orange-600 flex-shrink-0" />
+            <div>
+              <h3 className="text-base font-black text-orange-950">Serotonin Syndrome — Recognition &amp; Treatment</h3>
+              <p className="text-xs text-orange-700 mt-0.5">Life-threatening excess serotonergic activity • Hunter Criteria + stepwise management</p>
+            </div>
+          </div>
+          <span className="text-[11px] font-bold text-white bg-orange-600 px-3 py-1 rounded-full self-start whitespace-nowrap">
+            🚨 Medical Emergency
+          </span>
+        </div>
+
+        {/* What is it */}
+        <p className="text-xs text-slate-700 leading-relaxed">
+          Serotonin syndrome (SS) is a potentially life-threatening drug reaction caused by excess serotonergic activity at central and peripheral 5-HT receptors. It is <strong>not an idiosyncratic reaction</strong> — it is <strong>dose- and combination-dependent</strong> and can occur with a single agent at high doses or, most commonly, with combinations of serotonergic medications. Onset is typically rapid — usually <strong>within 6 hours</strong> of a new agent, dose increase, or overdose.
+        </p>
+
+        {/* Hunter Criteria Triad */}
+        <div className="p-4 bg-orange-50 border border-orange-200 rounded-xl space-y-3">
+          <p className="text-xs font-black text-orange-950 uppercase tracking-wide">Hunter Criteria — Diagnosis (Most Sensitive &amp; Specific)</p>
+          <p className="text-[11px] text-orange-900">
+            Serotonin syndrome is diagnosed clinically. Requires recent use of a serotonergic agent PLUS <strong>at least one</strong> of the following:
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
+            <div className="bg-white border border-orange-200 rounded-lg p-2.5 space-y-1">
+              <p className="font-black text-orange-950">1. Spontaneous Clonus</p>
+              <p className="text-slate-700">Rhythmic, involuntary muscle contractions — the most specific sign. Check ankles and eyes (ocular clonus).</p>
+            </div>
+            <div className="bg-white border border-orange-200 rounded-lg p-2.5 space-y-1">
+              <p className="font-black text-orange-950">2. Inducible / Ocular Clonus + Agitation or Diaphoresis</p>
+              <p className="text-slate-700">Clonus triggered by dorsiflexion. Combined with excess sweating or motor agitation = diagnostic.</p>
+            </div>
+            <div className="bg-white border border-orange-200 rounded-lg p-2.5 space-y-1">
+              <p className="font-black text-orange-950">3. Tremor + Hyperreflexia OR Hypertonia + Fever + Clonus</p>
+              <p className="text-slate-700">Classic triad of <strong>mental status change, autonomic instability, and neuromuscular abnormality</strong> at any severity level.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Severity Spectrum */}
+        <div>
+          <p className="text-xs font-bold text-slate-800 uppercase tracking-wide mb-2">Severity Spectrum</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
+            <div className="p-3 bg-amber-50/70 border border-amber-200 rounded-xl space-y-1">
+              <p className="font-black text-amber-900">🟡 Mild</p>
+              <p className="text-slate-700">Tachycardia, diaphoresis, shivering, mydriasis, intermittent tremor or myoclonus, normal BP &amp; temp, normal mental status.</p>
+              <p className="font-semibold text-amber-800 text-[10px] mt-1">→ Discontinue offending agent. Monitor vitals.</p>
+            </div>
+            <div className="p-3 bg-orange-50/70 border border-orange-300 rounded-xl space-y-1">
+              <p className="font-black text-orange-900">🟠 Moderate</p>
+              <p className="text-slate-700">Hyperthermia (&lt;41°C), tachycardia, HTN, agitation, hyperreflexia, diaphoresis, diarrhea, horizontal ocular clonus, easily inducible clonus.</p>
+              <p className="font-semibold text-orange-800 text-[10px] mt-1">→ Discontinue all serotonergic agents. Cyproheptadine. Benzos for agitation. ED evaluation.</p>
+            </div>
+            <div className="p-3 bg-red-50/70 border border-red-300 rounded-xl space-y-1">
+              <p className="font-black text-red-900">🔴 Severe</p>
+              <p className="text-slate-700">Hyperthermia (&gt;41°C), severe hypertension or hypotension, rhabdomyolysis, metabolic acidosis, renal failure, seizures, DIC, respiratory failure, death.</p>
+              <p className="font-semibold text-red-800 text-[10px] mt-1">→ 911 / ER. ICU admission. Intubation may be needed.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* High-Risk Drug Combinations */}
+        <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <p className="text-xs font-black text-slate-900 uppercase tracking-wide mb-1">⚠️ High-Risk Drug Combinations — Know Before You Prescribe</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px] text-slate-800">
+            {[
+              ['SSRI / SNRI + MAOI', 'Contraindicated. Requires 14-day washout (5 weeks for fluoxetine). FATAL risk.'],
+              ['SSRI / SNRI + Linezolid (Zyvox)', 'Linezolid is a weak MAOI. Avoid combination. Use only if no alternative antibiotic available.'],
+              ['SSRI / SNRI + Methylene Blue', 'Methylene blue is a potent MAOI. Hold SSRIs/SNRIs if IV methylene blue required.'],
+              ['SSRI / SNRI + Tramadol', 'Tramadol inhibits serotonin reuptake. Combined use significantly elevates SS risk.'],
+              ['SSRI / SNRI + Triptans (sumatriptan, rizatriptan)', 'FDA warning — moderate risk. Monitor if combination required.'],
+              ['SSRI / SNRI + Fentanyl or Meperidine', 'Fentanyl has weak serotonergic activity; meperidine (Demerol) inhibits 5-HT reuptake. Caution.'],
+              ['SSRI / SNRI + Dextromethorphan (DXM)', 'Found in many OTC cold medicines (NyQuil, Robitussin). Inform patients to check OTC labels.'],
+              ['SSRI / SNRI + St. John\'s Wort', 'OTC herbal supplement with potent 5-HT reuptake inhibition. Common patient-unreported interaction.'],
+            ].map(([combo, note]) => (
+              <div key={combo} className="flex gap-2 p-2 bg-white border border-slate-200 rounded-lg">
+                <span className="text-orange-500 flex-shrink-0">⚡</span>
+                <div>
+                  <strong className="text-slate-900">{combo}:</strong>{' '}
+                  <span className="text-slate-600">{note}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Treatment Protocol */}
+        <div className="p-4 bg-red-50 border border-red-200 rounded-xl space-y-3">
+          <p className="text-xs font-black text-red-950 uppercase tracking-wide">Treatment Protocol — Stepwise Management</p>
+          <div className="space-y-2 text-[11px]">
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-red-600 text-white font-black text-[10px] flex items-center justify-center">1</span>
+              <div>
+                <strong className="text-red-950">Discontinue ALL serotonergic agents immediately.</strong>
+                <span className="text-slate-700"> This is the single most important intervention. Identify and stop every contributing drug — including OTC supplements and cough medications.</span>
+              </div>
+            </div>
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white font-black text-[10px] flex items-center justify-center">2</span>
+              <div>
+                <strong className="text-orange-950">Cyproheptadine (Periactin) — Serotonin Antagonist.</strong>
+                <span className="text-slate-700"> First-line antidote. <strong>Adult dose: 12 mg PO immediately, then 2 mg every 2 hours</strong> until improvement (max ~32 mg/24h). Crush tabs if patient cannot swallow. Acts at 5-HT2A/2C receptors.</span>
+              </div>
+            </div>
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-500 text-white font-black text-[10px] flex items-center justify-center">3</span>
+              <div>
+                <strong className="text-amber-950">Benzodiazepines — Agitation &amp; Seizure Control.</strong>
+                <span className="text-slate-700"> Lorazepam (Ativan) or diazepam IV for neuromuscular agitation, myoclonus, and seizure prophylaxis. Do <strong>not</strong> use physical restraints — increases lactic acidosis and hyperthermia.</span>
+              </div>
+            </div>
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 text-white font-black text-[10px] flex items-center justify-center">4</span>
+              <div>
+                <strong className="text-blue-950">Supportive Care — Autonomic Stabilization.</strong>
+                <span className="text-slate-700"> IV fluids for hydration/rhabdomyolysis prevention. External cooling (ice packs, cooling blankets) for hyperthermia — <strong>do not use antipyretics</strong> (fever is muscle-generated, not hypothalamic). Continuous cardiac and O₂ monitoring.</span>
+              </div>
+            </div>
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-slate-700 text-white font-black text-[10px] flex items-center justify-center">5</span>
+              <div>
+                <strong className="text-slate-900">Severe / Refractory — ICU Escalation.</strong>
+                <span className="text-slate-700"> Endotracheal intubation + neuromuscular paralysis (vecuronium) for life-threatening hyperthermia (&gt;41°C) or refractory muscle rigidity. Avoid succinylcholine (risk of hyperkalemia from rhabdomyolysis). Monitor CK, BMP, coags for end-organ damage.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer note */}
+        <div className="p-3 bg-orange-100/50 border border-orange-200 rounded-xl text-[11px] text-orange-900 font-medium">
+          💡 <strong>Key Teaching Point:</strong> Serotonin syndrome is often <em>underdiagnosed</em> because mild presentations are mistaken for anxiety, viral illness, or stimulant side effects. The classic triad (mental status change + autonomic instability + neuromuscular abnormality) may not all be present simultaneously — any combination in the context of a serotonergic medication should raise suspicion.
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Card 5: Medical & Organic Mimics of Inattention (Laboratory Rule-Outs) */}
         <div className="bg-white rounded-2xl border-2 border-amber-300/80 p-6 shadow-sm space-y-4 md:col-span-2">
