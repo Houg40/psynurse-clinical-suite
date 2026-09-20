@@ -1,7 +1,7 @@
 /**
  * inpatientScenarios.js
  * Comprehensive 16-Bed Inpatient Psychiatric Unit Census Data
- * Designed for High-Acuity Residency & Hospitalist Simulation
+ * Tailored exclusively for the Psychiatric Medication Provider / Prescriber Role.
  */
 
 export const INPATIENT_UNIT_CENSUS = [
@@ -14,7 +14,7 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'Bipolar I Disorder, Current Episode Manic with Psychotic Features',
     legalStatus: 'Involuntary Civil Hold (72-Hour)',
     legalHoursRemaining: 42,
-    legalDetails: 'Admitted on 72h emergency detention petition by mobile crisis after spending life savings and running through traffic.',
+    legalDetails: 'Admitted on 72h emergency detention petition. Hospital legal & social work tracking court petition deadline.',
     observationLevel: '15-Minute Safety Checks',
     acuity: 'High',
     refusingMeds: true,
@@ -22,7 +22,7 @@ export const INPATIENT_UNIT_CENSUS = [
     nursingAlert: '⚠️ Refusing oral medications since 07:00. Pacing unit hallways, hyperverbal, intrusive with other patients.',
     vitals: { bp: '136/88 mmHg', hr: '98 bpm', temp: '98.8 °F', bmi: '22.4 kg/m²' },
     labs: {
-      lithiumLevel: '< 0.2 mEq/L (Subtherapeutic - missed doses)',
+      lithiumLevel: '< 0.2 mEq/L (Subtherapeutic - confirmed missed doses)',
       cmp: 'Within normal limits; mild dehydration (BUN/Cr 22/0.9)',
       toxScreen: 'Negative for stimulants/cannabinoids',
       ecg: 'Normal Sinus Rhythm, QTc 418 ms'
@@ -41,32 +41,32 @@ export const INPATIENT_UNIT_CENSUS = [
     },
     actionOptions: [
       {
-        id: 'emergency_im',
-        label: 'Order Emergency IM Protocol (Haloperidol 5mg + Lorazepam 2mg + Diphenhydramine 50mg IM STAT)',
-        category: 'Pharmacology',
-        clinicalImpact: 'Appropriate if patient presents imminent threat of physical harm or severe behavioral exhaustion, but require documented imminent danger rationale.',
-        scoreDelta: 15
-      },
-      {
         id: 'liquid_or_odt',
         label: 'Switch to Oral Dissolving Tablet (Olanzapine Zydis 10mg PO/ODT) with Motivational Negotiation',
-        category: 'Pharmacology',
-        clinicalImpact: 'Excellent low-restrictive choice: offers patient choice, avoids forced injection trauma while treating mania effectively.',
-        scoreDelta: 25
+        category: 'Route Optimization',
+        clinicalImpact: 'Evidence-based psychopharmacology: offers the patient agency, avoids forced injection trauma, and treats psychotic mania rapidly.',
+        scoreDelta: 30
       },
       {
-        id: 'petition_court',
-        label: 'File Petition for Involuntary Court-Ordered Treatment & Involuntary Meds',
-        category: 'Legal',
-        clinicalImpact: 'Crucial statutory step before the 72-hour window lapses if patient continues to lack capacity and refuse stabilization.',
+        id: 'emergency_im',
+        label: 'Order Emergency IM Psychotropic Protocol (Haloperidol 5mg + Lorazepam 2mg + Diphenhydramine 50mg IM STAT) for Imminent Violence',
+        category: 'Emergency Psychopharmacology',
+        clinicalImpact: 'Appropriate emergency intervention if verbal de-escalation fails and physical danger is imminent.',
         scoreDelta: 20
       },
       {
-        id: 'one_to_one',
-        label: 'Escalate Observation to 1:1 Continuous Line-of-Sight Staffing',
-        category: 'Safety',
-        clinicalImpact: 'Protects patient and peers from intrusive behavioral agitation while medications take effect.',
-        scoreDelta: 15
+        id: 'lithium_trough_tdm',
+        label: 'Order STAT 12-Hour Trough Lithium Level and Consolidate to Single Nighttime Dosing to Reduce Daytime Refusal Friction',
+        category: 'Therapeutic Drug Monitoring',
+        clinicalImpact: 'Once-daily bedtime dosing reduces GI side effects, protects renal tubules, and decreases daytime refusal friction.',
+        scoreDelta: 25
+      },
+      {
+        id: 'legal_med_recommendation',
+        label: 'Provide Psychiatric Medication Treatment Plan to Hospital Legal/Social Work for Involuntary Treatment Hearing',
+        category: 'Psychiatric Legal Interface',
+        clinicalImpact: 'Ensures the court has the exact pharmacological rationale needed to order involuntary medications if refusal continues.',
+        scoreDelta: 20
       }
     ]
   },
@@ -79,12 +79,12 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'Schizophrenia, Paranoid Subtype (Acute Relapse)',
     legalStatus: 'Involuntary Civil Hold (72-Hour)',
     legalHoursRemaining: 18,
-    legalDetails: 'Detained after barricading apartment and calling 911 claiming electromagnetic surveillance through walls.',
+    legalDetails: '72h hold expires in 18 hours. Hospital social work preparing 14-day court petition.',
     observationLevel: '15-Minute Safety Checks',
     acuity: 'High',
     refusingMeds: true,
     medicationRefusalReason: 'Believes pills contain nanotracking transmitters.',
-    nursingAlert: '⚠️ Severe paranoia. Has refused all meal trays for 24 hours citing food tampering. Stares at air vents.',
+    nursingAlert: '⚠️ Severe paranoia. Has refused all oral medication cups citing nanotracking transmitters.',
     vitals: { bp: '124/80 mmHg', hr: '84 bpm', temp: '98.4 °F', bmi: '25.1 kg/m²' },
     labs: {
       cmp: 'Mildly elevated sodium (147 mEq/L) consistent with reduced fluid intake',
@@ -93,10 +93,9 @@ export const INPATIENT_UNIT_CENSUS = [
       ecg: 'Normal Sinus Rhythm, QTc 435 ms'
     },
     currentMedications: [
-      { name: 'Risperidone', dose: '3 mg PO BID', status: 'Refused' },
-      { name: 'Ensure Nutritional Shake', dose: '1 bottle TID', status: 'Refused' }
+      { name: 'Risperidone', dose: '3 mg PO BID', status: 'Refused' }
     ],
-    nursingNotes: 'Overnight: Patient barricaded room door with mattress at 01:00. Required security assistance to clear. Continues to accuse charge nurse of federal affiliation.',
+    nursingNotes: 'Overnight: Barricaded room door with mattress at 01:00. Continues to accuse staff of federal surveillance.',
     dialogue: {
       greeting: "Step back from that doorway. I know what frequency your badge operates on. You aren't examining me without a warrant.",
       probeMeds: "Your little red capsules have micro-conductors. I saw the reflections in the medicine cup. Give me sealed bottled water or nothing at all.",
@@ -105,25 +104,25 @@ export const INPATIENT_UNIT_CENSUS = [
     },
     actionOptions: [
       {
-        id: 'sealed_food_alliance',
-        label: 'Order Factory-Sealed Commercial Meals & Unopened Bottled Water to Establish Paranoia Alliance',
-        category: 'Milieu',
-        clinicalImpact: 'High-yield psychiatric nursing strategy: bypasses food-tampering delusion without restraint, prevents medical dehydration.',
-        scoreDelta: 25
-      },
-      {
-        id: 'urgent_court_hearing',
-        label: 'File Emergency Involuntary Court Hearing for 14-Day Commitment (18 hours remaining on 72h hold)',
-        category: 'Legal',
-        clinicalImpact: 'Mandatory: 72-hour statutory deadline expires today. Failure to file results in illegal detention or unsafe discharge.',
+        id: 'liquid_concentrate_sealed',
+        label: 'Offer Flavorless Oral Liquid Concentrate (Risperidone 1 mg/mL) in Unopened Commercial Beverage to Bypass Pill Transmitters',
+        category: 'Route Optimization',
+        clinicalImpact: 'High-yield psychopharmacology technique: respects patient persecutory focus regarding pills while achieving pharmacological blood levels.',
         scoreDelta: 30
       },
       {
-        id: 'long_acting_prep',
-        label: 'Evaluate for Long-Acting Injectable (LAI) Antipsychotic (Invega Sustenna / Haldol Decanoate)',
-        category: 'Pharmacology',
-        clinicalImpact: 'Addresses severe chronic oral non-adherence cycle once stabilized.',
-        scoreDelta: 15
+        id: 'court_psych_affidavit',
+        label: 'Complete Psychiatric Medical Necessity Form for Hospital Legal/Social Work for 14-Day Involuntary Commitment',
+        category: 'Psychiatric Legal Interface',
+        clinicalImpact: 'Critical psychiatric prescriber duty: documents persistent psychotic lack of capacity so legal team can secure court-ordered care before 18h deadline.',
+        scoreDelta: 25
+      },
+      {
+        id: 'lai_antipsychotic_plan',
+        label: 'Formulate Transition to Monthly Long-Acting Injectable (Invega Sustenna / Paliperidone Palmitate) Post-Stabilization',
+        category: 'Maintenance Psychopharmacology',
+        clinicalImpact: 'Solves the chronic oral non-adherence cycle driving his recurrent involuntary hospitalizations.',
+        scoreDelta: 25
       }
     ]
   },
@@ -136,7 +135,7 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'Major Depressive Disorder with Postpartum Psychosis & Catatonic Features',
     legalStatus: 'Involuntary Civil Hold',
     legalHoursRemaining: 36,
-    legalDetails: 'Emergency hold initiated 6 weeks postpartum after auditory hallucinations commanded her not to nurse her infant.',
+    legalDetails: 'Under emergency hold; surrogate family consenting for psychiatric care.',
     observationLevel: '1:1 Continuous Line-of-Sight',
     acuity: 'Critical',
     refusingMeds: false,
@@ -150,8 +149,7 @@ export const INPATIENT_UNIT_CENSUS = [
       ecg: 'Normal Sinus Rhythm, QTc 410 ms'
     },
     currentMedications: [
-      { name: 'Lorazepam (Ativan)', dose: '2 mg IV Q8H', status: 'Active (Scheduled)' },
-      { name: 'IV Normal Saline', dose: '100 mL/hr', status: 'Infusing' }
+      { name: 'Lorazepam (Ativan)', dose: '2 mg IV Q8H', status: 'Active (Scheduled)' }
     ],
     nursingNotes: 'Patient remains mute and rigid in bed. Held arm in upright position for 20 minutes without dropping (catalepsy). Responded partially to morning Lorazepam dose with brief tears.',
     dialogue: {
@@ -163,24 +161,24 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'lorazepam_challenge',
-        label: 'Administer Lorazepam Challenge Test (Lorazepam 2mg IV/IM and reassess Bush-Francis at 30 min)',
-        category: 'Diagnostic/Treatment',
-        clinicalImpact: 'Gold-standard diagnostic & therapeutic step for catatonia: 80%+ response rate confirms catatonia syndrome.',
+        label: 'Administer Lorazepam Challenge Test (Lorazepam 2mg IV/IM STAT and Reassess Bush-Francis Score at 30 min)',
+        category: 'Acute Neuropsychiatry',
+        clinicalImpact: 'Gold-standard diagnostic & therapeutic step for catatonia: dramatic unlocking of motor rigidity confirms catatonia syndrome.',
         scoreDelta: 30
       },
       {
         id: 'ect_consult',
-        label: 'Place STAT Consultation for Electroconvulsive Therapy (ECT)',
-        category: 'Interventional',
-        clinicalImpact: 'Life-saving standard of care for postpartum psychosis with catatonia refractory to high-dose benzodiazepines.',
+        label: 'Place STAT Psychiatric Consultation for Electroconvulsive Therapy (ECT)',
+        category: 'Interventional Psychiatry',
+        clinicalImpact: 'Definitive life-saving standard of care for severe catatonia and postpartum psychosis refractory to high-dose benzodiazepines.',
         scoreDelta: 25
       },
       {
-        id: 'thrombo_prophylaxis',
-        label: 'Order Enoxaparin (Lovenox) 40mg SubQ daily for DVT Prophylaxis during catatonic immobility',
-        category: 'Medical Safety',
-        clinicalImpact: 'Crucial medical safety step: catatonic patients have high mortality from pulmonary embolism due to prolonged stasis.',
-        scoreDelta: 20
+        id: 'internal_med_consult_dvt',
+        label: 'Request Internal Medicine Consult for General Medical Hydration and DVT Prophylaxis Management',
+        category: 'Medical Collaboration',
+        clinicalImpact: 'Appropriate prescriber collaboration: delegates medical DVT anticoagulation and IV hydration to the hospitalist while managing psychotropics.',
+        scoreDelta: 25
       }
     ]
   },
@@ -219,17 +217,17 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'court_affidavit_stepdown',
-        label: 'Complete Court Affidavit Recommending Step-Down to Assertive Community Treatment (ACT / Outpatient Civil Commitment)',
-        category: 'Legal',
-        clinicalImpact: 'Exemplary clinical discharge planning: honors patient recovery progress while legally ensuring outpatient adherence structure.',
+        label: 'Document Psychiatric Medication Efficacy (Valproate Level 82 µg/mL, Stable Abilify) for Court Step-Down',
+        category: 'Psychiatric Legal Interface',
+        clinicalImpact: 'Provides the clinical evidence of pharmacological stabilization allowing the court to step down care to outpatient ACT.',
         scoreDelta: 30
       },
       {
         id: 'lai_transition_court',
-        label: 'Discuss Transition to Long-Acting Injectable Aripiprazole (Abilify Maintena 400mg) Prior to Discharge',
-        category: 'Pharmacology',
-        clinicalImpact: 'Guarantees therapeutic levels and simplifies community compliance after release.',
-        scoreDelta: 20
+        label: 'Initiate Long-Acting Injectable Antipsychotic (Abilify Maintena 400mg IM) Prior to Discharge',
+        category: 'Maintenance Psychopharmacology',
+        clinicalImpact: 'Guarantees therapeutic antipsychotic delivery in the community, preventing hospital readmission.',
+        scoreDelta: 25
       }
     ]
   },
@@ -242,7 +240,7 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'Severe Alcohol Withdrawal Delirium (DTs Risk) & Wernicke Encephalopathy Rule-Out',
     legalStatus: 'Involuntary Civil Hold (Gravely Disabled)',
     legalHoursRemaining: 54,
-    legalDetails: 'Found hypothermic behind dumpster; unable to provide for basic food/shelter; severe confusion.',
+    legalDetails: 'Admitted following severe public intoxication and hypothermia.',
     observationLevel: '15-Minute Safety Checks & Fall Precautions',
     acuity: 'Critical',
     refusingMeds: false,
@@ -270,23 +268,23 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'symptom_triggered_ativan',
-        label: 'Administer Lorazepam 4mg IV STAT & Reassess CIWA in 30 Minutes',
-        category: 'Pharmacology',
-        clinicalImpact: 'Life-saving: Prevents withdrawal seizures and progression to fatal Delirium Tremens.',
+        label: 'Administer Lorazepam 4mg IV STAT & Continue Symptom-Triggered CIWA Protocol (Target CIWA < 10)',
+        category: 'Emergency Psychopharmacology',
+        clinicalImpact: 'Life-saving: Benzodiazepines act on GABA-A receptors to halt withdrawal progression and prevent fatal seizures.',
         scoreDelta: 30
       },
       {
-        id: 'banana_bag_magnesium',
-        label: 'Order IV Magnesium Sulfate 2g in 100mL D5W over 1 hr + Potassium Chloride 20 mEq IV',
-        category: 'Electrolyte Replacement',
-        clinicalImpact: 'Essential: Hypomagnesemia dramatically lowers seizure threshold and causes refractory delirium.',
+        id: 'high_dose_iv_thiamine',
+        label: 'Verify High-Dose IV Thiamine (500mg IV TID) Is Given Prior to Any Carbohydrate/Dextrose Administration',
+        category: 'Neuroprotective Safety',
+        clinicalImpact: 'Absolute Prescriber Rule: Dextrose before thiamine exhausts transketolase and causes acute irreversible Wernicke encephalopathy.',
         scoreDelta: 25
       },
       {
-        id: 'high_dose_iv_thiamine',
-        label: 'Confirm High-Dose IV Thiamine (500mg IV TID) Before Any Glucose Administration',
-        category: 'Neuroprotection',
-        clinicalImpact: 'Critical Board Rule: Glucose before thiamine precipitates irreversible Wernicke-Korsakoff syndrome.',
+        id: 'internal_med_consult_withdrawal',
+        label: 'Request STAT Internal Medicine Consult for Severe Hypomagnesemia (1.4 mg/dL), Hypokalemia & Telemetry Monitoring',
+        category: 'Medical Collaboration',
+        clinicalImpact: 'Appropriate prescriber boundaries: engages hospitalist for electrolyte IV infusions while managing acute withdrawal sedation.',
         scoreDelta: 25
       }
     ]
@@ -326,24 +324,17 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'firm_milieu_boundaries',
-        label: 'Maintain Consistent Team Boundaries; Validate Emotional Agony Without Prescribing Benzodiazepines',
-        category: 'Psychotherapy/Milieu',
-        clinicalImpact: 'Standard of care for BPD: Benzodiazepines induce behavioral disinhibition and worsen suicidality in BPD.',
+        label: 'Decline Benzodiazepine Prescription; Prescribe Non-Habituating Anxiolytic (Hydroxyzine 50mg or Gabapentin 300mg TID)',
+        category: 'Controlled Substance Safety',
+        clinicalImpact: 'Evidence-based psychopharmacology: Benzodiazepines cause behavioral disinhibition and increase suicide completion in BPD.',
         scoreDelta: 30
       },
       {
-        id: 'dbt_skills_coaching',
-        label: 'Order DBT Distress Tolerance Coaching (TIPP Skills: Ice Dive, Paced Breathing) with Unit Social Work',
-        category: 'Psychotherapy',
-        clinicalImpact: 'Teaches distress tolerance physiology rather than chemical numbing.',
-        scoreDelta: 20
-      },
-      {
-        id: 'ama_capacity_eval',
-        label: 'Perform Formal Capacity Evaluation If Patient Requests AMA Discharge (Assess Imminent Risk)',
-        category: 'Legal',
-        clinicalImpact: 'Voluntary patients can leave unless they meet civil hold criteria for imminent self-harm.',
-        scoreDelta: 20
+        id: 'second_gen_mood_adjunct',
+        label: 'Consider Low-Dose Atypical Antipsychotic Augmentation (Aripiprazole 2-5mg PO Daily) for Affective Instability',
+        category: 'Psychopharmacology',
+        clinicalImpact: 'APA guidelines support low-dose second-generation antipsychotics for acute cognitive-perceptual symptoms and severe affective lability in BPD.',
+        scoreDelta: 25
       }
     ]
   },
@@ -383,16 +374,16 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'avoid_typical_antipsychotics',
-        label: 'Flag Chart: Absolute Contraindication to Typical Antipsychotics & Risperidone (Severe Lewy Body Sensitivity)',
-        category: 'Safety',
-        clinicalImpact: 'Critical Safety Rule: First-generation antipsychotics or potent D2 blockers can cause catastrophic irreversible rigidity or death in DLB.',
+        label: 'Chart Warning: Absolute Contraindication to Typical Antipsychotics & Risperidone (Severe Neuroleptic Sensitivity Risk)',
+        category: 'Psychiatric Safety',
+        clinicalImpact: 'Life-saving safety rule: Up to 50% of DLB patients exposed to D2 blockers experience catastrophic irreversible rigidity or death.',
         scoreDelta: 30
       },
       {
         id: 'pimavanserin_or_quetiapine',
-        label: 'If Hallucinations Become Distressing: Initiate Pimavanserin (Nuplazid 34mg) or Low-Dose Quetiapine (12.5mg)',
-        category: 'Pharmacology',
-        clinicalImpact: 'Evidence-based psychopharmacology for Parkinson/Lewy psychosis with minimal motor worsening.',
+        label: 'If Psychosis Becomes Distressing: Prescribe Pimavanserin (Nuplazid 34mg Daily) or Low-Dose Quetiapine (12.5mg QHS)',
+        category: 'Geriatric Psychopharmacology',
+        clinicalImpact: 'Pimavanserin is a pure 5-HT2A inverse agonist without D2 antagonism, treating psychosis with zero Parkinsonian motor worsening.',
         scoreDelta: 25
       }
     ]
@@ -430,17 +421,17 @@ export const INPATIENT_UNIT_CENSUS = [
     },
     actionOptions: [
       {
-        id: 'iv_fluids_cpk_monitoring',
-        label: 'Aggressive IV Hydration + Serial CPK & Urine Myoglobin Checks to Prevent Rhabdomyolysis Renal Failure',
-        category: 'Medical Safety',
-        clinicalImpact: 'Crucial: CPK 1450 in methamphetamine agitation can rapidly evolve into acute tubular necrosis.',
-        scoreDelta: 25
+        id: 'oral_deescalation_ativan',
+        label: 'Prescribe Lorazepam 2mg PO/IM for Sympathomimetic Overdrive; Avoid High-Potency D2 Blockers Due to CPK Elevation',
+        category: 'Emergency Psychopharmacology',
+        clinicalImpact: 'Benzodiazepines are primary first-line for methamphetamine agitation; typical neuroleptics worsen hyperthermia and rhabdomyolysis risk.',
+        scoreDelta: 30
       },
       {
-        id: 'oral_deescalation_ativan',
-        label: 'Offer Calming Oral Lorazepam 2mg with Juice; Avoid High-Dose Haldol If Hyperthermic/Restrained',
-        category: 'Pharmacology',
-        clinicalImpact: 'Benzodiazepines are primary first-line for sympathomimetic toxicity; high-potency D2 blockers increase hyperthermia risk.',
+        id: 'internal_med_consult_cpk',
+        label: 'Request Internal Medicine Consult for Aggressive IV Hydration & Serial CPK Monitoring (Rhabdomyolysis Prevention)',
+        category: 'Medical Collaboration',
+        clinicalImpact: 'Delegates internal medicine nephroprotection while managing acute central nervous system toxicity.',
         scoreDelta: 25
       }
     ]
@@ -454,7 +445,7 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'Treatment-Resistant Major Depressive Disorder with High Lethality Suicide Attempt',
     legalStatus: 'Involuntary Civil Hold (Imminent Danger to Self)',
     legalHoursRemaining: 50,
-    legalDetails: 'Admitted following ligature attempt in basement; rescued by spouse.',
+    legalDetails: 'Admitted following high-lethality suicide attempt; 1:1 suicide precautions.',
     observationLevel: '1:1 Continuous Line-of-Sight Staffing',
     acuity: 'Critical',
     refusingMeds: false,
@@ -479,18 +470,18 @@ export const INPATIENT_UNIT_CENSUS = [
     },
     actionOptions: [
       {
-        id: 'maintain_one_to_one',
-        label: 'Maintain Uninterrupted 1:1 Line-of-Sight Observation; Search Room for Ligature Anchor Points',
-        category: 'Safety',
-        clinicalImpact: 'Zero-tolerance safety standard for acute high-lethality suicidal intent.',
-        scoreDelta: 25
+        id: 'lithium_or_esketamine_augmentation',
+        label: 'Initiate Lithium Carbonate Augmentation (300mg BID, Target Level 0.6-0.8 mEq/L) for Evidence-Based Anti-Suicidality Effect',
+        category: 'Anti-Suicide Psychopharmacology',
+        clinicalImpact: 'Lithium is one of only two psychotropics with FDA/evidence-based proven statistical reduction in completed suicide.',
+        scoreDelta: 30
       },
       {
-        id: 'lithium_or_esketamine_augmentation',
-        label: 'Initiate Lithium Carbonate Augmentation (300mg BID, target 0.6-0.8 mEq/L) for Evidence-Based Anti-Suicide Effect',
-        category: 'Pharmacology',
-        clinicalImpact: 'Lithium and Clozapine are the only psychotropics with proven statistical suicide reduction.',
-        scoreDelta: 30
+        id: 'atypical_antidepressant_adjunct',
+        label: 'Discontinue High-Dose Bupropion (Seizure/Insomnia Risk) and Initiate Atypical Antipsychotic Augmentation (Aripiprazole 2-5mg or Brexpiprazole 1mg)',
+        category: 'Depression Psychopharmacology',
+        clinicalImpact: 'First-line evidence-based augmentation strategy for unipolar treatment-resistant depression.',
+        scoreDelta: 25
       }
     ]
   },
@@ -530,16 +521,16 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'verify_anc_before_dispense',
-        label: 'Verify Lab ANC ≥ 1500 /µL in REMS Registry Portal Before Authorizing Medication Administration',
-        category: 'Regulatory/Safety',
-        clinicalImpact: 'Mandatory FDA requirement: Prevents fatal agranulocytosis.',
+        label: 'Verify Morning ANC ≥ 1500 /µL in FDA REMS Portal Prior to Authorizing Clozapine Administration',
+        category: 'Regulatory / REMS Safety',
+        clinicalImpact: 'Absolute Legal Prescriber Mandate: Administering Clozapine without verified ANC creates severe risk of unrecognized agranulocytosis.',
         scoreDelta: 30
       },
       {
         id: 'monitor_clozapine_constipation',
-        label: 'Assess Daily Bowel Movement Log & Abdominal Exam (Prevent Fatal Clozapine Gastrointestinal Hypomotility)',
-        category: 'Medical Safety',
-        clinicalImpact: 'Clozapine-induced ileus kills more patients than agranulocytosis; proactive bowel regimens are mandatory.',
+        label: 'Review Daily Bowel Flowsheet & Prescribe Aggressive Laxative Prophylaxis (Polyethylene Glycol + Senna) for Gastrointestinal Hypomotility',
+        category: 'Psychiatric Safety',
+        clinicalImpact: 'Clozapine-induced severe constipation and bowel necrosis kill more patients than agranulocytosis; proactive bowel regimens are mandatory.',
         scoreDelta: 25
       }
     ]
@@ -553,7 +544,7 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'Severe Anorexia Nervosa (Restricting Type) with Major Depression',
     legalStatus: 'Involuntary Civil Hold (Gravely Disabled / Medical Demise)',
     legalHoursRemaining: 30,
-    legalDetails: 'Involuntary commitment petition granted due to BMI 13.8 and refusal of medical nutritional rescue.',
+    legalDetails: 'Under involuntary hold for severe emaciation and refusal of nutritional rescue.',
     observationLevel: '1:1 Post-Prandial Observation for 90 Minutes',
     acuity: 'Critical',
     refusingMeds: true,
@@ -580,16 +571,16 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'stat_medical_transfer',
-        label: 'STAT Transfer to Medical ICU / Specialized Eating Disorder Unit (HR < 40, BP < 90/60, QTc > 470, Hypokalemia)',
-        category: 'Medical Safety',
-        clinicalImpact: 'Top Board Rule: Psych units are not equipped for telemetry refeeding syndrome cardiac arrest. Immediate medical stabilization required.',
+        label: 'Place STAT Request for Medical ICU Transfer (HR 42 bpm, QTc 476ms, K+ 3.1 mEq/L Exceed Safe Psychiatric Ward Limits)',
+        category: 'Medical Collaboration',
+        clinicalImpact: 'Top Psychiatric Board Rule: Severe anorexia with cardiac instability must be medically stabilized in an ICU before psychiatric treatment.',
         scoreDelta: 35
       },
       {
-        id: 'iv_potassium_telemetry',
-        label: 'Place on Continuous Cardiac Telemetry & Administer Slow IV Potassium Replacement with Phosphorus Monitoring',
-        category: 'Medical Safety',
-        clinicalImpact: 'Prevents sudden cardiac death from hypokalemic torsades de pointes.',
+        id: 'hold_qtc_psychotropics',
+        label: 'Hold All QTc-Prolonging Psychotropics (Geodon, Haldol, Citalopram) to Prevent Fatal Torsades de Pointes',
+        category: 'Psychiatric Safety',
+        clinicalImpact: 'Profound hypokalemia + prolonged QTc creates extreme vulnerability to ventricular fibrillation.',
         scoreDelta: 25
       }
     ]
@@ -603,7 +594,7 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'First-Episode Psychosis (FEP) - Unspecified Schizophrenia Spectrum',
     legalStatus: 'Involuntary Civil Hold (72-Hour)',
     legalHoursRemaining: 60,
-    legalDetails: 'University sophomore brought in by campus police after dismantling dorm fire alarms believing they broadcast his thoughts.',
+    legalDetails: 'University student brought by police after dismantling dorm fire alarms.',
     observationLevel: '15-Minute Checks',
     acuity: 'High',
     refusingMeds: false,
@@ -628,15 +619,15 @@ export const INPATIENT_UNIT_CENSUS = [
       {
         id: 'low_dose_atypical_fep',
         label: 'Initiate Low-Dose Atypical Antipsychotic (Risperidone 1mg PO Daily or Aripiprazole 5mg PO Daily)',
-        category: 'Pharmacology',
-        clinicalImpact: 'First-episode psychosis guidelines recommend starting at lowest effective dose to prevent traumatic EPS and ensure long-term engagement.',
+        category: 'First-Episode Psychopharmacology',
+        clinicalImpact: 'First-episode patients are hypersensitive to EPS and metabolic side effects; "start low and go slow" prevents treatment-induced trauma.',
         scoreDelta: 30
       },
       {
-        id: 'family_psychoeducation',
-        label: 'Conduct Comprehensive Family Conference to Demystify Psychosis and Connect with Coordinated Specialty Care (CSC)',
+        id: 'coordinated_specialty_referral',
+        label: 'Refer to Coordinated Specialty Care (CSC / First-Episode Psychosis Team) for Longitudinal Outpatient Recovery',
         category: 'Systems of Care',
-        clinicalImpact: 'Early intervention programs (CSC/NAVIGATE) dramatically reduce long-term disability in first-episode schizophrenia.',
+        clinicalImpact: 'Early intervention programs dramatically improve longitudinal vocational, social, and symptom recovery.',
         scoreDelta: 25
       }
     ]
@@ -650,7 +641,7 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'Bipolar I Disorder, Current Episode Mixed with Severe Dysphoric Agitation',
     legalStatus: 'Involuntary Civil Hold',
     legalHoursRemaining: 24,
-    legalDetails: 'Admitted after screaming in public courthouse and threatening judges while sobbing uncontrollably.',
+    legalDetails: 'Under emergency hold; hospital social work preparing 14-day court extension.',
     observationLevel: '15-Minute Checks',
     acuity: 'High',
     refusingMeds: false,
@@ -675,16 +666,16 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'rapid_divalproex_loading',
-        label: 'Initiate Divalproex (Depakote) Oral Loading Protocol (20 mg/kg/day) + Increase Quetiapine to 600mg',
-        category: 'Pharmacology',
-        clinicalImpact: 'Valproate is superior to Lithium for mixed states and dysphoric mania.',
+        label: 'Initiate Divalproex (Depakote) Oral Loading Protocol (20 mg/kg/day) + Increase Evening Sedating Quetiapine to 600mg',
+        category: 'Acute Mood Stabilization',
+        clinicalImpact: 'Valproate oral loading achieves rapid therapeutic blood levels (50-125 µg/mL) and is superior to Lithium for mixed dysphoric mania.',
         scoreDelta: 30
       },
       {
         id: 'court_extension_petition',
-        label: 'File 14-Day Involuntary Commitment Petition (24 hours remaining on 72h hold with active dysphoric violence risk)',
-        category: 'Legal',
-        clinicalImpact: 'Mandatory statutory protection before 72h expiration.',
+        label: 'Submit Psychiatric Diagnosis & Medication Treatment Plan to Social Work for 14-Day Commitment Filing',
+        category: 'Psychiatric Legal Interface',
+        clinicalImpact: 'Provides clinical documentation of acute suicide risk in mixed mania before the 24h deadline lapses.',
         scoreDelta: 25
       }
     ]
@@ -724,9 +715,9 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'approve_discharge_orders',
-        label: 'Finalize Discharge Summary, Provide 30-Day Prescription Supply with No Refills on PRNs, and Confirm Outpatient Follow-up',
-        category: 'Discharge',
-        clinicalImpact: 'Ensures safe transition of care without medication disruption.',
+        label: 'Finalize Psychiatric Discharge Summary, Order 30-Day Prescription Supply (Lithium + Latuda), and Coordinate Outpatient Transition',
+        category: 'Discharge Psychopharmacology',
+        clinicalImpact: 'Prevents rebound mania/depression by ensuring continuous medication supply and strict outpatient handoff.',
         scoreDelta: 30
       }
     ]
@@ -740,7 +731,7 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'Severe Opioid Use Disorder (Fentanyl) & PTSD with Flashbacks',
     legalStatus: 'Involuntary Civil Hold (Emergency Overdose Revival)',
     legalHoursRemaining: 40,
-    legalDetails: 'Brought by EMS after naloxone reversal in vehicle with infant in car seat. Child Protective Services (CPS) case opened.',
+    legalDetails: 'Admitted post-naloxone reversal. Social work coordinating child protective services and residential programs.',
     observationLevel: '15-Minute Checks',
     acuity: 'High',
     refusingMeds: false,
@@ -766,16 +757,16 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'buprenorphine_microinduction',
-        label: 'Initiate Buprenorphine/Naloxone Low-Dose Micro-Induction (Bernese Method) or High-Dose Protocol with COWS > 13',
-        category: 'Addiction Psychiatry',
-        clinicalImpact: 'Life-saving evidence-based MOUD (Medication for Opioid Use Disorder) reducing mortality by 50%+.',
+        label: 'Initiate Buprenorphine/Naloxone (Suboxone) Induction Protocol for COWS > 13 or Low-Dose Micro-Induction (Bernese Method)',
+        category: 'Addiction Psychopharmacology',
+        clinicalImpact: 'Life-saving evidence-based MOUD (Medication for Opioid Use Disorder): decreases post-discharge overdose mortality by > 50%.',
         scoreDelta: 30
       },
       {
-        id: 'cps_collaboration',
-        label: 'Coordinate with Hospital Social Work and CPS Caseworker for Mother-Baby Residential Treatment Placement',
-        category: 'Social Work / Systems',
-        clinicalImpact: 'Trauma-informed supportive discharge planning preserving family reunification path.',
+        id: 'comfort_med_protocol',
+        label: 'Prescribe Non-Opioid Withdrawal Comfort Pack (Clonidine, Ondansetron, Acetaminophen, Loperamide)',
+        category: 'Supportive Psychopharmacology',
+        clinicalImpact: 'Controls severe noradrenergic autonomic storm and GI distress, preventing early discharge Against Medical Advice.',
         scoreDelta: 20
       }
     ]
@@ -789,7 +780,7 @@ export const INPATIENT_UNIT_CENSUS = [
     diagnosis: 'Schizophrenia with Episodic Catatonic Stupor',
     legalStatus: 'Voluntary (Conservator Assenting)',
     legalHoursRemaining: null,
-    legalDetails: 'Admitted 2 days ago in rigid stupor with severe negativism.',
+    legalDetails: 'Admitted in catatonic stupor; responding to Lorazepam.',
     observationLevel: '15-Minute Checks',
     acuity: 'Moderate',
     refusingMeds: false,
@@ -813,15 +804,15 @@ export const INPATIENT_UNIT_CENSUS = [
     actionOptions: [
       {
         id: 'maintain_scheduled_lorazepam',
-        label: 'Maintain Scheduled Oral Lorazepam 2mg TID; Plan Slow Outpatient Taper Only After Antipsychotic Optimization',
-        category: 'Pharmacology',
-        clinicalImpact: 'Premature benzodiazepine taper in resolving catatonia leads to catastrophic rebound stupor.',
+        label: 'Maintain Scheduled Oral Lorazepam 2mg TID; Strictly Avoid Rapid Taper to Prevent Catastrophic Rebound Stupor',
+        category: 'Neuropsychiatric Maintenance',
+        clinicalImpact: 'Premature benzodiazepine taper in resolving catatonia leads to catastrophic rebound stupor and autonomic instability.',
         scoreDelta: 30
       },
       {
         id: 'cautious_antipsychotic_reintroduction',
         label: 'Cautiously Re-introduce Low-Potency Atypical Antipsychotic (e.g. Quetiapine or Aripiprazole); Avoid High-Potency D2 Antagonists',
-        category: 'Pharmacology',
+        category: 'Psychopharmacology Safety',
         clinicalImpact: 'High-potency D2 blockers (Haloperidol/Fluphenazine) can precipitate malignant catatonia/NMS in recovering catatonic patients.',
         scoreDelta: 25
       }
@@ -839,33 +830,33 @@ export const SIMULATION_PRESETS = [
     volume: 1,
     legalStatus: 'Voluntary',
     acuity: 'Moderate',
-    description: 'Private 1-on-1 outpatient psychiatric evaluation. Paced 45-minute intake, voluntary patient alliance, diagnostic formulation, and long-term 8-week titration follow-up.',
+    description: 'Private 1-on-1 outpatient psychiatric medication evaluation. Paced 45-minute intake, voluntary patient alliance, diagnostic formulation, and long-term 8-week titration follow-up.',
     badge: '1 Patient • Paced Intake',
     color: 'teal'
   },
   {
     id: 'inpatient-residency-16',
     title: 'Acute Inpatient Residency Ward',
-    subtitle: 'High-Acuity Institutional Mission',
+    subtitle: 'Psychiatric Prescriber Mission',
     icon: 'Building2',
     setting: 'inpatient',
     volume: 16,
     legalStatus: 'Involuntary Holds & Court Orders',
     acuity: 'Critical & High',
-    description: '16-bed locked acute psychiatric unit. Involuntary 72-hour holds, court-ordered treatment deadlines, medication refusals, morning team rounds, and attending physician morning debrief.',
-    badge: '16 Involuntary Beds • Rapid Rounds',
+    description: '16-bed locked acute psychiatric unit. Involuntary medication refusals, oral dissolving tablet negotiations vs emergency IM protocols, therapeutic drug monitoring, Clozapine REMS, and attending debrief.',
+    badge: '16 Involuntary Beds • Medication Focus',
     color: 'indigo'
   },
   {
     id: 'crisis-ed-triage',
     title: 'Psychiatric Emergency Pod',
-    subtitle: 'Crisis Stabilization & Clearance',
+    subtitle: 'Acute Crisis Psychopharmacology',
     icon: 'AlertTriangle',
     setting: 'crisis',
     volume: 6,
     legalStatus: 'Acute Civil Holds',
     acuity: 'Critical Surge',
-    description: 'Fast-paced Emergency Department psych pod. Rapid medical clearance rule-outs, acute aggression de-escalation, substance tox disposition, and admission vs. discharge triage.',
+    description: 'Fast-paced Emergency Department psych pod. Rapid agitation de-escalation psychotropics, substance withdrawal protocols, and acute medication stabilization.',
     badge: '6 Acute Bays • Rapid Triage',
     color: 'amber'
   }
