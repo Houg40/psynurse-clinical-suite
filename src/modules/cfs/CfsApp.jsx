@@ -3,15 +3,23 @@ import VirtualExamRoom from './components/VirtualExamRoom';
 import ClinicalChartPad from './components/ClinicalChartPad';
 import TimeJumpEngine from './components/TimeJumpEngine';
 import PreceptorDebrief from './components/PreceptorDebrief';
+import UnitCensusBoard from './components/UnitCensusBoard';
+import InpatientDebrief from './components/InpatientDebrief';
+import FlightConfigModal from './components/FlightConfigModal';
 import casesData from './data/cases.json';
 
 export default function CfsApp({ 
   activePhase, 
   setActivePhase, 
-  onCluesUpdated 
+  onCluesUpdated,
+  flightConfig,
+  setFlightConfig,
+  isFlightConfigOpen,
+  setIsFlightConfigOpen
 }) {
-  const currentCase = casesData[0]; // Case 1: Marcus Vance
+  const currentCase = casesData[0]; // Case 1: Marcus Vance (Solo Outpatient)
 
+  // Outpatient Simulation State
   const initialMessages = [
     {
       sender: 'patient',
@@ -41,6 +49,9 @@ export default function CfsApp({
   const [orderData, setOrderData] = useState(initialOrder);
   const [week8Action, setWeek8Action] = useState('');
 
+  // Inpatient Simulation State
+  const [inpatientResults, setInpatientResults] = useState(null);
+
   // Notify parent on clues update
   const updateClues = (newClues) => {
     setRevealedClues(newClues);
@@ -50,7 +61,7 @@ export default function CfsApp({
     }
   };
 
-  // Handle probe button click
+  // Handle probe button click (Outpatient)
   const handleAskProbe = (probe) => {
     const clinicianMsg = {
       sender: 'clinician',
@@ -78,7 +89,7 @@ export default function CfsApp({
     setMessages(prev => [...prev, clinicianMsg]);
   };
 
-  // Handle custom typed questions
+  // Handle custom typed questions (Outpatient)
   const handleSendCustomMessage = (text) => {
     if (!text.trim()) return;
 
@@ -134,53 +145,99 @@ export default function CfsApp({
     updateClues(initialClues);
     setOrderData(initialOrder);
     setWeek8Action('');
+    setInpatientResults(null);
     setActivePhase('interview');
   };
+
+  const handleApplyConfig = (newConfig) => {
+    setFlightConfig(newConfig);
+    handleResetCase();
+  };
+
+  const isInpatient = flightConfig?.setting === 'inpatient';
 
   return (
     <div className="bg-slate-950 text-slate-100 min-h-[calc(100vh-8rem)]">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {activePhase === 'interview' && (
-          <VirtualExamRoom
-            caseData={currentCase}
-            messages={messages}
-            onSendMessage={handleSendCustomMessage}
-            onAskProbe={handleAskProbe}
-            revealedClues={revealedClues}
-            onAdvanceToCharting={() => setActivePhase('charting')}
-          />
-        )}
+        
+        {/* Flight Parameters Modal */}
+        <FlightConfigModal
+          isOpen={isFlightConfigOpen}
+          onClose={() => setIsFlightConfigOpen(false)}
+          activeConfig={flightConfig || { setting: 'outpatient', volume: 1 }}
+          onApplyConfig={handleApplyConfig}
+        />
 
-        {activePhase === 'charting' && (
-          <ClinicalChartPad
-            caseData={currentCase}
-            orderData={orderData}
-            setOrderData={setOrderData}
-            onBackToInterview={() => setActivePhase('interview')}
-            onCommitOrderAndJump={() => setActivePhase('timejump')}
-          />
-        )}
+        {/* ── INPATIENT 16-BED RESIDENCY WARD SIMULATION ── */}
+        {isInpatient ? (
+          <>
+            {activePhase !== 'debrief' && (
+              <UnitCensusBoard
+                onProceedToDebrief={(results) => {
+                  setInpatientResults(results);
+                  setActivePhase('debrief');
+                }}
+                onRestartUnit={handleResetCase}
+              />
+            )}
 
-        {activePhase === 'timejump' && (
-          <TimeJumpEngine
-            caseData={currentCase}
-            orderData={orderData}
-            week8Action={week8Action}
-            setWeek8Action={setWeek8Action}
-            onBackToChart={() => setActivePhase('charting')}
-            onProceedToDebrief={() => setActivePhase('debrief')}
-          />
-        )}
+            {activePhase === 'debrief' && (
+              <InpatientDebrief
+                inpatientResults={inpatientResults}
+                onBackToBoard={() => setActivePhase('interview')}
+                onRestartSimulation={() => {
+                  setIsFlightConfigOpen(true);
+                  handleResetCase();
+                }}
+              />
+            )}
+          </>
+        ) : (
+          /* ── SOLO OUTPATIENT TELEHEALTH SIMULATION (MARCUS VANCE) ── */
+          <>
+            {activePhase === 'interview' && (
+              <VirtualExamRoom
+                caseData={currentCase}
+                messages={messages}
+                onSendMessage={handleSendCustomMessage}
+                onAskProbe={handleAskProbe}
+                revealedClues={revealedClues}
+                onAdvanceToCharting={() => setActivePhase('charting')}
+              />
+            )}
 
-        {activePhase === 'debrief' && (
-          <PreceptorDebrief
-            caseData={currentCase}
-            orderData={orderData}
-            revealedClues={revealedClues}
-            week8Action={week8Action}
-            onRestartCase={handleResetCase}
-            onBackToTimeJump={() => setActivePhase('timejump')}
-          />
+            {activePhase === 'charting' && (
+              <ClinicalChartPad
+                caseData={currentCase}
+                orderData={orderData}
+                setOrderData={setOrderData}
+                onBackToInterview={() => setActivePhase('interview')}
+                onCommitOrderAndJump={() => setActivePhase('timejump')}
+              />
+            )}
+
+            {activePhase === 'timejump' && (
+              <TimeJumpEngine
+                caseData={currentCase}
+                orderData={orderData}
+                week8Action={week8Action}
+                setWeek8Action={setWeek8Action}
+                onBackToChart={() => setActivePhase('charting')}
+                onProceedToDebrief={() => setActivePhase('debrief')}
+              />
+            )}
+
+            {activePhase === 'debrief' && (
+              <PreceptorDebrief
+                caseData={currentCase}
+                orderData={orderData}
+                revealedClues={revealedClues}
+                week8Action={week8Action}
+                onRestartCase={handleResetCase}
+                onBackToTimeJump={() => setActivePhase('timejump')}
+              />
+            )}
+          </>
         )}
       </main>
     </div>

@@ -13,6 +13,18 @@ export default function App() {
   const [cfsActivePhase, setCfsActivePhase] = useState('interview');
   const [cluesCount, setCluesCount] = useState({ revealed: 0, total: 4 });
 
+  // Flight Parameters State (CFS)
+  const [flightConfig, setFlightConfig] = useState({
+    id: 'outpatient-solo',
+    title: 'Solo Outpatient Practice',
+    subtitle: "Monica's Baseline Reality",
+    setting: 'outpatient',
+    volume: 1,
+    legalStatus: 'Voluntary',
+    friction: 'standard'
+  });
+  const [isFlightConfigOpen, setIsFlightConfigOpen] = useState(false);
+
   // PWA live update and "Restart to Update" state
   const {
     updateAvailable,
@@ -59,6 +71,8 @@ export default function App() {
             onResetCase={() => setCfsActivePhase('interview')}
             revealedCluesCount={cluesCount.revealed}
             totalCluesCount={cluesCount.total}
+            flightConfig={flightConfig}
+            onOpenFlightConfig={() => setIsFlightConfigOpen(true)}
           />
         )}
 
@@ -70,6 +84,10 @@ export default function App() {
             activePhase={cfsActivePhase}
             setActivePhase={setCfsActivePhase}
             onCluesUpdated={handleCluesUpdated}
+            flightConfig={flightConfig}
+            setFlightConfig={setFlightConfig}
+            isFlightConfigOpen={isFlightConfigOpen}
+            setIsFlightConfigOpen={setIsFlightConfigOpen}
           />
         )}
       </div>
