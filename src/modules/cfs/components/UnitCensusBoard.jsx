@@ -23,15 +23,28 @@ import {
 } from 'lucide-react';
 import { INPATIENT_UNIT_CENSUS } from '../data/inpatientScenarios';
 
-export default function UnitCensusBoard({ onProceedToDebrief, onRestartUnit }) {
+export default function UnitCensusBoard({ 
+  onProceedToDebrief, 
+  onRestartUnit,
+  completedOrders: externalOrders,
+  setCompletedOrders: externalSetOrders,
+  bedNotes: externalBedNotes,
+  setBedNotes: externalSetBedNotes
+}) {
   const [patients, setPatients] = useState(INPATIENT_UNIT_CENSUS);
   const [activeBedId, setActiveBedId] = useState(null);
   const [filterCategory, setFilterCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   
-  // Track actions ordered per bed
-  const [completedOrders, setCompletedOrders] = useState({}); // { [bedId]: [actionId1, actionId2] }
-  const [bedNotes, setBedNotes] = useState({}); // { [bedId]: customClinicianNote }
+  // Track actions ordered per bed (supports external persistence)
+  const [internalOrders, setInternalOrders] = useState({});
+  const completedOrders = externalOrders !== undefined ? externalOrders : internalOrders;
+  const setCompletedOrders = externalSetOrders || setInternalOrders;
+
+  const [internalBedNotes, setInternalBedNotes] = useState({});
+  const bedNotes = externalBedNotes !== undefined ? externalBedNotes : internalBedNotes;
+  const setBedNotes = externalSetBedNotes || setInternalBedNotes;
+
   const [activeDialogueProbe, setActiveDialogueProbe] = useState(null);
 
   const activePatient = patients.find(p => p.id === activeBedId);

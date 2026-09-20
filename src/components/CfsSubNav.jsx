@@ -10,7 +10,8 @@ import {
   Building2, 
   UserCheck, 
   AlertTriangle,
-  BookOpen
+  BookOpen,
+  Check
 } from 'lucide-react';
 
 export default function CfsSubNav({ 
@@ -79,6 +80,14 @@ export default function CfsSubNav({
                 Clues: {revealedCluesCount}/{totalCluesCount}
               </span>
             )}
+
+            <span 
+              className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold text-teal-400/90 bg-teal-950/40 border border-teal-800/40 whitespace-nowrap"
+              title="Simulation progress is automatically saved locally. You can refresh or update anytime without losing your place."
+            >
+              <Check className="w-2.5 h-2.5 text-teal-300" />
+              <span>Session Auto-Saved</span>
+            </span>
           </div>
 
           {/* Phase Steps & Reset */}

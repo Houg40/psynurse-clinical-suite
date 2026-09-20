@@ -8,6 +8,7 @@ import InpatientDebrief from './components/InpatientDebrief';
 import FlightConfigModal from './components/FlightConfigModal';
 import FlightManualModal from './components/FlightManualModal';
 import casesData from './data/cases.json';
+import { loadCfsSession, saveCfsSession, clearCfsSession } from './utils/cfsPersistence';
 
 export default function CfsApp({ 
   activePhase, 
@@ -26,7 +27,7 @@ export default function CfsApp({
 
   const currentCase = casesData[0]; // Case 1: Marcus Vance (Solo Outpatient)
 
-  // Outpatient Simulation State
+  // Outpatient Simulation Defaults
   const initialMessages = [
     {
       sender: 'patient',
@@ -51,13 +52,57 @@ export default function CfsApp({
     clue_family: false
   };
 
-  const [messages, setMessages] = useState(initialMessages);
-  const [revealedClues, setRevealedClues] = useState(initialClues);
-  const [orderData, setOrderData] = useState(initialOrder);
-  const [week8Action, setWeek8Action] = useState('');
+  // Load saved session on init
+  const savedSession = loadCfsSession();
 
-  // Inpatient Simulation State
-  const [inpatientResults, setInpatientResults] = useState(null);
+  const [messages, setMessages] = useState(() => savedSession?.messages || initialMessages);
+  const [revealedClues, setRevealedClues] = useState(() => savedSession?.revealedClues || initialClues);
+  const [orderData, setOrderData] = useState(() => savedSession?.orderData || initialOrder);
+  const [week8Action, setWeek8Action] = useState(() => savedSession?.week8Action || '');
+
+  // Inpatient Simulation State (Persisted)
+  const [inpatientOrders, setInpatientOrders] = useState(() => savedSession?.inpatientOrders || {});
+  const [inpatientNotes, setInpatientNotes] = useState(() => savedSession?.inpatientNotes || {});
+  const [inpatientResults, setInpatientResults] = useState(() => savedSession?.inpatientResults || null);
+
+  // Restore saved active phase, flight config, and clues on mount
+  React.useEffect(() => {
+    if (savedSession?.activePhase && setActivePhase) {
+      setActivePhase(savedSession.activePhase);
+    }
+    if (savedSession?.flightConfig && setFlightConfig) {
+      setFlightConfig(savedSession.flightConfig);
+    }
+    if (savedSession?.revealedClues && onCluesUpdated) {
+      const count = Object.values(savedSession.revealedClues).filter(Boolean).length;
+      onCluesUpdated(count, Object.keys(savedSession.revealedClues).length);
+    }
+  }, []);
+
+  // Auto-save session whenever any state changes
+  React.useEffect(() => {
+    saveCfsSession({
+      activePhase,
+      flightConfig,
+      messages,
+      revealedClues,
+      orderData,
+      week8Action,
+      inpatientOrders,
+      inpatientNotes,
+      inpatientResults
+    });
+  }, [
+    activePhase,
+    flightConfig,
+    messages,
+    revealedClues,
+    orderData,
+    week8Action,
+    inpatientOrders,
+    inpatientNotes,
+    inpatientResults
+  ]);
 
   // Notify parent on clues update
   const updateClues = (newClues) => {
@@ -148,10 +193,13 @@ export default function CfsApp({
   };
 
   const handleResetCase = () => {
+    clearCfsSession();
     setMessages(initialMessages);
     updateClues(initialClues);
     setOrderData(initialOrder);
     setWeek8Action('');
+    setInpatientOrders({});
+    setInpatientNotes({});
     setInpatientResults(null);
     setActivePhase('interview');
   };
@@ -188,6 +236,10 @@ export default function CfsApp({
           <>
             {activePhase !== 'debrief' && (
               <UnitCensusBoard
+                completedOrders={inpatientOrders}
+                setCompletedOrders={setInpatientOrders}
+                bedNotes={inpatientNotes}
+                setBedNotes={setInpatientNotes}
                 onProceedToDebrief={(results) => {
                   setInpatientResults(results);
                   setActivePhase('debrief');
