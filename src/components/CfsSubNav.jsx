@@ -22,7 +22,8 @@ export default function CfsSubNav({
   totalCluesCount,
   flightConfig,
   onOpenFlightConfig,
-  onOpenFlightManual
+  onOpenFlightManual,
+  onOpenCdsQuickConsult
 }) {
   const isInpatient = flightConfig?.setting === 'inpatient';
 
@@ -49,11 +50,20 @@ export default function CfsSubNav({
           <div className="flex items-center gap-2">
             <button
               onClick={onOpenFlightManual}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-teal-950/80 hover:bg-teal-900/80 text-teal-300 shadow-sm border border-teal-600/50 hover:border-teal-400 transition-all transform active:scale-95 whitespace-nowrap"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-teal-950/80 hover:bg-teal-900/80 text-teal-300 shadow-sm border border-teal-600/50 hover:border-teal-400 transition-all transform active:scale-95 whitespace-nowrap cursor-pointer"
               title="Open Clinical Flight Manual & Prescriber Tutorial"
             >
               <BookOpen className="w-3.5 h-3.5 text-teal-400" />
               <span>Flight Manual</span>
+            </button>
+
+            <button
+              onClick={onOpenCdsQuickConsult}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-amber-950/80 hover:bg-amber-900/80 text-amber-300 shadow-sm border border-amber-600/50 hover:border-amber-400 transition-all transform active:scale-95 whitespace-nowrap cursor-pointer"
+              title="Quick Consult Clinical Decision Support (Co-Pilot): Dosing, DSM-5 Criteria, Interactions & Safety Rules"
+            >
+              <Stethoscope className="w-3.5 h-3.5 text-amber-400" />
+              <span>Consult CDS</span>
             </button>
 
             <button

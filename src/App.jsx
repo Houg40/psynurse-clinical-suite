@@ -25,6 +25,8 @@ export default function App() {
   });
   const [isFlightConfigOpen, setIsFlightConfigOpen] = useState(false);
   const [isFlightManualOpen, setIsFlightManualOpen] = useState(false);
+  const [isCdsConsultOpen, setIsCdsConsultOpen] = useState(false);
+  const [cdsConsultTab, setCdsConsultTab] = useState('dsm5');
 
   // PWA live update and "Restart to Update" state
   const {
@@ -75,6 +77,10 @@ export default function App() {
             flightConfig={flightConfig}
             onOpenFlightConfig={() => setIsFlightConfigOpen(true)}
             onOpenFlightManual={() => setIsFlightManualOpen(true)}
+            onOpenCdsQuickConsult={(tab = 'dsm5') => {
+              setCdsConsultTab(tab);
+              setIsCdsConsultOpen(true);
+            }}
           />
         )}
 
@@ -92,6 +98,11 @@ export default function App() {
             setIsFlightConfigOpen={setIsFlightConfigOpen}
             isFlightManualOpen={isFlightManualOpen}
             setIsFlightManualOpen={setIsFlightManualOpen}
+            isCdsConsultOpen={isCdsConsultOpen}
+            setIsCdsConsultOpen={setIsCdsConsultOpen}
+            cdsConsultTab={cdsConsultTab}
+            setCdsConsultTab={setCdsConsultTab}
+            onSwitchToFullCds={() => setCurrentModule('cds')}
           />
         )}
       </div>

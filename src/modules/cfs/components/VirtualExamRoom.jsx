@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Sparkles, AlertCircle, HeartPulse, User, HelpCircle, CheckCircle2, ChevronRight, Activity, Volume2, VolumeX, Mic, Play, Eye, List, LayoutGrid, Info } from 'lucide-react';
+import { Send, Sparkles, AlertCircle, HeartPulse, User, HelpCircle, CheckCircle2, ChevronRight, Activity, Volume2, VolumeX, Mic, Play, Eye, List, LayoutGrid, Info, Stethoscope } from 'lucide-react';
 
-export default function VirtualExamRoom({ caseData, messages, onSendMessage, onAskProbe, revealedClues, onAdvanceToCharting }) {
+export default function VirtualExamRoom({ caseData, messages, onSendMessage, onAskProbe, revealedClues, onAdvanceToCharting, onOpenCdsConsult }) {
   const [customInput, setCustomInput] = useState('');
   const [isAudioEnabled, setIsAudioEnabled] = useState(false); // Default OFF - requires manual clinician selection
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -224,13 +224,26 @@ export default function VirtualExamRoom({ caseData, messages, onSendMessage, onA
             </div>
           </div>
 
-          <button
-            onClick={onAdvanceToCharting}
-            className="flex items-center gap-1.5 text-xs font-bold bg-teal-600 hover:bg-teal-500 text-white px-4 py-2 rounded-xl transition-all shadow-sm"
-          >
-            <span>Proceed to Chart &amp; Orders</span>
-            <ChevronRight className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onOpenCdsConsult && onOpenCdsConsult('dsm5')}
+              className="flex items-center gap-1.5 text-xs font-bold bg-slate-800 hover:bg-slate-700 text-teal-300 border border-slate-700 hover:border-teal-500 px-3 py-2 rounded-xl transition-all shadow-xs cursor-pointer whitespace-nowrap"
+              title="Open In-Flight Clinical Decision Support Co-Pilot (DSM-5, Dosing, Interactions, Safety)"
+            >
+              <Stethoscope className="w-3.5 h-3.5 text-teal-400" />
+              <span className="hidden sm:inline">Consult CDS Co-Pilot</span>
+              <span className="sm:hidden">CDS</span>
+            </button>
+
+            <button
+              onClick={onAdvanceToCharting}
+              className="flex items-center gap-1.5 text-xs font-bold bg-teal-600 hover:bg-teal-500 text-white px-4 py-2 rounded-xl transition-all shadow-sm cursor-pointer whitespace-nowrap"
+            >
+              <span>Proceed to Chart &amp; Orders</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Message Transcript Container */}

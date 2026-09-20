@@ -7,6 +7,7 @@ import UnitCensusBoard from './components/UnitCensusBoard';
 import InpatientDebrief from './components/InpatientDebrief';
 import FlightConfigModal from './components/FlightConfigModal';
 import FlightManualModal from './components/FlightManualModal';
+import CdsQuickConsultDrawer from './components/CdsQuickConsultDrawer';
 import casesData from './data/cases.json';
 import { loadCfsSession, saveCfsSession, clearCfsSession } from './utils/cfsPersistence';
 
@@ -19,11 +20,28 @@ export default function CfsApp({
   isFlightConfigOpen,
   setIsFlightConfigOpen,
   isFlightManualOpen: externalIsFlightManualOpen,
-  setIsFlightManualOpen: externalSetIsFlightManualOpen
+  setIsFlightManualOpen: externalSetIsFlightManualOpen,
+  isCdsConsultOpen: externalIsCdsConsultOpen,
+  setIsCdsConsultOpen: externalSetIsCdsConsultOpen,
+  cdsConsultTab: externalCdsConsultTab,
+  setCdsConsultTab: externalSetCdsConsultTab,
+  onSwitchToFullCds
 }) {
   const [internalIsFlightManualOpen, setInternalIsFlightManualOpen] = useState(false);
   const isFlightManualOpen = externalIsFlightManualOpen !== undefined ? externalIsFlightManualOpen : internalIsFlightManualOpen;
   const setIsFlightManualOpen = externalSetIsFlightManualOpen || setInternalIsFlightManualOpen;
+
+  const [internalIsCdsConsultOpen, setInternalIsCdsConsultOpen] = useState(false);
+  const [internalCdsConsultTab, setInternalCdsConsultTab] = useState('dsm5');
+  const isCdsConsultOpen = externalIsCdsConsultOpen !== undefined ? externalIsCdsConsultOpen : internalIsCdsConsultOpen;
+  const setIsCdsConsultOpen = externalSetIsCdsConsultOpen || setInternalIsCdsConsultOpen;
+  const cdsConsultTab = externalCdsConsultTab !== undefined ? externalCdsConsultTab : internalCdsConsultTab;
+  const setCdsConsultTab = externalSetCdsConsultTab || setInternalCdsConsultTab;
+
+  const handleOpenCdsConsult = (tab = 'dsm5') => {
+    setCdsConsultTab(tab);
+    setIsCdsConsultOpen(true);
+  };
 
   const currentCase = casesData[0]; // Case 1: Marcus Vance (Solo Outpatient)
 
@@ -231,6 +249,14 @@ export default function CfsApp({
           currentSetting={flightConfig?.setting}
         />
 
+        {/* In-Flight CDS Quick-Consult Co-Pilot Drawer */}
+        <CdsQuickConsultDrawer
+          isOpen={isCdsConsultOpen}
+          onClose={() => setIsCdsConsultOpen(false)}
+          initialTab={cdsConsultTab}
+          onSwitchToFullCds={onSwitchToFullCds}
+        />
+
         {/* ── INPATIENT 16-BED RESIDENCY WARD SIMULATION ── */}
         {isInpatient ? (
           <>
@@ -245,6 +271,7 @@ export default function CfsApp({
                   setActivePhase('debrief');
                 }}
                 onRestartUnit={handleResetCase}
+                onOpenCdsConsult={handleOpenCdsConsult}
               />
             )}
 
@@ -270,6 +297,7 @@ export default function CfsApp({
                 onAskProbe={handleAskProbe}
                 revealedClues={revealedClues}
                 onAdvanceToCharting={() => setActivePhase('charting')}
+                onOpenCdsConsult={handleOpenCdsConsult}
               />
             )}
 
@@ -280,6 +308,7 @@ export default function CfsApp({
                 setOrderData={setOrderData}
                 onBackToInterview={() => setActivePhase('interview')}
                 onCommitOrderAndJump={() => setActivePhase('timejump')}
+                onOpenCdsConsult={handleOpenCdsConsult}
               />
             )}
 
@@ -302,6 +331,7 @@ export default function CfsApp({
                 week8Action={week8Action}
                 onRestartCase={handleResetCase}
                 onBackToTimeJump={() => setActivePhase('timejump')}
+                onOpenCdsConsult={handleOpenCdsConsult}
               />
             )}
           </>

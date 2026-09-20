@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { FileText, ClipboardList, Pill, ShieldAlert, FastForward, CheckCircle, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { FileText, ClipboardList, Pill, ShieldAlert, FastForward, CheckCircle, AlertTriangle, ArrowLeft, BookOpen, Stethoscope, Zap } from 'lucide-react';
 
-export default function ClinicalChartPad({ caseData, orderData, setOrderData, onBackToInterview, onCommitOrderAndJump }) {
+export default function ClinicalChartPad({ caseData, orderData, setOrderData, onBackToInterview, onCommitOrderAndJump, onOpenCdsConsult }) {
   const [activeTab, setActiveTab] = useState('screeners');
   const patient = caseData.patient;
   const screeners = caseData.screeners;
@@ -53,14 +53,26 @@ export default function ClinicalChartPad({ caseData, orderData, setOrderData, on
           </p>
         </div>
 
-        <button
-          onClick={onCommitOrderAndJump}
-          disabled={!orderData.diagnosisId || !orderData.medicationId}
-          className="flex items-center gap-2 bg-teal-600 hover:bg-teal-500 disabled:opacity-40 text-white px-5 py-3 rounded-xl font-bold text-xs transition-all shadow-lg hover:shadow-teal-500/20"
-        >
-          <FastForward className="w-4 h-4" />
-          <span>Sign Order &amp; Jump to Week 4 Follow-Up</span>
-        </button>
+        <div className="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+          <button
+            type="button"
+            onClick={() => onOpenCdsConsult && onOpenCdsConsult('dsm5')}
+            className="flex items-center gap-1.5 px-3.5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-teal-300 border border-slate-700 hover:border-teal-500 text-xs font-bold transition shadow-sm cursor-pointer whitespace-nowrap"
+            title="Open In-Flight CDS Drawer (DSM-5, Dosing, Interactions, Safety)"
+          >
+            <Stethoscope className="w-4 h-4 text-teal-400" />
+            <span>Consult CDS Co-Pilot</span>
+          </button>
+
+          <button
+            onClick={onCommitOrderAndJump}
+            disabled={!orderData.diagnosisId || !orderData.medicationId}
+            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-500 disabled:opacity-40 text-white px-5 py-3 rounded-xl font-bold text-xs transition-all shadow-lg hover:shadow-teal-500/20 whitespace-nowrap cursor-pointer"
+          >
+            <FastForward className="w-4 h-4" />
+            <span>Sign Order &amp; Jump to Week 4 Follow-Up</span>
+          </button>
+        </div>
       </div>
 
       {/* Tab Navigation */}
@@ -183,12 +195,22 @@ export default function ClinicalChartPad({ caseData, orderData, setOrderData, on
 
       {/* Tab Content 2: DSM-5 Diagnosis Selection */}
       {activeTab === 'diagnosis' && (
-        <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-6">
-          <div>
-            <h3 className="text-base font-bold text-white mb-1">Primary Diagnostic Commitment</h3>
-            <p className="text-xs text-slate-400">
-              Select the primary DSM-5-TR diagnosis that will drive your treatment planning and pharmacotherapy.
-            </p>
+        <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <div>
+              <h3 className="text-base font-bold text-white mb-0.5">Primary Diagnostic Commitment</h3>
+              <p className="text-xs text-slate-400">
+                Select the primary DSM-5-TR diagnosis that will drive your treatment planning and pharmacotherapy.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => onOpenCdsConsult && onOpenCdsConsult('dsm5')}
+              className="px-3 py-1.5 bg-teal-600 hover:bg-teal-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs whitespace-nowrap self-start sm:self-auto"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Compare DSM-5 Criteria in CDS</span>
+            </button>
           </div>
 
           <div className="space-y-3">
@@ -239,11 +261,39 @@ export default function ClinicalChartPad({ caseData, orderData, setOrderData, on
       {/* Tab Content 3: Pharmacotherapy Order Pad */}
       {activeTab === 'prescribing' && (
         <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-6">
-          <div>
-            <h3 className="text-base font-bold text-white mb-1">Psychiatric Pharmacotherapy Order Pad</h3>
-            <p className="text-xs text-slate-400">
-              Select your initial medication, starting dose, titration plan, and baseline lab orders.
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <div>
+              <h3 className="text-base font-bold text-white mb-0.5">Psychiatric Pharmacotherapy Order Pad</h3>
+              <p className="text-xs text-slate-400">
+                Select your initial medication, starting dose, titration plan, and baseline lab orders.
+              </p>
+            </div>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <button
+                type="button"
+                onClick={() => onOpenCdsConsult && onOpenCdsConsult('medications')}
+                className="px-2.5 py-1.5 bg-teal-600 hover:bg-teal-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer shadow-xs whitespace-nowrap"
+              >
+                <Pill className="w-3.5 h-3.5" />
+                <span>Drug Dosing Guide</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onOpenCdsConsult && onOpenCdsConsult('interactions')}
+                className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer whitespace-nowrap"
+              >
+                <Zap className="w-3.5 h-3.5 text-amber-400" />
+                <span>Check Interactions</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onOpenCdsConsult && onOpenCdsConsult('safety')}
+                className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-rose-300 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer whitespace-nowrap"
+              >
+                <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
+                <span>Safety Rules</span>
+              </button>
+            </div>
           </div>
 
           {/* Medication Selector Grid */}
@@ -298,7 +348,16 @@ export default function ClinicalChartPad({ caseData, orderData, setOrderData, on
 
               {/* Baseline Labs to Order */}
               <div className="pt-2">
-                <span className="text-[11px] font-bold text-slate-400 block mb-2">Baseline Labs &amp; Monitoring to Order:</span>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold text-slate-400">Baseline Labs &amp; Monitoring to Order:</span>
+                  <button
+                    type="button"
+                    onClick={() => onOpenCdsConsult && onOpenCdsConsult('safety')}
+                    className="text-[10px] text-teal-400 hover:text-teal-300 font-bold underline cursor-pointer"
+                  >
+                    View Standard Lab Panels &amp; Rule-Outs
+                  </button>
+                </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                   {['Fasting Lipid Panel & Glucose', 'Comprehensive Metabolic Panel (CMP)', 'Baseline ECG (QTc interval)', 'Urine Toxicology Screen'].map((lab) => {
                     const isChecked = orderData.labsOrdered.includes(lab);

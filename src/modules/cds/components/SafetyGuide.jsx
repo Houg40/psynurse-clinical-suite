@@ -18,7 +18,8 @@ import {
   Layers,
   Check,
   Zap,
-  Info
+  Info,
+  Compass
 } from 'lucide-react';
 
 const ANTIPSYCHOTIC_EQUIVALENCIES = [
@@ -247,6 +248,16 @@ export default function SafetyGuide() {
             <p>1. Administer the 13-item MDQ prior to initiating or escalating any antidepressant trial.</p>
             <p>2. Ask specifically: <em>"Has anyone ever commented that you were talking too fast or had abnormally high energy requiring little to no sleep?"</em></p>
             <p>3. If screen is positive: Evaluate mood stabilizers (Lamotrigine, Lithium, or atypical antipsychotic) prior to or in combination with serotonergic agents.</p>
+          </div>
+
+          <div className="pt-2 border-t border-red-100 flex items-center justify-between text-[11px]">
+            <span className="text-slate-500 font-medium">
+              Test your diagnostic instincts against this trap:
+            </span>
+            <span className="font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md flex items-center gap-1 shadow-2xs">
+              <Compass className="w-3 h-3 text-indigo-600" />
+              <span>Simulate Case 1 (Marcus Vance)</span>
+            </span>
           </div>
         </div>
 
@@ -1070,9 +1081,15 @@ export default function SafetyGuide() {
           <div>
             📚 <strong>Evidence Base:</strong> APA Practice Guidelines for Schizophrenia (3rd Ed.), Maudsley Prescribing Guidelines in Psychiatry (14th Ed.), and FDA Prescribing Information.
           </div>
-          <span className="text-[10px] text-slate-400 font-mono">
-            Always verify renal (CrCl), hepatic function, and baseline ECG/QTc prior to parenteral loading.
-          </span>
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <span className="text-[10px] text-slate-400 font-mono">
+              Always verify renal (CrCl), hepatic function, and baseline ECG/QTc prior to parenteral loading.
+            </span>
+            <span className="font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow-2xs">
+              <Compass className="w-3 h-3 text-indigo-600" />
+              <span>Practice in 16-Bed Inpatient Simulator</span>
+            </span>
+          </div>
         </div>
       </div>
 

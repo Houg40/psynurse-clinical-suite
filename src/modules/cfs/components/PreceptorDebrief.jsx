@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Award, CheckCircle2, XCircle, AlertTriangle, BookOpen, RotateCcw, ArrowLeft, Star, ShieldCheck, FileText, Copy, Check, ClipboardCheck } from 'lucide-react';
 
-export default function PreceptorDebrief({ caseData, orderData, revealedClues, week8Action, onRestartCase, onBackToTimeJump }) {
+export default function PreceptorDebrief({ caseData, orderData, revealedClues, week8Action, onRestartCase, onBackToTimeJump, onOpenCdsConsult }) {
   const [activeTab, setActiveTab] = useState('scorecard'); // 'scorecard' | 'soap'
   const [copied, setCopied] = useState(false);
 
@@ -153,17 +153,26 @@ Provider Signature: ____________________________, ARNP, PMHNP-BC`;
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <button
+            type="button"
+            onClick={() => onOpenCdsConsult && onOpenCdsConsult('safety')}
+            className="flex items-center gap-1.5 text-xs font-bold text-amber-300 bg-amber-950/80 hover:bg-amber-900 px-3.5 py-2.5 rounded-xl border border-amber-600/60 transition-all shadow-sm cursor-pointer whitespace-nowrap"
+            title="Review corresponding CDS Safety Rules & Guidelines"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+            <span>Consult CDS Rules</span>
+          </button>
           <button
             onClick={onBackToTimeJump}
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 px-4 py-2.5 rounded-xl border border-slate-700 transition-all"
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-700 transition-all cursor-pointer whitespace-nowrap"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Review Longitudinal Timeline</span>
           </button>
           <button
             onClick={onRestartCase}
-            className="flex items-center gap-2 text-xs font-bold text-white bg-teal-600 hover:bg-teal-500 px-4 py-2.5 rounded-xl transition-all shadow-md hover:shadow-teal-500/20"
+            className="flex items-center gap-2 text-xs font-bold text-white bg-teal-600 hover:bg-teal-500 px-4 py-2.5 rounded-xl transition-all shadow-md hover:shadow-teal-500/20 cursor-pointer whitespace-nowrap"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Try Another Strategy</span>

@@ -29,7 +29,8 @@ export default function UnitCensusBoard({
   completedOrders: externalOrders,
   setCompletedOrders: externalSetOrders,
   bedNotes: externalBedNotes,
-  setBedNotes: externalSetBedNotes
+  setBedNotes: externalSetBedNotes,
+  onOpenCdsConsult
 }) {
   const [patients, setPatients] = useState(INPATIENT_UNIT_CENSUS);
   const [activeBedId, setActiveBedId] = useState(null);
@@ -127,8 +128,19 @@ export default function UnitCensusBoard({
             </div>
 
             <button
+              type="button"
+              onClick={() => onOpenCdsConsult && onOpenCdsConsult('safety')}
+              className="px-3.5 py-2.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 hover:border-amber-500 shadow-sm flex items-center gap-1.5 transition-all whitespace-nowrap cursor-pointer"
+              title="Quick Consult Oral-to-IM Antipsychotic Ratios, Acute Crisis Protocols & NMS Guidelines"
+            >
+              <ShieldAlert className="w-4 h-4 text-amber-400" />
+              <span className="hidden sm:inline">Oral-to-IM &amp; NMS Protocols</span>
+              <span className="sm:hidden">Protocols</span>
+            </button>
+
+            <button
               onClick={() => onProceedToDebrief({ completedOrders, score: calculateTotalScore(), totalBeds: 16 })}
-              className="px-5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition-all transform active:scale-95 whitespace-nowrap"
+              className="px-5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition-all transform active:scale-95 whitespace-nowrap cursor-pointer"
             >
               <Award className="w-4 h-4" />
               <span>Attending Morning Debrief</span>
