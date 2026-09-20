@@ -9,7 +9,8 @@ import {
   Sliders, 
   Building2, 
   UserCheck, 
-  AlertTriangle 
+  AlertTriangle,
+  BookOpen
 } from 'lucide-react';
 
 export default function CfsSubNav({ 
@@ -19,7 +20,8 @@ export default function CfsSubNav({
   revealedCluesCount, 
   totalCluesCount,
   flightConfig,
-  onOpenFlightConfig
+  onOpenFlightConfig,
+  onOpenFlightManual
 }) {
   const isInpatient = flightConfig?.setting === 'inpatient';
 
@@ -43,7 +45,16 @@ export default function CfsSubNav({
         <div className="flex items-center justify-between py-2 overflow-x-auto scrollbar-none gap-4">
           
           {/* Active Flight Mission Context & Config Launcher */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onOpenFlightManual}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-teal-950/80 hover:bg-teal-900/80 text-teal-300 shadow-sm border border-teal-600/50 hover:border-teal-400 transition-all transform active:scale-95 whitespace-nowrap"
+              title="Open Clinical Flight Manual & Prescriber Tutorial"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-teal-400" />
+              <span>Flight Manual</span>
+            </button>
+
             <button
               onClick={onOpenFlightConfig}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/20 border border-indigo-400/40 transition-all transform active:scale-95 whitespace-nowrap"

@@ -6,6 +6,7 @@ import PreceptorDebrief from './components/PreceptorDebrief';
 import UnitCensusBoard from './components/UnitCensusBoard';
 import InpatientDebrief from './components/InpatientDebrief';
 import FlightConfigModal from './components/FlightConfigModal';
+import FlightManualModal from './components/FlightManualModal';
 import casesData from './data/cases.json';
 
 export default function CfsApp({ 
@@ -15,8 +16,14 @@ export default function CfsApp({
   flightConfig,
   setFlightConfig,
   isFlightConfigOpen,
-  setIsFlightConfigOpen
+  setIsFlightConfigOpen,
+  isFlightManualOpen: externalIsFlightManualOpen,
+  setIsFlightManualOpen: externalSetIsFlightManualOpen
 }) {
+  const [internalIsFlightManualOpen, setInternalIsFlightManualOpen] = useState(false);
+  const isFlightManualOpen = externalIsFlightManualOpen !== undefined ? externalIsFlightManualOpen : internalIsFlightManualOpen;
+  const setIsFlightManualOpen = externalSetIsFlightManualOpen || setInternalIsFlightManualOpen;
+
   const currentCase = casesData[0]; // Case 1: Marcus Vance (Solo Outpatient)
 
   // Outpatient Simulation State
@@ -166,6 +173,14 @@ export default function CfsApp({
           onClose={() => setIsFlightConfigOpen(false)}
           activeConfig={flightConfig || { setting: 'outpatient', volume: 1 }}
           onApplyConfig={handleApplyConfig}
+        />
+
+        {/* Flight Manual & Tutorial Modal */}
+        <FlightManualModal
+          isOpen={isFlightManualOpen}
+          onClose={() => setIsFlightManualOpen(false)}
+          onOpenFlightConfig={() => setIsFlightConfigOpen(true)}
+          currentSetting={flightConfig?.setting}
         />
 
         {/* ── INPATIENT 16-BED RESIDENCY WARD SIMULATION ── */}

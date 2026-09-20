@@ -24,6 +24,7 @@ export default function App() {
     friction: 'standard'
   });
   const [isFlightConfigOpen, setIsFlightConfigOpen] = useState(false);
+  const [isFlightManualOpen, setIsFlightManualOpen] = useState(false);
 
   // PWA live update and "Restart to Update" state
   const {
@@ -73,6 +74,7 @@ export default function App() {
             totalCluesCount={cluesCount.total}
             flightConfig={flightConfig}
             onOpenFlightConfig={() => setIsFlightConfigOpen(true)}
+            onOpenFlightManual={() => setIsFlightManualOpen(true)}
           />
         )}
 
@@ -88,6 +90,8 @@ export default function App() {
             setFlightConfig={setFlightConfig}
             isFlightConfigOpen={isFlightConfigOpen}
             setIsFlightConfigOpen={setIsFlightConfigOpen}
+            isFlightManualOpen={isFlightManualOpen}
+            setIsFlightManualOpen={setIsFlightManualOpen}
           />
         )}
       </div>
