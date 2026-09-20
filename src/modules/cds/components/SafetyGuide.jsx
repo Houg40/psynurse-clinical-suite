@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, ShieldCheck, FileCheck, ArrowLeftRight, HeartPulse, Stethoscope } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, FileCheck, ArrowLeftRight, HeartPulse, Stethoscope, AlertOctagon, Flame, Activity, Pill, CheckCircle2 } from 'lucide-react';
 
 export default function SafetyGuide() {
   return (
@@ -299,6 +299,210 @@ export default function SafetyGuide() {
         {/* Footer note */}
         <div className="p-3 bg-orange-100/50 border border-orange-200 rounded-xl text-[11px] text-orange-900 font-medium">
           💡 <strong>Key Teaching Point:</strong> Serotonin syndrome is often <em>underdiagnosed</em> because mild presentations are mistaken for anxiety, viral illness, or stimulant side effects. The classic triad (mental status change + autonomic instability + neuromuscular abnormality) may not all be present simultaneously — any combination in the context of a serotonergic medication should raise suspicion.
+        </div>
+      </div>
+
+      {/* Full-Width Card: Neuroleptic Malignant Syndrome (NMS) */}
+      <div className="bg-white rounded-2xl border-2 border-rose-300 p-6 shadow-sm space-y-5">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-rose-100 pb-4">
+          <div className="flex items-center gap-2.5">
+            <AlertTriangle className="w-5 h-5 text-rose-600 flex-shrink-0" />
+            <div>
+              <h3 className="text-base font-black text-rose-950">Neuroleptic Malignant Syndrome (NMS) — Recognition &amp; Emergency Treatment</h3>
+              <p className="text-xs text-rose-700 mt-0.5">Life-threatening dopamine D2 receptor blockade • Cardinal tetrad &amp; rapid clinical protocol</p>
+            </div>
+          </div>
+          <span className="text-[11px] font-bold text-white bg-rose-600 px-3 py-1 rounded-full self-start whitespace-nowrap">
+            🚨 Neurological Emergency
+          </span>
+        </div>
+
+        {/* What is NMS */}
+        <div className="space-y-2 text-xs text-slate-700 leading-relaxed">
+          <p>
+            <strong>Neuroleptic Malignant Syndrome (NMS)</strong> is an idiosyncratic, life-threatening neurological emergency precipitated by <strong>dopamine receptor antagonism</strong> (most commonly first- and second-generation antipsychotics, antiemetics like metoclopramide/Reglan or prochlorperazine) or the <strong>abrupt withdrawal of dopaminergic agonists</strong> (e.g., levodopa, amantadine, pramipexole).
+          </p>
+          <p>
+            Unlike Serotonin Syndrome (which develops explosively within hours), NMS typically evolves subacutely over <strong>24 to 72 hours</strong> (usually within 1 to 2 weeks of initiation or dose increase). Untreated mortality reaches <strong>10–20%</strong> due to rhabdomyolysis, acute renal failure, cardiovascular collapse, or respiratory failure. Early recognition and immediate drug cessation drops mortality to &lt;5%.
+          </p>
+        </div>
+
+        {/* The Cardinal Tetrad (FEVER Acronym) */}
+        <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-black text-rose-950 uppercase tracking-wide">The Cardinal Clinical Tetrad (DSM-5-TR Criteria)</p>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-200 text-rose-900">Mnemonic: F.E.V.E.R.</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-[11px]">
+            <div className="bg-white border border-rose-200 rounded-lg p-3 space-y-1">
+              <p className="font-black text-rose-950">1. "Lead-Pipe" Rigidity</p>
+              <p className="text-slate-700 leading-relaxed">
+                Generalized extreme muscle rigidity with cogwheeling. Resistance to passive movement in all directions. Differs from the hyperreflexia and clonus of Serotonin Syndrome.
+              </p>
+            </div>
+
+            <div className="bg-white border border-rose-200 rounded-lg p-3 space-y-1">
+              <p className="font-black text-rose-950">2. Hyperthermia</p>
+              <p className="text-slate-700 leading-relaxed">
+                Fever typically <strong>&gt;38°C (100.4°F)</strong> and frequently exceeding <strong>40°C (104°F)</strong>. Driven by peripheral skeletal muscle hypermetabolism plus hypothalamic dopamine blockade.
+              </p>
+            </div>
+
+            <div className="bg-white border border-rose-200 rounded-lg p-3 space-y-1">
+              <p className="font-black text-rose-950">3. Autonomic Instability</p>
+              <p className="text-slate-700 leading-relaxed">
+                Labile blood pressure (fluctuating hypertension / hypotension), tachycardia (HR &gt; 100), tachypnea, profuse diaphoresis, cardiac dysrhythmias, pallor, and urinary incontinence.
+              </p>
+            </div>
+
+            <div className="bg-white border border-rose-200 rounded-lg p-3 space-y-1">
+              <p className="font-black text-rose-950">4. Altered Mental Status</p>
+              <p className="text-slate-700 leading-relaxed">
+                Initial confusion, delirium, mutism, or catatonic stupor, rapidly progressing to encephalopathy, obtundation, or coma. Often the earliest herald symptom.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Laboratory Workup & Biomarkers */}
+        <div>
+          <p className="text-xs font-bold text-slate-800 uppercase tracking-wide mb-2">Essential Diagnostic Laboratory Biomarkers</p>
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 text-[11px]">
+            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <span className="font-black text-slate-900 block">Creatine Kinase (CK / CPK)</span>
+              <p className="text-slate-600">
+                Markedly elevated: typically <strong>&gt;1,000 U/L</strong>, often <strong>10,000 to 100,000+ U/L</strong> due to severe rhabdomyolysis. Correlates with disease severity and renal injury risk.
+              </p>
+            </div>
+
+            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <span className="font-black text-slate-900 block">CBC with Differential</span>
+              <p className="text-slate-600">
+                Marked leukocytosis: <strong>WBC 10,000–40,000/μL</strong> with left shift (stress demargination, not necessarily bacterial infection).
+              </p>
+            </div>
+
+            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <span className="font-black text-slate-900 block">CMP-14 &amp; Renal Function</span>
+              <p className="text-slate-600">
+                Elevated BUN &amp; Creatinine (myoglobinuric acute tubular necrosis), hyperkalemia, metabolic acidosis with elevated lactate, elevated AST/ALT, and hypocalcemia.
+              </p>
+            </div>
+
+            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+              <span className="font-black text-slate-900 block">Urinalysis / Myoglobin</span>
+              <p className="text-slate-600">
+                Positive urine myoglobin (dark "tea-colored" or cola urine). Dipstick positive for blood without intact RBCs on microscopy confirms myoglobinuria.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Side-by-Side Comparison: NMS vs. Serotonin Syndrome */}
+        <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <p className="text-xs font-black text-slate-900 uppercase tracking-wide">High-Yield Clinical Differential: NMS vs. Serotonin Syndrome</p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-[11px] text-left border-collapse">
+              <thead>
+                <tr className="border-b border-slate-300 text-slate-800">
+                  <th className="py-1.5 px-2 font-black">Clinical Feature</th>
+                  <th className="py-1.5 px-2 font-black text-rose-900 bg-rose-50/60">Neuroleptic Malignant Syndrome (NMS)</th>
+                  <th className="py-1.5 px-2 font-black text-orange-900 bg-orange-50/60">Serotonin Syndrome (SS)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 text-slate-700">
+                <tr>
+                  <td className="py-1.5 px-2 font-bold text-slate-900">Primary Etiology</td>
+                  <td className="py-1.5 px-2 bg-rose-50/30">Dopamine D2 receptor blockade (Antipsychotics, Reglan)</td>
+                  <td className="py-1.5 px-2 bg-orange-50/30">Excess 5-HT receptor activation (SSRIs, SNRIs, MAOIs)</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 px-2 font-bold text-slate-900">Onset Speed</td>
+                  <td className="py-1.5 px-2 bg-rose-50/30">Slow / Subacute (1–3 days to weeks)</td>
+                  <td className="py-1.5 px-2 bg-orange-50/30">Rapid / Explosive (&lt;12–24 hours, often &lt;6 hrs)</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 px-2 font-bold text-slate-900">Neuromuscular Tone</td>
+                  <td className="py-1.5 px-2 bg-rose-50/30 font-bold text-rose-950">Severe "Lead-pipe" rigidity, hyporeflexia, bradykinesia</td>
+                  <td className="py-1.5 px-2 bg-orange-50/30 font-bold text-orange-950">Hyperreflexia, clonus (ocular/ankle), tremor, myoclonus</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 px-2 font-bold text-slate-900">Pupils &amp; GI</td>
+                  <td className="py-1.5 px-2 bg-rose-50/30">Normal pupils, normal bowel sounds or hypomotility</td>
+                  <td className="py-1.5 px-2 bg-orange-50/30">Dilated pupils (mydriasis), hyperactive bowel, diarrhea</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 px-2 font-bold text-slate-900">Creatine Kinase (CK)</td>
+                  <td className="py-1.5 px-2 bg-rose-50/30 font-bold text-rose-950">Extremely high (&gt;1,000 to &gt;50,000 U/L)</td>
+                  <td className="py-1.5 px-2 bg-orange-50/30">Normal to mildly elevated</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 px-2 font-bold text-slate-900">Specific Antidote</td>
+                  <td className="py-1.5 px-2 bg-rose-50/30 font-bold text-rose-950">Dantrolene (muscle relaxant) + Bromocriptine (dopamine agonist)</td>
+                  <td className="py-1.5 px-2 bg-orange-50/30 font-bold text-orange-950">Cyproheptadine (5-HT antagonist)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Stepwise Treatment Protocol */}
+        <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl space-y-3">
+          <p className="text-xs font-black text-rose-950 uppercase tracking-wide">Stepwise Treatment Protocol — Psychiatric Emergency Management</p>
+          <div className="space-y-2 text-[11px]">
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-rose-700 text-white font-black text-[10px] flex items-center justify-center">1</span>
+              <div>
+                <strong className="text-rose-950">IMMEDIATELY STOP THE OFFENDING NEUROLEPTIC.</strong>
+                <span className="text-slate-700"> Discontinue all antipsychotics, metoclopramide, prochlorperazine, and promethazine. If NMS was triggered by the sudden withdrawal of a dopamine agonist (e.g. Parkinson's patient whose Levodopa was held), <strong>immediately restart the dopamine agonist</strong>.</span>
+              </div>
+            </div>
+
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-red-600 text-white font-black text-[10px] flex items-center justify-center">2</span>
+              <div>
+                <strong className="text-red-950">EMERGENCY MEDICAL TRANSPORT &amp; ICU ADMISSION (CALL 911).</strong>
+                <span className="text-slate-700"> NMS cannot be managed in an outpatient or telehealth setting. Patients require immediate transfer to an Emergency Department or Intensive Care Unit with continuous cardiorespiratory monitoring.</span>
+              </div>
+            </div>
+
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-600 text-white font-black text-[10px] flex items-center justify-center">3</span>
+              <div>
+                <strong className="text-amber-950">AGGRESSIVE FLUID RESUSCITATION &amp; ACTIVE COOLING.</strong>
+                <span className="text-slate-700"> Administer IV Normal Saline (2–3 L/day) targeting urine output &gt;100–200 mL/hr to flush myoglobin and prevent acute tubular necrosis / renal failure. Sodium bicarbonate IV may be added to alkalinize urine (pH &gt; 6.5) preventing intratubular myoglobin precipitation. External cooling (ice packs to axilla/groin, misting/cooling blankets); <strong>antipyretics (acetaminophen, ibuprofen) are ineffective</strong> because the fever is peripherally generated by skeletal muscle contracture.</span>
+              </div>
+            </div>
+
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-600 text-white font-black text-[10px] flex items-center justify-center">4</span>
+              <div>
+                <strong className="text-indigo-950">PHARMACOLOGICAL ANTIDOTES (ICU PROTOCOL):</strong>
+                <ul className="mt-1 space-y-1 list-disc list-inside text-slate-700 pl-1">
+                  <li><strong>Dantrolene (Dantrium):</strong> Direct-acting skeletal muscle relaxant (dissociates muscle excitation-contraction by blocking sarcoplasmic reticulum Ca²⁺ release). Dose: <strong>1 to 2.5 mg/kg IV push</strong>, repeat up to 10 mg/kg/day until rigidity and hyperthermia subside, then convert to oral (100–200 mg/day PO) and taper over 7 days.</li>
+                  <li><strong>Bromocriptine (Parlodel):</strong> Centrally acting dopamine D2 receptor agonist to overcome neuroleptic blockade. Dose: <strong>2.5 mg PO/NG tid</strong>, titrating by 2.5 mg q24h up to 15–20 mg/day until response.</li>
+                  <li><strong>Amantadine:</strong> Alternative dopamine agonist / NMDA antagonist: <strong>100 mg PO/NG bid to tid</strong>.</li>
+                  <li><strong>Benzodiazepines (Lorazepam 1–2 mg IV/IM q4-6h):</strong> Relieves mild rigidity, neuromuscular agitation, and promotes muscle relaxation.</li>
+                  <li><strong>Electroconvulsive Therapy (ECT):</strong> Highly effective rescue modality for refractory NMS, severe hyperthermia, or when malignant catatonia cannot be distinguished from NMS.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex gap-2.5 items-start">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-slate-700 text-white font-black text-[10px] flex items-center justify-center">5</span>
+              <div>
+                <strong className="text-slate-900">RECHALLENGE PROTOCOL (RESTARTING ANTIPSYCHOTICS SAFELY):</strong>
+                <span className="text-slate-700"> Wait a <strong>strict minimum of 14 days</strong> (preferably &gt;3 weeks) after complete resolution of fever, rigidity, mental status changes, and normalization of CK before re-initiating any antipsychotic. Select an agent from a <strong>different chemical class with low D2 receptor affinity</strong> (e.g. Quetiapine, Clozapine, Lumateperone). Start at the lowest conceivable dose and titrate ultra-slowly with frequent CK and vital sign monitoring. Ensure patient remains well hydrated and avoid concurrent lithium.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer note */}
+        <div className="p-3 bg-rose-100/50 border border-rose-200 rounded-xl text-[11px] text-rose-950 font-medium">
+          💡 <strong>Key Clinical Pearl:</strong> Any patient taking an antipsychotic who develops an unexplained fever and stiff muscles must be treated as NMS until proven otherwise. Check stat CK, CMP, and CBC immediately. Never assume rigidity is simple extrapyramidal Parkinsonism if accompanied by diaphoresis, tachycardia, or altered cognition.
         </div>
       </div>
 
