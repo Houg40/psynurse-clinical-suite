@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Sparkles, AlertCircle, HeartPulse, User, HelpCircle, CheckCircle2, ChevronRight, Activity, Volume2, VolumeX, Mic, Play } from 'lucide-react';
+import { Send, Sparkles, AlertCircle, HeartPulse, User, HelpCircle, CheckCircle2, ChevronRight, Activity, Volume2, VolumeX, Mic, Play, Eye, List, LayoutGrid, Info } from 'lucide-react';
 
 export default function VirtualExamRoom({ caseData, messages, onSendMessage, onAskProbe, revealedClues, onAdvanceToCharting }) {
   const [customInput, setCustomInput] = useState('');
   const [isAudioEnabled, setIsAudioEnabled] = useState(false); // Default OFF - requires manual clinician selection
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [hoveredProbe, setHoveredProbe] = useState(null);
+  const [probeViewMode, setProbeViewMode] = useState('full'); // 'full' (complete questions) | 'compact'
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -277,36 +279,135 @@ export default function VirtualExamRoom({ caseData, messages, onSendMessage, onA
         </div>
 
         {/* Clinical Probes Action Dock */}
-        <div className="p-3 bg-slate-950 border-t border-slate-800 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-teal-400" />
-              Quick-Action Clinical Probes (Click to Ask)
+        <div className="p-3 bg-slate-950 border-t border-slate-800 space-y-2 relative">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+              <span>Quick-Action Clinical Probes (Click to Ask)</span>
             </span>
-            <span className="text-[10px] text-slate-500">
-              Explore key diagnostic domains
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-slate-500 hidden sm:inline">
+                Hover to preview • Click to ask
+              </span>
+              <button
+                type="button"
+                onClick={() => setProbeViewMode(prev => prev === 'full' ? 'compact' : 'full')}
+                className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-900 hover:bg-slate-800 text-teal-300 border border-slate-700 hover:border-teal-500 transition-all flex items-center gap-1 shadow-xs cursor-pointer"
+                title="Toggle between full multiline questions and compact pills"
+              >
+                {probeViewMode === 'full' ? (
+                  <>
+                    <LayoutGrid className="w-2.5 h-2.5" />
+                    <span>Compact View</span>
+                  </>
+                ) : (
+                  <>
+                    <List className="w-2.5 h-2.5" />
+                    <span>Full Questions</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1">
-            {caseData.dialogueLibrary.probes.map((probe) => {
-              const clueRevealed = probe.revealsClue && revealedClues[probe.revealsClue];
-              return (
-                <button
-                  key={probe.id}
-                  onClick={() => onAskProbe(probe)}
-                  className={`text-[11px] font-medium px-2.5 py-1.5 rounded-lg border transition-all text-left flex items-center gap-1.5 ${
-                    clueRevealed
-                      ? 'bg-emerald-950/40 border-emerald-800 text-emerald-300'
-                      : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700 hover:border-teal-500'
-                  }`}
-                >
-                  <span className="font-bold text-teal-400">[{probe.category}]</span>
-                  <span className="truncate max-w-[280px]">{probe.question}</span>
-                </button>
-              );
-            })}
-          </div>
+          {/* Dedicated Hover Preview Popover */}
+          {hoveredProbe && (
+            <div className="p-3 bg-slate-900/95 border-2 border-teal-400 rounded-xl shadow-2xl space-y-1 animate-in fade-in zoom-in-95 duration-100 transition-all">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-extrabold text-teal-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <HelpCircle className="w-3.5 h-3.5 text-teal-400 flex-shrink-0" />
+                  <span>Clinical Probe Preview: [{hoveredProbe.category}]</span>
+                </span>
+                <span className="text-[10px] font-bold text-teal-200 bg-teal-950/90 px-2 py-0.5 rounded border border-teal-800 shadow-xs">
+                  Click to Ask {patient.name}
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm font-semibold text-white leading-relaxed">
+                "{hoveredProbe.question}"
+              </p>
+              {hoveredProbe.revealsClue && (
+                <div className="text-[10px] text-amber-300 flex items-center gap-1 pt-0.5 font-medium">
+                  <Sparkles className="w-3 h-3 text-amber-400 flex-shrink-0" />
+                  <span>
+                    {revealedClues[hoveredProbe.revealsClue]
+                      ? '✓ Diagnostic clue already uncovered on chart'
+                      : '🎯 Key Diagnostic Probe: Uncovers crucial psychiatric history'}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Probes List (Full View or Compact View) */}
+          {probeViewMode === 'full' ? (
+            <div className="space-y-1.5 max-h-40 sm:max-h-48 overflow-y-auto pr-1">
+              {caseData.dialogueLibrary.probes.map((probe) => {
+                const clueRevealed = probe.revealsClue && revealedClues[probe.revealsClue];
+                const isHovered = hoveredProbe?.id === probe.id;
+                return (
+                  <button
+                    key={probe.id}
+                    type="button"
+                    onClick={() => onAskProbe(probe)}
+                    onMouseEnter={() => setHoveredProbe(probe)}
+                    onMouseLeave={() => setHoveredProbe(null)}
+                    onFocus={() => setHoveredProbe(probe)}
+                    onBlur={() => setHoveredProbe(null)}
+                    title={`[${probe.category}]: "${probe.question}"`}
+                    className={`w-full text-xs p-2.5 rounded-xl border transition-all text-left flex items-start gap-2.5 group cursor-pointer ${
+                      isHovered
+                        ? 'border-teal-400 ring-2 ring-teal-500/40 bg-slate-800 text-white shadow-lg'
+                        : clueRevealed
+                          ? 'bg-emerald-950/40 border-emerald-800 hover:border-emerald-500 text-emerald-100'
+                          : 'bg-slate-900/90 hover:bg-slate-800 text-slate-200 border-slate-700/80 hover:border-teal-500'
+                    }`}
+                  >
+                    <span className="font-extrabold text-[11px] text-teal-400 bg-teal-950/80 border border-teal-800/80 px-2 py-0.5 rounded flex-shrink-0 mt-0.5">
+                      {probe.category}
+                    </span>
+                    <span className="flex-1 text-slate-200 text-xs leading-relaxed group-hover:text-white font-medium">
+                      {probe.question}
+                    </span>
+                    {probe.revealsClue && (
+                      <span className="text-[10px] font-bold text-amber-300/90 bg-amber-950/60 border border-amber-800/60 px-1.5 py-0.5 rounded flex-shrink-0 flex items-center gap-1 self-center">
+                        <Sparkles className="w-2.5 h-2.5 text-amber-400" />
+                        {clueRevealed ? 'Clue Unlocked' : 'Key Clue'}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto pr-1">
+              {caseData.dialogueLibrary.probes.map((probe) => {
+                const clueRevealed = probe.revealsClue && revealedClues[probe.revealsClue];
+                const isHovered = hoveredProbe?.id === probe.id;
+                return (
+                  <button
+                    key={probe.id}
+                    type="button"
+                    onClick={() => onAskProbe(probe)}
+                    onMouseEnter={() => setHoveredProbe(probe)}
+                    onMouseLeave={() => setHoveredProbe(null)}
+                    onFocus={() => setHoveredProbe(probe)}
+                    onBlur={() => setHoveredProbe(null)}
+                    title={`[${probe.category}]: "${probe.question}"`}
+                    className={`text-[11px] font-medium px-3 py-1.5 rounded-lg border transition-all text-left flex items-center gap-1.5 group cursor-pointer ${
+                      isHovered
+                        ? 'border-teal-400 ring-2 ring-teal-500/40 bg-slate-800 text-white shadow-md'
+                        : clueRevealed
+                          ? 'bg-emerald-950/40 border-emerald-800 text-emerald-300'
+                          : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700 hover:border-teal-500'
+                    }`}
+                  >
+                    <span className="font-bold text-teal-400">[{probe.category}]</span>
+                    <span className="text-slate-300 group-hover:text-white leading-snug">{probe.question}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           {/* Free-form Text Entry Form */}
           <form onSubmit={handleSend} className="flex gap-2 pt-1">
