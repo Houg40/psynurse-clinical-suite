@@ -178,19 +178,30 @@ export default function ScreenerAssessment() {
     <div className="space-y-6">
       {/* Screener Selector Pills */}
       <div className="flex flex-wrap gap-2 p-1.5 bg-slate-200/60 rounded-xl w-fit">
-        {screenersData.screeners.map((s) => (
-          <button
-            key={s.id}
-            onClick={() => setActiveScreenerId(s.id)}
-            className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
-              activeScreenerId === s.id
-                ? 'bg-white text-teal-800 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
-            }`}
-          >
-            {s.name} ({s.fullName.split(' ')[0]})
-          </button>
-        ))}
+        {screenersData.screeners.map((s) => {
+          const domainMap = {
+            phq9: 'Depression',
+            gad7: 'Anxiety',
+            aims: 'TD / Movement',
+            asrs: 'Adult ADHD',
+            mdq: 'Bipolar',
+            berlin: 'Sleep Apnea'
+          };
+          const domainLabel = domainMap[s.id] || s.targetCondition.split(' ')[0];
+          return (
+            <button
+              key={s.id}
+              onClick={() => setActiveScreenerId(s.id)}
+              className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all ${
+                activeScreenerId === s.id
+                  ? 'bg-white text-teal-800 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
+              }`}
+            >
+              {s.name} <span className="text-xs font-semibold opacity-80">({domainLabel})</span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

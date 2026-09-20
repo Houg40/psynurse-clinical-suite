@@ -24,11 +24,12 @@ export default function CdsSubNav({ activeTab, setActiveTab }) {
           
           <div className="flex items-center gap-2">
             <span className="text-xs font-black uppercase tracking-wider text-teal-800 bg-teal-50 px-2.5 py-1 rounded-md border border-teal-200/80 whitespace-nowrap">
-              Clinical Decision Support (CDS)
+              <span className="hidden md:inline">Clinical Decision Support (CDS)</span>
+              <span className="md:hidden">CDS</span>
             </span>
           </div>
 
-          <nav className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
+          <nav className="flex items-center gap-1 overflow-x-auto scrollbar-none py-0.5">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -36,15 +37,16 @@ export default function CdsSubNav({ activeTab, setActiveTab }) {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                     isActive
                       ? 'bg-teal-600 text-white shadow-xs font-bold'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`}
+                  title={item.label}
                 >
                   <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
-                  <span className="hidden sm:inline">{item.label}</span>
-                  <span className="sm:hidden">{item.shortLabel}</span>
+                  <span className="hidden xl:inline">{item.label}</span>
+                  <span className="xl:hidden">{item.shortLabel}</span>
                 </button>
               );
             })}
