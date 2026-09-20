@@ -1,7 +1,224 @@
-import React from 'react';
-import { AlertTriangle, ShieldCheck, FileCheck, ArrowLeftRight, HeartPulse, Stethoscope, AlertOctagon, Flame, Activity, Pill, CheckCircle2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { 
+  AlertTriangle, 
+  ShieldCheck, 
+  FileCheck, 
+  ArrowLeftRight, 
+  HeartPulse, 
+  Stethoscope, 
+  AlertOctagon, 
+  Flame, 
+  Activity, 
+  Pill, 
+  CheckCircle2,
+  Syringe,
+  Search,
+  ChevronDown,
+  ChevronUp,
+  Layers,
+  Check,
+  Zap,
+  Info
+} from 'lucide-react';
+
+const ANTIPSYCHOTIC_EQUIVALENCIES = [
+  {
+    id: 'haloperidol',
+    name: 'Haloperidol (Haldol)',
+    class: 'Typical (FGA) - High Potency Butyrophenone',
+    category: 'typical',
+    hasAcuteIm: true,
+    hasLai: true,
+    oralDose: '2 – 20 mg/day (Acute psychosis target: 4 – 10 mg/day; >15 mg/day offers minimal added efficacy, high EPS)',
+    acuteImDose: '2 – 5 mg IM q4-8h prn (Max 20 mg/day; severe crisis: up to 10 mg IM)',
+    acuteRatio: '2:1 (Oral to Acute IM)',
+    acuteKinetics: 'Onset: 20–30 min | Peak: 30–45 min | Duration: 4–8 hrs',
+    laiDepotName: 'Haloperidol Decanoate (IM q4wk)',
+    laiDepotDose: '10–20× daily oral dose (monthly IM q4wk). Standard target: 50–200 mg q4wk (Max 450 mg/month).',
+    oralOverlap: 'Overlap oral Haldol for 2–3 months while decanoate reaches steady state; OR utilize a loading dose strategy (e.g. 20× oral dose divided into 100 mg initial injection, remainder in 3–7 days).',
+    bioavailability: 'Oral ~50% (first-pass hepatic clearance). Acute IM ~100% bioavailable; hence 5 mg IM ≈ 10 mg PO.',
+    blackBoxAlert: 'Elderly patients with dementia-related psychosis are at increased risk of death. High risk of Acute Dystonia (treat with Diphenhydramine 50 mg IM or Benztropine 1–2 mg IM stat) and QTc prolongation (Torsades risk especially with IV route).',
+    secondOpinionPearls: [
+      'Conversion Formula: For stable low-relapse outpatients, multiply oral daily dose by 10–15×. For rapid metabolizers or high-relapse patients, multiply by 20×.',
+      'Split-Dose Rule: If the calculated initial monthly dose exceeds 100 mg, divide into two injections separated by 3–7 days to prevent acute peak toxicity and severe dystonic reactions.',
+      'Administration Technique: Deep gluteal IM injection is required for Decanoate (Z-track method, 21G needle) to prevent oil leakage into subcutaneous adipose tissue.'
+    ]
+  },
+  {
+    id: 'olanzapine',
+    name: 'Olanzapine (Zyprexa / Zydis)',
+    class: 'Atypical (SGA) - Thienobenzodiazepine',
+    category: 'atypical',
+    hasAcuteIm: true,
+    hasLai: true,
+    oralDose: '5 – 20 mg/day PO (Zydis ODT bioequivalent; 1st-line for refusal before forced IM)',
+    acuteImDose: '5 – 10 mg IM q2-4h prn (Max 30 mg/day; geriatric/debilitated: 2.5–5 mg IM)',
+    acuteRatio: '1:1 to 1.5:1 (Oral to Acute IM)',
+    acuteKinetics: 'Onset: 15–30 min | Peak: 15–45 min | Duration: 24 hrs',
+    laiDepotName: 'Zyprexa Relprevv (Olanzapine Pamoate)',
+    laiDepotDose: '150–300 mg q2wk or 300–405 mg q4wk depending on baseline oral dose (10–20 mg/day)',
+    oralOverlap: 'No oral overlap required if switching from oral olanzapine; Relprevv releases rapidly.',
+    bioavailability: 'Oral ~60–85% bioavailable. Acute IM achieves 5-fold higher peak concentrations (Cmax) than equivalent oral dose.',
+    blackBoxAlert: 'LETHAL INTERACTION WARNING: Never co-administer IM Olanzapine and IM Lorazepam (Ativan) within 1 to 2 hours of each other. Severe fatal synergistic respiratory depression, profound hypotension, and bradycardia have resulted. Relprevv requires REMS 3-hour post-injection observation for Post-Injection Delirium Sedation Syndrome (PDSS).',
+    secondOpinionPearls: [
+      'Second Opinion Pearl: For agitated patients refusing pills, offer Zydis ODT before escalating to physical restraint and IM injection. Zydis dissolves on the tongue in <5 seconds and cannot be easily cheeked.',
+      'Vital Signs Protocol: When acute IM Zyprexa is administered, monitor vitals, pulse oximetry, and airway patency q15min for the first hour.',
+      'Smoking Interaction: Tobacco smoke induces CYP1A2, increasing Olanzapine clearance by up to 50%. A patient discharged to a smoke-free facility or quitting smoking will experience a ~50% jump in blood levels.'
+    ]
+  },
+  {
+    id: 'aripiprazole',
+    name: 'Aripiprazole (Abilify / Maintena / Aristada)',
+    class: 'Atypical (SGA) - D2 Partial Agonist',
+    category: 'atypical',
+    hasAcuteIm: true,
+    hasLai: true,
+    oralDose: '10 – 30 mg/day (Target: 10–15 mg/day in schizophrenia/bipolar mania)',
+    acuteImDose: '9.75 mg IM single dose (Range: 5.25–15 mg IM; max 30 mg/day combined with oral)',
+    acuteRatio: '1:1 (Oral to Acute IM equivalent)',
+    acuteKinetics: 'Onset: 30–60 min | Peak: 1–3 hrs | T½: ~75 hrs',
+    laiDepotName: 'Abilify Maintena (q4wk) OR Aristada (lauroxil: q4wk, q6wk, or q8wk)',
+    laiDepotDose: 'Maintena: 400 mg IM monthly (reduce to 300 mg for CYP2D6/CYP3A4 poor metabolizers). Aristada: 441 mg, 662 mg, 882 mg monthly, or 1064 mg q6-8wk.',
+    oralOverlap: 'Maintena: MANDATORY 14 days concurrent oral aripiprazole (10–20 mg). Aristada: MANDATORY 21 days concurrent oral aripiprazole; OR use Aristada Initio (675 mg IM) + ONE single 30 mg oral dose on Day 1 to eliminate the 21-day wait!',
+    bioavailability: 'Oral ~87% bioavailable. T½ is exceptionally long (~75 hours; up to 146 hours in poor CYP2D6 metabolizers).',
+    blackBoxAlert: 'Increased mortality in elderly dementia patients; Suicidality warning in children/young adults. Akathisia risk is prominent during titration—often misdiagnosed as worsening psychiatric agitation.',
+    secondOpinionPearls: [
+      'Second Opinion Pearl: D2 partial agonism has exceptionally high receptor binding affinity. If switching a patient from a high-dose full antagonist (Haldol, Zyprexa) to Aripiprazole, cross-titrate slowly to avoid dopamine withdrawal psychosis or acute rebound akathisia.',
+      'The Aristada Initio Bridge: 1 injection of Initio (675 mg) + 1 injection of Aristada + 1 single oral 30 mg dose on Day 1 completely bypasses the standard 3-week oral bridge, guaranteeing instant adherence.',
+      'Injection Site Rules: Maintena can be given in deltoid or gluteal; Aristada 882 mg and 1064 mg must be given deep gluteal.'
+    ]
+  },
+  {
+    id: 'risperidone',
+    name: 'Risperidone (Risperdal / Consta / Perseris / Uzedy)',
+    class: 'Atypical (SGA) - Benzisoxazole',
+    category: 'atypical',
+    hasAcuteIm: false,
+    hasLai: true,
+    oralDose: '2 – 8 mg/day (Standard target: 2–4 mg/day; >6 mg/day increases EPS and hyperprolactinemia exponentially)',
+    acuteImDose: 'Not available as acute short-acting IM (use Oral M-TAB ODT for acute refusal)',
+    acuteRatio: 'Oral to LAI conversion depends on specific formulation (see below)',
+    acuteKinetics: 'Oral peak: 1 hr (solution/M-TAB) to 3 hrs (tablets) | Active moiety T½: ~20 hrs',
+    laiDepotName: 'Risperdal Consta (IM q2wk) | Perseris (SC monthly) | Uzedy (SC monthly/bimonthly)',
+    laiDepotDose: 'Consta: 25 mg, 37.5 mg, or 50 mg IM q2wk. Perseris: 90 mg or 120 mg SC q4wk. Uzedy: 50–250 mg SC monthly or bimonthly.',
+    oralOverlap: 'Consta: STRICT MANDATORY 21-DAY ORAL OVERLAP! Microsphere polymers take 3 weeks to degrade and release therapeutic drug. Perseris & Uzedy: NO oral overlap required (therapeutic plasma levels reached within 24 hours of subcutaneous injection).',
+    bioavailability: 'Oral ~70% bioavailable. Extensive conversion via CYP2D6 to 9-hydroxyrisperidone (paliperidone).',
+    blackBoxAlert: 'Increased mortality in elderly patients with dementia. Potent hyperprolactinemia (gynecomastia, galactorrhea, amenorrhea, sexual dysfunction, bone demineralization). Dose-dependent EPS above 6 mg/day.',
+    secondOpinionPearls: [
+      'Second Opinion Pearl: The 21-day Consta oral lag is the #1 cause of relapse during LAI transition. If patient cannot adhere to oral pills for 3 weeks, do NOT use Consta—choose Perseris/Uzedy SC or Paliperidone (Invega Sustenna) which need zero oral overlap.',
+      'Equivalence Ratios: Oral 2 mg/day ≈ Consta 25 mg q2wk ≈ Perseris 90 mg SC monthly ≈ Uzedy 75 mg SC monthly.',
+      'Higher Dose Ratios: Oral 4 mg/day ≈ Consta 37.5–50 mg q2wk ≈ Perseris 120 mg SC monthly ≈ Uzedy 100–125 mg SC monthly.'
+    ]
+  },
+  {
+    id: 'paliperidone',
+    name: 'Paliperidone (Invega / Sustenna / Trinza / Hafyera)',
+    class: 'Atypical (SGA) - Active 9-OH Hydroxy Metabolite',
+    category: 'atypical',
+    hasAcuteIm: false,
+    hasLai: true,
+    oralDose: '3 – 12 mg/day PO (Invega ER osmotic release OROS tablet; cannot be chewed or crushed)',
+    acuteImDose: 'Not available as acute short-acting IM',
+    acuteRatio: 'Oral Invega 3 mg ≈ Sustenna 78 mg/mo; 6 mg ≈ Sustenna 117 mg/mo; 9 mg ≈ Sustenna 156 mg/mo; 12 mg ≈ Sustenna 234 mg/mo',
+    acuteKinetics: 'Oral ER peak: 24 hrs steady state | Minimal hepatic CYP metabolism (eliminated primarily via renal excretion)',
+    laiDepotName: 'Invega Sustenna (1-month IM) | Invega Trinza (3-month IM) | Invega Hafyera (6-month IM)',
+    laiDepotDose: 'Sustenna Loading Protocol: Day 1 = 234 mg IM (DELTOID); Day 8 = 156 mg IM (DELTOID); then monthly maintenance = 117 mg IM (range: 39–234 mg IM deltoid or gluteal).',
+    oralOverlap: 'NO ORAL OVERLAP REQUIRED! The Day 1 (234 mg) and Day 8 (156 mg) deltoid loading injections rapidly achieve and sustain therapeutic levels.',
+    bioavailability: 'Oral ER ~28% bioavailable. Renal excretion ~80% unchanged; ideal for hepatic dysfunction, caution in renal impairment (CrCl <50 mL/min).',
+    blackBoxAlert: 'Increased mortality in elderly dementia patients. Dose-dependent QTc prolongation, hyperprolactinemia, and extrapyramidal symptoms.',
+    secondOpinionPearls: [
+      'Second Opinion Pearl: Both Day 1 and Day 8 loading doses MUST be administered in the DELTOID muscle. Deltoid vascularity produces 28% higher peak concentrations than the gluteal muscle, guaranteeing rapid therapeutic coverage without pills.',
+      'Conversion to Trinza: Patient must be stabilized on Invega Sustenna for at least 4 months before switching to 3-month Trinza (dose = Sustenna dose × 3.5).',
+      'Conversion to Hafyera: Patient must be stabilized on Sustenna for ≥4 months or Trinza for ≥1 cycle before switching to 6-month Hafyera.'
+    ]
+  },
+  {
+    id: 'ziprasidone',
+    name: 'Ziprasidone (Geodon)',
+    class: 'Atypical (SGA) - Piperazinyl Heterocyclic',
+    category: 'atypical',
+    hasAcuteIm: true,
+    hasLai: false,
+    oralDose: '40 – 80 mg BID PO with food (MANDATORY ≥500 calorie meal; bioavailability drops 50% on empty stomach!)',
+    acuteImDose: '10 – 20 mg IM q2-4h prn (Max 40 mg/day IM; consecutive IM dosing safety is limited to 3 consecutive days)',
+    acuteRatio: '1:4 to 1:5 (Acute IM 10 mg ≈ Oral 40–50 mg; IM is 100% bioavailable without food dependency)',
+    acuteKinetics: 'Onset: 15–30 min | Peak: 30–60 min | T½: 2–5 hrs (rapid clearance)',
+    laiDepotName: 'No LAI Formulation Available',
+    laiDepotDose: 'N/A (Oral or Acute IM only)',
+    oralOverlap: 'When transitioning from acute IM to oral, administer first oral dose with next regular meal (≥500 kcal).',
+    bioavailability: 'Oral ~60% with food; ~30% fasting! Acute IM is 100% bioavailable and does NOT require food.',
+    blackBoxAlert: 'Dose-dependent QTc prolongation (mean increase 10–20 msec; higher than most SGAs). Contraindicated with known QTc prolongation (>450 msec in men, >470 msec in women), recent acute MI, or uncompensated heart failure.',
+    secondOpinionPearls: [
+      'Second Opinion Pearl: "Pseudo-treatment resistance" with Geodon is almost always caused by taking pills without a 500-calorie meal. Verify meal compliance before declaring non-response.',
+      'Low Sedation/Respiratory Risk: Geodon acute IM is one of the most effective non-sedating IM options for acute agitated psychosis, with low risk of respiratory depression compared to Zyprexa/benzodiazepines.',
+      'Consecutive Limit: Limit acute IM to 3 consecutive days; transition patient to oral Geodon or alternative maintenance medication.'
+    ]
+  },
+  {
+    id: 'fluphenazine',
+    name: 'Fluphenazine (Prolixin)',
+    class: 'Typical (FGA) - Piperazine Phenothiazine',
+    category: 'typical',
+    hasAcuteIm: true,
+    hasLai: true,
+    oralDose: '2.5 – 10 mg/day PO (Max 20 mg/day)',
+    acuteImDose: '1.25 – 2.5 mg IM (as HCl) q6-8h prn (Max 10 mg/day acute IM)',
+    acuteRatio: '2:1 (Oral to Acute IM HCl)',
+    acuteKinetics: 'Acute HCl Onset: 15–30 min | Peak: 1–2 hrs | Duration: 6–8 hrs',
+    laiDepotName: 'Fluphenazine Decanoate (IM q2-3wk)',
+    laiDepotDose: '1.25× oral daily dose = Decanoate dose in mg administered IM every 2 weeks (e.g. 10 mg/day oral ≈ 12.5 mg Decanoate q2wk).',
+    oralOverlap: 'Overlap oral fluphenazine for 2 to 4 weeks while decanoate depot reaches steady state.',
+    bioavailability: 'Oral ~40–50% due to first-pass metabolism. Depot decanoate releases slowly over 2–3 weeks.',
+    blackBoxAlert: 'Increased mortality in elderly dementia patients. Very high risk of Extrapyramidal Symptoms (EPS), Acute Dystonic reactions (up to 30% in young males), and Tardive Dyskinesia with prolonged use.',
+    secondOpinionPearls: [
+      'Second Opinion Pearl: Never inject Fluphenazine Decanoate into a patient without an initial oral or acute HCl tolerability challenge to rule out severe hypersensitivity or acute catastrophic dystonia.',
+      'Allergy Alert: Fluphenazine decanoate is formulated in sesame oil; verify patient has no sesame seed or oil allergy before injection.',
+      'Prophylactic EPS Orders: Co-prescribe or have Benztropine 1–2 mg IM available on standing orders whenever initiating Fluphenazine.'
+    ]
+  },
+  {
+    id: 'chlorpromazine',
+    name: 'Chlorpromazine (Thorazine)',
+    class: 'Typical (FGA) - Low Potency Phenothiazine',
+    category: 'typical',
+    hasAcuteIm: true,
+    hasLai: false,
+    oralDose: '100 – 800 mg/day PO (Historical standard: 100 mg CPZ = Clinical Equivalence Baseline)',
+    acuteImDose: '25 – 50 mg IM deep gluteal (May repeat in 1 hour if needed; max 400 mg/day)',
+    acuteRatio: '2:1 to 4:1 (Oral to Acute IM)',
+    acuteKinetics: 'Onset: 15–30 min | Peak: 30–60 min | Duration: 4–8 hrs',
+    laiDepotName: 'No LAI Formulation Available',
+    laiDepotDose: 'N/A (Historical baseline for CPZ equivalencies)',
+    oralOverlap: 'N/A',
+    bioavailability: 'Oral ~30% (extensive first-pass hepatic metabolism and gut wall breakdown).',
+    blackBoxAlert: 'Severe Orthostatic Hypotension and Syncope (potent alpha-1 adrenergic antagonism). Patient MUST remain recumbent/supine for 30–60 minutes following acute IM injection. Check BP prior to ambulation.',
+    secondOpinionPearls: [
+      'Second Opinion Pearl: Chlorpromazine 100 mg PO is the historical gold standard "CPZ Equivalent" benchmark against which all psychiatric dosing potency is calculated (e.g. 2 mg Haldol ≈ 100 mg CPZ; 5 mg Zyprexa ≈ 100 mg CPZ; 2 mg Risperdal ≈ 100 mg CPZ).',
+      'Sedation & Seizure Warning: Chlorpromazine produces prominent anticholinergic and antihistaminic sedation, corneal/lens deposits with long-term high dose therapy, and significant seizure threshold reduction.',
+      'Deep Gluteal Injection: Deep gluteal injection is mandatory to prevent sterile abscess and local skin irritation.'
+    ]
+  }
+];
 
 export default function SafetyGuide() {
+  const [antipsychoticSearch, setAntipsychoticSearch] = useState('');
+  const [selectedClassFilter, setSelectedClassFilter] = useState('all');
+  const [expandedDrugId, setExpandedDrugId] = useState(null);
+
+  const filteredAntipsychotics = ANTIPSYCHOTIC_EQUIVALENCIES.filter(drug => {
+    const matchesSearch = 
+      drug.name.toLowerCase().includes(antipsychoticSearch.toLowerCase()) ||
+      drug.class.toLowerCase().includes(antipsychoticSearch.toLowerCase()) ||
+      drug.laiDepotName.toLowerCase().includes(antipsychoticSearch.toLowerCase());
+    
+    if (!matchesSearch) return false;
+    if (selectedClassFilter === 'atypical') return drug.category === 'atypical';
+    if (selectedClassFilter === 'typical') return drug.category === 'typical';
+    if (selectedClassFilter === 'acute_im') return drug.hasAcuteIm;
+    if (selectedClassFilter === 'lai') return drug.hasLai;
+    return true;
+  });
+
   return (
     <div className="space-y-6">
       {/* Disclaimer Banner */}
@@ -503,6 +720,359 @@ export default function SafetyGuide() {
         {/* Footer note */}
         <div className="p-3 bg-rose-100/50 border border-rose-200 rounded-xl text-[11px] text-rose-950 font-medium">
           💡 <strong>Key Clinical Pearl:</strong> Any patient taking an antipsychotic who develops an unexplained fever and stiff muscles must be treated as NMS until proven otherwise. Check stat CK, CMP, and CBC immediately. Never assume rigidity is simple extrapyramidal Parkinsonism if accompanied by diaphoresis, tachycardia, or altered cognition.
+        </div>
+      </div>
+
+      {/* Card: Antipsychotic Oral-to-IM Dosing Equivalencies & Second-Opinion Matrix */}
+      <div className="bg-white rounded-2xl border-2 border-indigo-400/80 p-6 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-indigo-100 pb-4">
+          <div className="flex items-center gap-3 text-indigo-950 font-black text-base sm:text-lg">
+            <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center flex-shrink-0 shadow-inner">
+              <Layers className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span>Antipsychotic Oral-to-IM Dosing Equivalencies &amp; Second-Opinion Matrix</span>
+              </div>
+              <p className="text-xs text-slate-500 font-normal mt-0.5">
+                Rapid oral-to-parenteral conversion ratios, acute crisis IM kinetics, and long-acting depot (LAI) initiation protocols.
+              </p>
+            </div>
+          </div>
+          <span className="text-[11px] font-extrabold text-indigo-800 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full self-start sm:self-auto uppercase tracking-wide">
+            Prescriber Reference &amp; Conversion Safety
+          </span>
+        </div>
+
+        {/* 3-Step Visual Conversion Flow Diagram */}
+        <div className="space-y-2.5">
+          <div className="flex items-center justify-between">
+            <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+              <ArrowLeftRight className="w-4 h-4 text-indigo-600" />
+              Clinical Conversion Pathway (Oral ➔ Acute IM ➔ Long-Acting Depot)
+            </h4>
+            <span className="text-[10px] text-slate-500 font-medium">Step-by-step sequencing</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {/* Step 1 */}
+            <div className="bg-gradient-to-br from-blue-50/80 to-indigo-50/40 border border-blue-200 rounded-xl p-3.5 space-y-2 relative">
+              <div className="flex items-center justify-between">
+                <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-black flex items-center justify-center">1</span>
+                <span className="text-[10px] font-bold text-blue-800 bg-blue-100/80 px-2 py-0.5 rounded-full">Mandatory First</span>
+              </div>
+              <div className="font-extrabold text-blue-950 text-xs flex items-center gap-1.5">
+                <Pill className="w-4 h-4 text-blue-600" />
+                Oral Tolerability Challenge
+              </div>
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                Establish clinical tolerability and rule out acute allergic reactions, catastrophic dystonia, or severe orthostasis with an oral trial (minimum 2–3 days) <strong>prior to administering any long-acting depot (LAI)</strong>.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-gradient-to-br from-amber-50/80 to-orange-50/40 border border-amber-200 rounded-xl p-3.5 space-y-2 relative">
+              <div className="flex items-center justify-between">
+                <span className="w-6 h-6 rounded-full bg-amber-600 text-white text-xs font-black flex items-center justify-center">2</span>
+                <span className="text-[10px] font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-full">Crisis &amp; Refusal</span>
+              </div>
+              <div className="font-extrabold text-amber-950 text-xs flex items-center gap-1.5">
+                <Zap className="w-4 h-4 text-amber-600" />
+                Acute Short-Acting IM Dosing
+              </div>
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                For rapid behavioral de-escalation in severe agitation: Haldol (2–5 mg IM), Zyprexa (5–10 mg IM), Geodon (10–20 mg IM), or Abilify (9.75 mg IM). IM potency is typically <strong>~2:1 vs oral</strong> due to complete first-pass hepatic bypass.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-gradient-to-br from-emerald-50/80 to-teal-50/40 border border-emerald-200 rounded-xl p-3.5 space-y-2 relative">
+              <div className="flex items-center justify-between">
+                <span className="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center">3</span>
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-full">Maintenance Care</span>
+              </div>
+              <div className="font-extrabold text-emerald-950 text-xs flex items-center gap-1.5">
+                <Syringe className="w-4 h-4 text-emerald-600" />
+                Long-Acting Injectable (LAI) Depot
+              </div>
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                Transition to depot for non-adherence. <strong>Observe overlap rules:</strong> Sustenna requires Day 1 &amp; Day 8 deltoid loading (0 oral overlap); Consta requires <strong>21-day oral bridge</strong>; Maintena requires 14-day bridge.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Four Golden Prescriber Second-Opinion Rules */}
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
+          <div className="flex items-center gap-2 text-slate-900 font-black text-xs uppercase tracking-wider">
+            <ShieldCheck className="w-4 h-4 text-teal-600" />
+            <span>4 Golden Second-Opinion Safety Rules for Prescribers</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+            <div className="p-3 bg-white border border-rose-200 rounded-lg space-y-1">
+              <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200 inline-block">Rule 1: Lethal Synergy</span>
+              <strong className="block text-rose-950 font-bold text-[11px]">Zyprexa IM + Ativan IM</strong>
+              <p className="text-[11px] text-slate-600 leading-snug">
+                <strong>NEVER</strong> administer IM Olanzapine and IM Lorazepam within 1–2 hours. Causes fatal synergistic respiratory collapse and profound hypotension.
+              </p>
+            </div>
+
+            <div className="p-3 bg-white border border-amber-200 rounded-lg space-y-1">
+              <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 inline-block">Rule 2: The 21-Day Gap</span>
+              <strong className="block text-amber-950 font-bold text-[11px]">Risperdal Consta Lag</strong>
+              <p className="text-[11px] text-slate-600 leading-snug">
+                Polymer microspheres do not release therapeutic risperidone for <strong>3 full weeks</strong>. Mandatory oral risperidone overlap is required or patient will relapse.
+              </p>
+            </div>
+
+            <div className="p-3 bg-white border border-indigo-200 rounded-lg space-y-1">
+              <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200 inline-block">Rule 3: Deltoid Loading</span>
+              <strong className="block text-indigo-950 font-bold text-[11px]">Invega Sustenna Day 1 &amp; 8</strong>
+              <p className="text-[11px] text-slate-600 leading-snug">
+                Both Day 1 (234 mg) and Day 8 (156 mg) MUST be injected in the <strong>DELTOID</strong>. Deltoid vascularity gives 28% higher peak concentrations than gluteal.
+              </p>
+            </div>
+
+            <div className="p-3 bg-white border border-emerald-200 rounded-lg space-y-1">
+              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 inline-block">Rule 4: Food Bioavailability</span>
+              <strong className="block text-emerald-950 font-bold text-[11px]">Geodon ≥500 kcal Meal</strong>
+              <p className="text-[11px] text-slate-600 leading-snug">
+                Oral Ziprasidone absorption drops by <strong>50%</strong> on an empty stomach. "Treatment failure" is almost always fasting dosing. Acute IM has 100% bioavailability.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Search & Filter Bar */}
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pt-1">
+          <div className="relative flex-1 max-w-md">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Search agent, brand, or depot formulation..."
+              value={antipsychoticSearch}
+              onChange={(e) => setAntipsychoticSearch(e.target.value)}
+              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+            />
+          </div>
+
+          <div className="flex flex-wrap gap-1.5 items-center">
+            <button
+              onClick={() => setSelectedClassFilter('all')}
+              className={`text-xs px-2.5 py-1 rounded-lg font-semibold transition ${
+                selectedClassFilter === 'all'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              }`}
+            >
+              All Agents ({ANTIPSYCHOTIC_EQUIVALENCIES.length})
+            </button>
+            <button
+              onClick={() => setSelectedClassFilter('atypical')}
+              className={`text-xs px-2.5 py-1 rounded-lg font-semibold transition ${
+                selectedClassFilter === 'atypical'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              }`}
+            >
+              Atypical SGA
+            </button>
+            <button
+              onClick={() => setSelectedClassFilter('typical')}
+              className={`text-xs px-2.5 py-1 rounded-lg font-semibold transition ${
+                selectedClassFilter === 'typical'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              }`}
+            >
+              Typical FGA
+            </button>
+            <button
+              onClick={() => setSelectedClassFilter('acute_im')}
+              className={`text-xs px-2.5 py-1 rounded-lg font-semibold transition ${
+                selectedClassFilter === 'acute_im'
+                  ? 'bg-amber-600 text-white shadow-sm'
+                  : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200'
+              }`}
+            >
+              Acute Crisis IM
+            </button>
+            <button
+              onClick={() => setSelectedClassFilter('lai')}
+              className={`text-xs px-2.5 py-1 rounded-lg font-semibold transition ${
+                selectedClassFilter === 'lai'
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200'
+              }`}
+            >
+              LAI Formulations
+            </button>
+          </div>
+        </div>
+
+        {/* Equivalencies & Second-Opinion Matrix Table */}
+        <div className="border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-slate-100/90 text-slate-700 border-b border-slate-200 text-[11px] font-black uppercase tracking-wider">
+                  <th className="p-3">Agent &amp; Drug Class</th>
+                  <th className="p-3">Oral Daily Range</th>
+                  <th className="p-3">Acute Crisis IM Dose</th>
+                  <th className="p-3">LAI Depot Formulation</th>
+                  <th className="p-3">Oral Overlap Required</th>
+                  <th className="p-3 text-right">Monograph &amp; Second Opinion</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 bg-white">
+                {filteredAntipsychotics.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" className="p-6 text-center text-slate-400">
+                      No antipsychotics matched your search query or filter.
+                    </td>
+                  </tr>
+                ) : (
+                  filteredAntipsychotics.map((drug) => {
+                    const isExpanded = expandedDrugId === drug.id;
+                    return (
+                      <React.Fragment key={drug.id}>
+                        <tr className={`hover:bg-slate-50/80 transition-colors ${isExpanded ? 'bg-indigo-50/30' : ''}`}>
+                          <td className="p-3">
+                            <div className="font-extrabold text-slate-900 text-xs">{drug.name}</div>
+                            <span className={`inline-block mt-0.5 text-[10px] font-medium px-1.5 py-0.5 rounded border ${
+                              drug.category === 'atypical' 
+                                ? 'bg-purple-50 text-purple-700 border-purple-200' 
+                                : 'bg-slate-100 text-slate-700 border-slate-300'
+                            }`}>
+                              {drug.class}
+                            </span>
+                          </td>
+                          <td className="p-3 text-slate-800 font-medium">
+                            {drug.oralDose}
+                          </td>
+                          <td className="p-3">
+                            {drug.hasAcuteIm ? (
+                              <div>
+                                <span className="font-bold text-amber-900 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded text-[11px]">
+                                  {drug.acuteImDose}
+                                </span>
+                                <div className="text-[10px] text-slate-500 mt-1 font-mono">{drug.acuteRatio}</div>
+                              </div>
+                            ) : (
+                              <span className="text-[11px] text-slate-400 italic">No acute IM (ODT only)</span>
+                            )}
+                          </td>
+                          <td className="p-3">
+                            {drug.hasLai ? (
+                              <div>
+                                <strong className="text-teal-950 font-bold text-[11px] block">{drug.laiDepotName}</strong>
+                                <span className="text-[10px] text-slate-600 block line-clamp-1">{drug.laiDepotDose}</span>
+                              </div>
+                            ) : (
+                              <span className="text-[11px] text-slate-400 italic">No LAI available</span>
+                            )}
+                          </td>
+                          <td className="p-3">
+                            {drug.hasLai ? (
+                              <div className="text-[11px] text-slate-700 leading-snug">
+                                {drug.oralOverlap.includes('MANDATORY') || drug.oralOverlap.includes('STRICT') ? (
+                                  <span className="text-rose-700 font-bold bg-rose-50 border border-rose-200 px-1.5 py-0.5 rounded text-[10px] block mb-0.5">
+                                    MANDATORY OVERLAP
+                                  </span>
+                                ) : drug.oralOverlap.includes('NO') || drug.oralOverlap.includes('No oral') ? (
+                                  <span className="text-emerald-700 font-bold bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded text-[10px] block mb-0.5">
+                                    0 DAYS (NO OVERLAP)
+                                  </span>
+                                ) : null}
+                                <span className="text-[10px] text-slate-600 line-clamp-2">{drug.oralOverlap}</span>
+                              </div>
+                            ) : (
+                              <span className="text-[11px] text-slate-400 italic">N/A</span>
+                            )}
+                          </td>
+                          <td className="p-3 text-right">
+                            <button
+                              onClick={() => setExpandedDrugId(isExpanded ? null : drug.id)}
+                              className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition ${
+                                isExpanded
+                                  ? 'bg-indigo-600 text-white'
+                                  : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200'
+                              }`}
+                            >
+                              <span>{isExpanded ? 'Hide Pearls' : 'View Pearls'}</span>
+                              {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                            </button>
+                          </td>
+                        </tr>
+
+                        {/* Expandable Clinical Monograph & Second-Opinion Pearls */}
+                        {isExpanded && (
+                          <tr className="bg-indigo-50/40">
+                            <td colSpan="6" className="p-4 border-t border-b border-indigo-100">
+                              <div className="space-y-3.5">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                  {/* Pharmacokinetics & Bioavailability */}
+                                  <div className="bg-white p-3 rounded-xl border border-indigo-200 space-y-1.5 shadow-xs">
+                                    <div className="flex items-center gap-1.5 text-indigo-950 font-bold text-xs border-b border-slate-100 pb-1">
+                                      <Activity className="w-3.5 h-3.5 text-indigo-600" />
+                                      <span>Pharmacokinetics &amp; Bioavailability</span>
+                                    </div>
+                                    <p className="text-[11px] text-slate-700 leading-relaxed">
+                                      {drug.bioavailability}
+                                    </p>
+                                    <div className="text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-100">
+                                      {drug.acuteKinetics}
+                                    </div>
+                                  </div>
+
+                                  {/* Black Box & Critical Toxicity Warnings */}
+                                  <div className="bg-white p-3 rounded-xl border border-rose-200 space-y-1.5 shadow-xs md:col-span-2">
+                                    <div className="flex items-center gap-1.5 text-rose-950 font-bold text-xs border-b border-slate-100 pb-1">
+                                      <AlertOctagon className="w-3.5 h-3.5 text-rose-600" />
+                                      <span>Black Box &amp; Critical Toxicity Alerts</span>
+                                    </div>
+                                    <p className="text-[11px] text-rose-900 leading-relaxed font-medium">
+                                      {drug.blackBoxAlert}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                {/* Second-Opinion Clinical Pearls */}
+                                <div className="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2 shadow-xs">
+                                  <div className="flex items-center gap-1.5 text-slate-900 font-extrabold text-xs">
+                                    <Info className="w-4 h-4 text-teal-600" />
+                                    <span>Second-Opinion Prescribing Pearls &amp; Conversion Math ({drug.name}):</span>
+                                  </div>
+                                  <ul className="space-y-1.5 text-[11px] text-slate-700 pl-4 list-disc">
+                                    {drug.secondOpinionPearls.map((pearl, pIdx) => (
+                                      <li key={pIdx} className="leading-relaxed">
+                                        {pearl}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Footer Reference Grounding */}
+        <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-[11px] text-slate-600 flex items-center justify-between flex-wrap gap-2">
+          <div>
+            📚 <strong>Evidence Base:</strong> APA Practice Guidelines for Schizophrenia (3rd Ed.), Maudsley Prescribing Guidelines in Psychiatry (14th Ed.), and FDA Prescribing Information.
+          </div>
+          <span className="text-[10px] text-slate-400 font-mono">
+            Always verify renal (CrCl), hepatic function, and baseline ECG/QTc prior to parenteral loading.
+          </span>
         </div>
       </div>
 
